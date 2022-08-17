@@ -1,26 +1,28 @@
 {
+  "extends": "./tsconfig-checks.json",
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "target": "es6",
+    "module": "es6",
     "moduleResolution": "node",
+    "lib": ["DOM", "ES6", "DOM.Iterable", "ScriptHost"],
+    "rootDir": "src",
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+    "checkJs": false,
+    "baseUrl": "./src",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "sourceMap": false,
+    "types": ["node"],
+    "typeRoots": ["./src/@types", "./node_modules/@types"],
   },
-  "include": [
-    "src"
-  ]
+  "include": ["./src"],
+  "exclude": ["node_modules"]
 }
+
+

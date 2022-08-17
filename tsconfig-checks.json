@@ -1,0 +1,36 @@
+{
+    "compilerOptions":
+    {
+        // Группа Strict Checks
+        "strict": true,
+        // <<< >>>
+        // "alwaysStrict": true,
+        // "noImplicitAny": true,
+        // "strictNullChecks": true,
+        // "strictPropertyInitialization": true,
+        // "strictFunctionTypes": true,
+        // "noImplicitThis": true,
+        // "strictBindCallApply": true,
+        // <<< >>>
+
+        // Группа Linter Checks
+        "noPropertyAccessFromIndexSignature": true,
+        "noUncheckedIndexedAccess": true,
+
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        // <<< >>>
+
+        // Группа Advanced
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+
+        "noImplicitUseStrict": false,
+        "suppressExcessPropertyErrors": false,
+        "suppressImplicitAnyIndexErrors": false,
+        "noStrictGenericChecks": false,
+        // <<< >>>
+    }
+}
