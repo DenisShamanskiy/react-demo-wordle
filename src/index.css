@@ -36,5 +36,8 @@
   }
   .letter-yellow {
     @apply bg-[#c9b458] border-0 text-[#ffffff];
+  } 
+  .button-key {
+    @apply font-bold border-0 p-0 mt-0 mr-1.5 mb-0 ml-0 h-[58px] rounded cursor-pointer select-none bg-[#d3d6da] text-[#000000] flex-1 flex justify-center items-center last:mr-0;
   }
 }
