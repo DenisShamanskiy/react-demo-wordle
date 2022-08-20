@@ -1,32 +1,20 @@
 // import React, { useState } from 'react';
 
-type u = {
-  insertLetter: (pressedKey: string) => void
-}
-
-const Keyboard = ({insertLetter}: u) => {
-
-  const h = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(event.currentTarget.dataset["key"]);
-
-    console.log(event.currentTarget);
-    insertLetter(event.currentTarget.dataset["key"]!)
-  }
-  
+const Keyboard = () => {
     
     return (
       <div className="block h-[200px] mx-2 select-none">
         <div className="flex w-full mt-0 mb-2 mx-auto touch-manipulation">
-            <button type="button" data-key="q" className="button-key" onClick={h}>Q</button>
-            <button type="button" data-key="w" className="button-key" onClick={h}>W</button>
-            <button type="button" data-key="e" className="button-key" onClick={h}>E</button>
-            <button type="button" data-key="r" className="button-key" onClick={h}>R</button>
-            <button type="button" data-key="t" className="button-key" onClick={h}>T</button>
-            <button type="button" data-key="y" className="button-key" onClick={h}>Y</button>
-            <button type="button" data-key="u" className="button-key" onClick={h}>U</button>
-            <button type="button" data-key="i" className="button-key" onClick={h}>I</button>
-            <button type="button" data-key="o" className="button-key" onClick={h}>O</button>
-            <button type="button" data-key="p" className="button-key" onClick={h}>P</button>
+            <button type="button" data-key="q" className="button-key">Q</button>
+            <button type="button" data-key="w" className="button-key">W</button>
+            <button type="button" data-key="e" className="button-key">E</button>
+            <button type="button" data-key="r" className="button-key">R</button>
+            <button type="button" data-key="t" className="button-key">T</button>
+            <button type="button" data-key="y" className="button-key">Y</button>
+            <button type="button" data-key="u" className="button-key">U</button>
+            <button type="button" data-key="i" className="button-key">I</button>
+            <button type="button" data-key="o" className="button-key">O</button>
+            <button type="button" data-key="p" className="button-key">P</button>
         </div>
         <div className="flex w-full mt-0 mb-2 mx-auto touch-manipulation">
             <div className="block flex-[0.5]"></div>
