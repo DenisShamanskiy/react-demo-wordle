@@ -11,8 +11,7 @@ const Board = () => {
                 <div className="grid grid-cols-5 gap-[5px]" key={index}>
                     {board[index]!.map((item, ind) => {
                         return (
-                        <div className={
-                        `letter ${item.value ? "letter-white" : ""} ${item.color ? item.color : ""}`} key={ind}>{item.value}</div>
+                        <div className={`letter ${item.value ? "letter-white" : ""} ${item.color ? item.color : ""}`} key={ind}>{item.value}</div>
                   );
               })}
               </div>

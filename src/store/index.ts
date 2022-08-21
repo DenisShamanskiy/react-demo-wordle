@@ -1,19 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit'
-import todoReducer from "./todoSlice";
 import guessesRemainingReducer from "./guessesRemainingSlice";
 import nextLetterReducer from "./nextLetterSlice";
 import currentGuessReducer from "./currentGuessSlice";
 import rightGuessReducer from "./rightGuessSlice";
-import boardSlice from './boardSlice';
+import boardReducer from './boardSlice';
+import alertSliceReducer from './alertSlice';
 
 const store = configureStore({
   reducer: {
-    todos: todoReducer,
-    board: boardSlice,
+    board: boardReducer,
     guessesRemaining: guessesRemainingReducer,
     nextLetter: nextLetterReducer,
     currentGuess: currentGuessReducer,
-    rightGuess: rightGuessReducer
+    rightGuess: rightGuessReducer,
+    alert: alertSliceReducer
 
   },
 })

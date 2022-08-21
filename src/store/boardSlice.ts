@@ -50,21 +50,21 @@ const boardSlice = createSlice({
                 : row
             );
         },
-    colorLetter(state, action) {
-        state.board = state.board.map((row, index) => index === 6 - action.payload.guessesRemaining ? row.map(function(letter, index) {
-            return action.payload.indexColorArray[index] === -1
-            ?
-            { id: letter.id, value: letter.value, color: 'letter-grey' }
-            :
-            action.payload.currentGuess[index] === action.payload.rightGuess[index]
-            ? 
-            { id: letter.id, value: letter.value, color: 'letter-green' }
-            :
-            { id: letter.id, value: letter.value, color: 'letter-yellow' }
-    })
-        : row)
-         
-    }
+        colorLetter(state, action) {
+            state.board = state.board.map((row, index) => index === 6 - action.payload.guessesRemaining ? row.map(function(letter, index) {
+                return action.payload.indexColorArray[index] === -1
+                ?
+                { id: letter.id, value: letter.value, color: 'letter-grey' }
+                :
+                action.payload.currentGuess[index] === action.payload.rightGuess[index]
+                ? 
+                { id: letter.id, value: letter.value, color: 'letter-green' }
+                :
+                { id: letter.id, value: letter.value, color: 'letter-yellow' }
+        })
+            : row)
+            
+        }
   },
 });
 
