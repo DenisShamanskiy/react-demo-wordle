@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { WORDS } from "../words"
+import { WORDS } from "../words";
 
 type RightGuessState = {
   rightGuessSlice: string;
@@ -14,8 +14,6 @@ const rightGuessSlice = createSlice({
   initialState,
   reducers: {
     addRightGuess(state, action) {
-        console.log(WORDS);
-        
         state.rightGuessSlice = action.payload
     },
   },

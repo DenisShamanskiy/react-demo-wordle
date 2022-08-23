@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type BoardRow = {
-    id: string
     value: string;
     color: string
 }
 
-type BoardState = {
+export type BoardState = {
     board: BoardRow[][];
 }
 
@@ -24,7 +23,6 @@ const boardSlice = createSlice({
             ? row.map((letter, index) => {
                 if (index === action.payload.nextLetter) {
                     return {
-                    id: letter.id,
                     value: action.payload.pressedKey,
                     color: letter.color,
                     };
@@ -40,7 +38,6 @@ const boardSlice = createSlice({
                 ? row.map((letter, index) => {
                     if (index === action.payload.nextLetter - 1) {
                     return {
-                        id: letter.id,
                         value: "",
                         color: letter.color,
                     };
@@ -54,13 +51,13 @@ const boardSlice = createSlice({
             state.board = state.board.map((row, index) => index === 6 - action.payload.guessesRemaining ? row.map(function(letter, index) {
                 return action.payload.indexColorArray[index] === -1
                 ?
-                { id: letter.id, value: letter.value, color: 'letter-grey' }
+                { value: letter.value, color: 'letter-grey' }
                 :
                 action.payload.currentGuess[index] === action.payload.rightGuess[index]
                 ? 
-                { id: letter.id, value: letter.value, color: 'letter-green' }
+                { value: letter.value, color: 'letter-green' }
                 :
-                { id: letter.id, value: letter.value, color: 'letter-yellow' }
+                { value: letter.value, color: 'letter-yellow' }
         })
             : row)
             

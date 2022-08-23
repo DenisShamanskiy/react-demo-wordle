@@ -5,6 +5,7 @@ import currentGuessReducer from "./currentGuessSlice";
 import rightGuessReducer from "./rightGuessSlice";
 import boardReducer from './boardSlice';
 import alertSliceReducer from './alertSlice';
+import keyBoardReducer from './keyboardSlice';
 
 const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
     nextLetter: nextLetterReducer,
     currentGuess: currentGuessReducer,
     rightGuess: rightGuessReducer,
-    alert: alertSliceReducer
+    alert: alertSliceReducer,
+    keyBoard: keyBoardReducer
 
   },
 })

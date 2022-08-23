@@ -14,9 +14,9 @@ const Board = () => {
                         <div className={`letter ${item.value ? "letter-white" : ""} ${item.color ? item.color : ""}`} key={ind}>{item.value}</div>
                   );
               })}
-              </div>
-          );
-        })}
+                </div>
+            );
+            })}
             </div>
         </div>
     );

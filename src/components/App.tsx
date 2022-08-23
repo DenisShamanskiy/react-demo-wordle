@@ -1,22 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { WORDS } from 'words';
 import { useAppDispatch, useAppSelector } from 'hook';
 import { setAlert } from 'store/alertSlice';
 import { addLetter, colorLetter, removeLetter } from 'store/boardSlice';
 import { addCurrentGuess, removeCurrentGuess, resetCurrentGuess } from 'store/currentGuessSlice';
 import { decreaseGuessesRemaining, resetGuessesRemaining } from 'store/guessesRemainingSlice';
+import { colorKey } from 'store/keyboardSlice';
 import { decreaseLetters, increaseLetters, resetLetters } from 'store/nextLetterSlice';
 import Alert from './Alert';
 import Header from './Header';
 import Main from './Main';
-import { WORDS } from "../words"
+
 
 function App() {
 
   const dispatch = useAppDispatch();
+  const board  = useAppSelector(state => state.board.board);
   const nextLetter  = useAppSelector(state => state.nextLetter.nextLetterSlice);
   const guessesRemaining  = useAppSelector(state => state.guessesRemaining.guessesRemainingSlice);
   const currentGuess  = useAppSelector(state => state.currentGuess.currentGuessSlice);
   const rightGuess  = useAppSelector(state => state.rightGuess.rightGuessSlice);
+  console.log(rightGuess);
   
   const keyDownHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (guessesRemaining === 0) return
@@ -29,9 +33,28 @@ function App() {
       checkGuess();
       return;
     }
-    let found = pressedKey.match(/[a-z]/gi)
+    let found = pressedKey.match(/[а-яА-ЯЁё]/gi)
     if (!found || found.length > 1) return
     else insertLetter(pressedKey)
+  };
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log(event.currentTarget.dataset["key"]);
+
+    if (guessesRemaining === 0) return
+    let pressedKey = event.currentTarget.dataset["key"]! 
+    if (pressedKey === "←" && nextLetter !== 0) {
+      deleteLetter();
+      return;
+    }
+    if (pressedKey === "↵") {
+      checkGuess();
+      return;
+    }
+    let found = pressedKey.match(/[а-яА-ЯЁё]/gi)
+    if (!found || found.length > 1) return
+    else insertLetter(pressedKey)
+
   };
 
   function insertLetter(pressedKey: string) {
@@ -56,6 +79,7 @@ function App() {
 
   function checkGuess () {
     const guessString = currentGuess.join("")
+    
     const indexColorArray: number[] = []
     for (let i = 0; i < 5; i++) {
       indexColorArray.push(rightGuess.indexOf(currentGuess[i]!))
@@ -84,11 +108,17 @@ function App() {
     dispatch(resetGuessesRemaining())
   }
 
+  useEffect(() => {
+    if (guessesRemaining < 6) {
+      dispatch(colorKey(board[6 - (guessesRemaining + 1)]!))
+    }
+  }, [guessesRemaining]) // eslint-disable-line
+  
   return (
     <div className="App relative w-screen h-screen min-w-[414px] focus:outline-none" tabIndex={0} onKeyDown={keyDownHandler}>
       <Header/>
       <Alert/>
-      <Main/>
+      <Main handleClick={handleClick}/>
     </div>
   );
 }
