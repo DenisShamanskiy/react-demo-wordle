@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import 'tw-elements';
 import { WORDS } from 'words';
 import { useAppDispatch, useAppSelector } from 'hook';
 import { setAlert } from 'store/alertSlice';
@@ -10,10 +11,14 @@ import { decreaseLetters, increaseLetters, resetLetters } from 'store/nextLetter
 import Alert from './Alert';
 import Header from './Header';
 import Main from './Main';
+import useCurrentHeight from 'utils/getHeight';
 
 
 function App() {
 
+  const styleHeight = {
+    height: `${useCurrentHeight()}px`,
+  };
   const dispatch = useAppDispatch();
   const board  = useAppSelector(state => state.board.board);
   const nextLetter  = useAppSelector(state => state.nextLetter.nextLetterSlice);
@@ -39,8 +44,6 @@ function App() {
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.log(event.currentTarget.dataset["key"]);
-
     if (guessesRemaining === 0) return
     let pressedKey = event.currentTarget.dataset["key"]! 
     if (pressedKey === "←" && nextLetter !== 0) {
@@ -54,7 +57,6 @@ function App() {
     let found = pressedKey.match(/[а-яА-ЯЁё]/gi)
     if (!found || found.length > 1) return
     else insertLetter(pressedKey)
-
   };
 
   function insertLetter(pressedKey: string) {
@@ -115,10 +117,13 @@ function App() {
   }, [guessesRemaining]) // eslint-disable-line
   
   return (
-    <div className="App relative w-screen h-screen min-w-[414px] focus:outline-none" tabIndex={0} onKeyDown={keyDownHandler}>
-      <Header/>
-      <Alert/>
-      <Main handleClick={handleClick}/>
+    <div className="App relative w-screen min-w-[414px] focus:outline-none"
+      style={styleHeight}
+      tabIndex={0}
+      onKeyDown={keyDownHandler}>
+        <Header/>
+        <Alert/>
+        <Main handleClick={handleClick}/>
     </div>
   );
 }
