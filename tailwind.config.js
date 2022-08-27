@@ -6,11 +6,42 @@ module.exports = {
   ],
   theme: {
     screens: {
-      sm: "415px",
+      sm: "640px",
       md: "768px",
       lg: "1024px",
+      smModal: "500px",
     },
-    extend: {},
+    extend: {
+      keyframes: {
+        modalOpen: {
+          "0%": {
+            transform: "translateY(30px)",
+            opacity: "0",
+          },
+          "100%": {
+            transform: "translateY(0px)",
+            opacity: "1",
+          },
+        },
+        modalClosed: {
+          "0%": {
+            transform: "translateY(0px)",
+            opacity: "1",
+          },
+          "100%": {
+            transform: "translateY(30px)",
+            opacity: "0",
+          },
+        },
+      },
+      animation: {
+        modalOpen: "modalOpen 500ms ease 1",
+        modalClosed: "modalClosed 500ms ease 1",
+      },
+      boxShadow: {
+        modal: "0 4px 23px 0 rgb(0 0 0 / 20%)",
+      },
+    },
   },
-  plugins: [require("tw-elements/dist/plugin")],
+  plugins: [],
 };

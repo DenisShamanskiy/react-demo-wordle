@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type BoardRow = {
-    value: string;
-    color: string
+    value: string | undefined
+    color: string | undefined
 }
 
 export type BoardState = {
@@ -61,10 +61,13 @@ const boardSlice = createSlice({
         })
             : row)
             
-        }
+        },
+        resetBoard(state) {
+            state.board = [...new Array(6)].map(() => new Array(5).fill({ value: "", color: "" }))  
+        },
   },
 });
 
-export const { addLetter, removeLetter, colorLetter } = boardSlice.actions;
+export const { addLetter, removeLetter, colorLetter, resetBoard } = boardSlice.actions;
 
 export default boardSlice.reducer;

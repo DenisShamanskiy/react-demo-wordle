@@ -66,10 +66,17 @@ const keyBoardSlice = createSlice({
                 return action.payload[i]
               }  return key
             }))
+        },
+        restartColorKey(state) {
+          state.keyBoard = state.keyBoard.map((row) => row.map(function(key) {
+            return {
+              value: key.value,
+              color: "" }
+          }))
         }
-  },
-});
+    }
+})
 
-export const { colorKey } = keyBoardSlice.actions;
+export const { colorKey, restartColorKey } = keyBoardSlice.actions;
 
 export default keyBoardSlice.reducer;

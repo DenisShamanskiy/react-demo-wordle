@@ -6,6 +6,7 @@ import rightGuessReducer from "./rightGuessSlice";
 import boardReducer from './boardSlice';
 import alertSliceReducer from './alertSlice';
 import keyBoardReducer from './keyboardSlice';
+import modalReducer from './modalSlice';
 
 const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
     currentGuess: currentGuessReducer,
     rightGuess: rightGuessReducer,
     alert: alertSliceReducer,
-    keyBoard: keyBoardReducer
+    keyBoard: keyBoardReducer,
+    modal: modalReducer
 
   },
 })

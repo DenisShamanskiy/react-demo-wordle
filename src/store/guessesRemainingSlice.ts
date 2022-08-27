@@ -17,10 +17,13 @@ const guessesRemainingSlice = createSlice({
     },
     decreaseGuessesRemaining(state) {
       state.guessesRemainingSlice = state.guessesRemainingSlice - 1
-  },
+    },
+    restartGuessesRemaining(state) {
+      state.guessesRemainingSlice = 6
+    },
   },
 });
 
-export const { resetGuessesRemaining, decreaseGuessesRemaining } = guessesRemainingSlice.actions;
+export const { resetGuessesRemaining, decreaseGuessesRemaining, restartGuessesRemaining } = guessesRemainingSlice.actions;
 
 export default guessesRemainingSlice.reducer;

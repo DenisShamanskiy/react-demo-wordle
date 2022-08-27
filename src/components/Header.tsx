@@ -1,8 +1,26 @@
+import { useAppDispatch } from "hook";
+import { activeModal } from "store/modalSlice";
+import icom from "../icon/redo-circle-outline-icon.svg"
+
 const Header = () => {
+
+  // const board  = useAppSelector(state => state.board.board);
+
+  const dispatch = useAppDispatch();
   
   return (
-    <header className="h-10 sm:h-[65px] px-4 md:px-5 flex flex-row items-center justify-start flex-nowrap text-[color:var(--color-tone-1)] border-b border-[color:var(--color-tone-4)] box-content">
-        <div className=" grow-[2] font-bold text-[28px] md:text-[32px] lg:text-[36px] tracking-[0.01em] text-left md:text-center left-0 right-0 pointer-events-none relative box-border leading-none  ">Wordle RU</div>
+    <header className="header">
+        <h1 className="header__title">Wordle</h1>
+        <div className="flex flex-col relative group">
+          <button
+            type="button"
+            className="icon"
+            onClick={() => dispatch(activeModal(true))}
+            style={{backgroundImage: `url(${icom})`}}
+            // disabled={board[0]?.every((item) => item.color === "")}
+            >
+          </button>
+        </div>
     </header>
   );
 }
