@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.css": "/react-demo-wordle/static/css/main.27039d34.css",
-    "main.js": "/react-demo-wordle/static/js/main.9b391acd.js",
+    "main.css": "/react-demo-wordle/static/css/main.9e91c69c.css",
+    "main.js": "/react-demo-wordle/static/js/main.13b43bd6.js",
+    "static/media/redo-circle-outline-icon.svg": "/react-demo-wordle/static/media/redo-circle-outline-icon.f36bd41fda157e3c1b2b5e419b7ae1a8.svg",
+    "static/media/evil-icon.svg": "/react-demo-wordle/static/media/evil-icon.52c3e9c385d7ad9d15790140bb8d7d0e.svg",
     "index.html": "/react-demo-wordle/index.html",
-    "main.27039d34.css.map": "/react-demo-wordle/static/css/main.27039d34.css.map",
-    "main.9b391acd.js.map": "/react-demo-wordle/static/js/main.9b391acd.js.map"
+    "main.9e91c69c.css.map": "/react-demo-wordle/static/css/main.9e91c69c.css.map",
+    "main.13b43bd6.js.map": "/react-demo-wordle/static/js/main.13b43bd6.js.map"
   },
   "entrypoints": [
-    "static/css/main.27039d34.css",
-    "static/js/main.9b391acd.js"
+    "static/css/main.9e91c69c.css",
+    "static/js/main.13b43bd6.js"
   ]
 }
