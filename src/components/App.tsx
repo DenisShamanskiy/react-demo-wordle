@@ -14,6 +14,7 @@ import Header from './Header';
 import Main from './Main';
 import useCurrentHeight from 'utils/getHeight';
 import Modal from './Modal';
+import { GameLost, Restart } from './ModalContent'
 
 function App() {
   const styleHeight = {
@@ -25,9 +26,8 @@ function App() {
   const guessesRemaining  = useAppSelector(state => state.guessesRemaining.guessesRemainingSlice);
   const currentGuess  = useAppSelector(state => state.currentGuess.currentGuessSlice);
   const rightGuess  = useAppSelector(state => state.rightGuess.rightGuessSlice);
-  const { open }  = useAppSelector(state => state.modal.modalSlice);
-  // console.log(rightGuess);
-  // console.log(board[5]?.every((item) => item.color !== ""));
+  const { open, window }  = useAppSelector(state => state.modal.modalSlice);
+  
   
   const keyDownHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (guessesRemaining === 0) return
@@ -113,18 +113,34 @@ function App() {
       dispatch(decreaseGuessesRemaining())
       dispatch(resetCurrentGuess())
       dispatch(resetLetters())
+      
+      if (guessesRemaining - 1 === 0) {
+        dispatch(resetGuessesRemaining())
+        dispatch(activeModal({open: true, window: "GameLost"}))
+      }
     }
   }
-  if (guessesRemaining === 0 && currentGuess.join("") !== rightGuess && board[5]?.every((item) => item.color !== "")) {
-    dispatch(setAlert({open: true, message: `Вы проиграли! Загаданное слово: "${rightGuess}"`, style: "bg-red-100 text-red-700"}))
-    dispatch(resetGuessesRemaining())
+  
+  const showModal = (modal: string) => {
+    switch (modal) {
+      case "Restart":
+        return <Restart/>
+      case "GameLost":
+        return <GameLost/>
+      default:
+        return undefined
+    }
   }
-
+  
   useEffect(() => {
     if (guessesRemaining < 6) {
       dispatch(colorKey(board[6 - (guessesRemaining + 1)]!))
     }
   }, [guessesRemaining]) // eslint-disable-line
+
+  useEffect(() => {
+    console.log(`Загаданное слово: ${rightGuess.toUpperCase()}`);
+  }, [rightGuess])
   
   return (
     <div className="App relative w-screen min-w-[414px] focus:outline-none"
@@ -135,14 +151,7 @@ function App() {
         <Alert/>
         <Main handleClick={handleClick}/>
         <Modal>
-        <>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa sint quis ipsum. Magni quia odio ea molestias. Excepturi reprehenderit doloremque illo reiciendis facilis nostrum ab modi tempore voluptatibus exercitationem, dignissimos temporibus, ipsam maiores ea! Quasi suscipit doloremque labore? Voluptates, assumenda in ullam non voluptatem ex quibusdam totam a animi reprehenderit.</p>
-        <div className="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
-          <button type="button" className="inline-block px-6 py-2.5 bg-[#d3d6da] text-[#000000] font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out" onClick={() => dispatch(activeModal(false))}>Нет</button>
-          <button type="button"
-          className="inline-block px-6 py-2.5 bg-[#6aaa64] text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out ml-1"  onClick={() => dispatch(activeModal(false))}>Да</button>
-        </div>
-        </>
+          {showModal(window)}
         </Modal>
     </div>
   );

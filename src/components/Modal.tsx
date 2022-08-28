@@ -7,13 +7,13 @@ type ModalProps = {
 
 const Modal: React.FC<ModalProps> = ( {children} ) => {
 
-    const openModal  = useAppSelector(state => state.modal.modalSlice);
+    const { open, window }= useAppSelector(state => state.modal.modalSlice);
 
     const dispatch = useAppDispatch();
 
     return (
-      <div className={`modal ${ openModal.open && "modal_active" }`} onClick={() => dispatch(activeModal(false))}>
-        <div className={`modal__component ${ openModal.open ? "modal__component_active" : "modal__component_inactive" }`} onClick={e => e.stopPropagation()}>
+      <div className={`modal ${ open && "modal_active" } ${ window === "GameLost" && "bg-red-500/60" }`} onClick={() => dispatch(activeModal({open: false, window: window}))}>
+        <div className={`modal__component ${ open ? "modal__component_active" : "modal__component_inactive" }`} onClick={event => event.stopPropagation()}>
             {children}
         </div>
       </div>

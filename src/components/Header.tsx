@@ -1,10 +1,10 @@
-import { useAppDispatch } from "hook";
+import { useAppDispatch, useAppSelector } from "hook";
 import { activeModal } from "store/modalSlice";
 import icom from "../icon/redo-circle-outline-icon.svg"
 
 const Header = () => {
 
-  // const board  = useAppSelector(state => state.board.board);
+  const board  = useAppSelector(state => state.board.board);
 
   const dispatch = useAppDispatch();
   
@@ -15,9 +15,9 @@ const Header = () => {
           <button
             type="button"
             className="icon"
-            onClick={() => dispatch(activeModal(true))}
+            onClick={() => dispatch(activeModal({open: true, window: "Restart"}))}
             style={{backgroundImage: `url(${icom})`}}
-            // disabled={board[0]?.every((item) => item.color === "")}
+            disabled={board[0]?.every((item) => item.color === "")}
             >
           </button>
         </div>
