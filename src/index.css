@@ -23,12 +23,6 @@
   }
 }
 @layer components {
-  .header {
-    @apply h-10 sm:h-[65px] px-4 md:px-5 flex flex-row items-center justify-start flex-nowrap text-[color:var(--color-tone-1)] border-b border-[color:var(--color-tone-4)] box-content
-  }
-  .header__title {
-    @apply grow-[2] font-black text-[28px] md:text-[32px] lg:text-[36px] tracking-[0.01em] text-left md:text-center left-0 right-0 pointer-events-none relative box-border leading-none font-['Bitter']
-  }
   .letter {
     @apply w-full inline-flex justify-center items-center text-[2rem] leading-8 font-extrabold align-middle box-border uppercase select-none border-2 border-[#d3d6da];
   }
@@ -48,7 +42,7 @@
     @apply font-bold border-0 p-0 mt-0 mr-1.5 mb-0 ml-0 h-[58px] rounded cursor-pointer select-none  flex-1 flex justify-center items-center last:mr-0;
   }
   .icon {
-    @apply z-50 inline-block w-7 h-7 rounded disabled:pointer-events-none disabled:opacity-30 hover:rotate-[360deg] transition duration-500 ease-in-out;
+    @apply inline-block w-7 h-7 rounded disabled:pointer-events-none disabled:opacity-30 hover:rotate-[360deg] transition duration-500 ease-in-out;
   }
   .modal {
     @apply fixed w-full h-full min-w-[414px] bg-white/60 top-0 left-0 flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500 z-50

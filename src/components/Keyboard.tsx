@@ -9,7 +9,7 @@ const Keyboard = ( {handleClick}: KeyboardProps) => {
   const keyBoard  = useAppSelector(state => state.keyBoard.keyBoard);
 
     return (
-      <div className="block mx-2 mb-10 select-none">
+      <div className="block mx-2 mb-5 select-none">
         {keyBoard.map((_, indexRow) => {
           return (
             <div className="flex w-full mt-0 mb-2 mx-auto last:mb-0 touch-manipulation" key={indexRow}>

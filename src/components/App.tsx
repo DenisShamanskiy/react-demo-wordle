@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import 'tw-elements';
 import { WORDS } from 'words';
 import { useAppDispatch, useAppSelector } from 'hook';
+import useCurrentHeight from 'utils/getHeight';
 import { setAlert } from 'store/alertSlice';
 import { addLetter, colorLetter, removeLetter } from 'store/boardSlice';
 import { addCurrentGuess, removeCurrentGuess, resetCurrentGuess } from 'store/currentGuessSlice';
@@ -12,9 +13,8 @@ import { decreaseLetters, increaseLetters, resetLetters } from 'store/nextLetter
 import Alert from './Alert';
 import Header from './Header';
 import Main from './Main';
-import useCurrentHeight from 'utils/getHeight';
 import Modal from './Modal';
-import { GameLost, Restart } from './ModalContent'
+import { GameLost, LeaveGame, Restart } from './ModalContent'
 
 function App() {
   const styleHeight = {
@@ -27,7 +27,6 @@ function App() {
   const currentGuess  = useAppSelector(state => state.currentGuess.currentGuessSlice);
   const rightGuess  = useAppSelector(state => state.rightGuess.rightGuessSlice);
   const { open, window }  = useAppSelector(state => state.modal.modalSlice);
-  
   
   const keyDownHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (guessesRemaining === 0) return
@@ -127,6 +126,8 @@ function App() {
         return <Restart/>
       case "GameLost":
         return <GameLost/>
+      case "LeaveGame":
+        return <LeaveGame/>
       default:
         return undefined
     }
