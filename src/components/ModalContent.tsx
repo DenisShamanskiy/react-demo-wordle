@@ -1,8 +1,10 @@
 import { useAppDispatch, useAppSelector } from "hook";
 import { resetBoard } from "store/boardSlice";
+import { resetCurrentGuess } from "store/currentGuessSlice";
 import { restartGuessesRemaining } from "store/guessesRemainingSlice";
 import { restartColorKey } from "store/keyboardSlice";
 import { activeModal } from 'store/modalSlice';
+import { resetLetters } from "store/nextLetterSlice";
 import { restartRightGuess } from "store/rightGuessSlice";
 import icon from "../icon/evil-icon.svg"
 
@@ -17,6 +19,8 @@ export const Restart = () => {
         dispatch(restartRightGuess())
         dispatch(resetBoard())
         dispatch(restartColorKey())
+        dispatch(resetLetters())
+        dispatch(resetCurrentGuess())
         dispatch(restartGuessesRemaining())
         dispatch(activeModal({open: false, window: window, title: title}))
         if (title === "Сдаёшься?") {
@@ -41,7 +45,7 @@ export const GameLost = () => {
 
     const { open, window }  = useAppSelector(state => state.modal.modalSlice);
 
-    const rightGuess  = useAppSelector(state => state.rightGuess.rightGuessSlice);
+    const rightGuess  = useAppSelector(state => state.rightGuess.rightGuessSlice.currentWord);
 
     const resetGame = () => {
         dispatch(restartRightGuess())
@@ -81,13 +85,13 @@ export const LeaveGame = () => {
 
     const { open, window }  = useAppSelector(state => state.modal.modalSlice);
 
-    const rightGuess  = useAppSelector(state => state.rightGuess.rightGuessSlice);
+    const { previousWord }  = useAppSelector(state => state.rightGuess.rightGuessSlice);
     
     return (
         <div className="w-80">
             <p className="py-4 text-base font-bold text-center border-b border-dotted border-[color:var(--color-tone-4)] uppercase box-border">Загаданное слово</p>
             <div className="py-4 flex justify-center items-center border-b border-dotted border-[color:var(--color-tone-4)]">
-                {[...rightGuess].map((item, ind) => {
+                {[...previousWord].map((item, ind) => {
                         return (
                             <div className={`w-9 h-9 mr-1 last-of-type:mr-0 inline-flex justify-center items-center text-2xl leading-8 font-extrabold align-middle box-border uppercase select-none bg-[#6aaa64] border-0 text-[#ffffff] ${!open && "opacity-0"}`} key={ind}>{item}</div>
                         );

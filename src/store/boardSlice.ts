@@ -53,7 +53,7 @@ const boardSlice = createSlice({
                 ?
                 { value: letter.value, color: 'letter-grey' }
                 :
-                action.payload.currentGuess[index] === action.payload.rightGuess[index]
+                action.payload.currentGuess[index] === action.payload.currentWord[index]
                 ? 
                 { value: letter.value, color: 'letter-green' }
                 :

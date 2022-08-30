@@ -2,26 +2,32 @@ import { createSlice } from "@reduxjs/toolkit";
 import { WORDS } from "../words";
 
 type RightGuessState = {
-  rightGuessSlice: string;
+  rightGuessSlice: {
+    currentWord: string,
+    previousWord: string
+  };
 }
 
 const initialState: RightGuessState = {
-  rightGuessSlice: WORDS[Math.floor(Math.random() * WORDS.length)]!,
+  rightGuessSlice: {
+    currentWord: WORDS[Math.floor(Math.random() * WORDS.length)]!,
+    previousWord: ""
+  }
 }
 
 const rightGuessSlice = createSlice({
   name: "rightGuess",
   initialState,
   reducers: {
-    addRightGuess(state, action) {
-        state.rightGuessSlice = action.payload
-    },
     restartRightGuess(state) {
-      state.rightGuessSlice = WORDS[Math.floor(Math.random() * WORDS.length)]!
+      state.rightGuessSlice = {...state.rightGuessSlice,
+        previousWord: state.rightGuessSlice.currentWord,
+        currentWord: WORDS[Math.floor(Math.random() * WORDS.length)]!,   
+    }
   },
   },
 });
 
-export const { addRightGuess, restartRightGuess } = rightGuessSlice.actions;
+export const { restartRightGuess } = rightGuessSlice.actions;
 
 export default rightGuessSlice.reducer;

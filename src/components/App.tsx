@@ -21,12 +21,12 @@ function App() {
     height: `${useCurrentHeight()}px`,
   };
   const dispatch = useAppDispatch();
-  const board  = useAppSelector(state => state.board.board);
-  const nextLetter  = useAppSelector(state => state.nextLetter.nextLetterSlice);
-  const guessesRemaining  = useAppSelector(state => state.guessesRemaining.guessesRemainingSlice);
-  const currentGuess  = useAppSelector(state => state.currentGuess.currentGuessSlice);
-  const rightGuess  = useAppSelector(state => state.rightGuess.rightGuessSlice);
-  const { open, window }  = useAppSelector(state => state.modal.modalSlice);
+  const board = useAppSelector(state => state.board.board);
+  const nextLetter = useAppSelector(state => state.nextLetter.nextLetterSlice);
+  const guessesRemaining = useAppSelector(state => state.guessesRemaining.guessesRemainingSlice);
+  const currentGuess = useAppSelector(state => state.currentGuess.currentGuessSlice);
+  const { currentWord } = useAppSelector(state => state.rightGuess.rightGuessSlice);
+  const { open, window } = useAppSelector(state => state.modal.modalSlice);
   
   const keyDownHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (guessesRemaining === 0) return
@@ -90,10 +90,9 @@ function App() {
 
   function checkGuess () {
     const guessString = currentGuess.join("")
-    
     const indexColorArray: number[] = []
     for (let i = 0; i < 5; i++) {
-      indexColorArray.push(rightGuess.indexOf(currentGuess[i]!))
+      indexColorArray.push(currentWord.indexOf(currentGuess[i]!))
     }
     if (guessString.length !== 5) {
       handleAlert(true, "Введены не все буквы", "bg-yellow-100 text-yellow-700")
@@ -103,8 +102,8 @@ function App() {
       handleAlert(true, "Такого слова нет в списке", "bg-yellow-100 text-yellow-700")
       return;
     }
-    dispatch(colorLetter({ indexColorArray, guessesRemaining, currentGuess, rightGuess }))
-    if (guessString === rightGuess) {
+    dispatch(colorLetter({ indexColorArray, guessesRemaining, currentGuess, currentWord }))
+    if (guessString === currentWord) {
       handleAlert(true, "Вы выиграли!", "bg-green-100 text-green-700")
       dispatch(resetGuessesRemaining())
       return;
@@ -112,7 +111,6 @@ function App() {
       dispatch(decreaseGuessesRemaining())
       dispatch(resetCurrentGuess())
       dispatch(resetLetters())
-      
       if (guessesRemaining - 1 === 0) {
         dispatch(resetGuessesRemaining())
         dispatch(activeModal({open: true, window: "GameLost"}))
@@ -140,8 +138,8 @@ function App() {
   }, [guessesRemaining]) // eslint-disable-line
 
   useEffect(() => {
-    console.log(`Загаданное слово: ${rightGuess.toUpperCase()}`);
-  }, [rightGuess])
+    console.log(`Загаданное слово: ${currentWord.toUpperCase()}`);
+  }, [currentWord])
   
   return (
     <div className="App relative w-screen min-w-[414px] focus:outline-none"
