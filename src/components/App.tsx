@@ -14,7 +14,7 @@ import Alert from './Alert';
 import Header from './Header';
 import Main from './Main';
 import Modal from './Modal';
-import { GameLost, LeaveGame, Restart } from './ModalContent'
+import { GameLost, LeaveGame, Restart, Rules } from './ModalContent'
 
 function App() {
   const styleHeight = {
@@ -26,7 +26,7 @@ function App() {
   const guessesRemaining = useAppSelector(state => state.guessesRemaining.guessesRemainingSlice);
   const currentGuess = useAppSelector(state => state.currentGuess.currentGuessSlice);
   const { currentWord } = useAppSelector(state => state.rightGuess.rightGuessSlice);
-  const { open, window } = useAppSelector(state => state.modal.modalSlice);
+  const { open, window, title } = useAppSelector(state => state.modal.modalSlice);
   
   const keyDownHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (guessesRemaining === 0) return
@@ -44,7 +44,7 @@ function App() {
       return;
     }
     if (pressedKey === "Escape" && open) {
-      dispatch(activeModal(false))
+      dispatch(dispatch(activeModal({open: false, window: window, title: title})))
       return;
     }
     let found = pressedKey.match(/[а-яА-ЯЁё]/gi)
@@ -126,6 +126,8 @@ function App() {
         return <GameLost/>
       case "LeaveGame":
         return <LeaveGame/>
+      case "Rules":
+        return <Rules/>
       default:
         return undefined
     }

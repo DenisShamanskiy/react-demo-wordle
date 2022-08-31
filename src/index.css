@@ -45,7 +45,7 @@
     @apply inline-block w-7 h-7 rounded disabled:pointer-events-none disabled:opacity-30 hover:rotate-[360deg] transition duration-500 ease-in-out;
   }
   .modal {
-    @apply fixed w-full h-full min-w-[414px] bg-white/60 top-0 left-0 flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-500 z-50
+    @apply fixed w-full h-full min-w-[414px] bg-white/60 top-0 left-0 flex justify-center opacity-0 pointer-events-none transition-opacity duration-500 z-50
   }
   .modal_active {
     @apply opacity-100 transition-opacity duration-500 pointer-events-auto
