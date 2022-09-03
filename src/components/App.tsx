@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import 'tw-elements';
 import { WORDS } from 'words';
 import { useAppDispatch, useAppSelector } from 'hook';
 import useCurrentHeight from 'utils/getHeight';
@@ -12,7 +11,8 @@ import { activeModal } from 'store/modalSlice';
 import { decreaseLetters, increaseLetters, resetLetters } from 'store/nextLetterSlice';
 import Alert from './Alert';
 import Header from './Header';
-import Main from './Main';
+import Board from './Board';
+import Keyboard from './Keyboard';
 import Modal from './Modal';
 import { GameLost, LeaveGame, Restart, Rules } from './ModalContent'
 
@@ -144,13 +144,14 @@ function App() {
   }, [currentWord])
   
   return (
-    <div className="App relative w-screen min-w-[414px] focus:outline-none"
+    <div className="relative w-screen min-w-[414px] flex flex-col justify-center content-between focus:outline-none"
       style={styleHeight}
       tabIndex={0}
       onKeyDown={keyDownHandler}>
         <Header/>
         <Alert/>
-        <Main handleClick={handleClick}/>
+        <Board/>
+        <Keyboard handleClick={handleClick}/>
         <Modal>
           {showModal(window)}
         </Modal>

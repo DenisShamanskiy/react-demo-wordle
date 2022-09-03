@@ -20,6 +20,9 @@
     --color-tone-2: #787c7e;
     --color-tone-4: #d3d6da;
     --color-tone-7: #ffffff;
+
+    --color-border: #878a8c;
+    --color-border-dark: #363738
   }
 }
 @layer components {
@@ -37,9 +40,10 @@
   }
   .letter-yellow {
     @apply bg-[#c9b458] border-0 text-[#ffffff];
-  } 
+  }
   .button-key {
-    @apply font-bold border-0 p-0 mt-0 mr-1.5 mb-0 ml-0 h-[58px] rounded cursor-pointer select-none  flex-1 flex justify-center items-center last:mr-0;
+    @apply
+    h-[48px] mr-1.5 p-0 rounded border-b border-[color:var(--color-border)] flex flex-1 justify-center items-center font-bold uppercase cursor-pointer select-none last:mr-0 active:border-0 active:border-t 
   }
   .icon {
     @apply inline-block w-7 h-7 rounded disabled:pointer-events-none disabled:opacity-30 hover:rotate-[360deg] transition duration-500 ease-in-out;

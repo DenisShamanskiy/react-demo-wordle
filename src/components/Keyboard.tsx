@@ -1,29 +1,46 @@
 import { useAppSelector } from "hook";
+import enter from "../icon/key-enter.svg"
+import backspace from "../icon/key-backspace.svg"
 
 type KeyboardProps = {
   handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
-const Keyboard = ( {handleClick}: KeyboardProps) => {
+const Keyboard = ({handleClick}: KeyboardProps) => {
 
   const keyBoard  = useAppSelector(state => state.keyBoard.keyBoard);
-
     return (
-      <div className="block mx-2 mb-5 select-none">
+      <section className="w-full max-w-lg mx-auto p-2 rounded flex flex-col select-none bg-[#ececec] font-sans">
         {keyBoard.map((_, indexRow) => {
-          return (
-            <div className="flex w-full mt-0 mb-2 mx-auto last:mb-0 touch-manipulation" key={indexRow}>
-              {keyBoard[indexRow]!.map((item, indexKey) => {
+          if (indexRow === 2) {
+            return (
+              <div className="w-full flex" key={indexRow}>
+              <button type="button" data-key="↵" className="button-key bg-no-repeat bg-[#fff] bg-[length:50%] bg-center flex-[1.6_1_0%]" style={{backgroundImage: `url(${enter})`}} onClick={handleClick}>
+              </button>
+              {keyBoard[indexRow]!.map((buttonKey, indexKey) => {
                 return (
-                  <button type="button" data-key={item.value} className={`button-key ${indexRow === 2 && indexKey === 0 && "flex-auto"} ${indexRow === 2 && indexKey === 10 && "flex-auto"} ${item.color ? item.color : "bg-[#d3d6da] text-[#000000]"}`} onClick={handleClick} key={indexKey}>{item.value.toUpperCase()}</button>
+                  <button type="button" data-key={buttonKey.value} className={`button-key ${buttonKey.color ? `${buttonKey.color} border-[color:var(--color-border-dark)]` : "bg-[#fff] text-[#000000]"}`}
+                  onClick={handleClick} key={indexKey}>{buttonKey.value}</button>
                   );
+              })}
+              <button type="button" data-key="←" className="button-key bg-no-repeat bg-[#fff] bg-[length:50%] bg-center flex-[1.6_1_0%]" style={{backgroundImage: `url(${backspace})`}} onClick={handleClick}> 
+              </button>
+            </div>
+            )
+          }
+          return (
+            <div className="mb-1.5 flex w-full" key={indexRow}>
+              {keyBoard[indexRow]!.map((buttonKey, indexKey) => {
+                return (
+                  <button type="button" data-key={buttonKey.value} className={`button-key ${buttonKey.color ? `${buttonKey.color} border-[color:var(--color-border-dark)]` : "bg-[#fff] text-[#000000]"}`}
+                  onClick={handleClick} key={indexKey}>{buttonKey.value}</button>
+                );
               })}
             </div>
           );
         })}
-      </div>
+      </section>
     );
-    
   }
   
-  export default Keyboard;
+export default Keyboard;

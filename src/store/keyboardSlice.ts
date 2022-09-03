@@ -40,7 +40,6 @@ const initialState: KeyBoardState = {
         { value: "ё", color: "" },
       ],
       [
-        { value: "↵", color: "" },
         { value: "я", color: "" },
         { value: "ч", color: "" },
         { value: "с", color: "" },
@@ -50,7 +49,6 @@ const initialState: KeyBoardState = {
         { value: "ь", color: "" },
         { value: "б", color: "" },
         { value: "ю", color: "" },
-        { value: "←", color: "" },
       ],
     ]
 }
