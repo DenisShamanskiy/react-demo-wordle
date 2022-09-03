@@ -1,18 +1,20 @@
 {
   "files": {
-    "main.css": "/react-demo-wordle/static/css/main.0e8595a2.css",
-    "main.js": "/react-demo-wordle/static/js/main.c8f4d443.js",
+    "main.css": "/react-demo-wordle/static/css/main.22b5f8ce.css",
+    "main.js": "/react-demo-wordle/static/js/main.d4a68404.js",
     "static/media/how-icon.svg": "/react-demo-wordle/static/media/how-icon.aa8aebb624c499cf2671fb26778942d0.svg",
     "static/media/redo-circle-outline-icon.svg": "/react-demo-wordle/static/media/redo-circle-outline-icon.f36bd41fda157e3c1b2b5e419b7ae1a8.svg",
     "static/media/evil-icon.svg": "/react-demo-wordle/static/media/evil-icon.52c3e9c385d7ad9d15790140bb8d7d0e.svg",
     "static/media/close-round-line-icon.svg": "/react-demo-wordle/static/media/close-round-line-icon.29b488b42d4def2edb0afefaade37ad5.svg",
+    "static/media/key-backspace.svg": "/react-demo-wordle/static/media/key-backspace.867b9feddc57b75bfb37f5caa3cd409a.svg",
     "index.html": "/react-demo-wordle/index.html",
+    "static/media/key-enter.svg": "/react-demo-wordle/static/media/key-enter.040829192573bb7af5bdbd5c9b5d9785.svg",
     "static/media/flag-line-icon.svg": "/react-demo-wordle/static/media/flag-line-icon.6d97197fc3b811e4f8470abcf5f8ea19.svg",
-    "main.0e8595a2.css.map": "/react-demo-wordle/static/css/main.0e8595a2.css.map",
-    "main.c8f4d443.js.map": "/react-demo-wordle/static/js/main.c8f4d443.js.map"
+    "main.22b5f8ce.css.map": "/react-demo-wordle/static/css/main.22b5f8ce.css.map",
+    "main.d4a68404.js.map": "/react-demo-wordle/static/js/main.d4a68404.js.map"
   },
   "entrypoints": [
-    "static/css/main.0e8595a2.css",
-    "static/js/main.c8f4d443.js"
+    "static/css/main.22b5f8ce.css",
+    "static/js/main.d4a68404.js"
   ]
 }
