@@ -162,3 +162,24 @@ export const Rules = () => {
         </div>
     );
 }
+
+// export const Cog = () => {
+
+//     const dispatch = useAppDispatch();
+
+//     const { window }  = useAppSelector(state => state.modal.modalSlice);
+
+//     const resetGame = () => {
+//         localStorage.clear()
+//         dispatch(activeModal({open: false, window: window}))
+//     }
+    
+//     return (
+//         <div className="w-80">
+//             <h2 className="py-4 text-base font-bold text-center uppercase ">Cog</h2>
+//             <div className="py-4 flex justify-center items-center">
+//                 <button className="inline-block w-4/12 h-9 ml-2 rounded bg-[#6475aa] font-bold text-white hover:scale-105" onClick={() => resetGame()}>ДА</button>
+//             </div>
+//         </div>
+//     );
+// }

@@ -1,7 +1,8 @@
 import { useAppSelector } from "hook";
 
 const Board = () => {
-    const board  = useAppSelector(state => state.board.board);
+
+    const board = useAppSelector(state => state.board.board);
 
     return (
         <div className="flex justify-center items-center grow overflow-hidden">

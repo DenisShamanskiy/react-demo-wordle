@@ -3,18 +3,19 @@ import { WORDS } from 'words';
 import { useAppDispatch, useAppSelector } from 'hook';
 import useCurrentHeight from 'utils/getHeight';
 import { setAlert } from 'store/alertSlice';
-import { addLetter, colorLetter, removeLetter } from 'store/boardSlice';
-import { addCurrentGuess, removeCurrentGuess, resetCurrentGuess } from 'store/currentGuessSlice';
-import { decreaseGuessesRemaining, resetGuessesRemaining } from 'store/guessesRemainingSlice';
-import { colorKey } from 'store/keyboardSlice';
+import { addLetter, colorLetter, localBoard, removeLetter } from 'store/boardSlice';
+import { addCurrentGuess, localCurrentGuess, removeCurrentGuess, resetCurrentGuess } from 'store/currentGuessSlice';
+import { decreaseGuessesRemaining, localGuessesRemaining, resetGuessesRemaining } from 'store/guessesRemainingSlice';
+import { colorKey, localKeyBoard } from 'store/keyboardSlice';
 import { activeModal } from 'store/modalSlice';
-import { decreaseLetters, increaseLetters, resetLetters } from 'store/nextLetterSlice';
+import { decreaseLetters, increaseLetters, localLetters, resetLetters } from 'store/nextLetterSlice';
 import Alert from './Alert';
 import Header from './Header';
 import Board from './Board';
 import Keyboard from './Keyboard';
 import Modal from './Modal';
-import { GameLost, LeaveGame, Restart, Rules } from './ModalContent'
+import { /*Cog,*/ GameLost, LeaveGame, Restart, Rules } from './ModalContent'
+import { localRightGuess, startRightGuess } from 'store/rightGuessSlice';
 
 function App() {
   const styleHeight = {
@@ -111,6 +112,7 @@ function App() {
       dispatch(decreaseGuessesRemaining())
       dispatch(resetCurrentGuess())
       dispatch(resetLetters())
+      localStorage.setItem('word', currentWord)
       if (guessesRemaining - 1 === 0) {
         dispatch(resetGuessesRemaining())
         dispatch(activeModal({open: true, window: "GameLost"}))
@@ -128,20 +130,45 @@ function App() {
         return <LeaveGame/>
       case "Rules":
         return <Rules/>
+        // case "Cog":
+        //   return <Cog/>
       default:
         return undefined
     }
   }
+
+  const handleLocal = () => {
+    if (localStorage.getItem("word")) {
+      dispatch(localRightGuess())
+    } else {
+      dispatch(startRightGuess())
+    }
+    if (localStorage.getItem("nextLetter")) {
+      dispatch(localLetters())
+    }
+    if (localStorage.getItem("currentGuess")) {
+      dispatch(localCurrentGuess())
+    }
+    if (localStorage.getItem("board")) {
+      dispatch(localBoard())
+    }
+    if (localStorage.getItem("keyBoard")) {
+      dispatch(localKeyBoard())
+    }
+    if (localStorage.getItem("guessesRemaining")) {
+      dispatch(localGuessesRemaining())
+    }
+  }
+
+  useEffect(() => {
+   handleLocal()
+  }, []) // eslint-disable-line
   
   useEffect(() => {
     if (guessesRemaining < 6) {
       dispatch(colorKey(board[6 - (guessesRemaining + 1)]!))
     }
   }, [guessesRemaining]) // eslint-disable-line
-
-  useEffect(() => {
-    console.log(`Загаданное слово: ${currentWord.toUpperCase()}`);
-  }, [currentWord])
   
   return (
     <div className="relative w-screen min-w-[414px] flex flex-col justify-center content-between focus:outline-none"

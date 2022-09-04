@@ -57,13 +57,18 @@ const keyBoardSlice = createSlice({
     name: "keyBoard",
     initialState,
     reducers: {
+        localKeyBoard(state) {
+          state.keyBoard = JSON.parse(localStorage["keyBoard"])
+        },
         colorKey(state, action) {
           state.keyBoard = state.keyBoard.map((row) => row.map(function(key) {
             for (let i = 0; i < action.payload.length; i++) {
               if(action.payload[i]!.value === key.value && key.color !== "letter-green")
                 return action.payload[i]
               }  return key
-            }))
+          }))
+          localStorage.setItem("keyBoard", JSON.stringify(state.keyBoard))
+
         },
         restartColorKey(state) {
           state.keyBoard = state.keyBoard.map((row) => row.map(function(key) {
@@ -71,10 +76,11 @@ const keyBoardSlice = createSlice({
               value: key.value,
               color: "" }
           }))
+          localStorage.setItem("keyBoard", JSON.stringify(state.keyBoard))
         }
     }
 })
 
-export const { colorKey, restartColorKey } = keyBoardSlice.actions;
+export const { localKeyBoard, colorKey, restartColorKey } = keyBoardSlice.actions;
 
 export default keyBoardSlice.reducer;

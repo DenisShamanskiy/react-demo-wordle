@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type BoardRow = {
+export type BoardRow = {
     value: string | undefined
     color: string | undefined
 }
@@ -17,35 +17,40 @@ const boardSlice = createSlice({
     name: "board",
     initialState,
     reducers: {
+        localBoard(state) {
+            state.board = JSON.parse(localStorage["board"])
+        },
         addLetter(state, action) {
-        state.board = state.board.map((row, index) =>
-            index === 6 - action.payload.guessesRemaining
-            ? row.map((letter, index) => {
-                if (index === action.payload.nextLetter) {
-                    return {
-                    value: action.payload.pressedKey,
-                    color: letter.color,
-                    };
-                }
-                return letter;
-                })
-            : row
-        );
+            state.board = state.board.map((row, index) =>
+                index === 6 - action.payload.guessesRemaining
+                ? row.map((letter, index) => {
+                    if (index === action.payload.nextLetter) {
+                        return {
+                        value: action.payload.pressedKey,
+                        color: letter.color,
+                        };
+                    }
+                    return letter;
+                    })
+                : row
+            );
+        localStorage.setItem("board", JSON.stringify(state.board))
         },
         removeLetter(state, action) {
             state.board = state.board.map((row, index) =>
-            index === 6 - action.payload.guessesRemaining
-                ? row.map((letter, index) => {
-                    if (index === action.payload.nextLetter - 1) {
-                    return {
-                        value: "",
-                        color: letter.color,
-                    };
-                    }
-                    return letter;
-                })
-                : row
-            );
+                index === 6 - action.payload.guessesRemaining
+                    ? row.map((letter, index) => {
+                        if (index === action.payload.nextLetter - 1) {
+                        return {
+                            value: "",
+                            color: letter.color,
+                        };
+                        }
+                        return letter;
+                    })
+                    : row
+                );
+        localStorage.setItem("board", JSON.stringify(state.board))
         },
         colorLetter(state, action) {
             state.board = state.board.map((row, index) => index === 6 - action.payload.guessesRemaining ? row.map(function(letter, index) {
@@ -59,15 +64,18 @@ const boardSlice = createSlice({
                 :
                 { value: letter.value, color: 'letter-yellow' }
         })
-            : row)
+            : row);
+
+        localStorage.setItem("board", JSON.stringify(state.board))
             
         },
         resetBoard(state) {
-            state.board = [...new Array(6)].map(() => new Array(5).fill({ value: "", color: "" }))  
+            state.board = [...new Array(6)].map(() => new Array(5).fill({ value: "", color: "" }))
+            localStorage.setItem("board", JSON.stringify(state.board))
         },
   },
 });
 
-export const { addLetter, removeLetter, colorLetter, resetBoard } = boardSlice.actions;
+export const { localBoard, addLetter, removeLetter, colorLetter, resetBoard } = boardSlice.actions;
 
 export default boardSlice.reducer;
