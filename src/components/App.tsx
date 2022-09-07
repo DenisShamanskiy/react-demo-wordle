@@ -14,8 +14,9 @@ import Header from './Header';
 import Board from './Board';
 import Keyboard from './Keyboard';
 import Modal from './Modal';
-import { /*Cog,*/ GameLost, LeaveGame, Restart, Rules } from './ModalContent'
+import { GameLost, LeaveGame, Restart, Rules, Stats } from './ModalContent'
 import { localRightGuess, startRightGuess } from 'store/rightGuessSlice';
+import { localStats, lossStats, winStats } from 'store/statsSlice';
 
 function App() {
   const styleHeight = {
@@ -45,7 +46,7 @@ function App() {
       return;
     }
     if (pressedKey === "Escape" && open) {
-      dispatch(dispatch(activeModal({open: false, window: window, title: title})))
+      dispatch(activeModal({open: false, window: window, title: title}))
       return;
     }
     let found = pressedKey.match(/[а-яА-ЯЁё]/gi)
@@ -107,6 +108,7 @@ function App() {
     if (guessString === currentWord) {
       handleAlert(true, "Вы выиграли!", "bg-green-100 text-green-700")
       dispatch(resetGuessesRemaining())
+      dispatch(winStats())
       return;
     } else {
       dispatch(decreaseGuessesRemaining())
@@ -115,6 +117,7 @@ function App() {
       localStorage.setItem('word', currentWord)
       if (guessesRemaining - 1 === 0) {
         dispatch(resetGuessesRemaining())
+        dispatch(lossStats())
         dispatch(activeModal({open: true, window: "GameLost"}))
       }
     }
@@ -130,8 +133,8 @@ function App() {
         return <LeaveGame/>
       case "Rules":
         return <Rules/>
-        // case "Cog":
-        //   return <Cog/>
+      case "Stats":
+        return <Stats/>
       default:
         return undefined
     }
@@ -157,6 +160,9 @@ function App() {
     }
     if (localStorage.getItem("guessesRemaining")) {
       dispatch(localGuessesRemaining())
+    }
+    if (localStorage.getItem("stats")) {
+      dispatch(localStats())
     }
   }
 

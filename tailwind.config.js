@@ -41,6 +41,11 @@ module.exports = {
       boxShadow: {
         modal: "0 4px 23px 0 rgb(0 0 0 / 20%)",
       },
+      colors: {
+        myGreen: "#6aaa64",
+        myYellow: "#c9b458",
+        myRed: "#aa6464",
+      },
     },
   },
   plugins: [],

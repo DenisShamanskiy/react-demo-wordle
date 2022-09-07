@@ -12,7 +12,9 @@
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    color: var(--color-quartz)
   }
+
 }
 @layer base {
   :root {
@@ -21,16 +23,17 @@
     --color-tone-4: #d3d6da;
     --color-tone-7: #ffffff;
 
+    --color-quartz: #49474E;
     --color-border: #878a8c;
-    --color-border-dark: #363738
+    --color-border-dark: #515254
   }
 }
 @layer components {
   .letter {
-    @apply w-full inline-flex justify-center items-center text-[2rem] leading-8 font-extrabold align-middle box-border uppercase select-none border-2 border-[#d3d6da];
+    @apply w-full inline-flex justify-center items-center text-[2rem] leading-8 font-extrabold align-middle uppercase box-border select-none border-2 border-[#d3d6da];
   }
   .letter-white {
-    @apply bg-[#ffffff] border-2 border-[#878a8c] text-[#000000];
+    @apply bg-[#ffffff] border-2 border-[#878a8c];
   }
   .letter-grey {
     @apply bg-[#787c7e] border-0 text-[#ffffff];

@@ -19,7 +19,7 @@ const Keyboard = ({handleClick}: KeyboardProps) => {
               </button>
               {keyBoard[indexRow]!.map((buttonKey, indexKey) => {
                 return (
-                  <button type="button" data-key={buttonKey.value} className={`button-key ${buttonKey.color ? `${buttonKey.color} border-[color:var(--color-border-dark)]` : "bg-[#fff] text-[#000000]"}`}
+                  <button type="button" data-key={buttonKey.value} className={`button-key ${buttonKey.color ? `${buttonKey.color} border-[color:var(--color-border-dark)]` : "bg-[#fff]"}`}
                   onClick={handleClick} key={indexKey}>{buttonKey.value}</button>
                   );
               })}
@@ -32,7 +32,7 @@ const Keyboard = ({handleClick}: KeyboardProps) => {
             <div className="mb-1.5 flex w-full" key={indexRow}>
               {keyBoard[indexRow]!.map((buttonKey, indexKey) => {
                 return (
-                  <button type="button" data-key={buttonKey.value} className={`button-key ${buttonKey.color ? `${buttonKey.color} border-[color:var(--color-border-dark)]` : "bg-[#fff] text-[#000000]"}`}
+                  <button type="button" data-key={buttonKey.value} className={`button-key ${buttonKey.color ? `${buttonKey.color} border-[color:var(--color-border-dark)]` : "bg-[#fff]"}`}
                   onClick={handleClick} key={indexKey}>{buttonKey.value}</button>
                 );
               })}
