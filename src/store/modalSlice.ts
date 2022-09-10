@@ -5,6 +5,7 @@ type ModalState = {
         open: boolean,
         window: string,
         title?: string
+        description?: string
     };
 }
 
@@ -12,7 +13,8 @@ const initialState: ModalState = {
     modalSlice: {
         open: false,
         window: "",
-        title: ""
+        title: "",
+        description: ""
     },
 }
 
@@ -24,7 +26,8 @@ const modalSlice = createSlice({
             state.modalSlice = {...state.modalSlice,
                 open: action.payload.open,
                 window: action.payload.window,
-                title: action.payload.title
+                title: action.payload.title,
+                description: action.payload.description
             }
         }
     }

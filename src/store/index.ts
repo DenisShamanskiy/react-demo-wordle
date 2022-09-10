@@ -19,7 +19,7 @@ const store = configureStore({
     alert: alertSliceReducer,
     keyBoard: keyBoardReducer,
     modal: modalReducer,
-    stats: statsReducer
+    stats: statsReducer,
 
   },
 })

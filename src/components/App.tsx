@@ -14,9 +14,9 @@ import Header from './Header';
 import Board from './Board';
 import Keyboard from './Keyboard';
 import Modal from './Modal';
-import { GameLost, LeaveGame, Restart, Rules, Stats } from './ModalContent'
+import { Content } from './ModalContent'
 import { localRightGuess, startRightGuess } from 'store/rightGuessSlice';
-import { localStats, lossStats, winStats } from 'store/statsSlice';
+import { barCalculation, localStats, lossStats, winStats } from 'store/statsSlice';
 
 function App() {
   const styleHeight = {
@@ -109,6 +109,7 @@ function App() {
       handleAlert(true, "Вы выиграли!", "bg-green-100 text-green-700")
       dispatch(resetGuessesRemaining())
       dispatch(winStats())
+      dispatch(barCalculation(6 - guessesRemaining))
       return;
     } else {
       dispatch(decreaseGuessesRemaining())
@@ -125,16 +126,16 @@ function App() {
   
   const showModal = (modal: string) => {
     switch (modal) {
-      case "Restart":
-        return <Restart/>
+      case "Confirmation":
+        return <Content.Confirmation/>
       case "GameLost":
-        return <GameLost/>
+        return <Content.GameLost/>
       case "LeaveGame":
-        return <LeaveGame/>
+        return <Content.LeaveGame/>
       case "Rules":
-        return <Rules/>
+        return <Content.Rules/>
       case "Stats":
-        return <Stats/>
+        return <Content.Stats/>
       default:
         return undefined
     }
