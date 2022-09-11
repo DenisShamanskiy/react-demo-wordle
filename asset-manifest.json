@@ -1,22 +1,24 @@
 {
   "files": {
-    "main.css": "/react-demo-wordle/static/css/main.e0dc5a5c.css",
-    "main.js": "/react-demo-wordle/static/js/main.1ff6ef67.js",
+    "main.css": "/react-demo-wordle/static/css/main.6ce87b8b.css",
+    "main.js": "/react-demo-wordle/static/js/main.75b4d0d1.js",
+    "static/media/cog-outline.svg": "/react-demo-wordle/static/media/cog-outline.7ecaf783b2416e0d1ae807963a3c1374.svg",
     "static/media/skull.svg": "/react-demo-wordle/static/media/skull.30c66bb4967cfb0938f4f389c762c788.svg",
+    "static/media/trash-outline.svg": "/react-demo-wordle/static/media/trash-outline.0bdc80ab51f20b038dd88376c5e1d55c.svg",
     "static/media/key-backspace.svg": "/react-demo-wordle/static/media/key-backspace.ebec6392fea4ceb0eb177f2ee92251db.svg",
     "index.html": "/react-demo-wordle/index.html",
+    "static/media/information-circle-outline.svg": "/react-demo-wordle/static/media/information-circle-outline.98b0f4ae383f309e2c850873e3bf56b6.svg",
     "static/media/key-enter.svg": "/react-demo-wordle/static/media/key-enter.0dc0868dfbfbde70d813767587e1f24e.svg",
     "static/media/stats-chart.svg": "/react-demo-wordle/static/media/stats-chart.30bf5dba826580ed1a67e37d895660a0.svg",
     "static/media/reload-outline.svg": "/react-demo-wordle/static/media/reload-outline.06afe983b4f18af51c2635581670f050.svg",
-    "static/media/alert.svg": "/react-demo-wordle/static/media/alert.83f260564a6c6e58b9330c2b203acb4e.svg",
     "static/media/help-outline.svg": "/react-demo-wordle/static/media/help-outline.eef2153e62fa57ce6fca02de91a768f7.svg",
     "static/media/flag-outline.svg": "/react-demo-wordle/static/media/flag-outline.b2a83bcd821c5f1f1e13694bec7b6f96.svg",
     "static/media/close.svg": "/react-demo-wordle/static/media/close.f961004a716036a210a96a3d5b0d3280.svg",
-    "main.e0dc5a5c.css.map": "/react-demo-wordle/static/css/main.e0dc5a5c.css.map",
-    "main.1ff6ef67.js.map": "/react-demo-wordle/static/js/main.1ff6ef67.js.map"
+    "main.6ce87b8b.css.map": "/react-demo-wordle/static/css/main.6ce87b8b.css.map",
+    "main.75b4d0d1.js.map": "/react-demo-wordle/static/js/main.75b4d0d1.js.map"
   },
   "entrypoints": [
-    "static/css/main.e0dc5a5c.css",
-    "static/js/main.1ff6ef67.js"
+    "static/css/main.6ce87b8b.css",
+    "static/js/main.75b4d0d1.js"
   ]
 }
