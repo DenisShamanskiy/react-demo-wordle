@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Philosopher:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bitter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -7,19 +6,19 @@
 
 @layer base {
   html {
-    font-family: 'Bitter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: var(--color-quartz)
   }
-
 }
 @layer base {
   :root {
     --color-tone-1: #000000;
     --color-tone-2: #787c7e;
+    --color-tone-3: #878a8c;
     --color-tone-4: #d3d6da;
     --color-tone-7: #ffffff;
 
@@ -30,23 +29,23 @@
 }
 @layer components {
   .letter {
-    @apply w-full inline-flex justify-center items-center text-[2rem] leading-8 font-extrabold align-middle uppercase box-border select-none border-2 border-[#d3d6da];
+    @apply border-2 border-wordleBorderLight inline-flex justify-center items-center;
   }
   .letter-white {
-    @apply bg-[#ffffff] border-2 border-[#878a8c];
-  }
-  .letter-grey {
-    @apply bg-[#787c7e] border-0 text-[#ffffff];
+    @apply border-wordleGray;
   }
   .letter-green {
-    @apply bg-[#6aaa64] border-0 text-[#ffffff];
+    @apply border-0 text-white bg-wordleGreen;
   }
   .letter-yellow {
-    @apply bg-[#c9b458] border-0 text-[#ffffff];
+    @apply border-0 text-white bg-wordleYellow;
+  }
+  .letter-grey {
+    @apply border-0 text-white bg-wordleGray;
   }
   .button-key {
     @apply
-    h-[48px] mr-1.5 p-0 rounded border-b border-[color:var(--color-border)] flex flex-1 justify-center items-center font-bold uppercase cursor-pointer select-none last:mr-0 active:border-0 active:border-t 
+    h-[48px] mr-1.5 p-0 rounded border-b border-[color:var(--color-border)] flex flex-1 justify-center items-center font-bold uppercase cursor-pointer select-none last:mr-0 active:border-0 active:border-t
   }
   .icon {
     @apply inline-block w-7 h-7 rounded disabled:pointer-events-none disabled:opacity-30 hover:rotate-[360deg] transition duration-500 ease-in-out;

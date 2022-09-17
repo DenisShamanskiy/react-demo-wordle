@@ -13,7 +13,7 @@ const Modal: React.FC<ModalProps> = ( {children} ) => {
 
     return (
       <div className={`modal ${window === "Rules" ? "items-end smModal:items-center" : "items-center"} ${ open && "modal_active" } ${ window === "GameLost" && "bg-red-500/60" }`} onClick={() => dispatch(activeModal({open: false, window: window, title: title, description: description}))}>
-        <div className={`modal__component ${ open ? "modal__component_active" : "modal__component_inactive" } ${ window === "Rules" && "w-full smModal:w-[90%]" } `} onClick={event => event.stopPropagation()}>
+        <div className={`modal__component ${ open ? "modal__component_active" : "modal__component_inactive" } ${ (window === "Rules") && "w-full smModal:w-[90%]" } `} onClick={event => event.stopPropagation()}>
             {children}
         </div>
       </div>

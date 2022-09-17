@@ -17,6 +17,7 @@ import Modal from './Modal';
 import { Content } from './ModalContent'
 import { localRightGuess, startRightGuess } from 'store/rightGuessSlice';
 import { barCalculation, localStats, lossStats, winStats } from 'store/statsSlice';
+import { localStatusGame, setStatusGame } from 'store/statusGameSlice';
 
 function App() {
   const styleHeight = {
@@ -106,6 +107,7 @@ function App() {
     }
     dispatch(colorLetter({ indexColorArray, guessesRemaining, currentGuess, currentWord }))
     if (guessString === currentWord) {
+      dispatch(setStatusGame("win"))
       handleAlert(true, "Вы выиграли!", "bg-green-100 text-green-700")
       dispatch(resetGuessesRemaining())
       dispatch(winStats())
@@ -117,9 +119,10 @@ function App() {
       dispatch(resetLetters())
       localStorage.setItem('word', currentWord)
       if (guessesRemaining - 1 === 0) {
+        dispatch(setStatusGame("lost"))
         dispatch(resetGuessesRemaining())
         dispatch(lossStats())
-        dispatch(activeModal({open: true, window: "GameLost"}))
+        dispatch(activeModal({open: true, window: "GameLost", title: "Проиграл"}))
       }
     }
   }
@@ -136,6 +139,10 @@ function App() {
         return <Content.Rules/>
       case "Stats":
         return <Content.Stats/>
+      case "Settings":
+        return <Content.Settings/>
+      case "NewGame":
+        return <Content.NewGame/>
       default:
         return undefined
     }
@@ -146,6 +153,9 @@ function App() {
       dispatch(localRightGuess())
     } else {
       dispatch(startRightGuess())
+    }
+    if (localStorage.getItem("statusGame")) {
+      dispatch(localStatusGame())
     }
     if (localStorage.getItem("nextLetter")) {
       dispatch(localLetters())
@@ -178,7 +188,7 @@ function App() {
   }, [guessesRemaining]) // eslint-disable-line
   
   return (
-    <div className="relative w-screen min-w-[414px] flex flex-col justify-center content-between focus:outline-none"
+    <div className="relative w-screen min-w-[414px] flex flex-col justify-center content-between focus:outline-none bg-wordleWhite"
       style={styleHeight}
       tabIndex={0}
       onKeyDown={keyDownHandler}>

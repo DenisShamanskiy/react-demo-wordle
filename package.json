@@ -25,7 +25,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://denisshamanskiy.github.io/react-demo-wordle/",
   "eslintConfig": {
     "extends": [
       "react-app",

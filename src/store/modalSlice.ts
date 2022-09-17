@@ -5,7 +5,7 @@ type ModalState = {
         open: boolean,
         window: string,
         title?: string
-        description?: string
+        description?: string[]
     };
 }
 
@@ -14,7 +14,7 @@ const initialState: ModalState = {
         open: false,
         window: "",
         title: "",
-        description: ""
+        description: []
     },
 }
 

@@ -100,7 +100,7 @@ const statsSlice = createSlice({
                 },
             ]
         }
-        localStorage.setItem("stats", JSON.stringify(state.stats))
+        // localStorage.setItem("stats", JSON.stringify(state.stats))
 
     },
     winStats(state) {

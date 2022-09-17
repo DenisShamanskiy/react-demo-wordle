@@ -1,246 +1,295 @@
 import { useAppDispatch, useAppSelector } from "hook";
-import { resetBoard } from "store/boardSlice";
-import { resetCurrentGuess } from "store/currentGuessSlice";
-import { restartGuessesRemaining } from "store/guessesRemainingSlice";
-import { restartColorKey } from "store/keyboardSlice";
-import { activeModal } from 'store/modalSlice';
-import { resetLetters } from "store/nextLetterSlice";
-import { restartRightGuess } from "store/rightGuessSlice";
-import { resetStats, surrenderStats } from "store/statsSlice";
+import { activeModal } from "store/modalSlice";
 import { WORDS } from "../words";
-import skull from "../icon/skull.svg"
-import close from "../icon/close.svg"
+import skull from "../icon/skull.svg";
+import trash from "../icon/trash-outline.svg";
+import InputSwitch from "./micro-components/InputSwitch";
+import ButtonClose from "./micro-components/Button/ButtonClose";
+import ButtonTrue from "./micro-components/Button/ButtonTrue";
+import ButtonFalse from "./micro-components/Button/ButtonFalse";
+import ButtonNewGame from "./micro-components/Button/ButtonNewGame";
+import ButtonLeaveGame from "./micro-components/Button/ButtonLeaveGame";
+import ButtonResetStats from "./micro-components/Button/ButtonResetStats";
+import ButtonOk from "./micro-components/Button/ButtonOk";
+import ExampleWord from "./micro-components/ExampleWord";
+import CountStats from "./micro-components/CountStats";
+import { numWord } from "utils/formate";
+import { exampleRules } from "utils/data";
 
 export const Content = {
+  Confirmation: function Confirmation() {
+    const { title, description } = useAppSelector(
+      (state) => state.modal.modalSlice
+    );
 
-    Confirmation: function Confirmation() {
+    return (
+      <section className="relative w-[340px]">
+        <h2 className="py-4 text-base font-extrabold text-center uppercase">
+          {title}
+        </h2>
+        {description && (
+          <ul className="mb-4 text-wordleYellow">
+            {description?.map((text, index) => {
+              return (
+                <div className="px-3 flex flex-col justify-center" key={index}>
+                  <li className="py-3 flex justify-center items-center text-sm font-bold text-center">
+                    {text}
+                  </li>
+                </div>
+              );
+            })}
+          </ul>
+        )}
+        <div className="pt-4 pb-4 flex justify-center items-center">
+          <ButtonFalse />
+          <ButtonTrue />
+        </div>
+      </section>
+    );
+  },
 
-        const dispatch = useAppDispatch();
-    
-        const { window, title, description }  = useAppSelector(state => state.modal.modalSlice);
-    
-        const handleConfirmation = () => {
-            if (title === "Сбросить статистику?") {
-                localStorage.removeItem("stats")
-                dispatch(resetStats())
-                dispatch(activeModal({open: false, window: window, title: title, description: description}))   
-            }
-            if (title === "Начнём сначала?") {
-                dispatch(restartRightGuess())
-                dispatch(resetBoard())
-                dispatch(restartColorKey())
-                dispatch(resetLetters())
-                dispatch(resetCurrentGuess())
-                dispatch(restartGuessesRemaining())
-                dispatch(activeModal({open: false, window: window, title: title, description: description}))
-            }
-            if (title === "Сдаёшься?") {
-                dispatch(restartRightGuess())
-                dispatch(resetBoard())
-                dispatch(restartColorKey())
-                dispatch(resetLetters())
-                dispatch(resetCurrentGuess())
-                dispatch(restartGuessesRemaining())
-                dispatch(activeModal({open: false, window: window, title: title, description: description}))
-                setTimeout(() => dispatch(activeModal({open: true, window: "LeaveGame"})), 700 )
-                dispatch(surrenderStats())
-            }
-            if (title === "Критическое обновление") {
-                localStorage.clear()
-                dispatch(activeModal({open: false, window: window, title: title, description: description}))
-            }
-        }
-        
-        return (
-            <div className="w-80">
-                <h2 className="py-4 text-base font-bold text-center uppercase">{title}</h2>
-                <p className="py-4 flex justify-center items-center border-y border-dotted border-[color:var(--color-tone-4)] text-center">{description}</p>
-                <div className="pt-8 pb-4 flex justify-center items-center">
-                    <button className="inline-block w-4/12 h-9 mr-2 rounded bg-[#aa6464] font-bold text-white hover:scale-105 transition duration-300 ease-in-out" onClick={() => dispatch(activeModal({open: false, window: window, title: title, description: description}))}>НЕТ</button>
-                    <button className="inline-block w-4/12 h-9 ml-2 rounded bg-[#6475aa] font-bold text-white hover:scale-105 transition duration-300 ease-in-out" onClick={() => handleConfirmation()}>ДА</button>
-                </div>
-            </div>
-        );
-    },
+  GameLost: function GameLost() {
+    const rightGuess = useAppSelector(
+      (state) => state.rightGuess.rightGuessSlice.currentWord
+    );
 
-    GameLost: function GameLost() {
-    
-        const dispatch = useAppDispatch();
-    
-        const { open, window }  = useAppSelector(state => state.modal.modalSlice);
-    
-        const rightGuess  = useAppSelector(state => state.rightGuess.rightGuessSlice.currentWord);
-    
-        const resetGame = () => {
-            dispatch(restartRightGuess())
-            dispatch(resetBoard())
-            dispatch(restartColorKey())
-            dispatch(restartGuessesRemaining())
-            dispatch(activeModal({open: false, window: window}))
-        }
-        
-        return (
-            <div className="w-80">
-                <div className="flex justify-center">
-                    <span className="flex w-7 h-7 my-4 bg-no-repeat bg-center bg-contain justify-center" style={{backgroundImage: `url(${skull})`}}></span>
-                    <h2 className={`py-4 ml-3 mr-3 text-xl font-extrabold text-center text-[#aa6464] uppercase`}>Ты проиграл</h2>
-                    <span className="flex w-7 h-7 my-4 bg-no-repeat bg-center bg-contain justify-center text-center" style={{backgroundImage: `url(${skull})`}}></span>
-                </div>
-                <p className="py-4 text-base font-bold text-center border-b border-dotted border-[color:var(--color-tone-4)] uppercase box-border">Загаданное слово</p>
-                <div className="py-4 flex justify-center items-center border-b border-dotted border-[color:var(--color-tone-4)]">
-                    {[...rightGuess].map((item, ind) => {
-                            return (
-                                <div className={`w-9 h-9 mr-1 last-of-type:mr-0 inline-flex justify-center items-center text-2xl leading-8 font-extrabold align-middle box-border uppercase select-none bg-[#6aaa64] border-0 text-[#ffffff] ${!open && "opacity-0"}`} key={ind}>{item}</div>
-                            );
-                        })}
-                </div>
-                <p className="pt-8 pb-4 text-base font-bold text-center uppercase box-border">Попробуем еще?</p>
-                <div className="py-4 flex justify-center items-center">
-                    <button className="inline-block w-4/12 h-9 mr-2 rounded bg-[#aa6464] font-bold text-white hover:scale-105 transition duration-300 ease-in-out" onClick={() => dispatch(activeModal({open: false, window: window}))}>НЕТ</button>
-                    <button className="inline-block w-4/12 h-9 ml-2 rounded bg-[#6475aa] font-bold text-white hover:scale-105 transition duration-300 ease-in-out" onClick={() => resetGame()}>ДА</button>
-                </div>
-            </div>
+    return (
+      <section className="w-80">
+        <div className="flex justify-center">
+          <span
+            className="w-7 h-7 my-4 flex justify-center bg-no-repeat bg-center bg-contain text-center"
+            style={{ backgroundImage: `url(${skull})` }}
+          ></span>
+          <h2 className="py-4 ml-3 mr-3 text-center text-xl font-extrabold text-wordleRed uppercase">
+            Ты проиграл
+          </h2>
+          <span
+            className="w-7 h-7 my-4 flex justify-center bg-no-repeat bg-center bg-contain text-center"
+            style={{ backgroundImage: `url(${skull})` }}
+          ></span>
+        </div>
+        <p className="py-4 text-center text-base font-extrabold uppercase">
+          Загаданное слово
+        </p>
+        <ul className="py-4 flex justify-center items-center">
+          {[...rightGuess].map((letter, index) => {
+            return (
+              <li
+                className="w-9 h-9 mr-1 last-of-type:mr-0 inline-flex justify-center items-center text-2xl font-extrabold uppercase letter-green"
+                key={index}
+              >
+                {letter}
+              </li>
+            );
+          })}
+        </ul>
+        <ButtonOk />
+      </section>
+    );
+  },
+
+  LeaveGame: function LeaveGame() {
+    const { previousWord } = useAppSelector(
+      (state) => state.rightGuess.rightGuessSlice
+    );
+
+    return (
+      <section className="w-80 select-none">
+        <h2 className="py-4 text-base font-extrabold text-center uppercase">
+          Загаданное слово
+        </h2>
+        <ul className="py-4 flex justify-center items-center">
+          {[...previousWord].map((letter, index) => {
+            return (
+              <li
+                className="w-9 h-9 mr-1 last-of-type:mr-0 inline-flex justify-center items-center text-2xl font-extrabold uppercase letter-green"
+                key={index}
+              >
+                {letter}
+              </li>
+            );
+          })}
+        </ul>
+        <ButtonOk />
+      </section>
+    );
+  },
+
+  Rules: function Rules() {
+    return (
+      <section className="relative w-full w-max-96 select-none">
+        <h2 className="text-center text-base font-bold uppercase">
+          Как играть
+        </h2>
+        <ButtonClose />
+        <p className="my-4 text-sm">
+          Угадай <strong>СЛОВО</strong> за 6 попыток
+        </p>
+        <p className="my-4 text-sm">
+          Каждое предположение должно быть допустимым словом из 5 букв
+        </p>
+        <p className="my-4 text-sm">
+          После каждой попытки цвет плитки будет меняться, чтобы показать,
+          насколько ваше предположение было близко к слову
+        </p>
+        <div className="border-y border-wordleBorderLight">
+          <p className="mt-4 text-sm font-bold uppercase">Примеры</p>
+          {exampleRules.map((row, indexRow) => {
+            return (
+              <div className="my-6" key={indexRow}>
+                {row.word.map((letter, indexWord) => {
+                  return (
+                    <ExampleWord
+                      index={indexWord}
+                      letter={letter}
+                      row={indexRow}
+                      key={indexWord}
+                    />
+                  );
+                })}
+                <p className="my-4 text-sm">
+                  {row.discreption[0]} <strong>{row.discreption[1]}</strong>{" "}
+                  {row.discreption[2]}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+        <p className="mt-4 text-center text-xs">
+          В игре <strong>{WORDS.length}</strong> {numWord(WORDS.length)}
+        </p>
+      </section>
+    );
+  },
+
+  Stats: function Stats() {
+    const { win, loss, surrender, bar } = useAppSelector(
+      (state) => state.stats.stats
+    );
+
+    return (
+      <section className="relative w-[340px]">
+        <h2 className="text-center text-base font-bold uppercase">
+          Статистика
+        </h2>
+        <ButtonClose />
+        <div className="my-6 grid grid-cols-3 gap-1">
+          {[win, loss, surrender].map((item, index) => {
+            return <CountStats count={item} index={index} key={index} />;
+          })}
+        </div>
+        <div className="mb-8 border-b border-wordleBorderLight">
+          <h3 className="pb-4 flex justify-center border-b border-wordleBorderLight font-bold text-sm uppercase">
+            Выигрышные попытки
+          </h3>
+          <ul className="py-4">
+            {bar.map((row, index) => {
+              return (
+                <li
+                  className="w-full mb-1 flex justify-center items-center"
+                  key={index}
+                >
+                  <p className="w-5 mr-2 flex font-bold">#{row.name}</p>
+                  <div className="relative w-9/12 h-3 rounded-xl bg-wordleBorderLight/30">
+                    <span
+                      className="relative h-full rounded-xl block bg-wordleGreen overflow-hidden"
+                      style={{ width: `${row.percent}` }}
+                    ></span>
+                  </div>
+                  <p className="w-6 h-6 ml-auto border border-wordleBorder border-opacity-30 flex justify-center items-center font-extrabold uppercase box-border bg-white">
+                    {row.count}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <ButtonResetStats />
+      </section>
+    );
+  },
+
+  Settings: function Settings() {
+    const dispatch = useAppDispatch();
+    const { window, title, description } = useAppSelector(
+      (state) => state.modal.modalSlice
+    );
+    const clearLocalStorage = () => {
+      dispatch(
+        activeModal({
+          open: false,
+          window: window,
+          title: title,
+          description: description,
+        })
+      );
+      setTimeout(() => {
+        dispatch(
+          activeModal({
+            open: true,
+            window: "Confirmation",
+            title: "Очистить LocalStorage?",
+            description: [
+              "LocalStorage будет очищен",
+              "Статистика будет удалена",
+              "Для начала новой игры необходимо обновить страницу",
+            ],
+          })
         );
-    },
-    
-    LeaveGame: function LeaveGame () {
-    
-        const dispatch = useAppDispatch();
-    
-        const { open, window }  = useAppSelector(state => state.modal.modalSlice);
-    
-        const { previousWord }  = useAppSelector(state => state.rightGuess.rightGuessSlice);
-        
-        return (
-            <div className="w-80">
-                <p className="py-4 text-base font-bold text-center border-b border-dotted border-[color:var(--color-tone-4)] uppercase box-border">Загаданное слово</p>
-                <div className="py-4 flex justify-center items-center border-b border-dotted border-[color:var(--color-tone-4)]">
-                    {[...previousWord].map((item, ind) => {
-                            return (
-                                <div className={`w-9 h-9 mr-1 last-of-type:mr-0 inline-flex justify-center items-center text-2xl leading-8 font-extrabold align-middle box-border uppercase select-none bg-[#6aaa64] border-0 text-[#ffffff] ${!open && "opacity-0"}`} key={ind}>{item}</div>
-                            );
-                        })}
-                </div>
-                <div className="py-4 flex justify-center items-center">
-                    <button className="inline-block w-4/12 h-9 rounded bg-[#6475aa] font-bold text-white hover:scale-105 transition duration-300 ease-in-out" onClick={() => dispatch(activeModal({open: false, window: window}))}>ХОРОШО</button>
-                </div>
+      }, 700);
+    };
+
+    return (
+      <div className="relative w-[340px]">
+        <h2 className="mb-4 text-center text-base font-bold uppercase">
+          Настройки
+        </h2>
+        <ButtonClose />
+        <div className="">
+          <div className="relative mb-1 p-2 flex justify-between items-center">
+            <div className="flex flex-col">
+              <p className="text-lg font-bold">Hard Mode</p>
+              <p className="text-xs">Необходимо использовать все подсказки</p>
             </div>
-        );
-    },
-    
-    Rules: function Rules () {
-    
-        const dispatch = useAppDispatch();
-    
-        const { window }  = useAppSelector(state => state.modal.modalSlice);
-    
-        function num_word(value: number){  
-            const words = ['слово', 'слова', 'слов']
-            value = Math.abs(value) % 100; 
-            const num = value % 10;
-            if(value > 10 && value < 20) return words[2]; 
-            if(num > 1 && num < 5) return words[1];
-            if(num === 1) return words[0]; 
-            return words[2];
-        }
-        
-        return (
-            <div className="relative w-full w-max-96">
-                <h2 className="text-base font-bold text-center uppercase box-border">Как играть</h2>
-                <button className="inline-block w-6 h-6 top-0 right-0 rounded-full bg-center bg-contain absolute hover:scale-110 transition duration-300 ease-in-out" style={{backgroundImage: `url(${close})`}} onClick={() => dispatch(activeModal({open: false, window: window}))}></button>
-                <section>
-                    <p className="my-4 text-sm">Угадай <strong>СЛОВО</strong> за 6 попыток</p>
-                    <p className="my-4 text-sm">Каждое предположение должно быть допустимым словом из 5 букв.</p>
-                    <p className="my-4 text-sm">После каждой попытки цвет плитки будет меняться, чтобы показать, насколько ваше предположение было близко к слову.</p>
-                    <div className="border-y border-[color:var(--color-tone-4)]">
-                        <p className="my-4 text-sm font-bold">Примеры</p>
-                        <div className="my-6">
-                        {["к","р","о","в","ь"].map((item, ind) => {
-                            return (
-                                <div className={`w-9 h-9 mr-1 last-of-type:mr-0 inline-flex justify-center items-center text-2xl leading-8 font-extrabold align-middle box-border uppercase select-none ${ind !== 0 ? "bg-[#ffffff] border-2 border-[#878a8c]" : "bg-[#6aaa64] border-0 text-[#ffffff]"}`} key={ind}>{item}</div>
-                            );
-                        })}
-                        <p className="my-4 text-sm">Буква <strong>К</strong> есть в загаданном слове и находится на правильном месте.</p>
-                        </div>
-                        <div className="my-6">
-                        {["г","н","и","л","ь"].map((item, ind) => {
-                            return (
-                                <div className={`w-9 h-9 mr-1 last-of-type:mr-0 inline-flex justify-center items-center text-2xl leading-8 font-extrabold align-middle box-border uppercase select-none ${ind !== 1 ? "bg-[#ffffff] border-2 border-[#878a8c]" : "bg-[#c9b458] border-0 text-[#ffffff]"}`} key={ind}>{item}</div>
-                            );
-                        })}
-                        <p className="my-4 text-sm">Буква <strong>Н</strong> есть в загаданном слове, но стоит в другом месте.</p>
-                        </div>
-                        <div className="my-6">
-                        {["ч","е","р","е","п"].map((item, ind) => {
-                            return (
-                                <div className={`w-9 h-9 mr-1 last-of-type:mr-0 inline-flex justify-center items-center text-2xl leading-8 font-extrabold align-middle box-border uppercase select-none ${ind !== 2 ? "bg-[#ffffff] border-2 border-[#878a8c]" : "bg-[#787c7e] border-0 text-[#ffffff]"}`} key={ind}>{item}</div>
-                            );
-                        })}
-                        <p className="my-4 text-sm">Буквы <strong>Р</strong> нет в загаданном слове.</p>
-                        </div>
-                    </div>
-                    <p className="mt-4 text-xs text-center">В игре <strong>{WORDS.length}</strong> {num_word(WORDS.length)}</p>
-                </section>
+            <InputSwitch />
+            <div className="absolute bg-neutral-300 top-0 right-0 left-0 bottom-0 opacity-80 flex justify-center items-center rounded">
+              <p className="after:text-slate-900">В разработке</p>
             </div>
-        );
-    },
-    
-    Stats: function Stats () {
-    
-        const dispatch = useAppDispatch();
-    
-        const { window, }  = useAppSelector(state => state.modal.modalSlice);
-    
-        const { win, loss, surrender, bar } = useAppSelector(state => state.stats.stats);
-    
-        const resetStats = () => {
-            dispatch(activeModal({open: false, window: window}))
-            setTimeout(() => {
-                dispatch(activeModal({open: true, window: "Confirmation", title: "Сбросить статистику?", description: "Будет удалена вся текущая статистика игры"}))
-            }, 500);
-            
-        }
-        
-        return (
-            <div className="relative w-80 w-max-96">
-                <h2 className="text-base font-bold text-center uppercase box-border">Статистика</h2>
-                <button className="inline-block w-6 h-6 top-0 right-0 rounded-full bg-center bg-contain absolute hover:scale-110 transition duration-300 ease-in-out" style={{backgroundImage: `url(${close})`}} onClick={() => dispatch(activeModal({open: false, window: window}))}></button>
-                <section className="mt-4 pt-4">
-                   <div className="flex justify-center">
-                    <div className="w-[80px] mr-4 flex flex-col justify-center text-center text-myGreen">
-                        <div className="text-[35px] font-semibold">{win}</div>
-                        <div className="font-semibold">Выиграл</div>
-                    </div>
-                    <div className="w-[80px] mr-4 flex flex-col justify-center text-center text-myYellow">
-                    <div className="text-[35px] font-semibold">{surrender}</div>
-                        <div className="font-semibold">Сдался</div>
-                    </div>
-                    <div className="w-[80px] flex flex-col justify-center text-center text-myRed">
-                    <div className="text-[35px] font-semibold">{loss}</div>
-                        <div className="font-semibold">Проиграл</div>
-                    </div>
-                   </div>
-                   <div className="mt-4 mb-8 border-b border-[color:var(--color-tone-4)]">
-                    <p className="py-4 flex justify-center border-b border-[color:var(--color-tone-4)] font-bold">Выигрышные попытки</p>
-                    <ul className="py-4">
-    
-                    {bar.map((row, index) => {
-                        return (
-                            <li className="flex justify-center items-center w-full mb-1" key={index}>
-                            <p className="mr-2 flex w-5 font-bold">#{row.name}</p>
-                            <div className=" w-9/12 rounded-xl h-3 relative bg-slate-100">
-                                <span className="block h-full bg-myGreen relative overflow-hidden rounded-xl" style={{width: `${row.percent}`}}></span>
-                            </div>
-                            <p className="flex w-6 h-6 ml-auto justify-center items-center font-extrabold align-middle uppercase box-border select-none bg-[#ffffff] border border-[#878a8c] border-opacity-30">{row.count}</p>
-                        </li>
-                        );
-                    })}
-    
-                    </ul>
-                   </div>
-                    <button className="w-4/12 h-9 mb-4 mx-auto block rounded bg-[#aa6464] font-bold text-white hover:scale-105 transition duration-300 ease-in-out" onClick={() => resetStats()}>СБРОСИТЬ</button>
-                </section>
+          </div>
+          <div className="relative p-2 h-[60px] flex justify-between items-center">
+            <p className="text-lg font-bold">Dark Theme</p>
+            <InputSwitch />
+            <div className="absolute bg-neutral-300 top-0 right-0 left-0 bottom-0 opacity-80 flex justify-center items-center rounded">
+              <p className="after:text-slate-900">В разработке</p>
             </div>
-        );
-    }
-}
+          </div>
+        </div>
+        <p className="mt-8 mb-4 text-center text-base font-bold uppercase">
+          Дополнительно
+        </p>
+        <div className="h-[60px] p-2 border-b border-wordleBorderLight flex justify-between items-center">
+          <p className="text-lg font-bold">Очистить LocalStorage</p>
+          <button
+            type="button"
+            className="w-7 h-7 md:w-8 md:h-8 rounded flex justify-center items-center  bg-no-repeat bg-center bg-contain hover:scale-110 transition duration-300 ease-in-out"
+            onClick={() => clearLocalStorage()}
+            style={{ backgroundImage: `url(${trash})` }}
+          ></button>
+        </div>
+        <p className="py-4 text-xs text-[#787c7e]">© 2022 Денис Шаманский</p>
+      </div>
+    );
+  },
+
+  NewGame: function NewGame() {
+    return (
+      <section className="relative w-[340px]">
+        <ButtonClose />
+        <div className="w-48 py-10 mx-auto p-2 rounded">
+          <ButtonNewGame />
+          <ButtonLeaveGame />
+        </div>
+      </section>
+    );
+  },
+};
