@@ -15,6 +15,7 @@ import ExampleWord from "./micro-components/ExampleWord";
 import CountStats from "./micro-components/CountStats";
 import { numWord } from "utils/formate";
 import { exampleRules } from "utils/data";
+import { setHardMode } from "store/hardModeSlice";
 
 export const Content = {
   Confirmation: function Confirmation() {
@@ -214,6 +215,9 @@ export const Content = {
     const { window, title, description } = useAppSelector(
       (state) => state.modal.modalSlice
     );
+    const { active, letters } = useAppSelector(
+      (state) => state.hardMode.hardModeSlice
+    );
     const clearLocalStorage = () => {
       dispatch(
         activeModal({
@@ -251,14 +255,14 @@ export const Content = {
               <p className="text-lg font-bold">Hard Mode</p>
               <p className="text-xs">Необходимо использовать все подсказки</p>
             </div>
-            <InputSwitch />
-            <div className="absolute bg-neutral-300 top-0 right-0 left-0 bottom-0 opacity-80 flex justify-center items-center rounded">
+            <InputSwitch onChange={() => dispatch(setHardMode({ active: !active, letters: letters}))} isChecked={active}/>
+            {/* <div className="absolute bg-neutral-300 top-0 right-0 left-0 bottom-0 opacity-80 flex justify-center items-center rounded">
               <p className="after:text-slate-900">В разработке</p>
-            </div>
+            </div> */}
           </div>
           <div className="relative p-2 h-[60px] flex justify-between items-center">
             <p className="text-lg font-bold">Dark Theme</p>
-            <InputSwitch />
+            <InputSwitch onChange={() => console.log()} isChecked={false}/>
             <div className="absolute bg-neutral-300 top-0 right-0 left-0 bottom-0 opacity-80 flex justify-center items-center rounded">
               <p className="after:text-slate-900">В разработке</p>
             </div>

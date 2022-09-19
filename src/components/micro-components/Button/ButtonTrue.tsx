@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from "hook";
 import { resetBoard } from "store/boardSlice";
 import { resetCurrentGuess } from "store/currentGuessSlice";
 import { restartGuessesRemaining } from "store/guessesRemainingSlice";
+import { resetHardMode } from "store/hardModeSlice";
 import { restartColorKey } from "store/keyboardSlice";
 import { activeModal } from "store/modalSlice";
 import { resetLetters } from "store/nextLetterSlice";
@@ -25,6 +26,7 @@ const ButtonTrue = () => {
       dispatch(resetLetters());
       dispatch(resetCurrentGuess());
       dispatch(restartGuessesRemaining());
+      dispatch(resetHardMode())
       dispatch(
         activeModal({
           open: false,

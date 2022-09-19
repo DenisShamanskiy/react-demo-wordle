@@ -5,7 +5,8 @@ const Board = () => {
     const board = useAppSelector(state => state.board.board);
 
     return (
-        <div className="flex justify-center items-center grow overflow-hidden font-['Bitter'] select-none">
+        <>
+        <div className="relative flex justify-center items-center grow overflow-hidden font-['Bitter'] select-none transition-all">
             <div className="w-[350px] h-[420px] p-2.5 grid grid-rows-6 gap-[5px] font-extrabold uppercase box-border" >
             {board.map((_, indexRow) => {
                 return (
@@ -20,6 +21,8 @@ const Board = () => {
             })}
             </div>
         </div>
+        
+        </>
     );
   }
   
