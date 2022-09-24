@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-demo-wordle/static/css/main.011b1db9.css",
-    "main.js": "/react-demo-wordle/static/js/main.cf396b8f.js",
+    "main.css": "/react-demo-wordle/static/css/main.c9644500.css",
+    "main.js": "/react-demo-wordle/static/js/main.f5bb9d25.js",
     "static/media/cog-outline-dark.svg": "/react-demo-wordle/static/media/cog-outline-dark.d188d05bb8269df3941781607e16ecd4.svg",
     "static/media/cog-outline.svg": "/react-demo-wordle/static/media/cog-outline.7ecaf783b2416e0d1ae807963a3c1374.svg",
     "static/media/skull.svg": "/react-demo-wordle/static/media/skull.30c66bb4967cfb0938f4f389c762c788.svg",
@@ -18,11 +18,11 @@
     "static/media/help-outline.svg": "/react-demo-wordle/static/media/help-outline.eef2153e62fa57ce6fca02de91a768f7.svg",
     "static/media/close-dark.svg": "/react-demo-wordle/static/media/close-dark.65ef8d81576221f8516f5f6bb2a78267.svg",
     "static/media/close.svg": "/react-demo-wordle/static/media/close.f961004a716036a210a96a3d5b0d3280.svg",
-    "main.011b1db9.css.map": "/react-demo-wordle/static/css/main.011b1db9.css.map",
-    "main.cf396b8f.js.map": "/react-demo-wordle/static/js/main.cf396b8f.js.map"
+    "main.c9644500.css.map": "/react-demo-wordle/static/css/main.c9644500.css.map",
+    "main.f5bb9d25.js.map": "/react-demo-wordle/static/js/main.f5bb9d25.js.map"
   },
   "entrypoints": [
-    "static/css/main.011b1db9.css",
-    "static/js/main.cf396b8f.js"
+    "static/css/main.c9644500.css",
+    "static/js/main.f5bb9d25.js"
   ]
 }
