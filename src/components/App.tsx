@@ -43,6 +43,7 @@ import {
 } from "store/statsSlice";
 import { localStatusGame, setStatusGame } from "store/statusGameSlice";
 import { localHardMode, setHardMode } from "store/hardModeSlice";
+import { localToggleTheme } from "store/themeSlice";
 
 function App() {
   const styleHeight = {
@@ -68,6 +69,9 @@ function App() {
   const { active, letters } = useAppSelector(
     (state) => state.hardMode.hardModeSlice
   );
+  const dark = useAppSelector(
+    (state) => state.theme.darkThemeSlice
+  );
 
   const keyDownHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (guessesRemaining === 0) return;
@@ -76,7 +80,7 @@ function App() {
       handleAlert(
         true,
         "Игра поддерживает только русский язык",
-        "bg-yellow-100 text-yellow-700"
+        "yellow"
       );
       return;
     }
@@ -128,10 +132,10 @@ function App() {
     dispatch(decreaseLetters());
   }
 
-  function handleAlert(o: boolean, m: string, s: string) {
-    dispatch(setAlert({ open: o, message: m, style: s }));
+  function handleAlert(o: boolean, m: string, c: string) {
+    dispatch(setAlert({ open: o, message: m, color: c }));
     setTimeout(() => {
-      dispatch(setAlert({ open: false, message: "", style: "" }));
+      dispatch(setAlert({ open: false, message: "", color: "" }));
     }, 4000);
   }
 
@@ -140,11 +144,7 @@ function App() {
     const guessString = currentGuess.join("");
 
     if (guessString.length !== 5) {
-      handleAlert(
-        true,
-        "Введены не все буквы",
-        "bg-yellow-100 text-yellow-700"
-      );
+      handleAlert(true, "Введены не все буквы", "yellow");
       return;
     }
 
@@ -171,7 +171,7 @@ function App() {
 
     const victory = () => {
       dispatch(setStatusGame("win"));
-      handleAlert(true, "Вы выиграли!", "bg-green-100 text-green-700");
+      handleAlert(true, "Вы выиграли!", "green");
       dispatch(resetGuessesRemaining());
       dispatch(winStats());
       dispatch(barCalculation(6 - guessesRemaining));
@@ -238,7 +238,7 @@ function App() {
           })
         );
       } else if (letters.length > 0 && !letters.every((item) => currentGuess.includes(item))) {
-        handleAlert(true, "HARD MODE: Использованы не все подсказки", "bg-yellow-100 text-yellow-700");
+        handleAlert(true, "Использованы не все подсказки", "yellow");
       }
     }
     if (!active) {
@@ -316,8 +316,11 @@ function App() {
     if (localStorage.getItem('hardMode')) {
       dispatch(localHardMode())
     }
+    if (localStorage.getItem('theme')) {
+      dispatch(localToggleTheme())
+    }
   };
-
+  
   useEffect(() => {
     handleLocal();
   }, []); // eslint-disable-line
@@ -330,7 +333,7 @@ function App() {
 
   return (
     <div
-      className="relative w-screen min-w-[414px] flex flex-col justify-center content-between focus:outline-none bg-wordleWhite"
+      className={`${dark ? "bg-wordleBlack" : "bg-wordleWhite"} relative w-screen min-w-[414px] flex flex-col justify-center content-between focus:outline-none`}
       style={styleHeight}
       tabIndex={0}
       onKeyDown={keyDownHandler}
@@ -338,11 +341,6 @@ function App() {
       <Header />
       <Alert />
       <Board />
-      {/* {active && (
-        <p className="py-2 text-center text-base font-bold text-red-500 uppercase">
-          Hard Mode
-        </p>
-      )} */}
       <Keyboard handleClick={handleClick} />
       <Modal>{showModal(window)}</Modal>
     </div>

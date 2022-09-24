@@ -16,6 +16,7 @@ const ButtonTrue = () => {
   const { window, title, description } = useAppSelector(
     (state) => state.modal.modalSlice
   );
+  const dark = useAppSelector((state) => state.theme.darkThemeSlice);
 
   const handleConfirmation = () => {
     if (["Новая игра?", "Проиграл", "Сдаёшься?"].includes(title!)) {
@@ -75,7 +76,11 @@ const ButtonTrue = () => {
 
   return (
     <button
-      className="w-4/12 h-9 ml-2 border-2 border-wordleBlue rounded inline-block bg-wordleBlue hover:bg-white text-center font-bold text-white hover:text-wordleBlue uppercase select-none transition duration-300"
+      className={`${
+        dark
+          ? "border border-wordleBlueDark hover:border-wordleBlueDark bg-wordleBlack hover:bg-wordleBlueDark text-wordleWhite"
+          : "border-2 border-wordleBlue bg-wordleBlue hover:bg-wordleWhite text-wordleWhite hover:text-wordleBlue"
+      } w-4/12 h-9 ml-2 rounded inline-block text-center font-bold uppercase select-none transition duration-300`}
       type="button"
       onClick={() => handleConfirmation()}
     >

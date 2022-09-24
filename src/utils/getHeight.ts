@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 
-const getHeight = () => window.innerHeight 
-  || document.documentElement.clientHeight 
-  || document.body.clientHeight;
-  
+const getHeight = () =>
+  window.innerHeight ||
+  document.documentElement.clientHeight ||
+  document.body.clientHeight;
 
 export default function useCurrentHeight() {
-    let [height, setHeight] = useState(getHeight());
-    useEffect(() => {
-      const resizeListener = () => {
-        setHeight(getHeight())
-      };
-      window.addEventListener('resize', resizeListener);
-      return () => {
-        window.removeEventListener('resize', resizeListener);
-      }
-    }, [])
-    return height;
+  let [height, setHeight] = useState(getHeight());
+  useEffect(() => {
+    const resizeListener = () => {
+      setHeight(getHeight());
+    };
+    window.addEventListener("resize", resizeListener);
+    return () => {
+      window.removeEventListener("resize", resizeListener);
+    };
+  }, []);
+  return height;
 }
-

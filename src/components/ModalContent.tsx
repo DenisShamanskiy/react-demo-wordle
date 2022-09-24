@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "hook";
-import { activeModal } from "store/modalSlice";
+// import { activeModal } from "store/modalSlice";
 import { WORDS } from "../words";
 import skull from "../icon/skull.svg";
-import trash from "../icon/trash-outline.svg";
+// import trash from "../icon/trash-outline.svg";
 import InputSwitch from "./micro-components/InputSwitch";
 import ButtonClose from "./micro-components/Button/ButtonClose";
 import ButtonTrue from "./micro-components/Button/ButtonTrue";
@@ -14,22 +14,26 @@ import ButtonOk from "./micro-components/Button/ButtonOk";
 import ExampleWord from "./micro-components/ExampleWord";
 import CountStats from "./micro-components/CountStats";
 import { numWord } from "utils/formate";
-import { exampleRules } from "utils/data";
+import { exampleRules } from "utils/constants";
 import { setHardMode } from "store/hardModeSlice";
+import { toggleTheme } from "store/themeSlice";
 
 export const Content = {
   Confirmation: function Confirmation() {
     const { title, description } = useAppSelector(
       (state) => state.modal.modalSlice
     );
+    const dark = useAppSelector((state) => state.theme.darkThemeSlice);
 
     return (
       <section className="relative w-[340px]">
-        <h2 className="py-4 text-base font-extrabold text-center uppercase">
+        <h2 className={`${
+            dark ? "text-wordleWhite" : "text-wordleQuartz"
+          } py-4 text-base font-extrabold text-center uppercase`}>
           {title}
         </h2>
         {description && (
-          <ul className="mb-4 text-wordleYellow">
+          <ul className={`mb-4 ${dark ? "text-wordleYellowDark" : "text-wordleYellow"}`}>
             {description?.map((text, index) => {
               return (
                 <div className="px-3 flex flex-col justify-center" key={index}>
@@ -53,6 +57,7 @@ export const Content = {
     const rightGuess = useAppSelector(
       (state) => state.rightGuess.rightGuessSlice.currentWord
     );
+    const dark = useAppSelector((state) => state.theme.darkThemeSlice);
 
     return (
       <section className="w-80">
@@ -69,14 +74,16 @@ export const Content = {
             style={{ backgroundImage: `url(${skull})` }}
           ></span>
         </div>
-        <p className="py-4 text-center text-base font-extrabold uppercase">
+        <p className={`${
+            dark ? "text-wordleWhite" : "text-wordleQuartz"
+          } py-4 text-base font-extrabold text-center uppercase`}>
           Загаданное слово
         </p>
         <ul className="py-4 flex justify-center items-center">
           {[...rightGuess].map((letter, index) => {
             return (
               <li
-                className="w-9 h-9 mr-1 last-of-type:mr-0 inline-flex justify-center items-center text-2xl font-extrabold uppercase letter-green"
+                className={`w-9 h-9 mr-1 last-of-type:mr-0 inline-flex justify-center items-center font-['Bitter'] text-2xl font-extrabold text-wordleWhite uppercase ${dark ? "bg-wordleGreenDark" : "bg-wordleGreen" }`}
                 key={index}
               >
                 {letter}
@@ -93,17 +100,20 @@ export const Content = {
     const { previousWord } = useAppSelector(
       (state) => state.rightGuess.rightGuessSlice
     );
+    const dark = useAppSelector((state) => state.theme.darkThemeSlice);
 
     return (
       <section className="w-80 select-none">
-        <h2 className="py-4 text-base font-extrabold text-center uppercase">
+        <h2 className={`${
+            dark ? "text-wordleWhite" : "text-wordleQuartz"
+          } py-4 text-base font-extrabold text-center uppercase`}>
           Загаданное слово
         </h2>
         <ul className="py-4 flex justify-center items-center">
           {[...previousWord].map((letter, index) => {
             return (
               <li
-                className="w-9 h-9 mr-1 last-of-type:mr-0 inline-flex justify-center items-center text-2xl font-extrabold uppercase letter-green"
+                className={`w-9 h-9 mr-1 last-of-type:mr-0 inline-flex justify-center items-center font-['Bitter'] text-2xl font-extrabold text-wordleWhite uppercase ${dark ? "bg-wordleGreenDark" : "bg-wordleGreen" }`}
                 key={index}
               >
                 {letter}
@@ -117,24 +127,56 @@ export const Content = {
   },
 
   Rules: function Rules() {
+    const dark = useAppSelector((state) => state.theme.darkThemeSlice);
+
     return (
-      <section className="relative w-full w-max-96 select-none">
-        <h2 className="text-center text-base font-bold uppercase">
+      <section
+        className={`${
+          dark ? "bg-wordleBlack" : "bg-wordleWhite"
+        } relative w-full w-max-96 select-none`}
+      >
+        <h2
+          className={`${
+            dark ? "text-wordleWhite" : "text-wordleQuartz"
+          } text-center text-base font-bold uppercase`}
+        >
           Как играть
         </h2>
         <ButtonClose />
-        <p className="my-4 text-sm">
+        <p
+          className={`${
+            dark ? "text-wordleWhite" : "text-wordleQuartz"
+          } my-4 text-sm`}
+        >
           Угадай <strong>СЛОВО</strong> за 6 попыток
         </p>
-        <p className="my-4 text-sm">
+        <p
+          className={`${
+            dark ? "text-wordleWhite" : "text-wordleQuartz"
+          } my-4 text-sm`}
+        >
           Каждое предположение должно быть допустимым словом из 5 букв
         </p>
-        <p className="my-4 text-sm">
+        <p
+          className={`${
+            dark ? "text-wordleWhite" : "text-wordleQuartz"
+          } my-4 text-sm`}
+        >
           После каждой попытки цвет плитки будет меняться, чтобы показать,
           насколько ваше предположение было близко к слову
         </p>
-        <div className="border-y border-wordleBorderLight">
-          <p className="mt-4 text-sm font-bold uppercase">Примеры</p>
+        <div
+          className={`border-y ${
+            dark ? "border-wordleBorderDark" : "border-wordleBorderLight"
+          }`}
+        >
+          <p
+            className={`${
+              dark ? "text-wordleWhite" : "text-wordleQuartz"
+            } mt-4 text-sm font-bold uppercase`}
+          >
+            Примеры
+          </p>
           {exampleRules.map((row, indexRow) => {
             return (
               <div className="my-6" key={indexRow}>
@@ -148,7 +190,11 @@ export const Content = {
                     />
                   );
                 })}
-                <p className="my-4 text-sm">
+                <p
+                  className={`${
+                    dark ? "text-wordleWhite" : "text-wordleQuartz"
+                  } my-4 text-sm`}
+                >
                   {row.discreption[0]} <strong>{row.discreption[1]}</strong>{" "}
                   {row.discreption[2]}
                 </p>
@@ -156,7 +202,11 @@ export const Content = {
             );
           })}
         </div>
-        <p className="mt-4 text-center text-xs">
+        <p
+          className={`${
+            dark ? "text-wordleWhite" : "text-wordleQuartz"
+          } mt-4 text-center text-xs`}
+        >
           В игре <strong>{WORDS.length}</strong> {numWord(WORDS.length)}
         </p>
       </section>
@@ -167,10 +217,15 @@ export const Content = {
     const { win, loss, surrender, bar } = useAppSelector(
       (state) => state.stats.stats
     );
+    const dark = useAppSelector((state) => state.theme.darkThemeSlice);
 
     return (
-      <section className="relative w-[340px]">
-        <h2 className="text-center text-base font-bold uppercase">
+      <section className="relative w-[340px] select-none">
+        <h2
+          className={`${
+            dark ? "text-wordleWhite" : "text-wordleQuartz"
+          } text-center text-base font-bold uppercase`}
+        >
           Статистика
         </h2>
         <ButtonClose />
@@ -179,25 +234,51 @@ export const Content = {
             return <CountStats count={item} index={index} key={index} />;
           })}
         </div>
-        <div className="mb-8 border-b border-wordleBorderLight">
-          <h3 className="pb-4 flex justify-center border-b border-wordleBorderLight font-bold text-sm uppercase">
+        <div className="mb-8">
+          <h3
+            className={`${
+              dark ? "text-wordleWhite" : "text-wordleQuartz"
+            } pb-4 flex justify-center font-bold text-sm uppercase`}
+          >
             Выигрышные попытки
           </h3>
-          <ul className="py-4">
+          <ul
+            className={`border-y ${
+              dark ? "border-wordleTone4Dark" : "border-wordleTone4"
+            } py-4`}
+          >
             {bar.map((row, index) => {
               return (
                 <li
                   className="w-full mb-1 flex justify-center items-center"
                   key={index}
                 >
-                  <p className="w-5 mr-2 flex font-bold">#{row.name}</p>
-                  <div className="relative w-9/12 h-3 rounded-xl bg-wordleBorderLight/30">
+                  <p
+                    className={`${
+                      dark ? "text-wordleWhite" : "text-wordleQuartz"
+                    } w-5 mr-2 flex font-bold`}
+                  >
+                    #{row.name}
+                  </p>
+                  <div
+                    className={`relative w-9/12 h-3 rounded-xl ${
+                      dark ? "bg-wordleTone4Dark/40" : "bg-wordleTone4/40"
+                    }`}
+                  >
                     <span
-                      className="relative h-full rounded-xl block bg-wordleGreen overflow-hidden"
+                      className={`relative h-full rounded-xl block ${
+                        dark ? "bg-wordleGreenDark" : "bg-wordleGreen"
+                      } overflow-hidden`}
                       style={{ width: `${row.percent}` }}
                     ></span>
                   </div>
-                  <p className="w-6 h-6 ml-auto border border-wordleBorder border-opacity-30 flex justify-center items-center font-extrabold uppercase box-border bg-white">
+                  <p
+                    className={`w-6 h-6 ml-auto flex justify-center items-center font-extrabold uppercase box-border overflow-hidden ${
+                      dark
+                        ? "bg-wordleGreyDark border-0 text-wordleWhite"
+                        : "bg-wordleWhite border border-wordleTone4 text-wordleQuartz"
+                    }`}
+                  >
                     {row.count}
                   </p>
                 </li>
@@ -212,63 +293,75 @@ export const Content = {
 
   Settings: function Settings() {
     const dispatch = useAppDispatch();
-    const { window, title, description } = useAppSelector(
-      (state) => state.modal.modalSlice
-    );
+    // const { window, title, description } = useAppSelector(
+    //   (state) => state.modal.modalSlice
+    // );
     const { active, letters } = useAppSelector(
       (state) => state.hardMode.hardModeSlice
     );
-    const clearLocalStorage = () => {
-      dispatch(
-        activeModal({
-          open: false,
-          window: window,
-          title: title,
-          description: description,
-        })
-      );
-      setTimeout(() => {
-        dispatch(
-          activeModal({
-            open: true,
-            window: "Confirmation",
-            title: "Очистить LocalStorage?",
-            description: [
-              "LocalStorage будет очищен",
-              "Статистика будет удалена",
-              "Для начала новой игры необходимо обновить страницу",
-            ],
-          })
-        );
-      }, 700);
-    };
+    const dark = useAppSelector((state) => state.theme.darkThemeSlice);
+    // const clearLocalStorage = () => {
+    //   dispatch(
+    //     activeModal({
+    //       open: false,
+    //       window: window,
+    //       title: title,
+    //       description: description,
+    //     })
+    //   );
+    //   setTimeout(() => {
+    //     dispatch(
+    //       activeModal({
+    //         open: true,
+    //         window: "Confirmation",
+    //         title: "Очистить LocalStorage?",
+    //         description: [
+    //           "LocalStorage будет очищен",
+    //           "Статистика будет удалена",
+    //           "Для начала новой игры необходимо обновить страницу",
+    //         ],
+    //       })
+    //     );
+    //   }, 700);
+    // };
 
     return (
-      <div className="relative w-[340px]">
-        <h2 className="mb-4 text-center text-base font-bold uppercase">
+      <div className="relative w-[340px] select-none">
+        <h2 className={`${
+            dark ? "text-wordleWhite" : "text-wordleQuartz"
+          } text-center text-base font-bold uppercase`}>
           Настройки
         </h2>
         <ButtonClose />
-        <div className="">
+        <div className="my-6">
           <div className="relative mb-1 p-2 flex justify-between items-center">
-            <div className="flex flex-col">
+            <div className={`${
+            dark ? "text-wordleWhite" : "text-wordleQuartz"
+          } flex flex-col`}>
               <p className="text-lg font-bold">Hard Mode</p>
               <p className="text-xs">Необходимо использовать все подсказки</p>
             </div>
-            <InputSwitch onChange={() => dispatch(setHardMode({ active: !active, letters: letters}))} isChecked={active}/>
+            <InputSwitch
+              onChange={() =>
+                dispatch(setHardMode({ active: !active, letters: letters }))
+              }
+              isChecked={active}
+            />
+          </div>
+          <div className="relative p-2 h-[60px] flex justify-between items-center">
+            <p className={`${
+            dark ? "text-wordleWhite" : "text-wordleQuartz"
+          } text-lg font-bold`}>Dark Theme</p>
+            <InputSwitch
+              onChange={() => dispatch(toggleTheme())}
+              isChecked={dark}
+            />
             {/* <div className="absolute bg-neutral-300 top-0 right-0 left-0 bottom-0 opacity-80 flex justify-center items-center rounded">
               <p className="after:text-slate-900">В разработке</p>
             </div> */}
           </div>
-          <div className="relative p-2 h-[60px] flex justify-between items-center">
-            <p className="text-lg font-bold">Dark Theme</p>
-            <InputSwitch onChange={() => console.log()} isChecked={false}/>
-            <div className="absolute bg-neutral-300 top-0 right-0 left-0 bottom-0 opacity-80 flex justify-center items-center rounded">
-              <p className="after:text-slate-900">В разработке</p>
-            </div>
-          </div>
         </div>
-        <p className="mt-8 mb-4 text-center text-base font-bold uppercase">
+        {/* <p className="mt-8 mb-4 text-center text-base font-bold uppercase">
           Дополнительно
         </p>
         <div className="h-[60px] p-2 border-b border-wordleBorderLight flex justify-between items-center">
@@ -279,8 +372,8 @@ export const Content = {
             onClick={() => clearLocalStorage()}
             style={{ backgroundImage: `url(${trash})` }}
           ></button>
-        </div>
-        <p className="py-4 text-xs text-[#787c7e]">© 2022 Денис Шаманский</p>
+        </div> */}
+        <p className="text-xs text-[#787c7e]">© 2022 Денис Шаманский</p>
       </div>
     );
   },

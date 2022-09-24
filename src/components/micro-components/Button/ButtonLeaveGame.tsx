@@ -11,6 +11,7 @@ const ButtonNewGame = () => {
   const { window, title, description } = useAppSelector(
     (state) => state.modal.modalSlice
   );
+  const dark = useAppSelector((state) => state.theme.darkThemeSlice);
 
   const leaveGame = () => {
     dispatch(
@@ -34,11 +35,16 @@ const ButtonNewGame = () => {
   };
 
   const disabled =
-    board[0]?.every((item) => item.color === "") || ["win", "lost"].includes(game);
+    board[0]?.every((item) => item.color === "") ||
+    ["win", "lost"].includes(game);
 
   return (
     <button
-      className="w-full h-[44px] border-2 border-wordleYellow disabled:border-wordleBorder rounded inline-block bg-wordleYellow hover:bg-white disabled:bg-white text-center font-bold text-white hover:text-wordleYellow disabled:text-wordleBorder uppercase select-none transition duration-300 disabled:opacity-70 disabled:pointer-events-none"
+      className={`${
+        dark
+          ? "border border-wordleYellowDark bg-wordleBlack hover:bg-wordleYellowDark text-wordleYellowDark hover:text-wordleWhite disabled:bg-wordleBlack disabled:border-wordleTone4Dark disabled:text-wordleTone4Dark"
+          : "border-2 border-wordleYellow bg-wordleYellow hover:bg-wordleWhite text-wordleWhite hover:text-wordleYellow disabled:bg-wordleWhite disabled:border-wordleTone4 disabled:text-wordleTone4"
+      } w-full h-[44px]  rounded block text-center font-bold uppercase select-none transition duration-300 disabled:pointer-events-none`}
       type="button"
       onClick={() => leaveGame()}
       disabled={disabled}

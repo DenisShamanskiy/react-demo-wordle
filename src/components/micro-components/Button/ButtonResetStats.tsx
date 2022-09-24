@@ -8,6 +8,8 @@ const ButtonResetStats = () => {
 
   const { window } = useAppSelector((state) => state.modal.modalSlice);
 
+  const dark = useAppSelector((state) => state.theme.darkThemeSlice);
+
   const resetStats = () => {
     dispatch(activeModal({ open: false, window: window }));
     setTimeout(() => {
@@ -26,7 +28,11 @@ const ButtonResetStats = () => {
 
   return (
     <button
-      className="w-4/12 h-9 mx-auto mb-4 border-2 border-wordleRed disabled:border-wordleBorder rounded block bg-wordleRed hover:bg-white disabled:bg-white text-center font-bold text-white hover:text-wordleRed disabled:text-wordleBorder uppercase select-none transition duration-300 disabled:opacity-70 disabled:pointer-events-none"
+      className={`${
+        dark
+          ? "border border-wordleRedDark bg-wordleBlack hover:bg-wordleRedDark text-wordleRedDark hover:text-wordleWhite disabled:bg-wordleBlack disabled:border-wordleTone4Dark disabled:text-wordleTone4Dark"
+          : "border-2 border-wordleRed bg-wordleRed hover:bg-wordleWhite text-wordleWhite hover:text-wordleRed disabled:bg-wordleWhite disabled:border-wordleTone4 disabled:text-wordleTone4"
+      } w-4/12 h-9 mx-auto mb-4 rounded block text-center font-bold uppercase select-none transition duration-300 disabled:pointer-events-none`}
       onClick={() => resetStats()}
       disabled={disabled}
     >

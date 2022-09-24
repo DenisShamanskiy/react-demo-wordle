@@ -1,4 +1,4 @@
-import { dataCountStats } from "utils/data";
+import { useAppSelector } from "hook";
 
 interface ICountStatsProps {
   index: number;
@@ -6,6 +6,23 @@ interface ICountStatsProps {
 }
 
 const CountStats = ({ index, count }: ICountStatsProps) => {
+  const dark = useAppSelector((state) => state.theme.darkThemeSlice);
+
+  const dataCountStats = [
+    {
+      text: "Выиграл",
+      style: `${dark ? "text-wordleGreenDark" : "text-wordleGreen"}`,
+    },
+    {
+      text: "Сдался",
+      style: `${dark ? "text-wordleYellowDark" : "text-wordleYellow"}`,
+    },
+    {
+      text: "Проиграл",
+      style: `${dark ? "text-wordleRedDark" : "text-wordleRed"}`,
+    },
+  ];
+
   return (
     <div
       className={`flex flex-col justify-center text-center ${

@@ -1,10 +1,10 @@
 interface IButtonIconProps {
-  onClick?: () => void;
+  onClick: () => void;
   disabled?: boolean;
   style: React.CSSProperties;
 }
 
-const ButtonClose = ({ onClick, disabled, style }: IButtonIconProps) => {
+const ButtonIcon = ({ onClick, disabled, style }: IButtonIconProps) => {
   return (
     <button
       type="button"
@@ -16,4 +16,4 @@ const ButtonClose = ({ onClick, disabled, style }: IButtonIconProps) => {
   );
 };
 
-export default ButtonClose;
+export default ButtonIcon;

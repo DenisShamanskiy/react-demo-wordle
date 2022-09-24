@@ -8,9 +8,15 @@ const ButtonFalse = () => {
     (state) => state.modal.modalSlice
   );
 
+  const dark = useAppSelector((state) => state.theme.darkThemeSlice);
+
   return (
     <button
-      className="w-4/12 h-9 mr-2 border-2 border-wordleRed rounded inline-block bg-wordleRed hover:bg-white text-center font-bold text-white hover:text-wordleRed uppercase select-none transition duration-300"
+      className={`${
+        dark
+          ? "border border-wordleRedDark hover:border-wordleRedDark bg-wordleBlack hover:bg-wordleRedDark text-wordleWhite"
+          : "border-2 border-wordleRed bg-wordleRed hover:bg-wordleWhite text-wordleWhite hover:text-wordleRed"
+      } w-4/12 h-9 mr-2 rounded inline-block text-center font-bold uppercase select-none transition duration-300`}
       type="button"
       onClick={() =>
         dispatch(

@@ -20,18 +20,3 @@ export const exampleRules = [
     discreption: ["Буквы", "Р", "нет в загаданном слове"],
   },
 ];
-
-export const dataCountStats = [
-  {
-    text: "Выиграл",
-    style: "text-wordleGreen",
-  },
-  {
-    text: "Сдался",
-    style: "text-wordleYellow",
-  },
-  {
-    text: "Проиграл",
-    style: "text-wordleRed",
-  },
-];

@@ -5,10 +5,14 @@ const ButtonFalse = () => {
   const dispatch = useAppDispatch();
 
   const { window } = useAppSelector((state) => state.modal.modalSlice);
+  const dark = useAppSelector((state) => state.theme.darkThemeSlice);
 
   return (
     <button
-      className="w-4/12 h-9 my-4 mx-auto border-2 border-wordleBlue rounded block bg-wordleBlue hover:bg-white text-center font-bold text-white hover:text-wordleBlue uppercase select-none transition duration-300"
+      className={`${dark
+      ? "border border-wordleBlueDark bg-wordleBlack hover:bg-wordleBlueDark text-wordleWhite"
+      : "border-2 border-wordleBlue bg-wordleBlue hover:bg-wordleWhite text-wordleWhite hover:text-wordleBlue"
+  } w-4/12 h-9 my-4 mx-auto rounded block text-center font-bold uppercase select-none transition duration-300`}
       onClick={() => dispatch(activeModal({ open: false, window: window }))}
     >
       ХОРОШО

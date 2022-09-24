@@ -28,41 +28,9 @@
   }
 }
 @layer components {
-  .letter {
-    @apply border-2 border-wordleBorderLight inline-flex justify-center items-center;
-  }
-  .letter-white {
-    @apply border-wordleGray;
-  }
-  .letter-green {
-    @apply border-0 text-white bg-wordleGreen;
-  }
-  .letter-yellow {
-    @apply border-0 text-white bg-wordleYellow;
-  }
-  .letter-grey {
-    @apply border-0 text-white bg-wordleGray;
-  }
+  
   .button-key {
     @apply
-    h-[48px] mr-1.5 p-0 rounded border-b border-[color:var(--color-border)] flex flex-1 justify-center items-center font-bold uppercase cursor-pointer select-none last:mr-0 active:border-0 active:border-t
-  }
-  .icon {
-    @apply inline-block w-7 h-7 rounded disabled:pointer-events-none disabled:opacity-30 hover:rotate-[360deg] transition duration-500 ease-in-out;
-  }
-  .modal {
-    @apply fixed w-full h-full min-w-[414px] bg-white/60 top-0 left-0 flex justify-center opacity-0 pointer-events-none transition-opacity duration-500 z-50
-  }
-  .modal_active {
-    @apply opacity-100 transition-opacity duration-500 pointer-events-auto
-  }
-  .modal__component {
-    @apply relative w-fit max-w-[512px] p-4 rounded-xl bg-white shadow-modal
-  }
-  .modal__component_active {
-    @apply border border-[#f6f7f8] animate-modalOpen
-  }
-  .modal__component_inactive {
-    @apply border border-[#f6f7f8] animate-modalClosed
+    h-[48px] mr-1.5 p-0 rounded border-b flex flex-1 justify-center items-center font-bold uppercase cursor-pointer select-none last:mr-0 active:border-0 active:border-t
   }
 }

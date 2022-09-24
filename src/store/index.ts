@@ -10,6 +10,7 @@ import modalReducer from './modalSlice';
 import statsReducer from './statsSlice';
 import statusGameReducer from './statusGameSlice';
 import hardModeReducer from './hardModeSlice';
+import themeReducer from './themeSlice';
 
 const store = configureStore({
   reducer: {
@@ -23,8 +24,8 @@ const store = configureStore({
     modal: modalReducer,
     stats: statsReducer,
     game: statusGameReducer,
-    hardMode: hardModeReducer
-
+    hardMode: hardModeReducer,
+    theme: themeReducer
   },
 })
 export type RootState = ReturnType<typeof store.getState>;
