@@ -1,31 +1,25 @@
-import { useAppSelector } from "hook";
+import { useAppSelector } from 'hook'
 
 interface IExampleWordProps {
-  index: number;
-  letter: string;
-  row: number;
+  index: number
+  letter: string
+  row: number
 }
 
 const ExampleWord = ({ index, letter, row }: IExampleWordProps) => {
-  const dark = useAppSelector((state) => state.theme.darkThemeSlice);
+  const dark = useAppSelector((state) => state.theme.darkThemeSlice)
   const getColorLetter = (row: number) => {
     switch (row) {
       case 0:
-        return `border-0 text-wordleWhite ${
-          dark ? "bg-wordleGreenDark" : "bg-wordleGreen"
-        }`;
+        return `border-0 text-wordleWhite ${dark ? 'bg-wordleGreenDark' : 'bg-wordleGreen'}`
       case 1:
-        return `border-0 text-wordleWhite ${
-          dark ? "bg-wordleYellowDark" : "bg-wordleYellow"
-        }`;
+        return `border-0 text-wordleWhite ${dark ? 'bg-wordleYellowDark' : 'bg-wordleYellow'}`
       case 2:
-        return `border-0 text-wordleWhite ${
-          dark ? "bg-wordleGreyDark" : "bg-wordleGrey"
-        }`;
+        return `border-0 text-wordleWhite ${dark ? 'bg-wordleGreyDark' : 'bg-wordleGrey'}`
       default:
-        return "";
+        return ''
     }
-  };
+  }
 
   return (
     <div
@@ -33,8 +27,8 @@ const ExampleWord = ({ index, letter, row }: IExampleWordProps) => {
         index !== row
           ? `border-2 ${
               dark
-                ? "border-2 border-wordleTone3Dark text-wordleWhite"
-                : "border-2 border-wordleTone3 text-wordleQuartz"
+                ? 'border-2 border-wordleTone3Dark text-wordleWhite'
+                : 'border-2 border-wordleTone3 text-wordleQuartz'
             }`
           : getColorLetter(row)
       }`}
@@ -42,7 +36,7 @@ const ExampleWord = ({ index, letter, row }: IExampleWordProps) => {
     >
       {letter}
     </div>
-  );
-};
+  )
+}
 
-export default ExampleWord;
+export default ExampleWord

@@ -1,23 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 type AlertState = {
   alertSlice: {
-    open: boolean;
-    message: string;
-    color: string;
-  };
-};
+    open: boolean
+    message: string
+    color: string
+  }
+}
 
 const initialState: AlertState = {
   alertSlice: {
     open: true,
-    message: "",
-    color: "",
+    message: '',
+    color: '',
   },
-};
+}
 
 const alertSlice = createSlice({
-  name: "alert",
+  name: 'alert',
   initialState,
   reducers: {
     setAlert(state, action) {
@@ -26,11 +26,11 @@ const alertSlice = createSlice({
         open: action.payload.open,
         color: action.payload.color,
         message: action.payload.message,
-      };
+      }
     },
   },
-});
+})
 
-export const { setAlert } = alertSlice.actions;
+export const { setAlert } = alertSlice.actions
 
-export default alertSlice.reducer;
+export default alertSlice.reducer

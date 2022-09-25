@@ -6,31 +6,15 @@
 
 @layer base {
   html {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+      'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: var(--color-quartz)
-  }
-}
-@layer base {
-  :root {
-    --color-tone-1: #000000;
-    --color-tone-2: #787c7e;
-    --color-tone-3: #878a8c;
-    --color-tone-4: #d3d6da;
-    --color-tone-7: #ffffff;
-
-    --color-quartz: #49474E;
-    --color-border: #878a8c;
-    --color-border-dark: #515254
+    color: var(--color-quartz);
   }
 }
 @layer components {
-  
   .button-key {
-    @apply
-    h-[48px] mr-1.5 p-0 rounded border-b flex flex-1 justify-center items-center font-bold uppercase cursor-pointer select-none last:mr-0 active:border-0 active:border-t
+    @apply h-[48px] mr-1.5 p-0 rounded border-b flex flex-1 justify-center items-center font-bold uppercase cursor-pointer select-none last:mr-0 active:border-0 active:border-t;
   }
 }

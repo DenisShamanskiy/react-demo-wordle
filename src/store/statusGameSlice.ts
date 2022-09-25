@@ -1,28 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 type StatusGameState = {
-    statusGameSlice: string;
+  statusGameSlice: string
 }
 
 const initialState: StatusGameState = {
-    statusGameSlice: "inGame",
+  statusGameSlice: 'inGame',
 }
 
 const statusGameSlice = createSlice({
-  name: "statusGame",
+  name: 'statusGame',
   initialState,
   reducers: {
     localStatusGame(state) {
-        state.statusGameSlice = localStorage.getItem("statusGame")!
+      state.statusGameSlice = localStorage.getItem('statusGame')!
     },
     setStatusGame(state, action) {
-        state.statusGameSlice = action.payload
-        localStorage.setItem('statusGame', state.statusGameSlice);
+      state.statusGameSlice = action.payload
+      localStorage.setItem('statusGame', state.statusGameSlice)
     },
-    
   },
-});
+})
 
-export const { localStatusGame, setStatusGame } = statusGameSlice.actions;
+export const { localStatusGame, setStatusGame } = statusGameSlice.actions
 
-export default statusGameSlice.reducer;
+export default statusGameSlice.reducer
