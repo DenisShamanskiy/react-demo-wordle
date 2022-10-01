@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/react-demo-wordle/static/css/main.3a716e69.css",
-    "main.js": "/react-demo-wordle/static/js/main.0bf5fb4b.js",
+    "main.css": "/react-demo-wordle/static/css/main.ff504b60.css",
+    "main.js": "/react-demo-wordle/static/js/main.60acc197.js",
     "static/media/david-alaba.gif": "/react-demo-wordle/static/media/david-alaba.a9ecebc3dacbbda219d7.gif",
-    "static/media/congratulations.gif": "/react-demo-wordle/static/media/congratulations.944a9052f7278aa78605.gif",
-    "static/media/confetti.gif": "/react-demo-wordle/static/media/confetti.e5e2200c425e253be4e1.gif",
+    "static/media/grave.gif": "/react-demo-wordle/static/media/grave.4d3c17115e4165615f11.gif",
     "index.html": "/react-demo-wordle/index.html",
-    "main.3a716e69.css.map": "/react-demo-wordle/static/css/main.3a716e69.css.map",
-    "main.0bf5fb4b.js.map": "/react-demo-wordle/static/js/main.0bf5fb4b.js.map"
+    "main.ff504b60.css.map": "/react-demo-wordle/static/css/main.ff504b60.css.map",
+    "main.60acc197.js.map": "/react-demo-wordle/static/js/main.60acc197.js.map"
   },
   "entrypoints": [
-    "static/css/main.3a716e69.css",
-    "static/js/main.0bf5fb4b.js"
+    "static/css/main.ff504b60.css",
+    "static/js/main.60acc197.js"
   ]
 }
