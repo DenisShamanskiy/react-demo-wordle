@@ -1,30 +1,32 @@
-import { useAppSelector } from 'hook'
+import { useAppSelector } from 'utils/hook'
 
 const Board = () => {
-  const board = useAppSelector((state) => state.board.board)
-  const dark = useAppSelector((state) => state.theme.darkThemeSlice)
+  const board = useAppSelector((state) => state.persist.game.board)
+  const darkTheme = useAppSelector((state) => state.persist.settings.darkMode)
 
   const getColorLetter = (value: string | undefined, color: string | undefined) => {
     if (value && color) {
       switch (color) {
         case 'letter-green':
-          return `border-0 text-wordleWhite ${dark ? 'bg-wordleGreenDark' : 'bg-wordleGreen'}`
+          return `border-0 text-wordleWhite ${darkTheme ? 'bg-wordleGreenDark' : 'bg-wordleGreen'}`
         case 'letter-yellow':
-          return `border-0 text-wordleWhite ${dark ? 'bg-wordleYellowDark' : 'bg-wordleYellow'}`
+          return `border-0 text-wordleWhite ${
+            darkTheme ? 'bg-wordleYellowDark' : 'bg-wordleYellow'
+          }`
         case 'letter-grey':
-          return `border-0 text-wordleWhite ${dark ? 'bg-wordleGreyDark' : 'bg-wordleGrey'}`
+          return `border-0 text-wordleWhite ${darkTheme ? 'bg-wordleGreyDark' : 'bg-wordleGrey'}`
         default:
           return ''
       }
     }
     if (value) {
       return `${
-        dark
+        darkTheme
           ? 'border-2 border-wordleTone3Dark text-wordleWhite'
           : 'border-2 border-wordleTone3 text-wordleQuartz'
       }`
     }
-    return `${dark ? 'border-2 border-wordleTone4Dark' : 'border-2 border-wordleTone4'}`
+    return `${darkTheme ? 'border-2 border-wordleTone4Dark' : 'border-2 border-wordleTone4'}`
   }
 
   return (

@@ -1,78 +1,141 @@
 import React, { useEffect } from 'react'
-import { WORDS } from 'words'
-import { useAppDispatch, useAppSelector } from 'hook'
+import { WORDS } from 'utils/constants'
+import { useAppDispatch, useAppSelector } from 'utils/hook'
 import useCurrentHeight from 'utils/getHeight'
-import { setAlert } from 'store/alertSlice'
-import { addLetter, colorLetter, localBoard, removeLetter } from 'store/boardSlice'
-import {
-  addCurrentGuess,
-  localCurrentGuess,
-  removeCurrentGuess,
-  resetCurrentGuess,
-} from 'store/currentGuessSlice'
-import {
-  decreaseGuessesRemaining,
-  localGuessesRemaining,
-  resetGuessesRemaining,
-} from 'store/guessesRemainingSlice'
-import { colorKey, localKeyBoard } from 'store/keyboardSlice'
-import { activeModal } from 'store/modalSlice'
-import { decreaseLetters, increaseLetters, localLetters, resetLetters } from 'store/nextLetterSlice'
 import Alert from './Alert'
 import Header from './Header'
 import Board from './Board'
 import Keyboard from './Keyboard'
 import Modal from './Modal'
-import { Content } from './ModalContent'
-import { localRightGuess, startRightGuess } from 'store/rightGuessSlice'
-import { barCalculation, localStats, lossStats, winStats } from 'store/statsSlice'
-import { localStatusGame, setStatusGame } from 'store/statusGameSlice'
-import { localHardMode, setHardMode } from 'store/hardModeSlice'
-import { localToggleTheme } from 'store/themeSlice'
+import Confirmation from './ModalContent/Confirmation'
+import GameWin from './ModalContent/GameWin'
+import GameLost from './ModalContent/GameLost'
+import LeaveGame from './ModalContent/LeaveGame'
+import Rules from './ModalContent/Rules'
+import Statistics from './ModalContent/Stats'
+import Settings from './ModalContent/Settings'
+import Restart from './ModalContent/Restart'
+import { handleAlert } from 'store/alertSlice'
+import { openModal } from 'store/modalSlice'
+import {
+  addLetterBoard,
+  gameLost,
+  gameWon,
+  getFirstWord,
+  getLocalPersist,
+  nextStep,
+  removeLetterBoard,
+  setHardMode,
+} from 'store/persistSlice'
 
 function App() {
   const styleHeight = {
     height: `${useCurrentHeight()}px`,
   }
   const dispatch = useAppDispatch()
-  const board = useAppSelector((state) => state.board.board)
-  const nextLetter = useAppSelector((state) => state.nextLetter.nextLetterSlice)
-  const guessesRemaining = useAppSelector((state) => state.guessesRemaining.guessesRemainingSlice)
-  const currentGuess = useAppSelector((state) => state.currentGuess.currentGuessSlice)
-  const { currentWord } = useAppSelector((state) => state.rightGuess.rightGuessSlice)
-  const { open, window, title } = useAppSelector((state) => state.modal.modalSlice)
-  const { active, letters } = useAppSelector((state) => state.hardMode.hardModeSlice)
-  const dark = useAppSelector((state) => state.theme.darkThemeSlice)
 
-  const keyDownHandler = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (guessesRemaining === 0) return
+  const alert = useAppSelector((state) => state.alert)
+  const { open, window, title } = useAppSelector((state) => state.modal)
+  const {
+    darkMode: darkTheme,
+    hardMode: { active, letters },
+  } = useAppSelector((state) => state.persist.settings)
+  const {
+    nextLetter,
+    currentGuess,
+    word: { currentWord },
+    currentRowIndex,
+    gameStatus,
+  } = useAppSelector((state) => state.persist.game)
+
+  const showAlert = (open: boolean, message: string) => {
+    if (!alert.open) {
+      dispatch(handleAlert({ open: open, message: message }))
+      setTimeout(() => {
+        dispatch(handleAlert({ open: false, message: alert.message }))
+      }, 5000)
+    }
+  }
+  const handleGuess = (
+    lettersHardMode: string[],
+    currentGuessStr: string,
+    indexColorArray: number[],
+  ) => {
+    dispatch(setHardMode({ active: active, letters: lettersHardMode }))
+    if (currentGuessStr === currentWord) {
+      dispatch(gameWon(indexColorArray))
+      dispatch(openModal({ open: true, window: 'Win' }))
+    } else {
+      dispatch(nextStep(indexColorArray))
+      if (currentRowIndex === 5) {
+        dispatch(gameLost())
+        dispatch(openModal({ open: true, window: 'GameLost', title: 'Проиграл' }))
+      }
+    }
+  }
+
+  const checkGuess = () => {
+    const currentGuessStr = currentGuess.join('')
+    if (currentGuessStr.length !== 5) {
+      showAlert(true, 'Введены не все буквы')
+      return
+    }
+    if (!WORDS.includes(currentGuessStr)) {
+      showAlert(true, 'Такого слова нет в списке')
+      return
+    }
+    const indexColorArray: number[] = []
+    for (let i = 0; i < 5; i++) {
+      indexColorArray.push(currentWord.indexOf(currentGuess[i]!))
+    }
+    const lettersHardMode = [
+      ...new Set([...currentWord].filter((letter) => currentGuess.includes(letter))),
+    ]
+    if (active) {
+      if (
+        letters.length === 0 ||
+        (letters.length > 0 && letters.every((item) => currentGuess.includes(item)))
+      ) {
+        handleGuess(lettersHardMode, currentGuessStr, indexColorArray)
+      } else if (letters.length > 0 && !letters.every((item) => currentGuess.includes(item))) {
+        showAlert(true, 'Использованы не все подсказки')
+      }
+    }
+    if (!active) {
+      handleGuess(lettersHardMode, currentGuessStr, indexColorArray)
+    }
+  }
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     const pressedKey = String(event.key)
+    if (gameStatus === 'WIN') return
     if (pressedKey.length === 1 && pressedKey.match(/[a-z]/gi)) {
-      handleAlert(true, 'Игра поддерживает только русский язык', 'yellow')
+      showAlert(true, 'Игра поддерживает только русский язык')
       return
     }
     if (pressedKey === 'Backspace' && nextLetter !== 0) {
-      deleteLetter()
+      dispatch(removeLetterBoard())
+      return
+    }
+    if (pressedKey === 'Escape' && open) {
+      dispatch(openModal({ open: false, window: window, title: title }))
       return
     }
     if (pressedKey === 'Enter') {
       checkGuess()
       return
     }
-    if (pressedKey === 'Escape' && open) {
-      dispatch(activeModal({ open: false, window: window, title: title }))
-      return
-    }
     const found = pressedKey.match(/[а-яА-ЯЁё]/gi)
     if (!found || found.length > 1) return
-    else insertLetter(pressedKey)
+    if (nextLetter === 5) {
+      console.log('nextLetter === 5')
+      return
+    } else dispatch(addLetterBoard(pressedKey))
   }
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (guessesRemaining === 0) return
     const pressedKey = event.currentTarget.dataset['key']!
+    if (gameStatus === 'WIN') return
     if (pressedKey === '←' && nextLetter !== 0) {
-      deleteLetter()
+      dispatch(removeLetterBoard())
       return
     }
     if (pressedKey === '↵') {
@@ -81,226 +144,48 @@ function App() {
     }
     const found = pressedKey.match(/[а-яА-ЯЁё]/gi)
     if (!found || found.length > 1) return
-    else insertLetter(pressedKey)
+    else dispatch(addLetterBoard(pressedKey))
   }
-
-  function insertLetter(pressedKey: string) {
-    if (nextLetter === 5) return
-    dispatch(addLetter({ guessesRemaining, nextLetter, pressedKey }))
-    dispatch(addCurrentGuess({ pressedKey }))
-    dispatch(increaseLetters())
-  }
-
-  function deleteLetter() {
-    dispatch(removeLetter({ guessesRemaining, nextLetter }))
-    dispatch(removeCurrentGuess())
-    dispatch(decreaseLetters())
-  }
-
-  function handleAlert(o: boolean, m: string, c: string) {
-    dispatch(setAlert({ open: o, message: m, color: c }))
-    setTimeout(() => {
-      dispatch(setAlert({ open: false, message: '', color: '' }))
-    }, 4000)
-  }
-
-  function checkGuess() {
-    const guessString = currentGuess.join('')
-
-    if (guessString.length !== 5) {
-      handleAlert(true, 'Введены не все буквы', 'yellow')
-      return
-    }
-
-    if (!WORDS.includes(guessString)) {
-      handleAlert(true, 'Такого слова нет в списке', 'bg-yellow-100 text-yellow-700')
-      return
-    }
-
-    const indexColorArray: number[] = []
-
-    for (let i = 0; i < 5; i++) {
-      indexColorArray.push(currentWord.indexOf(currentGuess[i]!))
-    }
-
-    const lettersHardMode = [
-      ...new Set([...currentWord].filter((letter) => currentGuess.includes(letter))),
-    ]
-
-    const victory = () => {
-      dispatch(setStatusGame('win'))
-      handleAlert(true, 'Вы выиграли!', 'green')
-      dispatch(resetGuessesRemaining())
-      dispatch(winStats())
-      dispatch(barCalculation(6 - guessesRemaining))
-      dispatch(
-        colorLetter({
-          indexColorArray,
-          guessesRemaining,
-          currentGuess,
-          currentWord,
-        }),
-      )
-    }
-    const defeat = () => {
-      dispatch(setStatusGame('lost'))
-      dispatch(resetGuessesRemaining())
-      dispatch(lossStats())
-      dispatch(
-        colorLetter({
-          indexColorArray,
-          guessesRemaining,
-          currentGuess,
-          currentWord,
-        }),
-      )
-      dispatch(activeModal({ open: true, window: 'GameLost', title: 'Проиграл' }))
-    }
-    const nextStep = () => {
-      dispatch(decreaseGuessesRemaining())
-      dispatch(resetCurrentGuess())
-      dispatch(resetLetters())
-      dispatch(
-        colorLetter({
-          indexColorArray,
-          guessesRemaining,
-          currentGuess,
-          currentWord,
-        }),
-      )
-      localStorage.setItem('word', currentWord)
-    }
-
-    if (active) {
-      console.log('on')
-      if (
-        letters.length === 0 ||
-        (letters.length > 0 && letters.every((item) => currentGuess.includes(item)))
-      ) {
-        dispatch(setHardMode({ active: active, letters: lettersHardMode }))
-        if (guessString === currentWord) {
-          victory()
-          return
-        } else {
-          console.log('on', 'nextStep')
-          nextStep()
-          if (guessesRemaining - 1 === 0) {
-            defeat()
-          }
-        }
-        dispatch(
-          colorLetter({
-            indexColorArray,
-            guessesRemaining,
-            currentGuess,
-            currentWord,
-          }),
-        )
-      } else if (letters.length > 0 && !letters.every((item) => currentGuess.includes(item))) {
-        handleAlert(true, 'Использованы не все подсказки', 'yellow')
-      }
-    }
-    if (!active) {
-      dispatch(setHardMode({ active: active, letters: lettersHardMode }))
-      console.log('off')
-      if (guessString === currentWord) {
-        victory()
-      } else {
-        console.log('off', 'nextStep')
-
-        nextStep()
-        if (guessesRemaining - 1 === 0) {
-          defeat()
-        }
-      }
-      dispatch(
-        colorLetter({
-          indexColorArray,
-          guessesRemaining,
-          currentGuess,
-          currentWord,
-        }),
-      )
-    }
-  }
-
   const showModal = (modal: string) => {
     switch (modal) {
       case 'Confirmation':
-        return <Content.Confirmation />
+        return <Confirmation />
       case 'GameLost':
-        return <Content.GameLost />
+        return <GameLost />
       case 'LeaveGame':
-        return <Content.LeaveGame />
+        return <LeaveGame />
       case 'Rules':
-        return <Content.Rules />
+        return <Rules />
       case 'Statistics':
-        return <Content.Statistics />
+        return <Statistics />
       case 'Settings':
-        return <Content.Settings />
+        return <Settings />
       case 'Restart':
-        return <Content.Restart />
+        return <Restart />
+      case 'Win':
+        return <GameWin />
       default:
         return undefined
     }
   }
 
-  const handleLocal = () => {
-    if (localStorage.getItem('word')) {
-      dispatch(localRightGuess())
-    } else {
-      dispatch(startRightGuess())
-    }
-    if (localStorage.getItem('statusGame')) {
-      dispatch(localStatusGame())
-    }
-    if (localStorage.getItem('nextLetter')) {
-      dispatch(localLetters())
-    }
-    if (localStorage.getItem('currentGuess')) {
-      dispatch(localCurrentGuess())
-    }
-    if (localStorage.getItem('board')) {
-      dispatch(localBoard())
-    }
-    if (localStorage.getItem('keyBoard')) {
-      dispatch(localKeyBoard())
-    }
-    if (localStorage.getItem('guessesRemaining')) {
-      dispatch(localGuessesRemaining())
-    }
-    if (localStorage.getItem('stats')) {
-      dispatch(localStats())
-    }
-    if (localStorage.getItem('hardMode')) {
-      dispatch(localHardMode())
-    }
-    if (localStorage.getItem('theme')) {
-      dispatch(localToggleTheme())
-    }
-  }
-
   useEffect(() => {
-    handleLocal()
-  }, []) // eslint-disable-line
-
-  useEffect(() => {
-    if (guessesRemaining < 6) {
-      dispatch(colorKey(board[6 - (guessesRemaining + 1)]!))
+    if (localStorage.getItem('persist')) {
+      dispatch(getLocalPersist())
     }
-  }, [guessesRemaining]) // eslint-disable-line
-
+    dispatch(getFirstWord())
+  }, [])
   return (
     <div
       className={`${
-        dark ? 'bg-wordleBlack' : 'bg-wordleWhite'
-      } relative w-screen min-w-[414px] flex flex-col justify-center content-between focus:outline-none`}
+        darkTheme ? 'bg-wordleBlack' : 'bg-wordleWhite'
+      } relative w-screen min-w-[414px] flex flex-col justify-center content-between focus:outline-none z-10`}
       style={styleHeight}
       tabIndex={0}
-      onKeyDown={keyDownHandler}
+      onKeyDown={handleKeyDown}
     >
       <Header />
-      <Alert />
+      {alert.open && <Alert />}
       <Board />
       <Keyboard handleClick={handleClick} />
       <Modal>{showModal(window)}</Modal>

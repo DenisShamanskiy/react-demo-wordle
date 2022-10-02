@@ -63,12 +63,65 @@ export function globalSvgSelector(icon: string, dark?: boolean) {
           width='28'
           height='28'
           viewBox='0 0 512 512'
-          fill='#49474E'
+          fill='#aa6464'
         >
           <title>ionicons-v5-l</title>
           <path d='M402,76.94C362.61,37.63,310.78,16,256,16h-.37A208,208,0,0,0,48,224V324.67A79.62,79.62,0,0,0,98.29,399L122,408.42a15.92,15.92,0,0,1,9.75,11.72l10,50.13A32.09,32.09,0,0,0,173.12,496H184a8,8,0,0,0,8-8V448.45c0-8.61,6.62-16,15.23-16.43A16,16,0,0,1,224,448v40a8,8,0,0,0,8,8h0a8,8,0,0,0,8-8V448.45c0-8.61,6.62-16,15.23-16.43A16,16,0,0,1,272,448v40a8,8,0,0,0,8,8h0a8,8,0,0,0,8-8V448.45c0-8.61,6.62-16,15.23-16.43A16,16,0,0,1,320,448v40a8,8,0,0,0,8,8h10.88a32.09,32.09,0,0,0,31.38-25.72l10-50.14A16,16,0,0,1,390,408.42L413.71,399A79.62,79.62,0,0,0,464,324.67v-99C464,169.67,442,116.86,402,76.94ZM171.66,335.88a56,56,0,1,1,52.22-52.22A56,56,0,0,1,171.66,335.88ZM281,397.25A16.37,16.37,0,0,1,271.7,400H240.3a16.37,16.37,0,0,1-9.28-2.75,16,16,0,0,1-6.6-16.9l15.91-47.6C243,326,247.25,321,254,320.13c8.26-1,14,2.87,17.61,12.22l16,48A16,16,0,0,1,281,397.25Zm66.68-61.37a56,56,0,1,1,52.22-52.22A56,56,0,0,1,347.66,335.88Z' />
         </svg>
       )
+    case 'trophy':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <title>ionicons-v5-q</title>
+          <line
+            x1='176'
+            y1='464'
+            x2='336'
+            y2='464'
+            fill='none'
+            stroke='#6aaa64'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='256'
+            y1='464'
+            x2='256'
+            y2='336'
+            fill='none'
+            stroke='#6aaa64'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <path
+            d='M384,224c0-50.64-.08-134.63-.12-160a16,16,0,0,0-16-16l-223.79.26a16,16,0,0,0-16,15.95c0,30.58-.13,129.17-.13,159.79,0,64.28,83,112,128,112S384,288.28,384,224Z'
+            fill='none'
+            stroke='#6aaa64'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <path
+            d='M128,96H48v16c0,55.22,33.55,112,80,112'
+            fill='none'
+            stroke='#6aaa64'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <path
+            d='M384,96h80v16c0,55.22-33.55,112-80,112'
+            fill='none'
+            stroke='#6aaa64'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+        </svg>
+      )
+
     case 'key-enter':
       return (
         <svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 512 512'>
@@ -151,6 +204,71 @@ export function globalSvgSelector(icon: string, dark?: boolean) {
             y1='322.34'
             x2='206.66'
             y2='192.33'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+        </svg>
+      )
+    case 'trash':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <title>ionicons-v5-e</title>
+          <path
+            d='M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='80'
+            y1='112'
+            x2='432'
+            y2='112'
+            stroke={color}
+            strokeLinecap='round'
+            strokeMiterlimit='10'
+            strokeWidth='32px'
+          />
+          <path
+            d='M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='256'
+            y1='176'
+            x2='256'
+            y2='400'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='184'
+            y1='176'
+            x2='192'
+            y2='400'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='328'
+            y1='176'
+            x2='320'
+            y2='400'
             fill='none'
             stroke={color}
             strokeLinecap='round'

@@ -1,4 +1,4 @@
-import { useAppSelector } from 'hook'
+import { useAppSelector } from 'utils/hook'
 
 interface ICountStatsProps {
   index: number
@@ -6,20 +6,20 @@ interface ICountStatsProps {
 }
 
 const CountStats = ({ index, count }: ICountStatsProps) => {
-  const dark = useAppSelector((state) => state.theme.darkThemeSlice)
+  const darkMode = useAppSelector((state) => state.persist.settings.darkMode)
 
   const dataCountStats = [
     {
       text: 'Выиграл',
-      style: `${dark ? 'text-wordleGreenDark' : 'text-wordleGreen'}`,
+      style: `${darkMode ? 'text-wordleGreenDark' : 'text-wordleGreen'}`,
     },
     {
       text: 'Сдался',
-      style: `${dark ? 'text-wordleYellowDark' : 'text-wordleYellow'}`,
+      style: `${darkMode ? 'text-wordleYellowDark' : 'text-wordleYellow'}`,
     },
     {
       text: 'Проиграл',
-      style: `${dark ? 'text-wordleRedDark' : 'text-wordleRed'}`,
+      style: `${darkMode ? 'text-wordleRedDark' : 'text-wordleRed'}`,
     },
   ]
 

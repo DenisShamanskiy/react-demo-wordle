@@ -1,4 +1,4 @@
-import { useAppSelector } from 'hook'
+import { useAppSelector } from 'utils/hook'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 
 interface IButtonIconProps {
@@ -9,7 +9,7 @@ interface IButtonIconProps {
 }
 
 const ButtonIcon = ({ onClick, disabled, icon, style }: IButtonIconProps) => {
-  const dark = useAppSelector((state) => state.theme.darkThemeSlice)
+  const darkTheme = useAppSelector((state) => state.persist.settings.darkMode)
 
   return (
     <button
@@ -21,7 +21,7 @@ const ButtonIcon = ({ onClick, disabled, icon, style }: IButtonIconProps) => {
       disabled={disabled}
       style={style}
     >
-      {globalSvgSelector(icon, dark)}
+      {globalSvgSelector(icon, darkTheme)}
     </button>
   )
 }
