@@ -3,10 +3,14 @@ import InputSwitch from 'components/micro-components/InputSwitch'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import { openModal } from 'store/modalSlice'
 import { getFirstWord, toggleHardMode, toggleTheme } from 'store/persistSlice'
+import Button from 'components/micro-components/Button/Button'
 
 const Settings = () => {
   const dispatch = useAppDispatch()
-  const { window } = useAppSelector((state) => state.modal)
+  // const { window } = useAppSelector((state) => state.modal)
+  const board = useAppSelector((state) => state.persist.game.board)
+  const gameStatus = useAppSelector((state) => state.persist.game.gameStatus)
+  const { window, title, description } = useAppSelector((state) => state.modal)
   const {
     darkMode,
     hardMode: { active },
@@ -15,6 +19,46 @@ const Settings = () => {
   const reloadLocalStorage = () => {
     localStorage.clear()
     dispatch(getFirstWord())
+  }
+
+  const newGame = () => {
+    dispatch(
+      openModal({
+        open: false,
+        window: window,
+        title: title,
+        description: description,
+      }),
+    )
+    setTimeout(() => {
+      dispatch(
+        openModal({
+          open: true,
+          window: 'Confirmation',
+          title: 'Новая игра?',
+        }),
+      )
+    }, 700)
+  }
+  const leaveGame = () => {
+    dispatch(
+      openModal({
+        open: false,
+        window: window,
+        title: title,
+        description: description,
+      }),
+    )
+    setTimeout(() => {
+      dispatch(
+        openModal({
+          open: true,
+          window: 'Confirmation',
+          title: 'Сдаёшься?',
+          description: ['Узнаешь загаданное слово'],
+        }),
+      )
+    }, 700)
   }
 
   return (
@@ -31,6 +75,28 @@ const Settings = () => {
         onClick={() => dispatch(openModal({ open: false, window: window }))}
       />
       <div className='my-6'>
+        <div
+          className={`pb-6 border-y ${
+            darkMode ? 'border-wordleBorderDark' : 'border-wordleBorderLight'
+          }`}
+        >
+          <Button
+            text={'новая игра'}
+            color={'green'}
+            onClick={() => newGame()}
+            style={{ margin: '0 auto 0.5rem' }}
+          />
+          <Button
+            text={'сдаться'}
+            color={'yellow'}
+            onClick={() => leaveGame()}
+            disabled={
+              board[0]?.every((item) => item.color === '') || ['WIN', 'DEFEAT'].includes(gameStatus)
+            }
+            // style={{ margin: '0 auto 1.5rem' }}
+          />
+        </div>
+
         <div className='relative mb-1 p-2 flex justify-between items-center'>
           <div className={`${darkMode ? 'text-wordleWhite' : 'text-wordleQuartz'} flex flex-col`}>
             <p className='text-lg font-bold'>Hard Mode</p>

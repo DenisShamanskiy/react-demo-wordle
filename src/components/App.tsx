@@ -27,6 +27,8 @@ import {
   removeLetterBoard,
   setHardMode,
 } from 'store/persistSlice'
+import Login from './ModalContent/Login'
+import { updateStats } from 'api/api'
 
 function App() {
   const styleHeight = {
@@ -47,6 +49,8 @@ function App() {
     currentRowIndex,
     gameStatus,
   } = useAppSelector((state) => state.persist.game)
+  const id = useAppSelector((state) => state.persist.user.id)
+  const stats = useAppSelector((state) => state.persist.stats)
 
   const showAlert = (open: boolean, message: string) => {
     if (!alert.open) {
@@ -116,10 +120,7 @@ function App() {
       dispatch(removeLetterBoard())
       return
     }
-    if (pressedKey === 'Escape' && open) {
-      dispatch(openModal({ open: false, window: window, title: title }))
-      return
-    }
+
     if (pressedKey === 'Enter') {
       checkGuess()
       return
@@ -130,7 +131,13 @@ function App() {
       console.log('nextLetter === 5')
       return
     } else dispatch(addLetterBoard(pressedKey))
+
+    if (pressedKey === 'Escape' && open) {
+      dispatch(openModal({ open: false, window: window, title: title }))
+      return
+    }
   }
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const pressedKey = event.currentTarget.dataset['key']!
     if (gameStatus === 'WIN') return
@@ -164,6 +171,8 @@ function App() {
         return <Restart />
       case 'Win':
         return <GameWin />
+      case 'Login':
+        return <Login />
       default:
         return undefined
     }
@@ -175,14 +184,21 @@ function App() {
     }
     dispatch(getFirstWord())
   }, [])
+
+  useEffect(() => {
+    if (id) {
+      updateStats(id, stats)
+    }
+  }, [stats])
+
   return (
     <div
       className={`${
         darkTheme ? 'bg-wordleBlack' : 'bg-wordleWhite'
       } relative w-screen min-w-[414px] flex flex-col justify-center content-between focus:outline-none z-10`}
       style={styleHeight}
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
+      tabIndex={open ? -1 : 0}
+      onKeyDown={open ? undefined : handleKeyDown}
     >
       <Header />
       {alert.open && <Alert />}

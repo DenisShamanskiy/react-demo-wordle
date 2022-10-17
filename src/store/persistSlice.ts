@@ -40,6 +40,11 @@ type PersistState = {
     surrender: number
     bar: BarRow[]
   }
+  user: {
+    id: string
+    username: string
+    isLoggedIn: boolean
+  }
 }
 
 const initialState: PersistState = {
@@ -139,6 +144,11 @@ const initialState: PersistState = {
       },
     ],
   },
+  user: {
+    id: '',
+    username: 'User',
+    isLoggedIn: false
+  }
 }
 
 const persistSlice = createSlice({
@@ -146,10 +156,11 @@ const persistSlice = createSlice({
   initialState,
   reducers: {
     getLocalPersist(state) {
-      const { game, settings, stats } = JSON.parse(localStorage['persist'])
+      const { game, settings, stats, user } = JSON.parse(localStorage['persist'])
       state.game = game
       state.settings = settings
       state.stats = stats
+      state.user = user
     },
     getFirstWord(state) {
       state.game.word = {
@@ -436,6 +447,67 @@ const persistSlice = createSlice({
       )
       localStorage.setItem('persist', JSON.stringify(state))
     },
+    setUser(state, action) {
+      // console.log(action.payload);
+      
+      state.user = {
+      id: action.payload.id,
+      username: action.payload.username,
+      isLoggedIn: true
+    }
+    localStorage.setItem('persist', JSON.stringify(state))
+    },
+    setStats(state, action) {
+      state.stats.win = action.payload.stats.win
+      state.stats.loss = action.payload.stats.loss
+      state.stats.surrender = action.payload.stats.surrender
+      state.stats.bar = action.payload.stats.bar
+      localStorage.setItem('persist', JSON.stringify(state))
+    },
+    logout(state) {
+      state.user.isLoggedIn = false
+      state.user.username = 'Гость'
+      state.user.id = ''
+      state.stats = {
+        ...state.stats,
+        win: 0,
+        loss: 0,
+        surrender: 0,
+        bar: [
+          {
+            name: 1,
+            percent: '0%',
+            count: 0,
+          },
+          {
+            name: 2,
+            percent: '0%',
+            count: 0,
+          },
+          {
+            name: 3,
+            percent: '0%',
+            count: 0,
+          },
+          {
+            name: 4,
+            percent: '0%',
+            count: 0,
+          },
+          {
+            name: 5,
+            percent: '0%',
+            count: 0,
+          },
+          {
+            name: 6,
+            percent: '0%',
+            count: 0,
+          },
+        ],
+      }
+      localStorage.setItem('persist', JSON.stringify(state))
+    }
   },
 })
 
@@ -464,6 +536,9 @@ export const {
   gameWon,
   gameLost,
   nextStep,
+  setUser,
+  setStats,
+  logout
 } = persistSlice.actions
 
 export default persistSlice.reducer

@@ -29,6 +29,7 @@
     "lint:fix": "eslint --fix ' src/**/*.{js,jsx,ts,tsx,json}'",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md ,json}' --config ./.prettierrc"
   },
+  "homepage": "https://denisshamanskiy.github.io/react-demo-wordle/",
   "eslintConfig": {
     "extends": [
       "react-app",

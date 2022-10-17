@@ -20,6 +20,7 @@
     "sourceMap": false,
     "types": ["node"],
     "typeRoots": ["./src/@types", "./node_modules/@types"],
+    "useUnknownInCatchVariables": false
   },
   "include": ["./src", "words.ts", "words.js"],
   "exclude": ["node_modules"]

@@ -277,6 +277,70 @@ export function globalSvgSelector(icon: string, dark?: boolean) {
           />
         </svg>
       )
+    case 'person':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <title>ionicons-v5-j</title>
+          <path
+            d='M344,144c-3.92,52.87-44,96-88,96s-84.15-43.12-88-96c-4-55,35-96,88-96S348,90,344,144Z'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <path
+            d='M256,304c-87,0-175.3,48-191.64,138.6C62.39,453.52,68.57,464,80,464H432c11.44,0,17.62-10.48,15.65-21.4C431.3,352,343,304,256,304Z'
+            fill='none'
+            stroke={color}
+            strokeWidth='32px'
+            strokeMiterlimit='10'
+          />
+        </svg>
+      )
+    case 'person-add':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <title>ionicons-v5-j</title>
+          <path
+            d='M376,144c-3.92,52.87-44,96-88,96s-84.15-43.12-88-96c-4-55,35-96,88-96S380,90,376,144Z'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <path
+            d='M288,304c-87,0-175.3,48-191.64,138.6-2,10.92,4.21,21.4,15.65,21.4H464c11.44,0,17.62-10.48,15.65-21.4C463.3,352,375,304,288,304Z'
+            fill='none'
+            stroke={color}
+            strokeWidth='32px'
+            strokeMiterlimit='10'
+          />
+          <line
+            x1='88'
+            y1='176'
+            x2='88'
+            y2='288'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='144'
+            y1='232'
+            x2='32'
+            y2='232'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+        </svg>
+      )
     default:
       return null
   }

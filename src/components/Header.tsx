@@ -5,11 +5,12 @@ import ButtonIcon from './micro-components/Button/ButtonIcon'
 const Header = () => {
   const dispatch = useAppDispatch()
 
-  const { board, gameStatus } = useAppSelector((state) => state.persist.game)
+  const { gameStatus } = useAppSelector((state) => state.persist.game)
   const {
     darkMode: darkTheme,
     hardMode: { active },
   } = useAppSelector((state) => state.persist.settings)
+  const isLoggedIn = useAppSelector((state) => state.persist.user.isLoggedIn)
 
   return (
     <header
@@ -25,11 +26,7 @@ const Header = () => {
       />
 
       <div className='relative w-full h-full ml-4 md:ml-[98px] mr-2 flex justify-center items-center'>
-        <h1
-          className={
-            "grow-[2] text-left md:text-center text-[28px] md:text-[32px] lg:text-[36px] font-['Bitter'] font-black leading-[64px]"
-          }
-        >
+        <h1 className="grow-[2] text-left md:text-center text-[28px] md:text-[32px] lg:text-[36px] font-['Bitter'] font-black leading-[64px]">
           {`${gameStatus === 'WIN' ? 'Winner' : gameStatus === 'DEFEAT' ? 'Loser' : 'Wordle'}`}
         </h1>
         {/* <InputSwitch
@@ -43,10 +40,15 @@ const Header = () => {
         )}
       </div>
       <div className='flex justify-end items-center'>
-        <ButtonIcon
+        {/* <ButtonIcon
           icon={'restart'}
           onClick={() => dispatch(openModal({ open: true, window: 'Restart' }))}
           disabled={board[0]?.every((item) => item.color === '')}
+          style={{ marginRight: '8px' }}
+        /> */}
+        <ButtonIcon
+          icon={isLoggedIn ? 'person' : 'person-add'}
+          onClick={() => dispatch(openModal({ open: true, window: 'Login' }))}
           style={{ marginRight: '8px' }}
         />
         <ButtonIcon
