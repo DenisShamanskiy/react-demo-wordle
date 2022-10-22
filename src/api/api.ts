@@ -49,7 +49,7 @@ export async function login(username: string, password: string) {
     try {
         const response = await axios({
             method: 'post',
-            url: `${serverURLLocal}/api/login`,
+            url: 'https://react-demo-wordle-api.vercel.app/api/login',
             data: {
                 username: username,
                 password: password

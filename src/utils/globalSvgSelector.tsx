@@ -301,7 +301,7 @@ export function globalSvgSelector(icon: string, dark?: boolean) {
     case 'person-add':
       return (
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-          <title>ionicons-v5-j</title>
+          <title>Учетная запись</title>
           <path
             d='M376,144c-3.92,52.87-44,96-88,96s-84.15-43.12-88-96c-4-55,35-96,88-96S380,90,376,144Z'
             fill='none'

@@ -12,6 +12,9 @@
     -moz-osx-font-smoothing: grayscale;
     color: var(--color-quartz);
   }
+  .act {
+    background-color: red;
+  }
 }
 @layer components {
   .button-key {

@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import { WORDS } from 'utils/constants'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import useCurrentHeight from 'utils/getHeight'
-import Alert from './Alert'
-import Header from './Header'
-import Board from './Board'
-import Keyboard from './Keyboard'
+// import Alert from './Alert'
+// import Header from './Header'
+// import Board from './Board'
+// import Keyboard from './Keyboard'
 import Modal from './Modal'
 import Confirmation from './ModalContent/Confirmation'
 import GameWin from './ModalContent/GameWin'
 import GameLost from './ModalContent/GameLost'
 import LeaveGame from './ModalContent/LeaveGame'
 import Rules from './ModalContent/Rules'
-import Statistics from './ModalContent/Stats'
-import Settings from './ModalContent/Settings'
 import Restart from './ModalContent/Restart'
 import { handleAlert } from 'store/alertSlice'
 import { openModal } from 'store/modalSlice'
@@ -29,6 +28,13 @@ import {
 } from 'store/persistSlice'
 import Login from './ModalContent/Login'
 import { updateStats } from 'api/api'
+import Homepage from './Homepage'
+import Layout from './Layout'
+import Rules2 from 'pages/Rules'
+import Statistics from 'pages/Statistics'
+import Settings from 'pages/Settings'
+import Auth from 'pages/Auth'
+import User from 'pages/User'
 
 function App() {
   const styleHeight = {
@@ -138,21 +144,21 @@ function App() {
     }
   }
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const pressedKey = event.currentTarget.dataset['key']!
-    if (gameStatus === 'WIN') return
-    if (pressedKey === '←' && nextLetter !== 0) {
-      dispatch(removeLetterBoard())
-      return
-    }
-    if (pressedKey === '↵') {
-      checkGuess()
-      return
-    }
-    const found = pressedKey.match(/[а-яА-ЯЁё]/gi)
-    if (!found || found.length > 1) return
-    else dispatch(addLetterBoard(pressedKey))
-  }
+  // const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  //   const pressedKey = event.currentTarget.dataset['key']!
+  //   if (gameStatus === 'WIN') return
+  //   if (pressedKey === '←' && nextLetter !== 0) {
+  //     dispatch(removeLetterBoard())
+  //     return
+  //   }
+  //   if (pressedKey === '↵') {
+  //     checkGuess()
+  //     return
+  //   }
+  //   const found = pressedKey.match(/[а-яА-ЯЁё]/gi)
+  //   if (!found || found.length > 1) return
+  //   else dispatch(addLetterBoard(pressedKey))
+  // }
   const showModal = (modal: string) => {
     switch (modal) {
       case 'Confirmation':
@@ -195,15 +201,23 @@ function App() {
     <div
       className={`${
         darkTheme ? 'bg-wordleBlack' : 'bg-wordleWhite'
-      } relative w-screen min-w-[414px] flex flex-col justify-center content-between focus:outline-none z-10`}
+      } relative w-screen min-w-[414px] flex flex-col justify-center justify-items-center content-between focus:outline-none z-10`}
       style={styleHeight}
       tabIndex={open ? -1 : 0}
       onKeyDown={open ? undefined : handleKeyDown}
     >
-      <Header />
-      {alert.open && <Alert />}
-      <Board />
-      <Keyboard handleClick={handleClick} />
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Homepage />} />
+          <Route path='user' element={<User />} />
+          <Route path='auth' element={<Auth />} />
+          <Route path='rules' element={<Rules2 />} />
+          <Route path='statistics' element={<Statistics />} />
+          <Route path='settings' element={<Settings />} />
+          {/* {alert.open && <Alert />} */}
+        </Route>
+      </Routes>
+
       <Modal>{showModal(window)}</Modal>
     </div>
   )

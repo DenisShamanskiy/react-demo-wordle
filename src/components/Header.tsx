@@ -18,7 +18,7 @@ const Header = () => {
         darkTheme
           ? 'border-wordleTone4Dark text-wordleWhite bg-wordleBlack'
           : 'border-wordleTone4 text-wordleQuartz bg-wordleWhite'
-      } w-full h-10 sm:h-[65px] px-4 md:px-5 border-b flex justify-between items-center box-border select-none relative z-50 overflow-hidden`}
+      } w-full h-10 sm:h-[65px] px-4 mx-auto md:px-5 border-b flex justify-between items-center box-border select-none relative z-50 overflow-hidden`}
     >
       <ButtonIcon
         icon={'rules'}
