@@ -26,21 +26,11 @@ const Settings = () => {
   const newGame = () => {
     dispatch(
       openModal({
-        open: false,
-        window: window,
-        title: title,
-        description: description,
+        open: true,
+        window: 'Confirmation',
+        title: 'Новая игра?',
       }),
     )
-    setTimeout(() => {
-      dispatch(
-        openModal({
-          open: true,
-          window: 'Confirmation',
-          title: 'Новая игра?',
-        }),
-      )
-    }, 700)
   }
   const leaveGame = () => {
     dispatch(

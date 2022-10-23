@@ -1,0 +1,23 @@
+.modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .modal-enter-done {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .modal-exit {
+    opacity: 0;
+  }

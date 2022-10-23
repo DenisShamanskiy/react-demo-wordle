@@ -7,12 +7,11 @@ import useCurrentHeight from 'utils/getHeight'
 // import Header from './Header'
 // import Board from './Board'
 // import Keyboard from './Keyboard'
-import Modal from './Modal'
+// import Modal from './Modal'
 import Confirmation from './ModalContent/Confirmation'
 import GameWin from './ModalContent/GameWin'
 import GameLost from './ModalContent/GameLost'
 import LeaveGame from './ModalContent/LeaveGame'
-import Rules from './ModalContent/Rules'
 import Restart from './ModalContent/Restart'
 import { handleAlert } from 'store/alertSlice'
 import { openModal } from 'store/modalSlice'
@@ -26,7 +25,6 @@ import {
   removeLetterBoard,
   setHardMode,
 } from 'store/persistSlice'
-import Login from './ModalContent/Login'
 import { updateStats } from 'api/api'
 import Homepage from './Homepage'
 import Layout from './Layout'
@@ -35,11 +33,15 @@ import Statistics from 'pages/Statistics'
 import Settings from 'pages/Settings'
 import Auth from 'pages/Auth'
 import User from 'pages/User'
+import Modal from './Modal/Modal'
 
 function App() {
   const styleHeight = {
     height: `${useCurrentHeight()}px`,
   }
+  //
+
+  //
   const dispatch = useAppDispatch()
 
   const alert = useAppSelector((state) => state.alert)
@@ -159,28 +161,20 @@ function App() {
   //   if (!found || found.length > 1) return
   //   else dispatch(addLetterBoard(pressedKey))
   // }
-  const showModal = (modal: string) => {
-    switch (modal) {
+  const getModalContent = (titleContent: string) => {
+    switch (titleContent) {
       case 'Confirmation':
         return <Confirmation />
       case 'GameLost':
         return <GameLost />
       case 'LeaveGame':
         return <LeaveGame />
-      case 'Rules':
-        return <Rules />
-      case 'Statistics':
-        return <Statistics />
-      case 'Settings':
-        return <Settings />
       case 'Restart':
         return <Restart />
       case 'Win':
         return <GameWin />
-      case 'Login':
-        return <Login />
       default:
-        return undefined
+        return
     }
   }
 
@@ -217,8 +211,7 @@ function App() {
           {/* {alert.open && <Alert />} */}
         </Route>
       </Routes>
-
-      <Modal>{showModal(window)}</Modal>
+      <Modal>{getModalContent(window)}</Modal>
     </div>
   )
 }
