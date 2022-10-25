@@ -413,7 +413,7 @@ const persistSlice = createSlice({
       localStorage.setItem('persist', JSON.stringify(state))
     },
     gameLost(state) {
-      state.game.gameStatus = 'DEFEAT'
+      state.game.gameStatus = 'FAIL'
       state.stats.loss = state.stats.loss + 1
       localStorage.setItem('persist', JSON.stringify(state))
     },

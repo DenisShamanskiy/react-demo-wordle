@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import { openModal } from 'store/modalSlice'
+import { closeModal, openModal } from 'store/modalSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import './modal.css'
 import ReactPortal from './ReactPortal'
@@ -46,19 +46,10 @@ function Modal({ children }: ModalProps) {
         <dialog
           className={`modal ${darkMode ? 'bg-black/60' : 'bg-white/60'}`}
           ref={nodeRef}
-          onClick={() =>
-            dispatch(
-              openModal({
-                open: false,
-                window: window,
-                title: title,
-                description: description,
-              }),
-            )
-          }
+          onClick={() => dispatch(closeModal())}
         >
           <div
-            className={`relative w-fit max-w-lg p-4 rounded-xl border ${
+            className={`w-fit max-w-lg p-6 sm:p-8 rounded-xl border ${
               darkMode ? 'border-[#1a1a1b] bg-wordleBlack' : 'border-[#f6f7f8] bg-wordleWhite'
             } shadow-modal ${open ? 'animate-modalOpen' : 'animate-modalClosed'}`}
             onClick={(event) => event.stopPropagation()}

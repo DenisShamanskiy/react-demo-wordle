@@ -19,14 +19,20 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     openModal(state, action) {
-      state.open = action.payload.open
+      state.open = true
       state.window = action.payload.window
       state.title = action.payload.title
-      state.description = action.payload.description
+      // state.description = action.payload.description
+    },
+    closeModal(state) {
+      state.open = false
+      // state.window = action.payload.window
+      // state.title = action.payload.title
+      // state.description = action.payload.description
     },
   },
 })
 
-export const { openModal } = modalSlice.actions
+export const { openModal, closeModal } = modalSlice.actions
 
 export default modalSlice.reducer

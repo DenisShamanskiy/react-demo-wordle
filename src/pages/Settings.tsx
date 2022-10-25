@@ -12,7 +12,6 @@ const Settings = () => {
   const dispatch = useAppDispatch()
   const board = useAppSelector((state) => state.persist.game.board)
   const gameStatus = useAppSelector((state) => state.persist.game.gameStatus)
-  const { window, title, description } = useAppSelector((state) => state.modal)
   const {
     darkMode,
     hardMode: { active },
@@ -26,8 +25,7 @@ const Settings = () => {
   const newGame = () => {
     dispatch(
       openModal({
-        open: true,
-        window: 'Confirmation',
+        window: 'ConfirmNewGame',
         title: 'Новая игра?',
       }),
     )
@@ -35,39 +33,19 @@ const Settings = () => {
   const leaveGame = () => {
     dispatch(
       openModal({
-        open: false,
-        window: window,
-        title: title,
-        description: description,
+        window: 'ConfirmLeave',
+        title: 'Сдаёшься?',
       }),
     )
-    setTimeout(() => {
-      dispatch(
-        openModal({
-          open: true,
-          window: 'Confirmation',
-          title: 'Сдаёшься?',
-          description: ['Узнаешь загаданное слово'],
-        }),
-      )
-    }, 700)
   }
 
   return (
     <Section style={'w-11/12 max-w-xl'}>
       <>
         <Heading2>Настройки</Heading2>
-        <div className='my-8 sm:my-10'>
-          <div
-            className={`pb-8 sm:pb-10
-            `}
-          >
-            <Button
-              text={'новая игра'}
-              color={'green'}
-              onClick={() => newGame()}
-              style={{ margin: '0 auto 0.5rem', width: '200px' }}
-            />
+        <div className='my-8 sm:my-10 flex flex-col justify-center items-center'>
+          <div className='w-48 sm:w-52 pb-8 sm:pb-10 grid grid-rows-2 gap-y-2 sm:gap-y-3'>
+            <Button text={'новая игра'} color={'green'} onClick={() => newGame()} />
             <Button
               text={'сдаться'}
               color={'yellow'}
@@ -76,7 +54,6 @@ const Settings = () => {
                 board[0]?.every((item) => item.color === '') ||
                 ['WIN', 'DEFEAT'].includes(gameStatus)
               }
-              style={{ width: '200px' }}
             />
           </div>
 

@@ -125,7 +125,6 @@ const Auth = () => {
             className={`${
               typeFormLogin ? 'bg-wordleGreen' : 'bg-wordleBlue'
             } min-w-[120px] h-9 mt-9 mx-auto px-3 text-wordleWhite rounded block text-center text-sm sm:text-base font-bold uppercase`}
-            // onClick={() => (typeFormLogin ? handleLogin(e) : handleRegistration(e))}
           >
             {typeFormLogin ? 'войти' : 'создать аккаунт'}
           </button>

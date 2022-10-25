@@ -33,8 +33,7 @@ const Settings = () => {
     setTimeout(() => {
       dispatch(
         openModal({
-          open: true,
-          window: 'Confirmation',
+          window: 'ConfirmNewGame',
           title: 'Новая игра?',
         }),
       )

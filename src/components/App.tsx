@@ -8,10 +8,6 @@ import useCurrentHeight from 'utils/getHeight'
 // import Board from './Board'
 // import Keyboard from './Keyboard'
 // import Modal from './Modal'
-import Confirmation from './ModalContent/Confirmation'
-import GameWin from './ModalContent/GameWin'
-import GameLost from './ModalContent/GameLost'
-import LeaveGame from './ModalContent/LeaveGame'
 import Restart from './ModalContent/Restart'
 import { handleAlert } from 'store/alertSlice'
 import { openModal } from 'store/modalSlice'
@@ -34,6 +30,9 @@ import Settings from 'pages/Settings'
 import Auth from 'pages/Auth'
 import User from 'pages/User'
 import Modal from './Modal/Modal'
+import ConfirmLeave from './ModalContent/ConfirmLeave'
+import ConfirmNewGame from './ModalContent/ConfirmNewGame'
+import GameResult from './ModalContent/GameResult'
 
 function App() {
   const styleHeight = {
@@ -76,12 +75,12 @@ function App() {
     dispatch(setHardMode({ active: active, letters: lettersHardMode }))
     if (currentGuessStr === currentWord) {
       dispatch(gameWon(indexColorArray))
-      dispatch(openModal({ open: true, window: 'Win' }))
+      dispatch(openModal({ open: true, window: 'GameResult' }))
     } else {
       dispatch(nextStep(indexColorArray))
       if (currentRowIndex === 5) {
         dispatch(gameLost())
-        dispatch(openModal({ open: true, window: 'GameLost', title: 'Проиграл' }))
+        dispatch(openModal({ open: true, window: 'GameResult' }))
       }
     }
   }
@@ -163,16 +162,14 @@ function App() {
   // }
   const getModalContent = (titleContent: string) => {
     switch (titleContent) {
-      case 'Confirmation':
-        return <Confirmation />
-      case 'GameLost':
-        return <GameLost />
-      case 'LeaveGame':
-        return <LeaveGame />
+      case 'ConfirmNewGame':
+        return <ConfirmNewGame />
+      case 'ConfirmLeave':
+        return <ConfirmLeave />
       case 'Restart':
         return <Restart />
-      case 'Win':
-        return <GameWin />
+      case 'GameResult':
+        return <GameResult result={gameStatus} />
       default:
         return
     }

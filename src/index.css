@@ -18,6 +18,37 @@
 }
 @layer components {
  
+  .btnRed {
+    @apply border-wordleRed bg-wordleRed hover:bg-transparent hover:text-wordleRed
+  }
+  .btnRedDark {
+    @apply border-wordleRedDark bg-transparent hover:bg-wordleRedDark hover:border-wordleRedDark   
+  }
+  .btnBlue {
+    @apply border-wordleBlue bg-wordleBlue hover:bg-transparent hover:text-wordleBlue
+  }
+  .btnBlueDark {
+    @apply border-wordleBlueDark bg-transparent hover:bg-wordleBlueDark hover:border-wordleBlueDark   
+  }
+  .btnGreen {
+    @apply border-wordleGreen bg-wordleGreen hover:bg-transparent hover:text-wordleGreen
+  }
+  .btnGreenDark {
+    @apply border-wordleGreenDark bg-transparent hover:bg-wordleGreenDark hover:border-wordleGreenDark   
+  }
+  .btnYellow {
+    @apply border-wordleYellow bg-wordleYellow hover:bg-transparent hover:text-wordleYellow
+  }
+  .btnYellowDark {
+    @apply border-wordleYellowDark bg-transparent hover:bg-wordleYellowDark hover:border-wordleYellowDark   
+  }
+  .btnDisabledDark {
+    @apply disabled:bg-transparent disabled:border-wordleTone4Dark disabled:text-wordleTone4Dark
+  }
+  .btnDisabled {
+    @apply disabled:bg-transparent disabled:border-wordleTone4 disabled:text-wordleTone4
+  }
+
   .button-key {
     @apply h-[48px] mr-1.5 p-0 rounded border-b flex flex-1 justify-center items-center font-bold uppercase cursor-pointer select-none last:mr-0 active:border-0 active:border-t;
   }
