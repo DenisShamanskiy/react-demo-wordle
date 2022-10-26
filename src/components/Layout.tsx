@@ -1,12 +1,14 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import { useAppSelector } from 'utils/hook'
+import Notification from './Notification'
 import CustomLink from './CustomLink'
 
 const Layout = () => {
   const isLoggedIn = useAppSelector((state) => state.persist.user.isLoggedIn)
 
   const gameStatus = useAppSelector((state) => state.persist.game.gameStatus)
+  const notification = useAppSelector((state) => state.notification.visible)
 
   const {
     darkMode: darkTheme,
@@ -46,7 +48,9 @@ const Layout = () => {
           <CustomLink to='/statistics'>{globalSvgSelector('statistics', darkTheme)}</CustomLink>
           <CustomLink to='/settings'>{globalSvgSelector('settings', darkTheme)}</CustomLink>
         </div>
+        {notification && <Notification />}
       </header>
+
       <Outlet />
     </>
   )

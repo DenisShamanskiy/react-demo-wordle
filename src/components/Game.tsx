@@ -11,15 +11,14 @@ import {
   removeLetterBoard,
   setHardMode,
 } from 'store/persistSlice'
-import { handleAlert } from 'store/alertSlice'
 import { openModal } from 'store/modalSlice'
 
 // import Board from './Board'
 // import Keyboard from './Keyboard'
 
-function Homepage() {
+function Game() {
   const dispatch = useAppDispatch()
-  const alert = useAppSelector((state) => state.alert)
+
   const {
     hardMode: { active, letters },
   } = useAppSelector((state) => state.persist.settings)
@@ -31,23 +30,23 @@ function Homepage() {
     gameStatus,
   } = useAppSelector((state) => state.persist.game)
 
-  const showAlert = (open: boolean, message: string) => {
-    if (!alert.open) {
-      dispatch(handleAlert({ open: open, message: message }))
-      setTimeout(() => {
-        dispatch(handleAlert({ open: false, message: alert.message }))
-      }, 5000)
-    }
-  }
+  // const showAlert = (open: boolean, message: string) => {
+  //   if (!alert.open) {
+  //     dispatch(handleAlert({ open: open, message: message }))
+  //     setTimeout(() => {
+  //       dispatch(handleAlert({ open: false, message: alert.message }))
+  //     }, 5000)
+  //   }
+  // }
 
   const checkGuess = () => {
     const currentGuessStr = currentGuess.join('')
     if (currentGuessStr.length !== 5) {
-      showAlert(true, 'Введены не все буквы')
+      // showAlert(true, 'Введены не все буквы')
       return
     }
     if (!WORDS.includes(currentGuessStr)) {
-      showAlert(true, 'Такого слова нет в списке')
+      // showAlert(true, 'Такого слова нет в списке')
       return
     }
     const indexColorArray: number[] = []
@@ -64,7 +63,7 @@ function Homepage() {
       ) {
         handleGuess(lettersHardMode, currentGuessStr, indexColorArray)
       } else if (letters.length > 0 && !letters.every((item) => currentGuess.includes(item))) {
-        showAlert(true, 'Использованы не все подсказки')
+        // showAlert(true, 'Использованы не все подсказки')
       }
     }
     if (!active) {
@@ -113,4 +112,4 @@ function Homepage() {
   )
 }
 
-export default Homepage
+export default Game

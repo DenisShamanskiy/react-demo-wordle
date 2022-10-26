@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import alertSliceReducer from './alertSlice'
+import notificationSliceReducer from './notificationSlice'
 import modalReducer from './modalSlice'
 import persistReducer from './persistSlice'
 
 const store = configureStore({
   reducer: {
-    alert: alertSliceReducer,
+    notification: notificationSliceReducer,
     modal: modalReducer,
     persist: persistReducer,
   },

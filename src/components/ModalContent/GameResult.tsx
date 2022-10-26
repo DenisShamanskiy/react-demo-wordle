@@ -46,35 +46,35 @@ const GameResult = ({ result }: Props) => {
   const getColorHeading = (color: string) => {
     switch (color) {
       case 'green':
-        return `${darkMode ? 'wordleGreenDark' : 'wordleGreen'}`
+        return `${darkMode ? 'text-wordleGreenDark' : 'text-wordleGreen'}`
       case 'red':
-        return `${darkMode ? 'wordleRedDark' : 'wordleRed'}`
+        return `${darkMode ? 'text-wordleRedDark' : 'text-wordleRed'}`
       default:
-        return `${darkMode ? 'wordleBlueDark' : 'wordleBlue'}`
+        return `${darkMode ? 'text-wordleBlueDark' : 'text-wordleBlue'}`
     }
   }
 
   return (
     <section className='w-72 sm:w-80 select-none'>
       <div className='flex justify-center items-center'>
-        <span className='w-7 sm:w-8 h-7 sm:h-8 flex justify-center bg-no-repeat bg-center bg-contain text-center'>
+        {/* <span className='w-7 sm:w-8 h-7 sm:h-8 flex justify-center bg-no-repeat bg-center bg-contain text-center -scale-x-100'>
           {getDataResult(result).icon()}
-        </span>
+        </span> */}
         <h2
-          className={`py-4 mx-4 text-center text-xl sm:text-2xl font-extrabold text-${getColorHeading(
+          className={`${getColorHeading(
             getDataResult(result).color,
-          )} uppercase`}
+          )} py-4 mx-2 text-center text-xl sm:text-2xl font-extrabold  uppercase`}
         >
           {getDataResult(result).text}
         </h2>
-        <span className='w-7 sm:w-8 h-7 sm:h-8 flex justify-center bg-no-repeat bg-center bg-contain text-center'>
+        {/* <span className='w-7 sm:w-8 h-7 sm:h-8 flex justify-center bg-no-repeat bg-center bg-contain text-center'>
           {getDataResult(result).icon()}
-        </span>
+        </span> */}
       </div>
       <img
         src={getDataResult(result).img}
         alt={getDataResult(result).imgAlt}
-        className='w-40 sm:w-44 h-auto mx-auto'
+        className='w-40 sm:w-44 min-h-[160px] sm:min-h-[176px] h-auto mx-auto'
       ></img>
       {result !== 'WIN' && (
         <>

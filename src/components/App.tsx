@@ -3,13 +3,8 @@ import { Routes, Route } from 'react-router-dom'
 import { WORDS } from 'utils/constants'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import useCurrentHeight from 'utils/getHeight'
-// import Alert from './Alert'
-// import Header from './Header'
-// import Board from './Board'
-// import Keyboard from './Keyboard'
-// import Modal from './Modal'
 import Restart from './ModalContent/Restart'
-import { handleAlert } from 'store/alertSlice'
+import { showNotification } from 'store/notificationSlice'
 import { openModal } from 'store/modalSlice'
 import {
   addLetterBoard,
@@ -22,7 +17,7 @@ import {
   setHardMode,
 } from 'store/persistSlice'
 import { updateStats } from 'api/api'
-import Homepage from './Homepage'
+import Game from './Game'
 import Layout from './Layout'
 import Rules2 from 'pages/Rules'
 import Statistics from 'pages/Statistics'
@@ -43,7 +38,7 @@ function App() {
   //
   const dispatch = useAppDispatch()
 
-  const alert = useAppSelector((state) => state.alert)
+  // const alert = useAppSelector((state) => state.alert)
   const { open, window, title } = useAppSelector((state) => state.modal)
   const {
     darkMode: darkTheme,
@@ -59,14 +54,6 @@ function App() {
   const id = useAppSelector((state) => state.persist.user.id)
   const stats = useAppSelector((state) => state.persist.stats)
 
-  const showAlert = (open: boolean, message: string) => {
-    if (!alert.open) {
-      dispatch(handleAlert({ open: open, message: message }))
-      setTimeout(() => {
-        dispatch(handleAlert({ open: false, message: alert.message }))
-      }, 5000)
-    }
-  }
   const handleGuess = (
     lettersHardMode: string[],
     currentGuessStr: string,
@@ -88,11 +75,11 @@ function App() {
   const checkGuess = () => {
     const currentGuessStr = currentGuess.join('')
     if (currentGuessStr.length !== 5) {
-      showAlert(true, 'Введены не все буквы')
+      dispatch(showNotification({ message: 'Введены не все буквы' }))
       return
     }
     if (!WORDS.includes(currentGuessStr)) {
-      showAlert(true, 'Такого слова нет в списке')
+      dispatch(showNotification({ message: 'Такого слова нет в списке' }))
       return
     }
     const indexColorArray: number[] = []
@@ -109,7 +96,7 @@ function App() {
       ) {
         handleGuess(lettersHardMode, currentGuessStr, indexColorArray)
       } else if (letters.length > 0 && !letters.every((item) => currentGuess.includes(item))) {
-        showAlert(true, 'Использованы не все подсказки')
+        dispatch(showNotification({ message: 'Использованы не все подсказки' }))
       }
     }
     if (!active) {
@@ -120,7 +107,7 @@ function App() {
     const pressedKey = String(event.key)
     if (gameStatus === 'WIN') return
     if (pressedKey.length === 1 && pressedKey.match(/[a-z]/gi)) {
-      showAlert(true, 'Игра поддерживает только русский язык')
+      dispatch(showNotification({ message: 'Игра поддерживает только русский язык' }))
       return
     }
     if (pressedKey === 'Backspace' && nextLetter !== 0) {
@@ -199,13 +186,12 @@ function App() {
     >
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route index element={<Homepage />} />
+          <Route index element={<Game />} />
           <Route path='user' element={<User />} />
           <Route path='auth' element={<Auth />} />
           <Route path='rules' element={<Rules2 />} />
           <Route path='statistics' element={<Statistics />} />
           <Route path='settings' element={<Settings />} />
-          {/* {alert.open && <Alert />} */}
         </Route>
       </Routes>
       <Modal>{getModalContent(window)}</Modal>
