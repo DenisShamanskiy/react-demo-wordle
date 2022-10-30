@@ -2,7 +2,7 @@ import { useAppSelector } from 'utils/hook'
 import { Link } from 'react-router-dom'
 
 const StatisticsNotAuth = () => {
-  const darkMode = useAppSelector((state) => state.persist.settings.darkMode)
+  const darkMode = useAppSelector((state) => state.settings.darkMode)
 
   return (
     <div className='my-6'>

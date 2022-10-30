@@ -6,7 +6,7 @@ const Notification = () => {
   const dispatch = useAppDispatch()
 
   const message = useAppSelector((state) => state.notification.message)
-  const darkMode = useAppSelector((state) => state.persist.settings.darkMode)
+  const darkMode = useAppSelector((state) => state.settings.darkMode)
 
   useEffect(() => {
     setTimeout(() => {

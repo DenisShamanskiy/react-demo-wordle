@@ -7,7 +7,7 @@ import { numWord } from 'utils/formate'
 import { useAppSelector } from 'utils/hook'
 
 const Rules = () => {
-  const darkMode = useAppSelector((state) => state.persist.settings.darkMode)
+  const darkMode = useAppSelector((state) => state.settings.darkMode)
 
   return (
     <Section style={'w-11/12 max-w-3xl'}>

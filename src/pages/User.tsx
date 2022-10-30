@@ -1,5 +1,5 @@
 import Button from 'components/micro-components/Button/Button'
-import { logout } from 'store/persistSlice'
+// import { logout } from 'store/persistSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import { openModal } from 'store/modalSlice'
 import Section from 'components/micro-components/Section'
@@ -11,13 +11,13 @@ const User = () => {
   const goAuth = () => navigate('/auth', { replace: true })
   const dispatch = useAppDispatch()
   const { window, title } = useAppSelector((state) => state.modal)
-  const darkMode = useAppSelector((state) => state.persist.settings.darkMode)
+  const darkMode = useAppSelector((state) => state.settings.darkMode)
 
   const handleLogout = () => {
     dispatch(openModal({ open: false, window: window, title: title }))
-    setTimeout(() => {
-      dispatch(logout())
-    }, 500)
+    // setTimeout(() => {
+    //   dispatch(logout())
+    // }, 500)
     goAuth()
   }
 

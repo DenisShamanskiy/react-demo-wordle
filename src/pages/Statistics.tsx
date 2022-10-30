@@ -5,9 +5,9 @@ import Heading2 from 'components/micro-components/Heading2'
 import StatisticsNotAuth from './StatisticsNotAuth'
 
 const Statistics = () => {
-  const { win, loss, surrender, bar } = useAppSelector((state) => state.persist.stats)
-  const darkMode = useAppSelector((state) => state.persist.settings.darkMode)
-  const { isLoggedIn } = useAppSelector((state) => state.persist.user)
+  const { win, loss, surrender, bar } = useAppSelector((state) => state.stats)
+  const darkMode = useAppSelector((state) => state.settings.darkMode)
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
 
   return (
     <Section style={'w-11/12 max-w-lg'}>

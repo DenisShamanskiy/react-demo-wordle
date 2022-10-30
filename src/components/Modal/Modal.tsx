@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import { closeModal, openModal } from 'store/modalSlice'
+import { closeModal } from 'store/modalSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import './modal.css'
 import ReactPortal from './ReactPortal'
@@ -11,22 +11,13 @@ type ModalProps = {
 
 function Modal({ children }: ModalProps) {
   const nodeRef = useRef(null)
-  const darkMode = useAppSelector((state) => state.persist.settings.darkMode)
-  const { open, window, title, description } = useAppSelector((state) => state.modal)
+  const darkMode = useAppSelector((state) => state.settings.darkMode)
+  const { open } = useAppSelector((state) => state.modal)
 
   const dispatch = useAppDispatch()
   useEffect(() => {
-    const closeOnEscapeKey = (event: { key: string }) =>
-      event.key === 'Escape'
-        ? dispatch(
-            openModal({
-              open: false,
-              window: window,
-              title: title,
-              description: description,
-            }),
-          )
-        : null
+    const closeOnEscapeKey = (event: KeyboardEvent) =>
+      event.key === 'Escape' ? dispatch(closeModal()) : null
 
     document.body.addEventListener('keydown', closeOnEscapeKey)
     return () => {

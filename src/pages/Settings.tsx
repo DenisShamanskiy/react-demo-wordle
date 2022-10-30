@@ -2,24 +2,22 @@ import ButtonIcon from 'components/micro-components/Button/ButtonIcon'
 import InputSwitch from 'components/micro-components/InputSwitch'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import { openModal } from 'store/modalSlice'
-import { getFirstWord, toggleHardMode, toggleTheme } from 'store/persistSlice'
 import Button from 'components/micro-components/Button/Button'
 import Section from 'components/micro-components/Section'
 import Heading2 from 'components/micro-components/Heading2'
 import SettingsRow from 'components/micro-components/SettingsRow'
+import { toggleHardMode, toggleTheme } from 'store/settingsSlice'
 
 const Settings = () => {
   const dispatch = useAppDispatch()
-  const board = useAppSelector((state) => state.persist.game.board)
-  const gameStatus = useAppSelector((state) => state.persist.game.gameStatus)
+  const { board, gameStatus } = useAppSelector((state) => state.game)
   const {
     darkMode,
     hardMode: { active },
-  } = useAppSelector((state) => state.persist.settings)
+  } = useAppSelector((state) => state.settings)
 
   const reloadLocalStorage = () => {
     localStorage.clear()
-    dispatch(getFirstWord())
   }
 
   const newGame = () => {
@@ -52,7 +50,7 @@ const Settings = () => {
               onClick={() => leaveGame()}
               disabled={
                 board[0]?.every((item) => item.color === '') ||
-                ['WIN', 'DEFEAT'].includes(gameStatus)
+                ['WIN', 'FAIL', 'LEAVE'].includes(gameStatus)
               }
             />
           </div>
@@ -77,7 +75,7 @@ const Settings = () => {
           <SettingsRow>
             <div className={`${darkMode ? 'text-wordleWhite' : 'text-wordleQuartz'} flex flex-col`}>
               <p className='text-lg sm:text-xl font-bold'>LocalStorage</p>
-              <p className='text-xs sm:text-sm'>Перезагрузить</p>
+              <p className='text-xs sm:text-sm'>Очистить</p>
             </div>
             <ButtonIcon icon={'trash'} onClick={() => reloadLocalStorage()} />
           </SettingsRow>

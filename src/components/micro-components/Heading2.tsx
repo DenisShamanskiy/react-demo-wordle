@@ -5,7 +5,7 @@ type Heading2Props = {
 }
 
 const Heading2 = ({ children }: Heading2Props) => {
-  const darkMode = useAppSelector((state) => state.persist.settings.darkMode)
+  const darkMode = useAppSelector((state) => state.settings.darkMode)
 
   return (
     <h2

@@ -5,12 +5,12 @@ import ButtonIcon from './micro-components/Button/ButtonIcon'
 const Header = () => {
   const dispatch = useAppDispatch()
 
-  const { gameStatus } = useAppSelector((state) => state.persist.game)
+  const { gameStatus } = useAppSelector((state) => state.game)
   const {
     darkMode: darkTheme,
     hardMode: { active },
-  } = useAppSelector((state) => state.persist.settings)
-  const isLoggedIn = useAppSelector((state) => state.persist.user.isLoggedIn)
+  } = useAppSelector((state) => state.settings)
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
 
   return (
     <header

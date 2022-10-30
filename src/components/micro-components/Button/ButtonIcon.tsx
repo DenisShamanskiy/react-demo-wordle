@@ -9,7 +9,7 @@ interface IButtonIconProps {
 }
 
 const ButtonIcon = ({ onClick, disabled, icon, style }: IButtonIconProps) => {
-  const darkTheme = useAppSelector((state) => state.persist.settings.darkMode)
+  const darkTheme = useAppSelector((state) => state.settings.darkMode)
 
   return (
     <button

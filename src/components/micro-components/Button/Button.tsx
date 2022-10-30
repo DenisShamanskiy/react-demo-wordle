@@ -10,7 +10,7 @@ interface IButtonProps {
 }
 
 const Button = ({ text, color, disabled, style, onClick, addPropClass }: IButtonProps) => {
-  const darkMode = useAppSelector((state) => state.persist.settings.darkMode)
+  const darkMode = useAppSelector((state) => state.settings.darkMode)
 
   const getColorButton = (color: string) => {
     switch (color) {

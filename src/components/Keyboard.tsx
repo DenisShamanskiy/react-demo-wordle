@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import { useEffect } from 'react'
-import { colorKey } from 'store/persistSlice'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
+import { colorKey } from 'store/gameSlice'
 
 type KeyboardProps = {
   handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
@@ -10,8 +10,8 @@ type KeyboardProps = {
 const Keyboard = ({ handleClick }: KeyboardProps) => {
   const dispatch = useAppDispatch()
 
-  const darkTheme = useAppSelector((state) => state.persist.settings.darkMode)
-  const { board, keyBoard, currentRowIndex } = useAppSelector((state) => state.persist.game)
+  const darkTheme = useAppSelector((state) => state.settings.darkMode)
+  const { board, keyBoard, currentRowIndex } = useAppSelector((state) => state.game)
 
   const getColorKey = (color: string | undefined) => {
     switch (color) {

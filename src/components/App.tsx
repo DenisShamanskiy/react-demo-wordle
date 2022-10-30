@@ -1,23 +1,9 @@
-import React, { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import { WORDS } from 'utils/constants'
+import { useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
+// import { WORDS } from 'utils/constants'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
-import useCurrentHeight from 'utils/getHeight'
-import Restart from './ModalContent/Restart'
-import { showNotification } from 'store/notificationSlice'
-import { openModal } from 'store/modalSlice'
-import {
-  addLetterBoard,
-  gameLost,
-  gameWon,
-  getFirstWord,
-  getLocalPersist,
-  nextStep,
-  removeLetterBoard,
-  setHardMode,
-} from 'store/persistSlice'
-import { updateStats } from 'api/api'
-import Game from './Game'
+// import useCurrentHeight from 'utils/getHeight'
+import Game from '../pages/Game'
 import Layout from './Layout'
 import Rules2 from 'pages/Rules'
 import Statistics from 'pages/Statistics'
@@ -28,52 +14,87 @@ import Modal from './Modal/Modal'
 import ConfirmLeave from './ModalContent/ConfirmLeave'
 import ConfirmNewGame from './ModalContent/ConfirmNewGame'
 import GameResult from './ModalContent/GameResult'
+import { getLocalUserData } from 'store/userSlice'
+import { openModal } from 'store/modalSlice'
+import { showNotification } from 'store/notificationSlice'
+import { WORDS } from 'utils/constants'
+import {
+  addLetterBoard,
+  // gameLost,
+  // gameWon,
+  getLocalGameData,
+  initialGame,
+  nextStep,
+  removeLetterBoard,
+  setRelultGame,
+} from 'store/gameSlice'
+import { updateStats } from 'api/api'
+import { addDataHardMode, getLocalSettingData } from 'store/settingsSlice'
+import { getLocalStatsData, updateStatsLocal } from 'store/statsSlice'
 
-function App() {
-  const styleHeight = {
-    height: `${useCurrentHeight()}px`,
-  }
+const App = () => {
+  // const styleHeight = {
+  //   height: `${useCurrentHeight()}px`,
+  // }
   //
 
   //
   const dispatch = useAppDispatch()
 
-  // const alert = useAppSelector((state) => state.alert)
-  const { open, window, title } = useAppSelector((state) => state.modal)
+  const { window } = useAppSelector((state) => state.modal)
   const {
     darkMode: darkTheme,
-    hardMode: { active, letters },
-  } = useAppSelector((state) => state.persist.settings)
+    hardMode: { active, letters, words: wordsHardMode },
+  } = useAppSelector((state) => state.settings)
+
   const {
     nextLetter,
     currentGuess,
     word: { currentWord },
     currentRowIndex,
     gameStatus,
-  } = useAppSelector((state) => state.persist.game)
-  const id = useAppSelector((state) => state.persist.user.id)
-  const stats = useAppSelector((state) => state.persist.stats)
+  } = useAppSelector((state) => state.game)
+  const id = useAppSelector((state) => state.user.id)
+  const stats = useAppSelector((state) => state.stats)
+  const path = useLocation()
 
   const handleGuess = (
     lettersHardMode: string[],
     currentGuessStr: string,
     indexColorArray: number[],
   ) => {
-    dispatch(setHardMode({ active: active, letters: lettersHardMode }))
+    dispatch(addDataHardMode({ lettersHardMode, currentGuessStr }))
     if (currentGuessStr === currentWord) {
-      dispatch(gameWon(indexColorArray))
-      dispatch(openModal({ open: true, window: 'GameResult' }))
+      dispatch(setRelultGame('WIN'))
+      dispatch(updateStatsLocal({ result: 'WIN', currentRowIndex }))
+      dispatch(openModal({ window: 'GameResult', title: 'Победа' }))
     } else {
       dispatch(nextStep(indexColorArray))
       if (currentRowIndex === 5) {
-        dispatch(gameLost())
-        dispatch(openModal({ open: true, window: 'GameResult' }))
+        dispatch(setRelultGame({ result: 'FAIL', currentRowIndex }))
+        dispatch(updateStatsLocal('FAIL'))
+        dispatch(openModal({ window: 'GameResult', title: 'Поражение' }))
       }
+    }
+  }
+
+  const checkHardMode = (
+    lettersHardMode: string[],
+    currentGuessStr: string,
+    indexColorArray: number[],
+  ) => {
+    if (letters.length > 0 && !letters.every((item) => currentGuess.includes(item))) {
+      dispatch(showNotification({ message: 'Использованы не все подсказки' }))
+    } else if (wordsHardMode.includes(currentGuessStr)) {
+      dispatch(showNotification({ message: 'Слово уже было' }))
+    } else {
+      handleGuess(lettersHardMode, currentGuessStr, indexColorArray)
     }
   }
 
   const checkGuess = () => {
     const currentGuessStr = currentGuess.join('')
+
     if (currentGuessStr.length !== 5) {
       dispatch(showNotification({ message: 'Введены не все буквы' }))
       return
@@ -89,27 +110,21 @@ function App() {
     const lettersHardMode = [
       ...new Set([...currentWord].filter((letter) => currentGuess.includes(letter))),
     ]
-    if (active) {
-      if (
-        letters.length === 0 ||
-        (letters.length > 0 && letters.every((item) => currentGuess.includes(item)))
-      ) {
-        handleGuess(lettersHardMode, currentGuessStr, indexColorArray)
-      } else if (letters.length > 0 && !letters.every((item) => currentGuess.includes(item))) {
-        dispatch(showNotification({ message: 'Использованы не все подсказки' }))
-      }
-    }
-    if (!active) {
-      handleGuess(lettersHardMode, currentGuessStr, indexColorArray)
-    }
+
+    active
+      ? checkHardMode(lettersHardMode, currentGuessStr, indexColorArray)
+      : handleGuess(lettersHardMode, currentGuessStr, indexColorArray)
   }
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     const pressedKey = String(event.key)
+
     if (gameStatus === 'WIN') return
+
     if (pressedKey.length === 1 && pressedKey.match(/[a-z]/gi)) {
       dispatch(showNotification({ message: 'Игра поддерживает только русский язык' }))
       return
     }
+
     if (pressedKey === 'Backspace' && nextLetter !== 0) {
       dispatch(removeLetterBoard())
       return
@@ -119,6 +134,7 @@ function App() {
       checkGuess()
       return
     }
+
     const found = pressedKey.match(/[а-яА-ЯЁё]/gi)
     if (!found || found.length > 1) return
     if (nextLetter === 5) {
@@ -126,47 +142,50 @@ function App() {
       return
     } else dispatch(addLetterBoard(pressedKey))
 
-    if (pressedKey === 'Escape' && open) {
-      dispatch(openModal({ open: false, window: window, title: title }))
+    // if (pressedKey === 'Escape' && open) {
+    //   dispatch(openModal({ open: false, window: window, title: title }))
+    //   return
+    // }
+  }
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const pressedKey = event.currentTarget.dataset['key']!
+    if (gameStatus === 'WIN') return
+    if (pressedKey === '←' && nextLetter !== 0) {
+      dispatch(removeLetterBoard())
       return
     }
+    if (pressedKey === '↵') {
+      checkGuess()
+      return
+    }
+    const found = pressedKey.match(/[а-яА-ЯЁё]/gi)
+    if (!found || found.length > 1) return
+    else dispatch(addLetterBoard(pressedKey))
   }
-
-  // const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-  //   const pressedKey = event.currentTarget.dataset['key']!
-  //   if (gameStatus === 'WIN') return
-  //   if (pressedKey === '←' && nextLetter !== 0) {
-  //     dispatch(removeLetterBoard())
-  //     return
-  //   }
-  //   if (pressedKey === '↵') {
-  //     checkGuess()
-  //     return
-  //   }
-  //   const found = pressedKey.match(/[а-яА-ЯЁё]/gi)
-  //   if (!found || found.length > 1) return
-  //   else dispatch(addLetterBoard(pressedKey))
-  // }
   const getModalContent = (titleContent: string) => {
     switch (titleContent) {
       case 'ConfirmNewGame':
         return <ConfirmNewGame />
       case 'ConfirmLeave':
         return <ConfirmLeave />
-      case 'Restart':
-        return <Restart />
       case 'GameResult':
-        return <GameResult result={gameStatus} />
+        return <GameResult />
       default:
         return
     }
   }
 
   useEffect(() => {
-    if (localStorage.getItem('persist')) {
-      dispatch(getLocalPersist())
+    if (localStorage.getItem('user')) {
+      dispatch(getLocalUserData())
     }
-    dispatch(getFirstWord())
+    if (localStorage.getItem('settings')) {
+      dispatch(getLocalSettingData())
+    }
+    if (localStorage.getItem('stats')) {
+      dispatch(getLocalStatsData())
+    }
+    localStorage.getItem('game') ? dispatch(getLocalGameData()) : dispatch(initialGame())
   }, [])
 
   useEffect(() => {
@@ -177,16 +196,16 @@ function App() {
 
   return (
     <div
+      // style={styleHeight}
+      tabIndex={0}
+      onKeyDown={path.pathname === '/' ? handleKeyDown : undefined}
       className={`${
         darkTheme ? 'bg-wordleBlack' : 'bg-wordleWhite'
-      } relative w-screen min-w-[414px] flex flex-col justify-center justify-items-center content-between focus:outline-none z-10`}
-      style={styleHeight}
-      tabIndex={open ? -1 : 0}
-      onKeyDown={open ? undefined : handleKeyDown}
+      } relative w-screen h-screen min-w-[414px] flex flex-col justify-between justify-items-center content-between focus:outline-none z-10`}
     >
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route index element={<Game />} />
+          <Route index element={<Game handleClick={handleClick} />} />
           <Route path='user' element={<User />} />
           <Route path='auth' element={<Auth />} />
           <Route path='rules' element={<Rules2 />} />

@@ -3,15 +3,13 @@ import { createSlice } from '@reduxjs/toolkit'
 type ModalState = {
   open: boolean
   window: string
-  title?: string
-  description?: string[]
+  title: string
 }
 
 const initialState: ModalState = {
   open: false,
   window: '',
   title: '',
-  description: [],
 }
 
 const modalSlice = createSlice({
@@ -22,13 +20,10 @@ const modalSlice = createSlice({
       state.open = true
       state.window = action.payload.window
       state.title = action.payload.title
-      // state.description = action.payload.description
     },
+
     closeModal(state) {
       state.open = false
-      // state.window = action.payload.window
-      // state.title = action.payload.title
-      // state.description = action.payload.description
     },
   },
 })

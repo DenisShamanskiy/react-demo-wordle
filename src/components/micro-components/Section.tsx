@@ -6,7 +6,7 @@ type SectionProps = {
 }
 
 const Section = ({ children, style }: SectionProps) => {
-  const darkMode = useAppSelector((state) => state.persist.settings.darkMode)
+  const darkMode = useAppSelector((state) => state.settings.darkMode)
 
   return (
     <section

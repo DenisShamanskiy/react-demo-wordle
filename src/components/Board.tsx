@@ -1,8 +1,9 @@
 import { useAppSelector } from 'utils/hook'
 
 const Board = () => {
-  const board = useAppSelector((state) => state.persist.game.board)
-  const darkTheme = useAppSelector((state) => state.persist.settings.darkMode)
+  // const board = useAppSelector((state) => state.persist.game.board)
+  const board = useAppSelector((state) => state.game.board)
+  const darkTheme = useAppSelector((state) => state.settings.darkMode)
 
   const getColorLetter = (value: string | undefined, color: string | undefined) => {
     if (value && color) {

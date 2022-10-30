@@ -1,6 +1,6 @@
 import { login, registration } from 'api/api'
 import { FormEvent, useState } from 'react'
-import { setStats, setUser } from 'store/persistSlice'
+import { /* setStats,*/ setUser } from 'store/userSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import Section from 'components/micro-components/Section'
 import Heading2 from 'components/micro-components/Heading2'
@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom'
 const Auth = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const darkMode = useAppSelector((state) => state.persist.settings.darkMode)
-  const stats = useAppSelector((state) => state.persist.stats)
+  const darkMode = useAppSelector((state) => state.settings.darkMode)
+  const stats = useAppSelector((state) => state.stats)
 
   const goHome = () => navigate('/', { replace: true })
 
@@ -31,7 +31,7 @@ const Auth = () => {
       setTimeout(() => {
         dispatch(setUser({ id: response.data.user.id, username: response.data.user.username }))
       }, 500)
-      dispatch(setStats({ stats: response.data.user.stats }))
+      // dispatch(setStats({ stats: response.data.user.stats }))
     }
     if (response.status === 400) {
       setErrorMessage(response.data.message)
@@ -47,7 +47,7 @@ const Auth = () => {
     console.log(user)
 
     dispatch(setUser({ id: user.id, username: user.username }))
-    dispatch(setStats({ stats: user.stats }))
+    // dispatch(setStats({ stats: user.stats }))
   }
 
   return (

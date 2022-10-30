@@ -17,36 +17,35 @@
   }
 }
 @layer components {
- 
   .btnRed {
-    @apply border-wordleRed bg-wordleRed hover:bg-transparent hover:text-wordleRed
+    @apply border-wordleRed bg-wordleRed hover:bg-transparent hover:text-wordleRed;
   }
   .btnRedDark {
-    @apply border-wordleRedDark bg-transparent hover:bg-wordleRedDark hover:border-wordleRedDark   
+    @apply border-wordleRedDark bg-transparent hover:bg-wordleRedDark hover:border-wordleRedDark;
   }
   .btnBlue {
-    @apply border-wordleBlue bg-wordleBlue hover:bg-transparent hover:text-wordleBlue
+    @apply border-wordleBlue bg-wordleBlue hover:bg-transparent hover:text-wordleBlue;
   }
   .btnBlueDark {
-    @apply border-wordleBlueDark bg-transparent hover:bg-wordleBlueDark hover:border-wordleBlueDark   
+    @apply border-wordleBlueDark bg-transparent hover:bg-wordleBlueDark hover:border-wordleBlueDark;
   }
   .btnGreen {
-    @apply border-wordleGreen bg-wordleGreen hover:bg-transparent hover:text-wordleGreen
+    @apply border-wordleGreen bg-wordleGreen hover:bg-transparent hover:text-wordleGreen;
   }
   .btnGreenDark {
-    @apply border-wordleGreenDark bg-transparent hover:bg-wordleGreenDark hover:border-wordleGreenDark   
+    @apply border-wordleGreenDark bg-transparent hover:bg-wordleGreenDark hover:border-wordleGreenDark;
   }
   .btnYellow {
-    @apply border-wordleYellow bg-wordleYellow hover:bg-transparent hover:text-wordleYellow
+    @apply border-wordleYellow bg-wordleYellow hover:bg-transparent hover:text-wordleYellow;
   }
   .btnYellowDark {
-    @apply border-wordleYellowDark bg-transparent hover:bg-wordleYellowDark hover:border-wordleYellowDark   
+    @apply border-wordleYellowDark bg-transparent hover:bg-wordleYellowDark hover:border-wordleYellowDark;
   }
   .btnDisabledDark {
-    @apply disabled:bg-transparent disabled:border-wordleTone4Dark disabled:text-wordleTone4Dark
+    @apply disabled:bg-transparent disabled:border-wordleTone4Dark disabled:text-wordleTone4Dark;
   }
   .btnDisabled {
-    @apply disabled:bg-transparent disabled:border-wordleTone4 disabled:text-wordleTone4
+    @apply disabled:bg-transparent disabled:border-wordleTone4 disabled:text-wordleTone4;
   }
 
   .button-key {

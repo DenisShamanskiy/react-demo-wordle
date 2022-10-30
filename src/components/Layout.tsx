@@ -5,15 +5,15 @@ import Notification from './Notification'
 import CustomLink from './CustomLink'
 
 const Layout = () => {
-  const isLoggedIn = useAppSelector((state) => state.persist.user.isLoggedIn)
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
 
-  const gameStatus = useAppSelector((state) => state.persist.game.gameStatus)
+  const gameStatus = useAppSelector((state) => state.game.gameStatus)
   const notification = useAppSelector((state) => state.notification.visible)
 
   const {
     darkMode: darkTheme,
     hardMode: { active },
-  } = useAppSelector((state) => state.persist.settings)
+  } = useAppSelector((state) => state.settings)
 
   return (
     <>

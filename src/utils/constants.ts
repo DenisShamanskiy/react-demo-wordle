@@ -1,3 +1,5 @@
+type NonEmptyArr<T> = [T, ...T[]]
+
 export const exampleRules = [
   {
     word: ['к', 'р', 'о', 'в', 'ь'],
@@ -13,7 +15,89 @@ export const exampleRules = [
   },
 ]
 
-export const WORDS = [
+export const board = [...new Array(6)].map(() => new Array(5).fill({ value: '', color: '' }))
+
+export const keyBoard = [
+  [
+    { value: 'й', color: '' },
+    { value: 'ц', color: '' },
+    { value: 'у', color: '' },
+    { value: 'к', color: '' },
+    { value: 'е', color: '' },
+    { value: 'н', color: '' },
+    { value: 'г', color: '' },
+    { value: 'ш', color: '' },
+    { value: 'щ', color: '' },
+    { value: 'з', color: '' },
+    { value: 'х', color: '' },
+    { value: 'ъ', color: '' },
+  ],
+  [
+    { value: 'ф', color: '' },
+    { value: 'ы', color: '' },
+    { value: 'в', color: '' },
+    { value: 'а', color: '' },
+    { value: 'п', color: '' },
+    { value: 'р', color: '' },
+    { value: 'о', color: '' },
+    { value: 'л', color: '' },
+    { value: 'д', color: '' },
+    { value: 'ж', color: '' },
+    { value: 'э', color: '' },
+    { value: 'ё', color: '' },
+  ],
+  [
+    { value: 'я', color: '' },
+    { value: 'ч', color: '' },
+    { value: 'с', color: '' },
+    { value: 'м', color: '' },
+    { value: 'и', color: '' },
+    { value: 'т', color: '' },
+    { value: 'ь', color: '' },
+    { value: 'б', color: '' },
+    { value: 'ю', color: '' },
+  ],
+]
+
+export const stats = {
+  win: 0,
+  loss: 0,
+  surrender: 0,
+  bar: [
+    {
+      name: 1,
+      percent: '0%',
+      count: 0,
+    },
+    {
+      name: 2,
+      percent: '0%',
+      count: 0,
+    },
+    {
+      name: 3,
+      percent: '0%',
+      count: 0,
+    },
+    {
+      name: 4,
+      percent: '0%',
+      count: 0,
+    },
+    {
+      name: 5,
+      percent: '0%',
+      count: 0,
+    },
+    {
+      name: 6,
+      percent: '0%',
+      count: 0,
+    },
+  ],
+}
+
+export const WORDS: NonEmptyArr<string> = [
   'линия',
   'транс',
   'курок',

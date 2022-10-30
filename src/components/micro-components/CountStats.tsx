@@ -6,7 +6,7 @@ interface ICountStatsProps {
 }
 
 const CountStats = ({ index, count }: ICountStatsProps) => {
-  const darkMode = useAppSelector((state) => state.persist.settings.darkMode)
+  const darkMode = useAppSelector((state) => state.settings.darkMode)
 
   const dataCountStats = [
     {
