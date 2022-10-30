@@ -2,7 +2,7 @@ import { login, registration } from 'api/api'
 import { FormEvent, useState } from 'react'
 import { /* setStats,*/ setUser } from 'store/userSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
-import Section from 'components/micro-components/Section'
+import Section from 'components/micro-components/Main'
 import Heading2 from 'components/micro-components/Heading2'
 import { useNavigate } from 'react-router-dom'
 
@@ -19,12 +19,13 @@ const Auth = () => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   async function handleLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    setIsLoading(true)
     setErrorMessage('')
     const response = await login(username, password)
-    console.log(response)
     if (response.status === 200) {
       console.log(response.status)
       goHome()
@@ -36,16 +37,17 @@ const Auth = () => {
     if (response.status === 400) {
       setErrorMessage(response.data.message)
     }
-
+    setIsLoading(false)
     // dispatch(setUser({ id: response.data.user.id, username: response.data.user.username }))
     // dispatch(setStats({ stats: response.data.user.stats }))
   }
 
   async function handleRegistration(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    setIsLoading(true)
     const { user } = await registration(username, password, stats)
     console.log(user)
-
+    setIsLoading(false)
     dispatch(setUser({ id: user.id, username: user.username }))
     // dispatch(setStats({ stats: user.stats }))
   }
@@ -126,7 +128,7 @@ const Auth = () => {
               typeFormLogin ? 'bg-wordleGreen' : 'bg-wordleBlue'
             } min-w-[120px] h-9 mt-9 mx-auto px-3 text-wordleWhite rounded block text-center text-sm sm:text-base font-bold uppercase`}
           >
-            {typeFormLogin ? 'войти' : 'создать аккаунт'}
+            {isLoading ? 'загрузка...' : typeFormLogin ? 'войти' : 'создать аккаунт'}
           </button>
         </form>
       </>

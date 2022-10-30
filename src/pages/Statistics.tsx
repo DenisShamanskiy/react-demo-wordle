@@ -1,6 +1,6 @@
 import CountStats from 'components/micro-components/CountStats'
 import { useAppSelector } from 'utils/hook'
-import Section from 'components/micro-components/Section'
+import Main from 'components/micro-components/Main'
 import Heading2 from 'components/micro-components/Heading2'
 import StatisticsNotAuth from './StatisticsNotAuth'
 
@@ -10,10 +10,9 @@ const Statistics = () => {
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
 
   return (
-    <Section style={'w-11/12 max-w-lg'}>
-      <>
+    <Main style={'w-11/12 max-w-lg'}>
+      <section>
         <Heading2>Статистика</Heading2>
-
         {isLoggedIn ? (
           <>
             <div className='my-6 sm:my-8 grid grid-cols-3 gap-1'>
@@ -74,8 +73,8 @@ const Statistics = () => {
         ) : (
           <StatisticsNotAuth />
         )}
-      </>
-    </Section>
+      </section>
+    </Main>
   )
 }
 

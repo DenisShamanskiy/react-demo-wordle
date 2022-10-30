@@ -35,6 +35,7 @@ const Button = ({ text, color, disabled, style, onClick, addPropClass }: IButton
       )} w-full h-9 sm:h-10 rounded border-2 block text-center text-sm sm:text-base font-bold uppercase text-wordleWhite select-none transition duration-300 ${
         addPropClass ? addPropClass : ''
       }`}
+      onPointerDown={(e) => console.log(e)}
       onClick={onClick}
       disabled={disabled}
       style={style}

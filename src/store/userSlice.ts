@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 type UserState = {
-  id: string
+  id: string | null
     username: string
     isLoggedIn: boolean
   
 }
 
 const initialState: UserState = {
-    id: '',
+    id: null,
     username: 'Гость',
     isLoggedIn: false,
 }
@@ -81,50 +81,12 @@ const userSlice = createSlice({
     //   state.stats.bar = action.payload.stats.bar
     //   localStorage.setItem('persist', JSON.stringify(state))
     // },
-    // logout(state) {
-    //   state.user.isLoggedIn = false
-    //   state.user.username = 'Гость'
-    //   state.user.id = ''
-    //   state.stats = {
-    //     ...state.stats,
-    //     win: 0,
-    //     loss: 0,
-    //     surrender: 0,
-    //     bar: [
-    //       {
-    //         name: 1,
-    //         percent: '0%',
-    //         count: 0,
-    //       },
-    //       {
-    //         name: 2,
-    //         percent: '0%',
-    //         count: 0,
-    //       },
-    //       {
-    //         name: 3,
-    //         percent: '0%',
-    //         count: 0,
-    //       },
-    //       {
-    //         name: 4,
-    //         percent: '0%',
-    //         count: 0,
-    //       },
-    //       {
-    //         name: 5,
-    //         percent: '0%',
-    //         count: 0,
-    //       },
-    //       {
-    //         name: 6,
-    //         percent: '0%',
-    //         count: 0,
-    //       },
-    //     ],
-    //   }
-    //   localStorage.setItem('persist', JSON.stringify(state))
-    // },
+    logout(state) {
+      state.isLoggedIn = false
+      state.username = 'Гость'
+      state.id = null
+      localStorage.setItem('user', JSON.stringify(state))
+    },
   },
 })
 
@@ -132,7 +94,7 @@ export const {
   getLocalUserData,
   setUser,
   // setStats,
-  // logout,
+  logout,
 } = userSlice.actions
 
 export default userSlice.reducer

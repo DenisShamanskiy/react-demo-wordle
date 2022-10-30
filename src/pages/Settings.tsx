@@ -3,7 +3,7 @@ import InputSwitch from 'components/micro-components/InputSwitch'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import { openModal } from 'store/modalSlice'
 import Button from 'components/micro-components/Button/Button'
-import Section from 'components/micro-components/Section'
+import Main from 'components/micro-components/Main'
 import Heading2 from 'components/micro-components/Heading2'
 import SettingsRow from 'components/micro-components/SettingsRow'
 import { toggleHardMode, toggleTheme } from 'store/settingsSlice'
@@ -38,8 +38,8 @@ const Settings = () => {
   }
 
   return (
-    <Section style={'w-11/12 max-w-xl'}>
-      <>
+    <Main style={'w-11/12 max-w-xl'}>
+      <section>
         <Heading2>Настройки</Heading2>
         <div className='my-8 sm:my-10 flex flex-col justify-center items-center'>
           <div className='w-48 sm:w-52 pb-8 sm:pb-10 grid grid-rows-2 gap-y-2 sm:gap-y-3'>
@@ -81,8 +81,8 @@ const Settings = () => {
           </SettingsRow>
         </div>
         <p className='text-xs sm:text-sm text-[#787c7e]'>© 2022 Денис Шаманский</p>
-      </>
-    </Section>
+      </section>
+    </Main>
   )
 }
 

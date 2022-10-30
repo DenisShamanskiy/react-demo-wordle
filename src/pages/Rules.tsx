@@ -1,7 +1,7 @@
 import ExampleWord from 'components/micro-components/ExampleWord'
 import Heading2 from 'components/micro-components/Heading2'
 import Paragraph from 'components/micro-components/Paragraph'
-import Section from 'components/micro-components/Section'
+import Section from 'components/micro-components/Main'
 import { exampleRules, WORDS } from 'utils/constants'
 import { numWord } from 'utils/formate'
 import { useAppSelector } from 'utils/hook'
