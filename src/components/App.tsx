@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 // import { WORDS } from 'utils/constants'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
-// import useCurrentHeight from 'utils/getHeight'
+import useCurrentHeight from 'utils/getHeight'
 import Game from '../pages/Game'
-import Layout from './Layout'
+import Header from './Header'
 import Rules2 from 'pages/Rules'
 import Statistics from 'pages/Statistics'
 import Settings from 'pages/Settings'
@@ -29,19 +29,17 @@ import {
   setRelultGame,
 } from 'store/gameSlice'
 import { updateStats } from 'api/api'
-import { addDataHardMode, getLocalSettingData } from 'store/settingsSlice'
+import { addDataHardMode, getLocalSettingData, setTheme } from 'store/settingsSlice'
 import { getLocalStatsData, updateStatsLocal } from 'store/statsSlice'
 
 const App = () => {
-  // const styleHeight = {
-  //   height: `${useCurrentHeight()}px`,
-  // }
-  //
+  const styleHeight = {
+    height: `${useCurrentHeight()}px`,
+  }
 
-  //
   const dispatch = useAppDispatch()
 
-  const { window } = useAppSelector((state) => state.modal)
+  const { window: wnd } = useAppSelector((state) => state.modal)
   const {
     darkMode: darkTheme,
     hardMode: { active, letters, words: wordsHardMode },
@@ -67,13 +65,13 @@ const App = () => {
     if (currentGuessStr === currentWord) {
       dispatch(setRelultGame('WIN'))
       dispatch(updateStatsLocal({ result: 'WIN', currentRowIndex }))
-      dispatch(openModal({ window: 'GameResult', title: 'Победа' }))
+      dispatch(openModal({ wnd: 'GameResult', title: 'Победа', window: 'GameResult' }))
     } else {
       dispatch(nextStep(indexColorArray))
       if (currentRowIndex === 5) {
         dispatch(setRelultGame({ result: 'FAIL', currentRowIndex }))
         dispatch(updateStatsLocal('FAIL'))
-        dispatch(openModal({ window: 'GameResult', title: 'Поражение' }))
+        dispatch(openModal({ wnd: 'GameResult', title: 'Поражение', window: 'GameResult' }))
       }
     }
   }
@@ -143,7 +141,7 @@ const App = () => {
     } else dispatch(addLetterBoard(pressedKey))
 
     // if (pressedKey === 'Escape' && open) {
-    //   dispatch(openModal({ open: false, window: window, title: title }))
+    //   dispatch(openModal({ open: false, wnd: wnd, title: title }))
     //   return
     // }
   }
@@ -194,17 +192,28 @@ const App = () => {
     }
   }, [stats])
 
+  useEffect(() => {
+    if (
+      localStorage['theme'] === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark')
+      dispatch(setTheme(true))
+    } else {
+      document.documentElement.classList.remove('dark')
+      dispatch(setTheme(false))
+    }
+  }, [darkTheme])
+
   return (
     <div
-      // style={styleHeight}
+      style={styleHeight}
       tabIndex={0}
       onKeyDown={path.pathname === '/' ? handleKeyDown : undefined}
-      className={`${
-        darkTheme ? 'bg-wordleBlack' : 'bg-wordleWhite'
-      } relative w-screen h-screen min-w-[414px] flex flex-col justify-between justify-items-center content-between focus:outline-none z-10`}
+      className='bg-w-white dark:bg-w-black relative w-screen h-screen min-w-[414px] flex flex-col justify-between justify-items-center content-between focus:outline-none z-10'
     >
       <Routes>
-        <Route path='/' element={<Layout />}>
+        <Route path='/' element={<Header />}>
           <Route index element={<Game handleClick={handleClick} />} />
           <Route path='user' element={<User />} />
           <Route path='auth' element={<Auth />} />
@@ -213,7 +222,7 @@ const App = () => {
           <Route path='settings' element={<Settings />} />
         </Route>
       </Routes>
-      <Modal>{getModalContent(window)}</Modal>
+      <Modal>{getModalContent(wnd)}</Modal>
     </div>
   )
 }

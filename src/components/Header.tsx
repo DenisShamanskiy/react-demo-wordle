@@ -1,67 +1,49 @@
-import { useAppDispatch, useAppSelector } from 'utils/hook'
-import { openModal } from 'store/modalSlice'
-import ButtonIcon from './micro-components/Button/ButtonIcon'
+import { NavLink, Outlet } from 'react-router-dom'
+import { globalSvgSelector } from 'utils/globalSvgSelector'
+import { useAppSelector } from 'utils/hook'
+import CustomLink from './CustomLink'
+import Notification from './Notification'
 
 const Header = () => {
-  const dispatch = useAppDispatch()
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
+  const gameStatus = useAppSelector((state) => state.game.gameStatus)
+  const notification = useAppSelector((state) => state.notification.visible)
 
-  const { gameStatus } = useAppSelector((state) => state.game)
   const {
     darkMode: darkTheme,
     hardMode: { active },
   } = useAppSelector((state) => state.settings)
-  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
 
   return (
-    <header
-      className={`${
-        darkTheme
-          ? 'border-wordleTone4Dark text-wordleWhite bg-wordleBlack'
-          : 'border-wordleTone4 text-wordleQuartz bg-wordleWhite'
-      } w-full h-10 sm:h-[65px] px-4 mx-auto md:px-5 border-b flex justify-between items-center box-border select-none relative z-50 overflow-hidden`}
-    >
-      <ButtonIcon
-        icon={'rules'}
-        onClick={() => dispatch(openModal({ open: true, window: 'Rules' }))}
-      />
+    <>
+      <header className='relative w-full max-w-5xl min-h-[40px] md:min-h-[64px] mx-auto px-4 md:px-5 lg:px-0 border-b border-w-grey-tone-2 dark:border-w-grey-tone-3 flex items-center bg-w-white dark:bg-w-black text-w-quartz dark:text-w-white-dark select-none'>
+        <div className='w-max md:mx-auto'>
+          <NavLink to='/'>
+            <div className='flex'>
+              <h1 className="text-2xl md:text-4xl font-['Bitter'] font-black hover:scale-110 transition-all duration-300">
+                {`${gameStatus === 'WIN' ? 'Winner' : gameStatus === 'FAIL' ? 'Loser' : 'Wordle'}`}
+                {active && (
+                  <span className='ml-2 text-xs md:text-base font-extrabold font-sans text-red-500'>
+                    hard mode
+                  </span>
+                )}
+              </h1>
+            </div>
+          </NavLink>
+        </div>
+        <div className='absolute right-4 sm:right-5 lg:right-0 flex gap-x-1 md:gap-x-2'>
+          <CustomLink to={isLoggedIn ? '/user' : '/auth'}>
+            {globalSvgSelector(isLoggedIn ? 'person' : 'person-add', darkTheme)}
+          </CustomLink>
+          <CustomLink to='/rules'>{globalSvgSelector('rules', darkTheme)}</CustomLink>
+          <CustomLink to='/statistics'>{globalSvgSelector('statistics', darkTheme)}</CustomLink>
+          <CustomLink to='/settings'>{globalSvgSelector('settings', darkTheme)}</CustomLink>
+        </div>
+        {notification && <Notification />}
+      </header>
 
-      <div className='relative w-full h-full ml-4 md:ml-[98px] mr-2 flex justify-center items-center'>
-        <h1 className="grow-[2] text-left md:text-center text-[28px] md:text-[32px] lg:text-[36px] font-['Bitter'] font-black leading-[64px]">
-          {`${gameStatus === 'WIN' ? 'Winner' : gameStatus === 'DEFEAT' ? 'Loser' : 'Wordle'}`}
-        </h1>
-        {/* <InputSwitch
-          onChange={() => dispatch(toggleTheme())}
-          isChecked={darkTheme}
-        /> */}
-        {active && (
-          <p className='absolute right-0 h-7 md:h-8 px-2 align-middle text-[12px] md:text-[14px] font-extrabold text-red-500 uppercase leading-[26px] md:leading-[30px]'>
-            Hard Mode
-          </p>
-        )}
-      </div>
-      <div className='flex justify-end items-center'>
-        {/* <ButtonIcon
-          icon={'restart'}
-          onClick={() => dispatch(openModal({ open: true, window: 'Restart' }))}
-          disabled={board[0]?.every((item) => item.color === '')}
-          style={{ marginRight: '8px' }}
-        /> */}
-        <ButtonIcon
-          icon={isLoggedIn ? 'person' : 'person-add'}
-          onClick={() => dispatch(openModal({ open: true, window: 'Login' }))}
-          style={{ marginRight: '8px' }}
-        />
-        <ButtonIcon
-          icon={'statistics'}
-          onClick={() => dispatch(openModal({ open: true, window: 'Statistics' }))}
-          style={{ marginRight: '8px' }}
-        />
-        <ButtonIcon
-          icon={'settings'}
-          onClick={() => dispatch(openModal({ open: true, window: 'Settings' }))}
-        />
-      </div>
-    </header>
+      <Outlet />
+    </>
   )
 }
 

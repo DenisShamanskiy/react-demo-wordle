@@ -1,14 +1,9 @@
 /* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: ['./src/**/*.{js,jsx,ts,tsx}', './node_modules/tw-elements/dist/js/**/*.js'],
   theme: {
-    screens: {
-      sm: '640px',
-      md: '768px',
-      lg: '1024px',
-      smModal: '500px',
-    },
     extend: {
       keyframes: {
         modalOpen: {
@@ -31,9 +26,9 @@ module.exports = {
             opacity: '0',
           },
         },
-        notificationOpen: {
+        notificationShow: {
           '0%': { transform: 'translate(-50%, 0px)' },
-          '10%': { transform: 'translate(-50%, 36px)' },
+          '8%': { transform: 'translate(-50%, 36px)' },
           '12%': { transform: 'translate(-50%, 38px)' },
           '16%': { transform: 'translate(-50%, 36px)' },
           '80%': { transform: 'translate(-50%, 36px)' },
@@ -44,12 +39,45 @@ module.exports = {
       animation: {
         modalOpen: 'modalOpen 500ms ease 1',
         modalClosed: 'modalClosed 500ms ease 1',
-        notificationOpen: 'notificationOpen 5s ease 1',
+        notificationShow: 'notificationShow 5s ease 1',
       },
       boxShadow: {
         modal: '0 4px 23px 0 rgb(0 0 0 / 20%)',
       },
+      gridTemplateRows: {
+        board: 'repeat(6, 64px)',
+      },
+      gridTemplateColumns: {
+        board: 'repeat(5, 64px)',
+      },
       colors: {
+        'w-black': '#121213',
+        'w-white': '#F2F3F4',
+        // text
+        'w-white-dark': '#abaaa9',
+        'w-quartz': '#49474E',
+        //
+        'w-green': '#6aaa64',
+        'w-green-dark': '#538d4e',
+        'w-yellow': '#c9b458',
+        'w-yellow-dark': '#b59f3b',
+        'w-blue': '#6475aa',
+        'w-blue-dark': '#5a6999',
+        'w-red': '#aa6464',
+        'w-red-dark': '#995a5a',
+        'w-grey': '#787c7e',
+        'w-grey-dark': '#3a3a3c',
+        'w-grey-tone-1': '#878a8c',
+        'w-grey-tone-2': '#d3d6da',
+        'w-grey-tone-3': '#3a3a3c',
+        'w-grey-tone-4': '#565758',
+        //
+        'w-disabled': '#bdc0c4',
+        'w-disabled-dark': '#3f4041',
+        //
+        'w-border-light': '#d3d6da',
+        'w-border-dark': '#3a3a3c',
+        //
         wordleGreen: '#6aaa64',
         wordleYellow: '#c9b458',
         wordleGrey: '#787c7e',

@@ -41,7 +41,7 @@ function Modal({ children }: ModalProps) {
         >
           <div
             className={`w-fit max-w-lg p-6 sm:p-8 rounded-xl border ${
-              darkMode ? 'border-[#1a1a1b] bg-wordleBlack' : 'border-[#f6f7f8] bg-wordleWhite'
+              darkMode ? 'border-[#1a1a1b] bg-[#1e1e20]' : 'border-[#f6f7f8] bg-wordleWhite'
             } shadow-modal ${open ? 'animate-modalOpen' : 'animate-modalClosed'}`}
             onClick={(event) => event.stopPropagation()}
           >

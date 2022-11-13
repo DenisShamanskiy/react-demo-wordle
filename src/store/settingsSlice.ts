@@ -53,6 +53,14 @@ const settingsSlice = createSlice({
 
     toggleTheme(state) {
       state.darkMode = !state.darkMode
+      state.darkMode ? localStorage['theme'] = 'dark' : localStorage['theme'] = 'light'
+      
+      localStorage.setItem('settings', JSON.stringify(state))
+    },
+    setTheme(state, action) {
+      state.darkMode = action.payload
+      state.darkMode ? localStorage['theme'] = 'dark' : localStorage['theme'] = 'light'
+      
       localStorage.setItem('settings', JSON.stringify(state))
     },
   },
@@ -64,6 +72,7 @@ export const {
   addDataHardMode,
   resetDataHardMode,
   toggleTheme,
+  setTheme
 } = settingsSlice.actions
 
 export default settingsSlice.reducer

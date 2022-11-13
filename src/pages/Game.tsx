@@ -7,10 +7,10 @@ type KeyboardProps = {
 
 const Game = ({ handleClick }: KeyboardProps) => {
   return (
-    <div className='h-full flex flex-col justify-between'>
+    <section className='h-full flex flex-col justify-between'>
       <Board />
       <Keyboard handleClick={handleClick} />
-    </div>
+    </section>
   )
 }
 

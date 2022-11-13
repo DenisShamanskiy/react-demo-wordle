@@ -1,31 +1,41 @@
 import { login, registration } from 'api/api'
-import { FormEvent, useState } from 'react'
+import { useState } from 'react'
 import { /* setStats,*/ setUser } from 'store/userSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
-import Section from 'components/micro-components/Main'
 import Heading2 from 'components/micro-components/Heading2'
 import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import Button from 'components/micro-components/Buttons/Button'
+
+type Inputs = {
+  username: string
+  password: string
+}
 
 const Auth = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const darkMode = useAppSelector((state) => state.settings.darkMode)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    reset,
+  } = useForm<Inputs>({
+    mode: 'onBlur',
+  })
+
   const stats = useAppSelector((state) => state.stats)
 
   const goHome = () => navigate('/', { replace: true })
 
   const [typeFormLogin, setTypeFormLogin] = useState<boolean>(true)
-
-  const [username, setUsername] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  async function handleLogin(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+  const handleLogin = async (data: Inputs) => {
     setIsLoading(true)
-    setErrorMessage('')
-    const response = await login(username, password)
+    const response = await login(data.username, data.password)
     if (response.status === 200) {
       console.log(response.status)
       goHome()
@@ -37,102 +47,118 @@ const Auth = () => {
     if (response.status === 400) {
       setErrorMessage(response.data.message)
     }
+    reset()
     setIsLoading(false)
-    // dispatch(setUser({ id: response.data.user.id, username: response.data.user.username }))
-    // dispatch(setStats({ stats: response.data.user.stats }))
   }
 
-  async function handleRegistration(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+  const handleRegistration = async (data: Inputs) => {
+    console.log(data)
+
     setIsLoading(true)
-    const { user } = await registration(username, password, stats)
+    const { user } = await registration(data.username, data.password, stats)
     console.log(user)
     setIsLoading(false)
     dispatch(setUser({ id: user.id, username: user.username }))
     // dispatch(setStats({ stats: user.stats }))
+    reset()
   }
 
   return (
-    <Section style={'w-11/12 max-w-md'}>
-      <>
+    <main className='my-auto'>
+      <section className='w-11/12 max-w-md mx-auto p-5 md:p-7 select-none'>
         <Heading2>Введите ваши данные</Heading2>
-        <div className='relative w-full mt-6 sm:mt-8 overflow-hidden flex items-center text-sm sm:text-base font-bold uppercase'>
+        <div className='relative w-full mt-7 md:mt-9 overflow-hidden flex items-center text-sm md:text-base font-bold uppercase'>
           <input
             type='radio'
-            name='kk'
-            value={'3'}
-            id='tab-1'
+            name='registration'
+            id='registration'
             className='hidden peer'
             checked={!typeFormLogin}
             onChange={() => setTypeFormLogin(false)}
           />
           <label
-            htmlFor='tab-1'
-            className='w-1/2 h-9 rounded flex justify-center items-center cursor-pointer bg-transparent text-wordleRed peer-checked:bg-wordleRed peer-checked:text-wordleWhite'
+            htmlFor='registration'
+            className='w-1/2 h-9 rounded flex justify-center items-center cursor-pointer bg-transparent text-w-red peer-checked:bg-w-red peer-checked:text-w-black'
           >
             Регистрация
           </label>
 
           <input
             type='radio'
-            name='kk'
-            value='4'
-            id='tab-2'
+            name='login'
+            id='login'
             checked={typeFormLogin}
             onChange={() => setTypeFormLogin(true)}
             className='hidden'
           />
           <label
-            htmlFor='tab-2'
-            className=' w-1/2 h-9 rounded flex justify-center items-center cursor-pointer bg-wordleRed text-wordleWhite peer-checked:text-wordleRed peer-checked:bg-transparent'
+            htmlFor='login'
+            className=' w-1/2 h-9 rounded flex justify-center items-center cursor-pointer bg-w-red text-w-black peer-checked:text-w-red peer-checked:bg-transparent'
           >
             Войти
           </label>
         </div>
 
         <form
-          className='relative w-full pt-9 pb-4'
-          onSubmit={(e) => (typeFormLogin ? handleLogin(e) : handleRegistration(e))}
+          className='relative w-full pt-9 pb-4 flex flex-col justify-center items-center'
+          onSubmit={handleSubmit((data) => {
+            typeFormLogin ? handleLogin(data) : handleRegistration(data)
+          })}
         >
           {errorMessage && (
             <p className='absolute left-0 right-0 top-[10px] my-0 mx-auto text-red-500 text-sm text-center '>
               {errorMessage}
             </p>
           )}
-          <div className=''>
-            <input
-              type='text'
-              required
-              placeholder='Логин'
-              onChange={(e) => setUsername(e.target.value)}
-              className={`${
-                darkMode ? 'text-wordleWhite' : 'text-wordleQuartz'
-              } w-full h-11 px-2 mb-6 bg-transparent rounded border-2 outline-none border-wordleTone4 focus:border-wordleGreen transition-all duration-300`}
-            ></input>
-          </div>
-          <div className=''>
-            <input
-              type='password'
-              required
-              placeholder='Пароль'
-              onChange={(e) => setPassword(e.target.value)}
-              className={`${
-                darkMode ? 'text-wordleWhite' : 'text-wordleQuartz'
-              } w-full h-11 px-2 bg-transparent rounded border-2 outline-none border-wordleTone4 focus:border-wordleGreen transition-all duration-300`}
-            ></input>
-          </div>
 
-          <button
-            type='submit'
-            className={`${
-              typeFormLogin ? 'bg-wordleGreen' : 'bg-wordleBlue'
-            } min-w-[120px] h-9 mt-9 mx-auto px-3 text-wordleWhite rounded block text-center text-sm sm:text-base font-bold uppercase`}
-          >
-            {isLoading ? 'загрузка...' : typeFormLogin ? 'войти' : 'создать аккаунт'}
-          </button>
+          <label className='relative w-full flex flex-col pt-3 md:pt-4 text-w-quartz dark:text-w-white-dark transition-all'>
+            <>
+              <span className='ml-1 mb-1 text-sm md:text-base font-bold'>Логин</span>
+              <input
+                {...register('username', {
+                  required: 'Поле обязательно к заполнению',
+                  minLength: {
+                    value: 5,
+                    message: 'Минимум 5 символов',
+                  },
+                })}
+                className='w-full h-11 px-2 bg-transparent rounded border-2 outline-none border-w-grey-tone-2 dark:border-w-grey-tone-4 focus:border-w-blue  dark:focus:border-w-white text-w-quartz dark:text-w-white-dark transition-all duration-300'
+              ></input>
+              <span className='ml-2 my-1 text-xs text-red-500'>
+                {errors?.username && errors?.username.message}
+              </span>
+            </>
+          </label>
+
+          <label className='relative w-full flex flex-col pt-3 md:pt-4 text-w-quartz dark:text-w-white-dark transition-all'>
+            <>
+              <span className='ml-1 mb-1 text-sm md:text-base font-bold'>Пароль</span>
+              <input
+                {...register('password', {
+                  required: 'Поле обязательно к заполнению',
+                  minLength: {
+                    value: 5,
+                    message: 'Минимум 5 символов',
+                  },
+                })}
+                className='w-full h-11 px-2 bg-transparent rounded border-2 outline-none border-w-grey-tone-2 dark:border-w-grey-tone-4 focus:border-w-blue  dark:focus:border-w-white text-w-quartz dark:text-w-white-dark transition-all duration-300'
+              ></input>
+              <span className='ml-2 my-1 text-xs text-red-500'>
+                {errors?.password && errors?.password.message}
+              </span>
+            </>
+          </label>
+          <div className=' w-3/5 mt-8 md:mt-10'>
+            <Button
+              type='submit'
+              disabled={!isValid}
+              text={isLoading ? 'загрузка...' : typeFormLogin ? 'войти' : 'создать аккаунт'}
+              color={typeFormLogin ? 'green' : 'blue'}
+            />
+          </div>
         </form>
-      </>
-    </Section>
+      </section>
+    </main>
   )
 }
 

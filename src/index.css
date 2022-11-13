@@ -48,7 +48,38 @@
     @apply disabled:bg-transparent disabled:border-wordleTone4 disabled:text-wordleTone4;
   }
 
+  .btnDis {
+    @apply  disabled:bg-transparent disabled:border-wordleTone4 dark:disabled:border-wordleTone4Dark disabled:text-wordleTone4 dark:disabled:text-wordleTone4Dark hover:pointer-events-none;
+  }
+
+
+
   .button-key {
     @apply h-[48px] mr-1.5 p-0 rounded border-b flex flex-1 justify-center items-center font-bold uppercase cursor-pointer select-none last:mr-0 active:border-0 active:border-t;
+  }
+
+
+  .btn-before {
+    @apply before:absolute before:w-full before:h-[2px] before:bg-wQuartz dark:before:bg-wWhiteDark before:z-20 before:transition-all before:duration-[350ms] before:top-0 before:right-0
+  }
+
+  .btn-after {
+    @apply after:absolute after:w-full after:h-[2px] after:bg-wQuartz dark:after:bg-wWhiteDark after:z-20 after:transition-all after:duration-[350ms] after:bottom-0 after:left-0
+  }
+
+  .hover-btn-before {
+    @apply hover:before:w-0 hover:before:transition-all hover:before:duration-200 hover:before:delay-200 hover:before:ease-out
+  }
+  
+  .hover-btn-after {
+    @apply hover:after:w-0 hover:after:transition-all hover:after:duration-200 hover:after:delay-200 hover:after:ease-out
+  }
+
+  .span-btn-before {
+    @apply before:absolute before:w-[2px] before:h-full before:bg-wQuartz dark:before:bg-wWhiteDark before:z-20 before:transition-all before:duration-[250ms] before:bottom-0 before:-right-[2px]
+  }
+
+  .span-btn-after {
+    @apply after:absolute after:w-[2px] after:h-full after:bg-wQuartz dark:after:bg-wWhiteDark after:z-20 after:transition-all after:duration-[250ms] after:top-0 after:-left-[2px]
   }
 }

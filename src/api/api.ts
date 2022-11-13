@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const axios = require('axios').default
 
-const serverURLLocal = 'http://localhost:3002'
-// const serverURL = 'https://react-demo-wordle-api.vercel.app/api/registration'
+// const serverURLLocal = 'http://localhost:3002'
+// const serverURL = 'https://react-demo-wordle-api.vercel.app/api/'
 
 type BarRow = {
   name: number
@@ -18,10 +18,12 @@ type Stats = {
 }
 
 export async function registration(username: string, password: string, stats: Stats) {
+  console.log(username, password, stats);
+  
   try {
     const response = await axios({
       method: 'post',
-      url: serverURLLocal,
+      url: 'https://react-demo-wordle-api.vercel.app/api/registration',
       data: {
         username: username,
         password: password,

@@ -31,7 +31,7 @@ const Keyboard = ({ handleClick }: KeyboardProps) => {
     }
   }, [currentRowIndex]) // eslint-disable-line
   return (
-    <section
+    <div
       className={`${
         darkTheme ? 'bg-wordleBlack' : 'bg-wordleTone4'
       } w-full max-w-lg mx-auto p-2 rounded-t flex flex-col select-none font-sans`}
@@ -118,7 +118,7 @@ const Keyboard = ({ handleClick }: KeyboardProps) => {
           </div>
         )
       })}
-    </section>
+    </div>
   )
 }
 

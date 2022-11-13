@@ -1,4 +1,4 @@
-import Button from 'components/micro-components/Button/Button'
+import Button from 'components/micro-components/Buttons/Button'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import Main from 'components/micro-components/Main'
 import { useNavigate } from 'react-router-dom'
@@ -23,12 +23,7 @@ const User = () => {
       <section>
         <Heading2>{username}</Heading2>
         <div className='w-72 sm:w-80 mt-5 sm:mt-7 flex justify-center'>
-          <Button
-            text={'выйти'}
-            color={'red'}
-            style={{ width: '140px' }}
-            onClick={() => handleLogout()}
-          />
+          <Button type='button' text={'выйти'} color={'red'} onClick={() => handleLogout()} />
         </div>
       </section>
     </Main>

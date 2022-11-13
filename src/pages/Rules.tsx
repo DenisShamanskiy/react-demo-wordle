@@ -1,67 +1,56 @@
-import ExampleWord from 'components/micro-components/ExampleWord'
+import Example from 'components/micro-components/Example'
 import Heading2 from 'components/micro-components/Heading2'
 import Paragraph from 'components/micro-components/Paragraph'
-import Section from 'components/micro-components/Main'
 import { exampleRules, WORDS } from 'utils/constants'
 import { numWord } from 'utils/formate'
-import { useAppSelector } from 'utils/hook'
 
 const Rules = () => {
-  const darkMode = useAppSelector((state) => state.settings.darkMode)
-
   return (
-    <Section style={'w-11/12 max-w-3xl'}>
-      <>
+    <main className='my-auto'>
+      <section className='w-11/12 max-w-3xl mx-auto p-5 md:p-7 select-none'>
         <Heading2>Как играть</Heading2>
-        <Paragraph>
-          <>
-            Угадай <strong>СЛОВО</strong> за 6 попыток
-          </>
-        </Paragraph>
-        <Paragraph>Каждое предположение должно быть допустимым словом из 5 букв</Paragraph>
-        <Paragraph>
-          После каждой попытки цвет плитки будет меняться, чтобы показать, насколько ваше
-          предположение было близко к слову
-        </Paragraph>
+        <div className='mt-7 md:mt-9'>
+          <Paragraph>
+            <>
+              Угадай <strong>СЛОВО</strong> за 6 попыток
+            </>
+          </Paragraph>
+          <Paragraph>Каждое предположение должно быть допустимым словом из 5 букв</Paragraph>
+          <Paragraph>
+            После каждой попытки цвет плитки будет меняться, чтобы показать, насколько ваше
+            предположение было близко к слову
+          </Paragraph>
+        </div>
 
-        <div
-          className={`border-y max-w- ${
-            darkMode ? 'border-wordleBorderDark' : 'border-wordleBorderLight'
-          }`}
-        >
-          <p
-            className={`${
-              darkMode ? 'text-wordleWhite' : 'text-wordleQuartz'
-            } mt-4 text-sm font-bold uppercase`}
-          >
+        <div className='border-y border-w-grey-tone-2 dark:border-w-grey-tone-3'>
+          <h3 className='mt-4 text-sm md:text-lg font-bold text-w-quartz dark:text-w-white-dark uppercase'>
             Примеры
-          </p>
+          </h3>
+
           {exampleRules.map((row, indexRow) => {
             return (
-              <div className='my-4' key={indexRow}>
-                {row.word.map((letter, indexWord) => {
-                  return (
-                    <ExampleWord index={indexWord} letter={letter} row={indexRow} key={indexWord} />
-                  )
-                })}
+              <>
+                <ul className='my-4 flex gap-x-1' key={indexRow}>
+                  {row.word.map((letter, indexWord) => {
+                    return (
+                      <Example index={indexWord} letter={letter} row={indexRow} key={indexWord} />
+                    )
+                  })}
+                </ul>
                 <Paragraph>
                   <>
                     {row.discreption[0]} <strong>{row.discreption[1]}</strong> {row.discreption[2]}
                   </>
                 </Paragraph>
-              </div>
+              </>
             )
           })}
         </div>
-        <p
-          className={`${
-            darkMode ? 'text-wordleWhite' : 'text-wordleQuartz'
-          } mt-5 sm:mt-7 text-center text-xs`}
-        >
+        <p className='mt-5 md:mt-7 text-center text-xs md:text-sm text-w-quartz dark:text-w-white-dark'>
           В игре <strong>{WORDS.length}</strong> {numWord(WORDS.length)}
         </p>
-      </>
-    </Section>
+      </section>
+    </main>
   )
 }
 

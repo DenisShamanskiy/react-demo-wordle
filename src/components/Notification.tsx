@@ -6,7 +6,6 @@ const Notification = () => {
   const dispatch = useAppDispatch()
 
   const message = useAppSelector((state) => state.notification.message)
-  const darkMode = useAppSelector((state) => state.settings.darkMode)
 
   useEffect(() => {
     setTimeout(() => {
@@ -15,11 +14,7 @@ const Notification = () => {
   }, [])
 
   return (
-    <span
-      className={`${
-        darkMode ? 'bg-wordleTone4Dark text-wordleWhite' : 'bg-wordleTone4 text-wordleBlack'
-      } absolute bottom-0 left-1/2 -translate-x-1/2 min-w-[330px] rounded p-2 text-center text-xs font-bold uppercase box-border -z-10 animate-notificationOpen`}
-    >
+    <span className='absolute bottom-0 left-1/2 -translate-x-1/2 min-w-[330px] rounded p-2 bg-w-grey-tone-2 dark:bg-w-grey-tone-1 text-center text-xs font-bold uppercase text-w-black box-border -z-10 animate-notificationShow'>
       {message}
     </span>
   )

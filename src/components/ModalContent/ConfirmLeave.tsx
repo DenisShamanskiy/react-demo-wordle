@@ -1,4 +1,4 @@
-import Button from 'components/micro-components/Button/Button'
+import Button from 'components/micro-components/Buttons/Button'
 import Heading2 from 'components/micro-components/Heading2'
 import { useNavigate } from 'react-router-dom'
 import { setRelultGame } from 'store/gameSlice'
@@ -32,8 +32,8 @@ const ConfirmLeave = () => {
         Узнаешь загаданное слово, но cдача засчитается в статистике
       </p>
       <div className='grid grid-cols-[130px_130px] sm:grid-cols-[140px_140px] gap-4 sm:gap-5 justify-center'>
-        <Button text={'нет'} color={'red'} onClick={() => dispatch(closeModal())} />
-        <Button text={'да'} color={'blue'} onClick={() => handleConfirm()} />
+        <Button type='button' text={'нет'} color={'red'} onClick={() => dispatch(closeModal())} />
+        <Button type='button' text={'да'} color={'blue'} onClick={() => handleConfirm()} />
       </div>
     </section>
   )

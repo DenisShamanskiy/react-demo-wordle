@@ -1,12 +1,13 @@
-import ButtonIcon from 'components/micro-components/Button/ButtonIcon'
-import InputSwitch from 'components/micro-components/InputSwitch'
-import { useAppDispatch, useAppSelector } from 'utils/hook'
-import { openModal } from 'store/modalSlice'
-import Button from 'components/micro-components/Button/Button'
-import Main from 'components/micro-components/Main'
+import Button from 'components/micro-components/Buttons/Button'
+import ButtonIcon from 'components/micro-components/Buttons/ButtonIcon'
 import Heading2 from 'components/micro-components/Heading2'
+import InputSwitch from 'components/micro-components/InputSwitch'
 import SettingsRow from 'components/micro-components/SettingsRow'
+import { DarkModeSwitch } from 'react-toggle-dark-mode'
+import { openModal } from 'store/modalSlice'
 import { toggleHardMode, toggleTheme } from 'store/settingsSlice'
+import useCurrentWidth from 'utils/getWidth'
+import { useAppDispatch, useAppSelector } from 'utils/hook'
 
 const Settings = () => {
   const dispatch = useAppDispatch()
@@ -16,38 +17,40 @@ const Settings = () => {
     hardMode: { active },
   } = useAppSelector((state) => state.settings)
 
-  const reloadLocalStorage = () => {
-    localStorage.clear()
-  }
-
-  const newGame = () => {
-    dispatch(
-      openModal({
-        window: 'ConfirmNewGame',
-        title: 'Новая игра?',
-      }),
-    )
-  }
-  const leaveGame = () => {
-    dispatch(
-      openModal({
-        window: 'ConfirmLeave',
-        title: 'Сдаёшься?',
-      }),
-    )
-  }
+  const styleWidth = useCurrentWidth()
 
   return (
-    <Main style={'w-11/12 max-w-xl'}>
-      <section>
+    <main className='my-auto'>
+      <section className='w-11/12 max-w-xl mx-auto p-5 md:p-7 select-none'>
         <Heading2>Настройки</Heading2>
-        <div className='my-8 sm:my-10 flex flex-col justify-center items-center'>
-          <div className='w-48 sm:w-52 pb-8 sm:pb-10 grid grid-rows-2 gap-y-2 sm:gap-y-3'>
-            <Button text={'новая игра'} color={'green'} onClick={() => newGame()} />
+        <div className='mt-7 md:mt-9 flex flex-col justify-center items-center'>
+          <div className='w-48 md:w-52 pb-8 md:pb-10 grid grid-rows-2 gap-y-2 md:gap-y-3'>
             <Button
+              type='button'
+              text={'новая игра'}
+              color='green'
+              onClick={() =>
+                dispatch(
+                  openModal({
+                    window: 'ConfirmNewGame',
+                    title: 'Новая игра?',
+                  }),
+                )
+              }
+              disabled={board[0]?.every((item) => item.color === '')}
+            />
+            <Button
+              type='button'
               text={'сдаться'}
-              color={'yellow'}
-              onClick={() => leaveGame()}
+              color='yellow'
+              onClick={() =>
+                dispatch(
+                  openModal({
+                    window: 'ConfirmLeave',
+                    title: 'Сдаёшься?',
+                  }),
+                )
+              }
               disabled={
                 board[0]?.every((item) => item.color === '') ||
                 ['WIN', 'FAIL', 'LEAVE'].includes(gameStatus)
@@ -56,33 +59,34 @@ const Settings = () => {
           </div>
 
           <SettingsRow>
-            <div className={`${darkMode ? 'text-wordleWhite' : 'text-wordleQuartz'} flex flex-col`}>
-              <p className='text-lg sm:text-xl font-bold'>Hard Mode</p>
-              <p className='text-xs sm:text-sm'>Необходимо использовать все подсказки</p>
+            <div className='flex flex-col text-w-quartz dark:text-w-white-dark'>
+              <p className='text-lg md:text-xl font-bold'>Повысить сложность</p>
+              <p className='text-xs md:text-sm'>Необходимо использовать все подсказки</p>
             </div>
             <InputSwitch onChange={() => dispatch(toggleHardMode())} isChecked={active} />
           </SettingsRow>
           <SettingsRow>
-            <p
-              className={`${
-                darkMode ? 'text-wordleWhite' : 'text-wordleQuartz'
-              } text-lg sm:text-xl font-bold`}
-            >
-              Dark Theme
+            <p className='text-lg md:text-xl font-bold text-w-quartz dark:text-w-white-dark'>
+              {darkMode ? 'Светлая тема' : 'Тёмная тема'}
             </p>
-            <InputSwitch onChange={() => dispatch(toggleTheme())} isChecked={darkMode} />
+            <DarkModeSwitch
+              checked={darkMode}
+              sunColor={'#49474E'}
+              onChange={() => dispatch(toggleTheme())}
+              size={styleWidth > 768 ? 35 : 28}
+            />
           </SettingsRow>
           <SettingsRow>
-            <div className={`${darkMode ? 'text-wordleWhite' : 'text-wordleQuartz'} flex flex-col`}>
-              <p className='text-lg sm:text-xl font-bold'>LocalStorage</p>
-              <p className='text-xs sm:text-sm'>Очистить</p>
+            <div className='flex flex-col text-w-quartz dark:text-w-white-dark'>
+              <p className='text-lg md:text-xl font-bold'>LocalStorage</p>
+              <p className='text-xs md:text-sm'>Очистить</p>
             </div>
-            <ButtonIcon icon={'trash'} onClick={() => reloadLocalStorage()} />
+            <ButtonIcon icon={'trash'} onClick={() => localStorage.clear()} />
           </SettingsRow>
         </div>
-        <p className='text-xs sm:text-sm text-[#787c7e]'>© 2022 Денис Шаманский</p>
+        <p className='pt-8 md:pt-10 text-xs md:text-sm text-[#787c7e]'>© 2022 Денис Шаманский</p>
       </section>
-    </Main>
+    </main>
   )
 }
 

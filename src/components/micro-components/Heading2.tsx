@@ -1,18 +1,12 @@
-import { useAppSelector } from 'utils/hook'
+import { FC } from 'react'
 
 type Heading2Props = {
   children: string
 }
 
-const Heading2 = ({ children }: Heading2Props) => {
-  const darkMode = useAppSelector((state) => state.settings.darkMode)
-
+const Heading2: FC<Heading2Props> = ({ children }) => {
   return (
-    <h2
-      className={`${
-        darkMode ? 'text-wordleWhite' : 'text-wordleQuartz'
-      } text-center text-base sm:text-lg font-bold uppercase`}
-    >
+    <h2 className='text-w-quartz dark:text-w-white-dark text-center text-base md:text-xl font-bold uppercase'>
       {children}
     </h2>
   )
