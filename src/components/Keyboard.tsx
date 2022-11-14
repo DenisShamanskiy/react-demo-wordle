@@ -1,72 +1,111 @@
-import { useAppDispatch, useAppSelector } from 'utils/hook'
 import { useEffect } from 'react'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
-import { colorKey } from 'store/gameSlice'
+import { addLetterBoard, colorKey, removeLetterBoard } from 'store/gameSlice'
+import { useAppDispatch, useAppSelector } from 'utils/hook'
 
 type KeyboardProps = {
-  handleClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  checkGuess: () => void
 }
 
-const Keyboard = ({ handleClick }: KeyboardProps) => {
+const Keyboard = ({ checkGuess }: KeyboardProps) => {
   const dispatch = useAppDispatch()
 
   const darkTheme = useAppSelector((state) => state.settings.darkMode)
-  const { board, keyBoard, currentRowIndex } = useAppSelector((state) => state.game)
+  const { board, keyBoard, currentRowIndex, gameStatus, nextLetter } = useAppSelector(
+    (state) => state.game,
+  )
 
-  const getColorKey = (color: string | undefined) => {
+  const addClassColor = (color: string | undefined) => {
     switch (color) {
       case 'letter-green':
-        return `text-wordleWhite ${darkTheme ? 'bg-wordleGreenDark' : 'bg-wordleGreen'}`
+        return 'bg-w-green dark:bg-w-green-dark'
       case 'letter-yellow':
-        return `text-wordleWhite ${darkTheme ? 'bg-wordleYellowDark' : 'bg-wordleYellow'}`
+        return 'bg-w-yellow dark:bg-w-yellow-dark'
       case 'letter-grey':
-        return `text-wordleWhite ${darkTheme ? 'bg-wordleGreyDark' : 'bg-wordleGrey'}`
+        return 'bg-w-grey dark:bg-w-grey-dark'
       default:
         return ''
     }
   }
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const pressedKey = event.currentTarget.dataset['key']!
+    if (gameStatus === 'WIN') return
+    if (pressedKey === '←' && nextLetter !== 0) {
+      dispatch(removeLetterBoard())
+      return
+    }
+    if (pressedKey === '↵') {
+      checkGuess()
+      return
+    }
+    const found = pressedKey.match(/[а-яА-ЯЁё]/gi)
+    if (!found || found.length > 1) return
+    else dispatch(addLetterBoard(pressedKey))
+  }
+
   useEffect(() => {
     if (currentRowIndex > 0) {
       dispatch(colorKey(board[currentRowIndex - 1]!))
     }
   }, [currentRowIndex]) // eslint-disable-line
+
   return (
-    <div
-      className={`${
-        darkTheme ? 'bg-wordleBlack' : 'bg-wordleTone4'
-      } w-full max-w-lg mx-auto p-2 rounded-t flex flex-col select-none font-sans`}
-    >
+    <div className='w-full max-w-2xl mx-auto p-2 rounded-t flex flex-col gap-y-1.5 bg-w-grey-tone-2 dark:bg-w-black font-sans select-none'>
       {keyBoard.map((_, indexRow) => {
         if (indexRow === 2) {
           return (
-            <div className='w-full flex' key={indexRow}>
+            <div className='w-full grid grid-cols-keyBoardLastRow gap-x-1.5' key={indexRow}>
               <button
                 type='button'
                 data-key='↵'
-                className={`button-key bg-no-repeat ${
-                  darkTheme
-                    ? 'bg-wordleTone2Dark border-black'
-                    : 'bg-wordleWhite border-wordleTone3'
-                } bg-[length:50%] bg-center flex-[1.6_1_0%]`}
+                className='button-key border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5 flex-[2_1_0%]'
                 onClick={handleClick}
               >
-                {globalSvgSelector('key-enter', darkTheme)}
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='28'
+                  height='28'
+                  viewBox='0 0 512 512'
+                >
+                  <title>key-enter</title>
+                  <path
+                    d='M176,176V136a40,40,0,0,1,40-40H424a40,40,0,0,1,40,40V376a40,40,0,0,1-40,40H216a40,40,0,0,1-40-40V336'
+                    fill='none'
+                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='32px'
+                  />
+                  <polyline
+                    points='272 336 352 256 272 176'
+                    fill='none'
+                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='32px'
+                  />
+                  <line
+                    x1='48'
+                    y1='256'
+                    x2='336'
+                    y2='256'
+                    fill='none'
+                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='32px'
+                  />
+                </svg>
               </button>
               {keyBoard[indexRow]?.map((buttonKey, indexKey) => {
                 return (
                   <button
                     type='button'
                     data-key={buttonKey.value}
-                    className={`button-key ${
+                    className={`button-key min-w-[27.66px] ${
                       buttonKey.color
-                        ? `${getColorKey(buttonKey.color)} ${
-                            darkTheme ? 'border-black' : 'border-[color:var(--color-border-dark)]'
-                          }`
-                        : `${
-                            darkTheme
-                              ? 'bg-wordleTone2Dark text-wordleWhite border-black'
-                              : 'bg-wordleWhite text-wordleQuartz border-wordleTone3'
-                          }`
+                        ? `${addClassColor(buttonKey.color)} border-[#6c6e70] text-w-white }`
+                        : 'border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5 text-w-quartz dark:text-w-white'
                     }`}
                     onClick={handleClick}
                     key={indexKey}
@@ -78,20 +117,74 @@ const Keyboard = ({ handleClick }: KeyboardProps) => {
               <button
                 type='button'
                 data-key='←'
-                className={`button-key bg-no-repeat ${
-                  darkTheme
-                    ? 'bg-wordleTone2Dark border-black'
-                    : 'bg-wordleWhite border-wordleTone3'
-                } bg-[length:50%] bg-center flex-[1.6_1_0%]`}
+                className='button-key border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5 flex-[2_1_0%]'
                 onClick={handleClick}
               >
-                {globalSvgSelector('key-backspace', darkTheme)}
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='28'
+                  height='28'
+                  viewBox='0 0 512 512'
+                >
+                  <title>key-backspace</title>
+                  <path
+                    d='M135.19,390.14A28.79,28.79,0,0,0,156.87,400H403.13A29,29,0,0,0,432,371.13V140.87A29,29,0,0,0,403.13,112H156.87a28.84,28.84,0,0,0-21.67,9.84v0L46.33,256l88.86,134.11Z'
+                    fill='none'
+                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
+                    strokeLinejoin='round'
+                    strokeWidth='32px'
+                  />
+                  <line
+                    x1='336.67'
+                    y1='192.33'
+                    x2='206.66'
+                    y2='322.34'
+                    fill='none'
+                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='32px'
+                  />
+                  <line
+                    x1='336.67'
+                    y1='322.34'
+                    x2='206.66'
+                    y2='192.33'
+                    fill='none'
+                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='32px'
+                  />
+                  <line
+                    x1='336.67'
+                    y1='192.33'
+                    x2='206.66'
+                    y2='322.34'
+                    fill='none'
+                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='32px'
+                  />
+                  <line
+                    x1='336.67'
+                    y1='322.34'
+                    x2='206.66'
+                    y2='192.33'
+                    fill='none'
+                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    strokeWidth='32px'
+                  />
+                </svg>
               </button>
             </div>
           )
         }
         return (
-          <div className='mb-1.5 flex w-full' key={indexRow}>
+          <div className='w-full grid grid-cols-12 gap-x-1.5' key={indexRow}>
             {keyBoard[indexRow]?.map((buttonKey, indexKey) => {
               return (
                 <button
@@ -99,14 +192,8 @@ const Keyboard = ({ handleClick }: KeyboardProps) => {
                   data-key={buttonKey.value}
                   className={`button-key ${
                     buttonKey.color
-                      ? `${getColorKey(buttonKey.color)} ${
-                          darkTheme ? 'border-black' : 'border-[color:var(--color-border-dark)]'
-                        }`
-                      : `${
-                          darkTheme
-                            ? 'bg-wordleTone2Dark text-wordleWhite border-black'
-                            : 'bg-wordleWhite text-wordleQuartz border-wordleTone3'
-                        }`
+                      ? `${addClassColor(buttonKey.color)} border-[#6c6e70] text-w-white }`
+                      : 'border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5 text-w-quartz dark:text-w-white'
                   }`}
                   onClick={handleClick}
                   key={indexKey}

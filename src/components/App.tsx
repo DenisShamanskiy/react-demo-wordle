@@ -145,21 +145,7 @@ const App = () => {
     //   return
     // }
   }
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const pressedKey = event.currentTarget.dataset['key']!
-    if (gameStatus === 'WIN') return
-    if (pressedKey === '←' && nextLetter !== 0) {
-      dispatch(removeLetterBoard())
-      return
-    }
-    if (pressedKey === '↵') {
-      checkGuess()
-      return
-    }
-    const found = pressedKey.match(/[а-яА-ЯЁё]/gi)
-    if (!found || found.length > 1) return
-    else dispatch(addLetterBoard(pressedKey))
-  }
+
   const getModalContent = (titleContent: string) => {
     switch (titleContent) {
       case 'ConfirmNewGame':
@@ -214,7 +200,7 @@ const App = () => {
     >
       <Routes>
         <Route path='/' element={<Header />}>
-          <Route index element={<Game handleClick={handleClick} />} />
+          <Route index element={<Game checkGuess={checkGuess} />} />
           <Route path='user' element={<User />} />
           <Route path='auth' element={<Auth />} />
           <Route path='rules' element={<Rules2 />} />

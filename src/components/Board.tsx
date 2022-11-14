@@ -23,10 +23,13 @@ const Board = () => {
   }
 
   return (
-    <div className='m-auto p-2.5 grid grid-rows-board gap-[5px] font-["Bitter"] font-extrabold uppercase box-border select-none'>
+    <div className='m-auto p-2.5 grid grid-rows-board md:grid-rows-boardMD gap-[5px] font-["Bitter"] font-extrabold uppercase box-border select-none'>
       {board.map((_, indexRow) => {
         return (
-          <div className='grid grid-cols-board gap-[5px] text-[2rem]' key={indexRow}>
+          <div
+            className='grid grid-cols-board md:grid-cols-boardMD gap-[5px] text-2xl md:text-[2rem]'
+            key={indexRow}
+          >
             {board[indexRow]!.map((letter, indexLetter) => {
               return (
                 <div

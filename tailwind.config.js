@@ -45,10 +45,14 @@ module.exports = {
         modal: '0 4px 23px 0 rgb(0 0 0 / 20%)',
       },
       gridTemplateRows: {
-        board: 'repeat(6, 64px)',
+        board: 'repeat(6, 54px)',
+        boardMD: 'repeat(6, 64px)',
       },
       gridTemplateColumns: {
-        board: 'repeat(5, 64px)',
+        board: 'repeat(5, 54px)',
+        boardMD: 'repeat(5, 64px)',
+        keyBoardLastRow:
+          'minmax(44.55px, 1fr) repeat(9, minmax(27.66px, 49.16px)) minmax(44.55px, 1fr)',
       },
       colors: {
         'w-black': '#121213',
@@ -71,6 +75,7 @@ module.exports = {
         'w-grey-tone-2': '#d3d6da',
         'w-grey-tone-3': '#3a3a3c',
         'w-grey-tone-4': '#565758',
+        'w-grey-tone-5': '#818384',
         //
         'w-disabled': '#bdc0c4',
         'w-disabled-dark': '#3f4041',
