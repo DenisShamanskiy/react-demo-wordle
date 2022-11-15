@@ -11,7 +11,6 @@ type ModalProps = {
 
 function Modal({ children }: ModalProps) {
   const nodeRef = useRef(null)
-  const darkMode = useAppSelector((state) => state.settings.darkMode)
   const { open } = useAppSelector((state) => state.modal)
 
   const dispatch = useAppDispatch()
@@ -35,14 +34,14 @@ function Modal({ children }: ModalProps) {
         nodeRef={nodeRef}
       >
         <dialog
-          className={`modal ${darkMode ? 'bg-black/60' : 'bg-white/60'}`}
+          className='modal bg-white/60 dark:bg-black/60'
           ref={nodeRef}
           onClick={() => dispatch(closeModal())}
         >
           <div
-            className={`w-fit max-w-lg p-6 sm:p-8 rounded-xl border ${
-              darkMode ? 'border-[#1a1a1b] bg-[#1e1e20]' : 'border-[#f6f7f8] bg-wordleWhite'
-            } shadow-modal ${open ? 'animate-modalOpen' : 'animate-modalClosed'}`}
+            className={`w-fit max-w-lg p-6 md:p-8 rounded-xl border border-[#f6f7f8] dark:border-[#1a1a1b] bg-w-white dark:bg-[#1e1e20] shadow-modal ${
+              open ? 'animate-modalOpen' : 'animate-modalClosed'
+            }`}
             onClick={(event) => event.stopPropagation()}
           >
             {children}

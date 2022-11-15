@@ -45,11 +45,11 @@ module.exports = {
         modal: '0 4px 23px 0 rgb(0 0 0 / 20%)',
       },
       gridTemplateRows: {
-        board: 'repeat(6, 54px)',
+        board: 'repeat(6, 58px)',
         boardMD: 'repeat(6, 64px)',
       },
       gridTemplateColumns: {
-        board: 'repeat(5, 54px)',
+        board: 'repeat(5, 58px)',
         boardMD: 'repeat(5, 64px)',
         keyBoardLastRow:
           'minmax(44.55px, 1fr) repeat(9, minmax(27.66px, 49.16px)) minmax(44.55px, 1fr)',

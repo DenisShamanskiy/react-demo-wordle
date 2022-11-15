@@ -27,7 +27,7 @@ const Board = () => {
       {board.map((_, indexRow) => {
         return (
           <div
-            className='grid grid-cols-board md:grid-cols-boardMD gap-[5px] text-2xl md:text-[2rem]'
+            className='grid grid-cols-board md:grid-cols-boardMD gap-[5px] text-[1.7rem] md:text-[2rem]'
             key={indexRow}
           >
             {board[indexRow]!.map((letter, indexLetter) => {

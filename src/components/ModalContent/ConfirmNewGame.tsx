@@ -20,9 +20,9 @@ const ConfirmNewGame = () => {
   }
 
   return (
-    <section className='w-72 sm:w-80'>
+    <section className='w-72 md:w-80 select-none'>
       <Heading2>Новая игра?</Heading2>
-      <div className='mt-6 sm:mt-8 grid grid-cols-[130px_130px] sm:grid-cols-[140px_140px] gap-4 sm:gap-5 justify-center'>
+      <div className='mt-6 md:mt-8 grid grid-cols-[130px_130px] md:grid-cols-[140px_140px] gap-4 md:gap-5 justify-center'>
         <Button type='button' text={'нет'} color={'red'} onClick={() => dispatch(closeModal())} />
         <Button type='button' text={'да'} color={'blue'} onClick={() => handleConfirm()} />
       </div>

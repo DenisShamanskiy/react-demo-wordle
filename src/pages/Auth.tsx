@@ -78,7 +78,7 @@ const Auth = () => {
           />
           <label
             htmlFor='registration'
-            className='w-1/2 h-9 rounded flex justify-center items-center cursor-pointer bg-transparent text-w-red peer-checked:bg-w-red peer-checked:text-w-black'
+            className='w-1/2 h-9 rounded flex justify-center items-center cursor-pointer bg-transparent text-w-red dark:text-w-red-dark peer-checked:bg-w-red dark:peer-checked:bg-w-red-dark peer-checked:text-w-white dark:peer-checked:text-w-black'
           >
             Регистрация
           </label>
@@ -93,7 +93,7 @@ const Auth = () => {
           />
           <label
             htmlFor='login'
-            className=' w-1/2 h-9 rounded flex justify-center items-center cursor-pointer bg-w-red text-w-black peer-checked:text-w-red peer-checked:bg-transparent'
+            className=' w-1/2 h-9 rounded flex justify-center items-center cursor-pointer bg-w-red dark:bg-w-red-dark text-w-white dark:text-w-black peer-checked:text-w-red dark:peer-checked:text-w-red-dark peer-checked:bg-transparent'
           >
             Войти
           </label>

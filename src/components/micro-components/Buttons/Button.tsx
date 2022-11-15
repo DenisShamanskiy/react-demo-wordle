@@ -15,13 +15,13 @@ const Button: FC<IButtonProps> = ({ type, text, color, disabled, onClick }) => {
     } else {
       switch (color) {
         case 'green':
-          return 'hover:bg-w-green dark:hover:bg-w-green-dark hover:border-w-green dark:hover:border-w-green-dark hover:text-w-black dark:hover:text-w-black'
+          return 'hover:bg-w-green dark:hover:bg-w-green-dark hover:border-w-green dark:hover:border-w-green-dark hover:text-w-white dark:hover:text-w-black'
         case 'yellow':
-          return 'hover:bg-w-yellow dark:hover:bg-w-yellow-dark hover:border-w-yellow dark:hover:border-w-yellow-dark hover:text-w-black dark:hover:text-w-black'
+          return 'hover:bg-w-yellow dark:hover:bg-w-yellow-dark hover:border-w-yellow dark:hover:border-w-yellow-dark hover:text-w-white dark:hover:text-w-black'
         case 'red':
-          return 'hover:bg-w-red dark:hover:bg-w-red-dark hover:border-w-red dark:hover:border-w-red-dark hover:text-w-black dark:hover:text-w-black'
+          return 'hover:bg-w-red dark:hover:bg-w-red-dark hover:border-w-red dark:hover:border-w-red-dark hover:text-w-white dark:hover:text-w-black'
         case 'blue':
-          return 'hover:bg-w-blue dark:hover:bg-w-blue-dark hover:border-w-blue dark:hover:border-w-blue-dark hover:text-w-black dark:hover:text-w-black'
+          return 'hover:bg-w-blue dark:hover:bg-w-blue-dark hover:border-w-blue dark:hover:border-w-blue-dark hover:text-w-white dark:hover:text-w-black'
         default:
           return ''
       }

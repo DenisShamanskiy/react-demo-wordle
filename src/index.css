@@ -10,76 +10,13 @@
       'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: var(--color-quartz);
   }
-  .act {
+  /* .act {
     background-color: red;
-  }
+  } */
 }
 @layer components {
-  .btnRed {
-    @apply border-wordleRed bg-wordleRed hover:bg-transparent hover:text-wordleRed;
-  }
-  .btnRedDark {
-    @apply border-wordleRedDark bg-transparent hover:bg-wordleRedDark hover:border-wordleRedDark;
-  }
-  .btnBlue {
-    @apply border-wordleBlue bg-wordleBlue hover:bg-transparent hover:text-wordleBlue;
-  }
-  .btnBlueDark {
-    @apply border-wordleBlueDark bg-transparent hover:bg-wordleBlueDark hover:border-wordleBlueDark;
-  }
-  .btnGreen {
-    @apply border-wordleGreen bg-wordleGreen hover:bg-transparent hover:text-wordleGreen;
-  }
-  .btnGreenDark {
-    @apply border-wordleGreenDark bg-transparent hover:bg-wordleGreenDark hover:border-wordleGreenDark;
-  }
-  .btnYellow {
-    @apply border-wordleYellow bg-wordleYellow hover:bg-transparent hover:text-wordleYellow;
-  }
-  .btnYellowDark {
-    @apply border-wordleYellowDark bg-transparent hover:bg-wordleYellowDark hover:border-wordleYellowDark;
-  }
-  .btnDisabledDark {
-    @apply disabled:bg-transparent disabled:border-wordleTone4Dark disabled:text-wordleTone4Dark;
-  }
-  .btnDisabled {
-    @apply disabled:bg-transparent disabled:border-wordleTone4 disabled:text-wordleTone4;
-  }
-
-  .btnDis {
-    @apply  disabled:bg-transparent disabled:border-wordleTone4 dark:disabled:border-wordleTone4Dark disabled:text-wordleTone4 dark:disabled:text-wordleTone4Dark hover:pointer-events-none;
-  }
-
-
-
   .button-key {
-    @apply h-[48px] rounded border-b dark:border-none flex flex-1 justify-center items-center font-bold uppercase cursor-pointer active:border-none active:scale-95;
-  }
-
-
-  .btn-before {
-    @apply before:absolute before:w-full before:h-[2px] before:bg-wQuartz dark:before:bg-wWhiteDark before:z-20 before:transition-all before:duration-[350ms] before:top-0 before:right-0
-  }
-
-  .btn-after {
-    @apply after:absolute after:w-full after:h-[2px] after:bg-wQuartz dark:after:bg-wWhiteDark after:z-20 after:transition-all after:duration-[350ms] after:bottom-0 after:left-0
-  }
-
-  .hover-btn-before {
-    @apply hover:before:w-0 hover:before:transition-all hover:before:duration-200 hover:before:delay-200 hover:before:ease-out
-  }
-  
-  .hover-btn-after {
-    @apply hover:after:w-0 hover:after:transition-all hover:after:duration-200 hover:after:delay-200 hover:after:ease-out
-  }
-
-  .span-btn-before {
-    @apply before:absolute before:w-[2px] before:h-full before:bg-wQuartz dark:before:bg-wWhiteDark before:z-20 before:transition-all before:duration-[250ms] before:bottom-0 before:-right-[2px]
-  }
-
-  .span-btn-after {
-    @apply after:absolute after:w-[2px] after:h-full after:bg-wQuartz dark:after:bg-wWhiteDark after:z-20 after:transition-all after:duration-[250ms] after:top-0 after:-left-[2px]
+    @apply h-[48px] text-base md:text-xl rounded border-b dark:border-none flex flex-1 justify-center items-center font-bold uppercase cursor-pointer active:border-none active:scale-95;
   }
 }
