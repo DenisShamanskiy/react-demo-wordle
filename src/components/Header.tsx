@@ -31,12 +31,11 @@ const Header = () => {
             </div>
           </NavLink>
         </div>
-        <div className='absolute right-4 sm:right-5 lg:right-0 flex gap-x-1 md:gap-x-2'>
+        <div className='absolute right-4 md:right-5 lg:right-0 flex gap-x-1 md:gap-x-2'>
           <CustomLink to={isLoggedIn ? '/user' : '/auth'}>
-            {globalSvgSelector(isLoggedIn ? 'person' : 'person-add', darkTheme)}
+            {globalSvgSelector('person', darkTheme)}
           </CustomLink>
           <CustomLink to='/rules'>{globalSvgSelector('rules', darkTheme)}</CustomLink>
-          <CustomLink to='/statistics'>{globalSvgSelector('statistics', darkTheme)}</CustomLink>
           <CustomLink to='/settings'>{globalSvgSelector('settings', darkTheme)}</CustomLink>
         </div>
         {notification && <Notification />}

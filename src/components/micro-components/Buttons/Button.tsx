@@ -11,7 +11,7 @@ interface IButtonProps {
 const Button: FC<IButtonProps> = ({ type, text, color, disabled, onClick }) => {
   const addClassColor = (color: string): string => {
     if (disabled) {
-      return 'disabled:border-w-disabled dark:disabled:border-w-disabled-dark disabled:text-w-disabled dark:disabled:text-w-disabled-dark cursor-not-allowed disabled:active:scale-100'
+      return 'disabled:border-w-disabled dark:disabled:border-w-disabled-dark disabled:text-w-disabled dark:disabled:text-w-disabled-dark'
     } else {
       switch (color) {
         case 'green':
@@ -33,9 +33,9 @@ const Button: FC<IButtonProps> = ({ type, text, color, disabled, onClick }) => {
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`min-w-full h-auto py-2.5 px-3 inline-block rounded border-2 border-w-quartz dark:border-w-white-dark bg-transparent text-sm md:text-lg font-bold uppercase text-w-quartz dark:text-w-white-dark transition-all duration-300 cursor-pointer active:scale-95 ${addClassColor(
-        color,
-      )}`}
+      className={`min-w-full h-auto py-2.5 px-3 inline-block rounded border-2 border-w-quartz dark:border-w-white-dark bg-transparent text-sm md:text-lg font-bold uppercase text-w-quartz dark:text-w-white-dark transition-all duration-300 ${
+        disabled ? 'disabled:cursor-not-allowed' : 'cursor-pointer active:scale-95'
+      }  ${addClassColor(color)}`}
     >
       {text}
     </button>

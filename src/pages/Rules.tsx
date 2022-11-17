@@ -7,7 +7,7 @@ import { numWord } from 'utils/formate'
 const Rules = () => {
   return (
     <main className='my-auto'>
-      <section className='w-11/12 max-w-3xl mx-auto p-5 md:p-7 select-none'>
+      <section className='w-11/12 max-w-2xl mx-auto select-none'>
         <Heading2>Как играть</Heading2>
         <div className='mt-7 md:mt-9'>
           <Paragraph>

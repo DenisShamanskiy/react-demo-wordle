@@ -65,7 +65,7 @@ const Auth = () => {
 
   return (
     <main className='my-auto'>
-      <section className='w-11/12 max-w-md mx-auto p-5 md:p-7 select-none'>
+      <section className='w-11/12 max-w-sm md:max-w-md mx-auto p-5 md:p-7 select-none'>
         <Heading2>Введите ваши данные</Heading2>
         <div className='relative w-full mt-7 md:mt-9 overflow-hidden flex items-center text-sm md:text-base font-bold uppercase'>
           <input

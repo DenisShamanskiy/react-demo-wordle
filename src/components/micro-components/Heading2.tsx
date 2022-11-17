@@ -1,7 +1,7 @@
 import { FC } from 'react'
 
 type Heading2Props = {
-  children: string
+  children: string | JSX.Element
 }
 
 const Heading2: FC<Heading2Props> = ({ children }) => {

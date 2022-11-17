@@ -50,15 +50,15 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
   }, [currentRowIndex]) // eslint-disable-line
 
   return (
-    <div className='w-full max-w-2xl mx-auto p-2 rounded-t flex flex-col gap-y-1.5 bg-w-grey-tone-2 dark:bg-w-black font-sans select-none'>
+    <div className='w-full max-w-2xl mx-auto p-1.5 rounded-t flex flex-col gap-y-1.5 bg-w-grey-tone-2 dark:bg-w-black font-sans select-none'>
       {keyBoard.map((_, indexRow) => {
         if (indexRow === 2) {
           return (
-            <div className='w-full grid grid-cols-keyBoardLastRow gap-x-1.5' key={indexRow}>
+            <div className='w-full flex gap-x-1.5' key={indexRow}>
               <button
                 type='button'
                 data-key='↵'
-                className='button-key border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5 flex-[2_1_0%]'
+                className='button-key grow border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5'
                 onClick={handleClick}
               >
                 <svg
@@ -102,7 +102,7 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
                   <button
                     type='button'
                     data-key={buttonKey.value}
-                    className={`button-key min-w-[27.66px] ${
+                    className={`button-key w-[calc((100%-(6px*11))/12)] ${
                       buttonKey.color
                         ? `${addClassColor(buttonKey.color)} border-[#6c6e70] text-w-white }`
                         : 'border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5 text-w-quartz dark:text-w-white'
@@ -117,7 +117,7 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
               <button
                 type='button'
                 data-key='←'
-                className='button-key border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5 flex-[2_1_0%]'
+                className='button-key grow border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5'
                 onClick={handleClick}
               >
                 <svg
@@ -184,13 +184,13 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
           )
         }
         return (
-          <div className='w-full grid grid-cols-12 gap-x-1.5' key={indexRow}>
+          <div className='w-full flex gap-x-1.5' key={indexRow}>
             {keyBoard[indexRow]?.map((buttonKey, indexKey) => {
               return (
                 <button
                   type='button'
                   data-key={buttonKey.value}
-                  className={`button-key ${
+                  className={`button-key w-[calc((100%-(6px*11))/12)] ${
                     buttonKey.color
                       ? `${addClassColor(buttonKey.color)} border-[#6c6e70] text-w-white }`
                       : 'border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5 text-w-quartz dark:text-w-white'
