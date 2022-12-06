@@ -1,20 +1,23 @@
 import { login, registration } from 'api/api'
 import { useState } from 'react'
-import { /* setStats,*/ setUser } from 'store/userSlice'
+import { setUser } from 'store/userSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import Heading2 from 'components/micro-components/Heading2'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Button from 'components/micro-components/Buttons/Button'
+import { showNotification } from 'store/notificationSlice'
+import { Statistics } from 'models/IStats'
 
 type Inputs = {
-  username: string
+  email: string
   password: string
 }
 
 const Auth = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const statistics = useAppSelector((state) => state.user.statistics)
 
   const {
     register,
@@ -25,8 +28,6 @@ const Auth = () => {
     mode: 'onBlur',
   })
 
-  const stats = useAppSelector((state) => state.stats)
-
   const goHome = () => navigate('/', { replace: true })
 
   const [typeFormLogin, setTypeFormLogin] = useState<boolean>(true)
@@ -35,32 +36,27 @@ const Auth = () => {
 
   const handleLogin = async (data: Inputs) => {
     setIsLoading(true)
-    const response = await login(data.username, data.password)
+    const response = await login(data.email, data.password)
     if (response.status === 200) {
-      console.log(response.status)
-      goHome()
-      setTimeout(() => {
-        dispatch(setUser({ id: response.data.user.id, username: response.data.user.username }))
-      }, 500)
-      // dispatch(setStats({ stats: response.data.user.stats }))
+      const { user } = response.data
+      dispatch(setUser({ user }))
     }
     if (response.status === 400) {
       setErrorMessage(response.data.message)
     }
     reset()
     setIsLoading(false)
+    goHome()
+    dispatch(showNotification({ message: 'С возвращением!' }))
   }
 
-  const handleRegistration = async (data: Inputs) => {
-    console.log(data)
-
+  const handleRegistration = async (data: Inputs, stats: Statistics) => {
     setIsLoading(true)
-    const { user } = await registration(data.username, data.password, stats)
-    console.log(user)
+    const { user } = await registration(data.email, data.password, stats)
     setIsLoading(false)
-    dispatch(setUser({ id: user.id, username: user.username }))
-    // dispatch(setStats({ stats: user.stats }))
+    dispatch(setUser({ user }))
     reset()
+    goHome()
   }
 
   return (
@@ -102,7 +98,7 @@ const Auth = () => {
         <form
           className='relative w-full pt-9 pb-4 flex flex-col justify-center items-center'
           onSubmit={handleSubmit((data) => {
-            typeFormLogin ? handleLogin(data) : handleRegistration(data)
+            typeFormLogin ? handleLogin(data) : handleRegistration(data, statistics)
           })}
         >
           {errorMessage && (
@@ -113,9 +109,9 @@ const Auth = () => {
 
           <label className='relative w-full flex flex-col pt-3 md:pt-4 text-w-quartz dark:text-w-white-dark transition-all'>
             <>
-              <span className='ml-1 mb-1 text-sm md:text-base font-bold'>Логин</span>
+              <span className='ml-1 mb-1 text-sm md:text-base font-bold'>E-mail</span>
               <input
-                {...register('username', {
+                {...register('email', {
                   required: 'Поле обязательно к заполнению',
                   minLength: {
                     value: 5,
@@ -125,7 +121,7 @@ const Auth = () => {
                 className='w-full h-11 px-2 bg-transparent rounded border-2 outline-none border-w-grey-tone-2 dark:border-w-grey-tone-4 focus:border-w-blue  dark:focus:border-w-white text-w-quartz dark:text-w-white-dark transition-all duration-300'
               ></input>
               <span className='ml-2 my-1 text-xs text-red-500'>
-                {errors?.username && errors?.username.message}
+                {errors?.email && errors?.email.message}
               </span>
             </>
           </label>

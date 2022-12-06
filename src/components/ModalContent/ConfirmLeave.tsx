@@ -3,7 +3,7 @@ import Heading2 from 'components/micro-components/Heading2'
 import { useNavigate } from 'react-router-dom'
 import { setRelultGame } from 'store/gameSlice'
 import { closeModal, openModal } from 'store/modalSlice'
-import { updateStatsLocal } from 'store/statsSlice'
+import { updateStatsLocal } from 'store/userSlice'
 import { useAppDispatch } from 'utils/hook'
 
 const ConfirmLeave = () => {

@@ -51,17 +51,14 @@ const gameSlice = createSlice({
       state.nextLetter = localData.nextLetter
       state.word = localData.word
     },
-
     initialGame(state) {
       state.word.currentWord = WORDS[Math.floor(Math.random() * WORDS.length)]!
       localStorage.setItem('game', JSON.stringify(state))
     },
-
     setStatusGame(state, action) {
       state.gameStatus = action.payload
       localStorage.setItem('game', JSON.stringify(state))
     },
-
     restartGame(state) {
       ;(state.gameStatus = 'IN_GAME'),
         (state.word = {
@@ -75,7 +72,6 @@ const gameSlice = createSlice({
         (state.currentRowIndex = 0)
       localStorage.setItem('game', JSON.stringify(state))
     },
-
     addLetterBoard(state, actions) {
       state.board = state.board.map((row, index) =>
         index === state.currentRowIndex
@@ -94,7 +90,6 @@ const gameSlice = createSlice({
       state.nextLetter = state.nextLetter + 1
       localStorage.setItem('game', JSON.stringify(state))
     },
-
     removeLetterBoard(state) {
       state.board = state.board.map((row, index) =>
         index === state.currentRowIndex
@@ -113,7 +108,6 @@ const gameSlice = createSlice({
       state.nextLetter = state.nextLetter - 1
       localStorage.setItem('persist', JSON.stringify(state))
     },
-
     setRelultGame(state, action) {
       if (action.payload === 'WIN') {
         state.gameStatus = action.payload
@@ -131,7 +125,6 @@ const gameSlice = createSlice({
       }
       localStorage.setItem('game', JSON.stringify(state))
     },
-
     nextStep(state, action) {
       state.board = state.board.map((row, index) =>
         index === state.currentRowIndex
@@ -149,7 +142,6 @@ const gameSlice = createSlice({
       state.nextLetter = 0
       localStorage.setItem('game', JSON.stringify(state))
     },
-
     colorKey(state, action) {
       state.keyBoard = state.keyBoard.map((row) =>
         row.map(function (key) {

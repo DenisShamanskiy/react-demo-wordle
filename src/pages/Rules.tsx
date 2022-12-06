@@ -29,8 +29,8 @@ const Rules = () => {
 
           {exampleRules.map((row, indexRow) => {
             return (
-              <>
-                <ul className='my-4 flex gap-x-1' key={indexRow}>
+              <div key={indexRow}>
+                <ul className='my-4 flex gap-x-1'>
                   {row.word.map((letter, indexWord) => {
                     return (
                       <Example index={indexWord} letter={letter} row={indexRow} key={indexWord} />
@@ -42,7 +42,7 @@ const Rules = () => {
                     {row.discreption[0]} <strong>{row.discreption[1]}</strong> {row.discreption[2]}
                   </>
                 </Paragraph>
-              </>
+              </div>
             )
           })}
         </div>

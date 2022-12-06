@@ -3,10 +3,9 @@ import { useAppSelector } from 'utils/hook'
 import Heading2 from 'components/micro-components/Heading2'
 
 const Statistics = () => {
-  const { win, loss, surrender, bar } = useAppSelector((state) => state.stats)
+  const { win, loss, surrender, bar } = useAppSelector((state) => state.user.statistics)
 
   return (
-    // <section className='w-11/12 max-w-lg mx-auto select-none'>
     <>
       <Heading2>Статистика</Heading2>
       <>
@@ -42,7 +41,6 @@ const Statistics = () => {
         </div>
       </>
     </>
-    // </section>
   )
 }
 

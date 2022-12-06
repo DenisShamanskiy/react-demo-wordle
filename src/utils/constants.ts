@@ -59,7 +59,7 @@ export const keyBoard = [
   ],
 ]
 
-export const stats = {
+export const statistics = {
   win: 0,
   loss: 0,
   surrender: 0,

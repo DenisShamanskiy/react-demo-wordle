@@ -1,16 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { statistics } from 'utils/constants'
+
+type BarRow = {
+  name: number
+  percent: string
+  count: number
+}
+
+type StatisticsState = {
+  win: number
+  loss: number
+  surrender: number
+  bar: BarRow[]
+}
 
 type UserState = {
   id: string | null
-    username: string
-    isLoggedIn: boolean
-  
+  email: string | null
+  isLoggedIn: boolean
+  isActivated: boolean
+  statistics: StatisticsState
 }
 
 const initialState: UserState = {
-    id: null,
-    username: 'Гость',
-    isLoggedIn: false,
+  id: null,
+  email: null,
+  isLoggedIn: false,
+  isActivated: false,
+  statistics: statistics,
 }
 
 const userSlice = createSlice({
@@ -20,71 +37,45 @@ const userSlice = createSlice({
     getLocalUserData(state) {
       const localData = JSON.parse(localStorage['user'])
       state.id = localData.id
+      state.email = localData.email
+      state.isLoggedIn = localData.isLoggedIn
+      state.isActivated = localData.isActivated
+      state.statistics = localData.statistics
     },
-    
-    // gameWon(state, action) {
-    //   state.game.gameStatus = 'WIN'
-    //   state.stats.win = state.stats.win + 1
-    //   state.stats.bar = state.stats.bar.map(function (item, index) {
-    //     return {
-    //       name: item.name,
-    //       count: index === state.game.currentRowIndex ? item.count + 1 : item.count,
-    //       percent:
-    //         index === state.game.currentRowIndex
-    //           ? `${Math.round((100 / state.stats.win) * (item.count + 1))}%`
-    //           : `${Math.round((100 / state.stats.win) * item.count)}%`,
-    //     }
-    //   })
-    //   // state.game.board = state.game.board.map((row, index) =>
-    //   //   index === state.game.currentRowIndex
-    //   //     ? row.map(function (letter, index) {
-    //   //         return action.payload[index] === -1
-    //   //           ? { value: letter.value, color: 'letter-grey' }
-    //   //           : state.game.currentGuess[index] === state.game.word.currentWord[index]
-    //   //           ? { value: letter.value, color: 'letter-green' }
-    //   //           : { value: letter.value, color: 'letter-yellow' }
-    //   //       })
-    //   //     : row,
-    //   // )
-    //   localStorage.setItem('persist', JSON.stringify(state))
-    // },
-    // gameLost(state) {
-    //   state.game.gameStatus = 'FAIL'
-    //   state.stats.loss = state.stats.loss + 1
-    //   localStorage.setItem('persist', JSON.stringify(state))
-    // },
-    
-    // colorKey(state, action) {
-    //   console.log(action.payload)
-    //   state.game.keyBoard = state.game.keyBoard.map((row) =>
-    //     row.map(function (key) {
-    //       for (let i = 0; i < action.payload.length; i++) {
-    //         if (action.payload[i]!.value === key.value && key.color !== 'letter-green')
-    //           return action.payload[i]
-    //       }
-    //       return key
-    //     }),
-    //   )
-    //   localStorage.setItem('persist', JSON.stringify(state))
-    // },
+
     setUser(state, action) {
-        state.id = action.payload.id,
-        state.username = action.payload.username,
-        state.isLoggedIn = true,
-      
-      localStorage.setItem('game', JSON.stringify(state))
+      state.id = action.payload.user.id,
+      state.email = action.payload.user.email,
+      state.isLoggedIn = true,
+      state.isActivated = action.payload.user.isActivated,
+      state.statistics = action.payload.user.statistics,
+      localStorage.setItem('user', JSON.stringify(state))
     },
-    // setStats(state, action) {
-    //   state.stats.win = action.payload.stats.win
-    //   state.stats.loss = action.payload.stats.loss
-    //   state.stats.surrender = action.payload.stats.surrender
-    //   state.stats.bar = action.payload.stats.bar
-    //   localStorage.setItem('persist', JSON.stringify(state))
-    // },
+    
     logout(state) {
-      state.isLoggedIn = false
-      state.username = 'Гость'
       state.id = null
+      state.email = null
+      state.isLoggedIn = false
+      localStorage.setItem('user', JSON.stringify(state))
+    },
+    updateStatsLocal(state, action) {
+      if (action.payload.result === 'WIN') {
+        state.statistics.win = state.statistics.win + 1
+        state.statistics.bar = state.statistics.bar.map((item, index) => {
+          return {
+            name: item.name,
+            count: index === action.payload.currentRowIndex ? item.count + 1 : item.count,
+            percent:
+              index === action.payload.currentRowIndex
+                ? `${Math.round((100 / state.statistics.win) * (item.count + 1))}%`
+                : `${Math.round((100 / state.statistics.win) * item.count)}%`,
+          }
+        })
+      } else if (action.payload.result === 'FAIL') {
+        state.statistics.loss = state.statistics.loss + 1
+      } else {
+        state.statistics.surrender = state.statistics.surrender + 1
+      }
       localStorage.setItem('user', JSON.stringify(state))
     },
   },
@@ -93,8 +84,8 @@ const userSlice = createSlice({
 export const {
   getLocalUserData,
   setUser,
-  // setStats,
   logout,
+  updateStatsLocal
 } = userSlice.actions
 
 export default userSlice.reducer

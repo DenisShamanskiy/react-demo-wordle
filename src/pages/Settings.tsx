@@ -21,7 +21,7 @@ const Settings = () => {
 
   return (
     <main className='my-auto'>
-      <section className='w-11/12 max-w-sm md:max-w-lg mx-auto select-none'>
+      <section className='w-11/12 max-w-sm md:max-w-md mx-auto select-none'>
         <Heading2>Настройки</Heading2>
         <div className='mt-7 md:mt-9 flex flex-col justify-center items-center'>
           <div className='w-48 md:w-52 pb-8 md:pb-10 grid grid-rows-2 gap-y-2 md:gap-y-3'>

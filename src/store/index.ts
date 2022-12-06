@@ -4,7 +4,6 @@ import modalReducer from './modalSlice'
 import userReducer from './userSlice'
 import gameReducer from './gameSlice'
 import settingsReducer from './settingsSlice'
-import statsReducer from './statsSlice'
 
 const store = configureStore({
   reducer: {
@@ -13,7 +12,6 @@ const store = configureStore({
     user: userReducer,
     game: gameReducer,
     settings: settingsReducer,
-    stats: statsReducer,
   },
 })
 export type RootState = ReturnType<typeof store.getState>

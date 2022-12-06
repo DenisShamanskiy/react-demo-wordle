@@ -14,23 +14,21 @@ import Modal from './Modal/Modal'
 import ConfirmLeave from './ModalContent/ConfirmLeave'
 import ConfirmNewGame from './ModalContent/ConfirmNewGame'
 import GameResult from './ModalContent/GameResult'
-import { getLocalUserData } from 'store/userSlice'
+import { getLocalUserData, updateStatsLocal } from 'store/userSlice'
 import { openModal } from 'store/modalSlice'
 import { showNotification } from 'store/notificationSlice'
 import { WORDS } from 'utils/constants'
 import {
   addLetterBoard,
-  // gameLost,
-  // gameWon,
   getLocalGameData,
   initialGame,
   nextStep,
   removeLetterBoard,
   setRelultGame,
 } from 'store/gameSlice'
-import { updateStats } from 'api/api'
+import { updateStatistics } from 'api/api'
 import { addDataHardMode, getLocalSettingData, setTheme } from 'store/settingsSlice'
-import { getLocalStatsData, updateStatsLocal } from 'store/statsSlice'
+// import { getLocalStatsData } from 'store/statisticsSlice'
 
 const App = () => {
   const styleHeight = {
@@ -53,7 +51,7 @@ const App = () => {
     gameStatus,
   } = useAppSelector((state) => state.game)
   const id = useAppSelector((state) => state.user.id)
-  const stats = useAppSelector((state) => state.stats)
+  const statistics = useAppSelector((state) => state.user.statistics)
   const path = useLocation()
 
   const handleGuess = (
@@ -166,18 +164,19 @@ const App = () => {
     if (localStorage.getItem('settings')) {
       dispatch(getLocalSettingData())
     }
-    if (localStorage.getItem('stats')) {
-      dispatch(getLocalStatsData())
-    }
+    // if (localStorage.getItem('stats')) {
+    //   dispatch(getLocalStatsData())
+    // }
     localStorage.getItem('game') ? dispatch(getLocalGameData()) : dispatch(initialGame())
   }, [])
 
   useEffect(() => {
     if (id) {
-      updateStats(id, stats)
+      updateStatistics(id, statistics)
     }
-  }, [stats])
+  }, [statistics])
 
+  // Проверка темы
   useEffect(() => {
     if (
       localStorage['theme'] === 'dark' ||
@@ -190,6 +189,13 @@ const App = () => {
       dispatch(setTheme(false))
     }
   }, [darkTheme])
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      // store.checkAuth()
+      console.log('yes')
+    }
+  }, [])
 
   return (
     <div
