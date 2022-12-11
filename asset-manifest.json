@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/react-demo-wordle/static/css/main.f2fdc99b.css",
-    "main.js": "/react-demo-wordle/static/js/main.9672fe7a.js",
-    "static/media/david-alaba.gif": "/react-demo-wordle/static/media/david-alaba.a9ecebc3dacbbda219d7.gif",
-    "static/media/grave.gif": "/react-demo-wordle/static/media/grave.4d3c17115e4165615f11.gif",
-    "index.html": "/react-demo-wordle/index.html",
-    "main.f2fdc99b.css.map": "/react-demo-wordle/static/css/main.f2fdc99b.css.map",
-    "main.9672fe7a.js.map": "/react-demo-wordle/static/js/main.9672fe7a.js.map"
+    "main.css": "/static/css/main.6fae13fb.css",
+    "main.js": "/static/js/main.638530ed.js",
+    "static/media/win.gif": "/static/media/win.aa66e8bc9689d4151b56.gif",
+    "static/media/leave.gif": "/static/media/leave.99fb6c9d1b35b662749c.gif",
+    "static/media/fail.gif": "/static/media/fail.4d3c17115e4165615f11.gif",
+    "index.html": "/index.html",
+    "main.6fae13fb.css.map": "/static/css/main.6fae13fb.css.map",
+    "main.638530ed.js.map": "/static/js/main.638530ed.js.map"
   },
   "entrypoints": [
-    "static/css/main.f2fdc99b.css",
-    "static/js/main.9672fe7a.js"
+    "static/css/main.6fae13fb.css",
+    "static/js/main.638530ed.js"
   ]
 }
