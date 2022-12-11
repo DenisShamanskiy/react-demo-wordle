@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { AuthResponse } from '../models/response/AuthResponse'
 
-export const API_URL = 'http://localhost:3002/api'
+export const API_URL = 'https://react-demo-wordle-api.vercel.app/api'
+// export const API_URL = 'http://localhost:3002/api'
 
 const $api = axios.create({
   withCredentials: true,

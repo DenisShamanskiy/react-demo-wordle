@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
-// import { WORDS } from 'utils/constants'
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import useCurrentHeight from 'utils/getHeight'
 import Game from '../pages/Game'
@@ -14,7 +13,7 @@ import Modal from './Modal/Modal'
 import ConfirmLeave from './ModalContent/ConfirmLeave'
 import ConfirmNewGame from './ModalContent/ConfirmNewGame'
 import GameResult from './ModalContent/GameResult'
-import { getLocalUserData, updateStatsLocal } from 'store/userSlice'
+import { getLocalUserData, logout, setUser, updateStatsLocal } from 'store/userSlice'
 import { openModal } from 'store/modalSlice'
 import { showNotification } from 'store/notificationSlice'
 import { WORDS } from 'utils/constants'
@@ -26,9 +25,8 @@ import {
   removeLetterBoard,
   setRelultGame,
 } from 'store/gameSlice'
-import { updateStatistics } from 'api/api'
+import { checkAuth, updateStatistics } from 'api/api'
 import { addDataHardMode, getLocalSettingData, setTheme } from 'store/settingsSlice'
-// import { getLocalStatsData } from 'store/statisticsSlice'
 
 const App = () => {
   const styleHeight = {
@@ -36,6 +34,7 @@ const App = () => {
   }
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const { window: wnd } = useAppSelector((state) => state.modal)
   const {
@@ -53,6 +52,7 @@ const App = () => {
   const id = useAppSelector((state) => state.user.id)
   const statistics = useAppSelector((state) => state.user.statistics)
   const path = useLocation()
+  const goHome = () => navigate('/', { replace: true })
 
   const handleGuess = (
     lettersHardMode: string[],
@@ -157,6 +157,18 @@ const App = () => {
     }
   }
 
+  const checkUser = async () => {
+    try {
+      const response = await checkAuth()
+      console.log(response)
+      localStorage.setItem('token', response.data.accessToken)
+      dispatch(setUser(response.data.user))
+    } catch (e) {
+      dispatch(logout())
+      goHome()
+    }
+  }
+
   useEffect(() => {
     if (localStorage.getItem('user')) {
       dispatch(getLocalUserData())
@@ -164,9 +176,6 @@ const App = () => {
     if (localStorage.getItem('settings')) {
       dispatch(getLocalSettingData())
     }
-    // if (localStorage.getItem('stats')) {
-    //   dispatch(getLocalStatsData())
-    // }
     localStorage.getItem('game') ? dispatch(getLocalGameData()) : dispatch(initialGame())
   }, [])
 
@@ -192,8 +201,8 @@ const App = () => {
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      // store.checkAuth()
-      console.log('yes')
+      // checkAuth()
+      checkUser()
     }
   }, [])
 

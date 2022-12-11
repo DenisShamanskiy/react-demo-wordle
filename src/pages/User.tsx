@@ -6,6 +6,7 @@ import Statistics from './Statistics'
 import Heading2 from 'components/micro-components/Heading2'
 import Paragraph from 'components/micro-components/Paragraph'
 import { restartGame } from 'store/gameSlice'
+import { resetDataHardMode } from 'store/settingsSlice'
 
 const User = () => {
   const navigate = useNavigate()
@@ -20,6 +21,7 @@ const User = () => {
     }, 500)
     goAuth()
     dispatch(restartGame())
+    dispatch(resetDataHardMode())
   }
 
   return (

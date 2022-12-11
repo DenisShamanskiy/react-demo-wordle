@@ -1,4 +1,3 @@
-import { login, registration } from 'api/api'
 import { useState } from 'react'
 import { setUser } from 'store/userSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
@@ -6,8 +5,8 @@ import Heading2 from 'components/micro-components/Heading2'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Button from 'components/micro-components/Buttons/Button'
-import { showNotification } from 'store/notificationSlice'
 import { Statistics } from 'models/IStats'
+import AuthService from 'services/AuthService'
 
 type Inputs = {
   email: string
@@ -34,29 +33,37 @@ const Auth = () => {
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const handleLogin = async (data: Inputs) => {
-    setIsLoading(true)
-    const response = await login(data.email, data.password)
-    if (response.status === 200) {
-      const { user } = response.data
-      dispatch(setUser({ user }))
-    }
-    if (response.status === 400) {
-      setErrorMessage(response.data.message)
-    }
-    reset()
-    setIsLoading(false)
-    goHome()
-    dispatch(showNotification({ message: 'С возвращением!' }))
-  }
-
   const handleRegistration = async (data: Inputs, stats: Statistics) => {
     setIsLoading(true)
-    const { user } = await registration(data.email, data.password, stats)
-    setIsLoading(false)
-    dispatch(setUser({ user }))
-    reset()
-    goHome()
+    try {
+      const response = await AuthService.registration(data.email, data.password, stats)
+      console.log(response)
+      localStorage.setItem('token', response.data.accessToken)
+      dispatch(setUser(response.data.user))
+    } catch (e) {
+      console.log(e.response?.data?.message)
+      setErrorMessage(e.response?.data?.message)
+    } finally {
+      setIsLoading(false)
+      reset()
+      goHome()
+    }
+  }
+
+  const handleLogin = async (data: Inputs) => {
+    setIsLoading(true)
+    try {
+      const response = await AuthService.login(data.email, data.password)
+      console.log(response)
+      localStorage.setItem('token', response.data.accessToken)
+      dispatch(setUser(response.data.user))
+    } catch (e) {
+      console.log(e.response?.data?.message)
+    } finally {
+      setIsLoading(false)
+      reset()
+      goHome()
+    }
   }
 
   return (

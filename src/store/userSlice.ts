@@ -44,11 +44,11 @@ const userSlice = createSlice({
     },
 
     setUser(state, action) {
-      state.id = action.payload.user.id,
-      state.email = action.payload.user.email,
+      state.id = action.payload.id,
+      state.email = action.payload.email,
       state.isLoggedIn = true,
-      state.isActivated = action.payload.user.isActivated,
-      state.statistics = action.payload.user.statistics,
+      state.isActivated = action.payload.isActivated,
+      state.statistics = action.payload.statistics,
       localStorage.setItem('user', JSON.stringify(state))
     },
     
@@ -56,8 +56,11 @@ const userSlice = createSlice({
       state.id = null
       state.email = null
       state.isLoggedIn = false
+      state.statistics = statistics,
       localStorage.setItem('user', JSON.stringify(state))
+      localStorage.removeItem('token')
     },
+    
     updateStatsLocal(state, action) {
       if (action.payload.result === 'WIN') {
         state.statistics.win = state.statistics.win + 1
