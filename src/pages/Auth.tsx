@@ -68,9 +68,9 @@ const Auth = () => {
 
   return (
     <main className='my-auto'>
-      <section className='w-11/12 max-w-sm md:max-w-md mx-auto p-5 md:p-7 select-none'>
+      <section className='w-full max-w-xs md:max-w-sm mx-auto select-none'>
         <Heading2>Введите ваши данные</Heading2>
-        <div className='relative w-full mt-7 md:mt-9 overflow-hidden flex items-center text-sm md:text-base font-bold uppercase'>
+        <div className='relative w-full h-10 md:h-12 mt-8 md:mt-10 flex items-center text-sm md:text-lg font-bold uppercase'>
           <input
             type='radio'
             name='registration'
@@ -81,7 +81,7 @@ const Auth = () => {
           />
           <label
             htmlFor='registration'
-            className='w-1/2 h-9 rounded flex justify-center items-center cursor-pointer bg-transparent text-w-red dark:text-w-red-dark peer-checked:bg-w-red dark:peer-checked:bg-w-red-dark peer-checked:text-w-white dark:peer-checked:text-w-black'
+            className='w-1/2 h-full rounded flex justify-center items-center cursor-pointer bg-transparent text-w-red dark:text-w-red-dark peer-checked:bg-w-red dark:peer-checked:bg-w-red-dark peer-checked:text-w-white dark:peer-checked:text-w-black'
           >
             Регистрация
           </label>
@@ -96,14 +96,13 @@ const Auth = () => {
           />
           <label
             htmlFor='login'
-            className=' w-1/2 h-9 rounded flex justify-center items-center cursor-pointer bg-w-red dark:bg-w-red-dark text-w-white dark:text-w-black peer-checked:text-w-red dark:peer-checked:text-w-red-dark peer-checked:bg-transparent'
+            className=' w-1/2 h-full rounded flex justify-center items-center cursor-pointer bg-w-red dark:bg-w-red-dark text-w-white dark:text-w-black peer-checked:text-w-red dark:peer-checked:text-w-red-dark peer-checked:bg-transparent'
           >
             Войти
           </label>
         </div>
-
         <form
-          className='relative w-full pt-9 pb-4 flex flex-col justify-center items-center'
+          className='relative w-full mt-8 md:mt-10 flex flex-col justify-center items-center'
           onSubmit={handleSubmit((data) => {
             typeFormLogin ? handleLogin(data) : handleRegistration(data, statistics)
           })}
@@ -114,10 +113,10 @@ const Auth = () => {
             </p>
           )}
 
-          <label className='relative w-full flex flex-col pt-3 md:pt-4 text-w-quartz dark:text-w-white-dark transition-all'>
+          <label className='relative w-full flex flex-col text-w-quartz dark:text-w-white-dark transition-all'>
             <>
-              <span className='ml-1 mb-1 text-sm md:text-base font-bold'>E-mail</span>
-              <input
+              <span className='ml-1 mb-1 text-sm md:text-base font-bold'>Email</span>
+              <input type='email'
                 {...register('email', {
                   required: 'Поле обязательно к заполнению',
                   minLength: {
@@ -125,7 +124,7 @@ const Auth = () => {
                     message: 'Минимум 5 символов',
                   },
                 })}
-                className='w-full h-11 px-2 bg-transparent rounded border-2 outline-none border-w-grey-tone-2 dark:border-w-grey-tone-4 focus:border-w-blue  dark:focus:border-w-white text-w-quartz dark:text-w-white-dark transition-all duration-300'
+                className='w-full h-10 md:h-12 px-2 bg-transparent rounded border-2 outline-none border-w-grey-tone-2 dark:border-w-grey-tone-4 focus:border-w-blue  dark:focus:border-w-white text-w-quartz dark:text-w-white-dark transition-all duration-300'
               ></input>
               <span className='ml-2 my-1 text-xs text-red-500'>
                 {errors?.email && errors?.email.message}
@@ -133,10 +132,10 @@ const Auth = () => {
             </>
           </label>
 
-          <label className='relative w-full flex flex-col pt-3 md:pt-4 text-w-quartz dark:text-w-white-dark transition-all'>
+          <label className='relative w-full flex flex-col mt-4 md:mt-5 text-w-quartz dark:text-w-white-dark transition-all'>
             <>
               <span className='ml-1 mb-1 text-sm md:text-base font-bold'>Пароль</span>
-              <input
+              <input type='password'
                 {...register('password', {
                   required: 'Поле обязательно к заполнению',
                   minLength: {
@@ -144,19 +143,21 @@ const Auth = () => {
                     message: 'Минимум 5 символов',
                   },
                 })}
-                className='w-full h-11 px-2 bg-transparent rounded border-2 outline-none border-w-grey-tone-2 dark:border-w-grey-tone-4 focus:border-w-blue  dark:focus:border-w-white text-w-quartz dark:text-w-white-dark transition-all duration-300'
+                className='w-full h-10 md:h-12 px-2 bg-transparent rounded border-2 outline-none border-w-grey-tone-2 dark:border-w-grey-tone-4 focus:border-w-blue  dark:focus:border-w-white text-w-quartz dark:text-w-white-dark transition-all duration-300'
               ></input>
               <span className='ml-2 my-1 text-xs text-red-500'>
                 {errors?.password && errors?.password.message}
               </span>
             </>
           </label>
-          <div className=' w-3/5 mt-8 md:mt-10'>
+
+          <div className='mt-10 md:mt-12'>
             <Button
               type='submit'
               disabled={!isValid}
               text={isLoading ? 'загрузка...' : typeFormLogin ? 'войти' : 'создать аккаунт'}
               color={typeFormLogin ? 'green' : 'blue'}
+              size='m'
             />
           </div>
         </form>

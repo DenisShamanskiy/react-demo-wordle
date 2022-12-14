@@ -7,9 +7,9 @@ import { numWord } from 'utils/formate'
 const Rules = () => {
   return (
     <main className='my-auto'>
-      <section className='w-11/12 max-w-2xl mx-auto select-none'>
+      <section className='w-11/12 md:w-full max-w-xl md:max-w-2xl mx-auto select-none'>
         <Heading2>Как играть</Heading2>
-        <div className='mt-7 md:mt-9'>
+        <div className='mt-8 md:mt-10'>
           <Paragraph>
             <>
               Угадай <strong>СЛОВО</strong> за 6 попыток
@@ -23,14 +23,14 @@ const Rules = () => {
         </div>
 
         <div className='border-y border-w-grey-tone-2 dark:border-w-grey-tone-3'>
-          <h3 className='mt-4 text-sm md:text-lg font-bold text-w-quartz dark:text-w-white-dark uppercase'>
+          <h3 className='mt-2 md:mt-4 text-sm md:text-lg font-bold text-w-quartz dark:text-w-white-dark uppercase'>
             Примеры
           </h3>
 
           {exampleRules.map((row, indexRow) => {
             return (
               <div key={indexRow}>
-                <ul className='my-4 flex gap-x-1'>
+                <ul className='my-2 md:my-4 flex gap-x-1'>
                   {row.word.map((letter, indexWord) => {
                     return (
                       <Example index={indexWord} letter={letter} row={indexRow} key={indexWord} />
@@ -46,7 +46,7 @@ const Rules = () => {
             )
           })}
         </div>
-        <p className='mt-5 md:mt-7 text-center text-xs md:text-sm text-w-quartz dark:text-w-white-dark'>
+        <p className='mt-4 md:mt-6 text-center text-xs md:text-sm text-w-quartz dark:text-w-white-dark'>
           В игре <strong>{WORDS.length}</strong> {numWord(WORDS.length)}
         </p>
       </section>

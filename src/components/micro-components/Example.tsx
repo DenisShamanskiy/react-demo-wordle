@@ -20,7 +20,7 @@ const Example = ({ index, letter, row }: IExampleProps) => {
 
   return (
     <li
-      className={`w-9 h-9 flex justify-center items-center font-['Bitter'] text-2xl font-extrabold uppercase box-border ${
+      className={`w-9 md:w-10 h-9 md:h-10 flex justify-center items-center font-['Bitter'] text-xl md:text-2xl font-extrabold uppercase box-border ${
         index !== row
           ? 'border-2 border-w-grey-tone-1 dark:border-w-grey-tone-3 text-w-quartz dark:text-w-white-dark'
           : getColorLetter(row)

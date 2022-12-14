@@ -45,7 +45,7 @@ module.exports = {
         modal: '0 4px 23px 0 rgb(0 0 0 / 20%)',
       },
       gridTemplateRows: {
-        board: 'repeat(6, 58px)',
+        board: 'repeat(6, 56px)',
         boardMD: 'repeat(6, 64px)',
       },
       gridTemplateColumns: {

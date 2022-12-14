@@ -21,19 +21,21 @@ const Settings = () => {
 
   return (
     <main className='my-auto'>
-      <section className='w-11/12 max-w-sm md:max-w-md mx-auto select-none'>
+     <section className='w-full max-w-sm md:max-w-md mx-auto select-none'>
         <Heading2>Настройки</Heading2>
-        <div className='mt-7 md:mt-9 flex flex-col justify-center items-center'>
-          <div className='w-48 md:w-52 pb-8 md:pb-10 grid grid-rows-2 gap-y-2 md:gap-y-3'>
+        <div className='mt-8 md:mt-10 flex flex-col justify-center items-center'>
+          <div className='grid grid-rows-2 gap-y-2 md:gap-y-3'>
             <Button
               type='button'
               text={'новая игра'}
               color='green'
+              size='m'
               onClick={() =>
                 dispatch(
                   openModal({
-                    window: 'ConfirmNewGame',
+                    window: 'Confirm',
                     title: 'Новая игра?',
+                    type: 'NewGame'
                   }),
                 )
               }
@@ -43,11 +45,14 @@ const Settings = () => {
               type='button'
               text={'сдаться'}
               color='yellow'
+              size='m'
               onClick={() =>
                 dispatch(
                   openModal({
-                    window: 'ConfirmLeave',
+                    window: 'Confirm',
                     title: 'Сдаёшься?',
+                    type: 'Leave',
+                    description: 'Узнаешь загаданное слово, но cдача засчитается в статистике'
                   }),
                 )
               }
@@ -57,34 +62,35 @@ const Settings = () => {
               }
             />
           </div>
-
-          <SettingsRow>
-            <div className='flex flex-col text-w-quartz dark:text-w-white-dark'>
-              <p className='text-lg md:text-xl font-bold'>Повысить сложность</p>
-              <p className='text-xs md:text-sm'>Необходимо использовать все подсказки</p>
-            </div>
-            <InputSwitch onChange={() => dispatch(toggleHardMode())} isChecked={active} />
-          </SettingsRow>
-          <SettingsRow>
-            <p className='text-lg md:text-xl font-bold text-w-quartz dark:text-w-white-dark'>
-              {darkMode ? 'Светлая тема' : 'Тёмная тема'}
-            </p>
-            <DarkModeSwitch
-              checked={darkMode}
-              sunColor={'#49474E'}
-              onChange={() => dispatch(toggleTheme())}
-              size={styleWidth > 768 ? 35 : 28}
-            />
-          </SettingsRow>
-          <SettingsRow>
-            <div className='flex flex-col text-w-quartz dark:text-w-white-dark'>
-              <p className='text-lg md:text-xl font-bold'>LocalStorage</p>
-              <p className='text-xs md:text-sm'>Очистить</p>
-            </div>
-            <ButtonIcon icon={'trash'} onClick={() => localStorage.clear()} />
-          </SettingsRow>
+          <div className='w-full mt-8 md:mt-10'>
+            <SettingsRow>
+              <div className='flex flex-col text-w-quartz dark:text-w-white-dark'>
+                <p className='text-lg md:text-xl font-bold'>Повысить сложность</p>
+                <p className='text-xs md:text-sm'>Необходимо использовать все подсказки</p>
+              </div>
+              <InputSwitch onChange={() => dispatch(toggleHardMode())} isChecked={active} />
+            </SettingsRow>
+            <SettingsRow>
+              <p className='text-lg md:text-xl font-bold text-w-quartz dark:text-w-white-dark'>
+                {darkMode ? 'Светлая тема' : 'Тёмная тема'}
+              </p>
+              <DarkModeSwitch
+                checked={darkMode}
+                sunColor={'#49474E'}
+                onChange={() => dispatch(toggleTheme())}
+                size={styleWidth > 768 ? 35 : 28}
+              />
+            </SettingsRow>
+            <SettingsRow>
+              <div className='flex flex-col text-w-quartz dark:text-w-white-dark'>
+                <p className='text-lg md:text-xl font-bold'>LocalStorage</p>
+                <p className='text-xs md:text-sm'>Очистить</p>
+              </div>
+              <ButtonIcon icon={'trash'} onClick={() => localStorage.clear()} />
+            </SettingsRow>
+          </div>
         </div>
-        <p className='pt-8 md:pt-10 text-xs md:text-sm text-[#787c7e]'>© 2022 Денис Шаманский</p>
+        <p className='mt-8 md:mt-10 text-xs md:text-sm text-[#787c7e]'>© 2022 Денис Шаманский</p>
       </section>
     </main>
   )

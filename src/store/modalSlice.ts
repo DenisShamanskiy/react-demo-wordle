@@ -4,12 +4,17 @@ type ModalState = {
   open: boolean
   window: string
   title: string
+  type?: string
+  description?: string
+
 }
 
 const initialState: ModalState = {
   open: false,
   window: '',
   title: '',
+  type: '',
+  description: ''
 }
 
 const modalSlice = createSlice({
@@ -20,6 +25,8 @@ const modalSlice = createSlice({
       state.open = true
       state.window = action.payload.window
       state.title = action.payload.title
+      state.type = action.payload.type
+      state.description = action.payload.description
     },
 
     closeModal(state) {

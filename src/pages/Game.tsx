@@ -7,10 +7,12 @@ type KeyboardProps = {
 
 const Game = ({ checkGuess }: KeyboardProps) => {
   return (
-    <section className='h-full flex flex-col justify-between'>
-      <Board />
-      <Keyboard checkGuess={checkGuess} />
-    </section>
+    <main className='w-full max-w-5xl h-full grid grid-cols-12 gap-1 md:gap-2 mx-auto'>
+      <section className='w-full h-full flex flex-col justify-between col-start-1 col-end-13'>
+        <Board />
+        <Keyboard checkGuess={checkGuess} />
+      </section>
+    </main>
   )
 }
 

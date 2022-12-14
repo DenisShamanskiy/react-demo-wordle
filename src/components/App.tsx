@@ -10,8 +10,8 @@ import Settings from 'pages/Settings'
 import Auth from 'pages/Auth'
 import User from 'pages/User'
 import Modal from './Modal/Modal'
-import ConfirmLeave from './ModalContent/ConfirmLeave'
-import ConfirmNewGame from './ModalContent/ConfirmNewGame'
+// import ConfirmLeave from './ModalContent/ConfirmLeave'
+// import ConfirmNewGame from './ModalContent/ConfirmNewGame'
 import GameResult from './ModalContent/GameResult'
 import { getLocalUserData, logout, setUser, updateStatsLocal } from 'store/userSlice'
 import { openModal } from 'store/modalSlice'
@@ -27,6 +27,7 @@ import {
 } from 'store/gameSlice'
 import { checkAuth, updateStatistics } from 'api/api'
 import { addDataHardMode, getLocalSettingData, setTheme } from 'store/settingsSlice'
+import Confirm from './ModalContent/Confirm'
 
 const App = () => {
   const styleHeight = {
@@ -146,10 +147,8 @@ const App = () => {
 
   const getModalContent = (titleContent: string) => {
     switch (titleContent) {
-      case 'ConfirmNewGame':
-        return <ConfirmNewGame />
-      case 'ConfirmLeave':
-        return <ConfirmLeave />
+      case 'Confirm':
+        return <Confirm />
       case 'GameResult':
         return <GameResult />
       default:
@@ -221,7 +220,7 @@ const App = () => {
           <Route path='rules' element={<Rules2 />} />
           <Route path='statistics' element={<Statistics />} />
           <Route path='settings' element={<Settings />} />
-        </Route>
+          </Route>
       </Routes>
       <Modal>{getModalContent(wnd)}</Modal>
     </div>

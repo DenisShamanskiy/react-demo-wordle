@@ -25,7 +25,7 @@ const User = () => {
   }
 
   return (
-    <main className='my-auto'>
+    <main className='w-full max-w-5xl h-full grid grid-cols-12 gap-1 md:gap-2 mx-auto'>
       <section className='w-11/12 max-w-sm md:max-w-xl mx-auto flex flex-col items-center select-none'>
         <Heading2>Информация об игроке</Heading2>
         <div className='w-full max-w-md my-6 md:my-8 pb-4 md:pb-6 flex flex-col justify-center items-center border-b border-w-grey-tone-2 dark:border-w-grey-tone-3'>
@@ -39,7 +39,7 @@ const User = () => {
 
         <Statistics />
         <div className='w-48 md:w-52 mt-10 md:mt-12'>
-          <Button type='button' text={'выйти'} color={'red'} onClick={() => handleLogout()} />
+          <Button type='button' text={'выйти'} color={'red'} size='m' onClick={() => handleLogout()} />
         </div>
       </section>
     </main>

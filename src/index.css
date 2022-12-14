@@ -17,6 +17,6 @@
 }
 @layer components {
   .button-key {
-    @apply h-[48px] text-base sm:text-xl rounded border-b dark:border-none flex justify-center items-center font-bold uppercase cursor-pointer active:border-none active:scale-95;
+    @apply h-[48px] text-base md:text-xl rounded border-b dark:border-none flex justify-center items-center font-bold uppercase cursor-pointer active:border-none active:scale-95;
   }
 }
