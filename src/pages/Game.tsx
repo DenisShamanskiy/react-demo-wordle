@@ -1,19 +1,19 @@
-import Board from '../components/Board'
-import Keyboard from '../components/Keyboard'
+import Board from '../components/Board';
+import Keyboard from '../components/Keyboard';
 
 type KeyboardProps = {
-  checkGuess: () => void
-}
+  checkGuess: () => void;
+};
 
 const Game = ({ checkGuess }: KeyboardProps) => {
   return (
-    <main className='w-full max-w-5xl h-full grid grid-cols-12 gap-1 md:gap-2 mx-auto'>
-      <section className='w-full h-full flex flex-col justify-between col-start-1 col-end-13'>
+    <main className='h-full w-full'>
+      <section className='col-start-1 col-end-13 flex h-full w-full flex-col justify-between'>
         <Board />
         <Keyboard checkGuess={checkGuess} />
       </section>
     </main>
-  )
-}
+  );
+};
 
-export default Game
+export default Game;

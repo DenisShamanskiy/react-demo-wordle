@@ -8,11 +8,7 @@ import Rules2 from 'pages/Rules'
 import Statistics from 'pages/Statistics'
 import Settings from 'pages/Settings'
 import Auth from 'pages/Auth'
-import User from 'pages/User'
 import Modal from './Modal/Modal'
-// import ConfirmLeave from './ModalContent/ConfirmLeave'
-// import ConfirmNewGame from './ModalContent/ConfirmNewGame'
-import GameResult from './ModalContent/GameResult'
 import { getLocalUserData, logout, setUser, updateStatsLocal } from 'store/userSlice'
 import { openModal } from 'store/modalSlice'
 import { showNotification } from 'store/notificationSlice'
@@ -27,7 +23,8 @@ import {
 } from 'store/gameSlice'
 import { checkAuth, updateStatistics } from 'api/api'
 import { addDataHardMode, getLocalSettingData, setTheme } from 'store/settingsSlice'
-import Confirm from './ModalContent/Confirm'
+import User from 'pages/User'
+import Profile from 'pages/Profile'
 
 const App = () => {
   const styleHeight = {
@@ -37,7 +34,6 @@ const App = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const { window: wnd } = useAppSelector((state) => state.modal)
   const {
     darkMode: darkTheme,
     hardMode: { active, letters, words: wordsHardMode },
@@ -138,22 +134,6 @@ const App = () => {
       console.log('nextLetter === 5')
       return
     } else dispatch(addLetterBoard(pressedKey))
-
-    // if (pressedKey === 'Escape' && open) {
-    //   dispatch(openModal({ open: false, wnd: wnd, title: title }))
-    //   return
-    // }
-  }
-
-  const getModalContent = (titleContent: string) => {
-    switch (titleContent) {
-      case 'Confirm':
-        return <Confirm />
-      case 'GameResult':
-        return <GameResult />
-      default:
-        return
-    }
   }
 
   const checkUser = async () => {
@@ -210,19 +190,20 @@ const App = () => {
       style={styleHeight}
       tabIndex={0}
       onKeyDown={path.pathname === '/' ? handleKeyDown : undefined}
-      className='bg-w-white dark:bg-w-black relative w-screen h-screen min-w-[414px] flex flex-col justify-between justify-items-center content-between focus:outline-none z-10'
+      className='bg-w-white dark:bg-w-black relative w-screen h-screen min-w-[414px] flex flex-col justify-between justify-items-center focus:outline-none z-10'
     >
       <Routes>
         <Route path='/' element={<Header />}>
           <Route index element={<Game checkGuess={checkGuess} />} />
           <Route path='user' element={<User />} />
+          <Route path='user/profile' element={<Profile />} />
           <Route path='auth' element={<Auth />} />
           <Route path='rules' element={<Rules2 />} />
           <Route path='statistics' element={<Statistics />} />
           <Route path='settings' element={<Settings />} />
-          </Route>
+        </Route>
       </Routes>
-      <Modal>{getModalContent(wnd)}</Modal>
+      <Modal />
     </div>
   )
 }

@@ -10,9 +10,8 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
   const dispatch = useAppDispatch()
 
   const darkTheme = useAppSelector((state) => state.settings.darkMode)
-  const { board, keyBoard, currentRowIndex, gameStatus, nextLetter } = useAppSelector(
-    (state) => state.game,
-  )
+  const { board, keyBoard, currentRowIndex, gameStatus, nextLetter } =
+    useAppSelector((state) => state.game)
 
   const addClassColor = (color: string | undefined) => {
     switch (color) {
@@ -27,7 +26,9 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
     }
   }
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
     const pressedKey = event.currentTarget.dataset['key']!
     if (gameStatus === 'WIN') return
     if (pressedKey === '←' && nextLetter !== 0) {
@@ -50,11 +51,11 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
   }, [currentRowIndex]) // eslint-disable-line
 
   return (
-    <div className='w-full max-w-2xl mx-auto p-1.5 rounded-t flex flex-col gap-y-1.5 bg-w-grey-tone-2 dark:bg-w-black font-sans select-none'>
+    <div className='mx-auto flex w-full max-w-2xl select-none flex-col gap-y-1.5 rounded-t bg-w-grey-tone-2 p-1.5 font-sans dark:bg-w-black'>
       {keyBoard.map((_, indexRow) => {
         if (indexRow === 2) {
           return (
-            <div className='w-full flex gap-x-1.5' key={indexRow}>
+            <div className='flex w-full gap-x-1.5' key={indexRow}>
               <button
                 type='button'
                 data-key='↵'
@@ -104,8 +105,10 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
                     data-key={buttonKey.value}
                     className={`button-key w-[calc((100%-(6px*11))/12)] ${
                       buttonKey.color
-                        ? `${addClassColor(buttonKey.color)} border-[#6c6e70] text-w-white }`
-                        : 'border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5 text-w-quartz dark:text-w-white'
+                        ? `${addClassColor(
+                            buttonKey.color,
+                          )} } border-[#6c6e70] text-w-white`
+                        : 'border-w-grey-tone-1 bg-w-white text-w-quartz dark:bg-w-grey-tone-5 dark:text-w-white'
                     }`}
                     onClick={handleClick}
                     key={indexKey}
@@ -184,7 +187,7 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
           )
         }
         return (
-          <div className='w-full flex gap-x-1.5' key={indexRow}>
+          <div className='flex w-full gap-x-1.5' key={indexRow}>
             {keyBoard[indexRow]?.map((buttonKey, indexKey) => {
               return (
                 <button
@@ -192,8 +195,10 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
                   data-key={buttonKey.value}
                   className={`button-key w-[calc((100%-(6px*11))/12)] ${
                     buttonKey.color
-                      ? `${addClassColor(buttonKey.color)} border-[#6c6e70] text-w-white }`
-                      : 'border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5 text-w-quartz dark:text-w-white'
+                      ? `${addClassColor(
+                          buttonKey.color,
+                        )} } border-[#6c6e70] text-w-white`
+                      : 'border-w-grey-tone-1 bg-w-white text-w-quartz dark:bg-w-grey-tone-5 dark:text-w-white'
                   }`}
                   onClick={handleClick}
                   key={indexKey}

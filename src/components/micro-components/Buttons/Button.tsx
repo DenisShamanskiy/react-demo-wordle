@@ -35,6 +35,8 @@ const Button: FC<IButtonProps> = ({ type, text, color, disabled, size, onClick }
           return 'w-32 md:w-36'
         case 'm':
           return 'w-44 md:w-48'
+        case 'l':
+          return 'w-48 md:w-56'
         default:
           return ''
       }

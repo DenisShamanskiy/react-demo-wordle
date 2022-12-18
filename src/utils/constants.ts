@@ -3,11 +3,19 @@ type NonEmptyArr<T> = [T, ...T[]]
 export const exampleRules = [
   {
     word: ['к', 'р', 'о', 'в', 'ь'],
-    discreption: ['Буква', 'К', 'есть в загаданном слове и находится на правильном месте'],
+    discreption: [
+      'Буква',
+      'К',
+      'есть в загаданном слове и находится на правильном месте',
+    ],
   },
   {
     word: ['г', 'н', 'и', 'л', 'ь'],
-    discreption: ['Буква', 'Н', 'есть в загаданном слове, но стоит в другом месте'],
+    discreption: [
+      'Буква',
+      'Н',
+      'есть в загаданном слове, но стоит в другом месте',
+    ],
   },
   {
     word: ['ч', 'е', 'р', 'е', 'п'],
@@ -15,7 +23,11 @@ export const exampleRules = [
   },
 ]
 
-export const board = [...new Array(6)].map(() => new Array(5).fill({ value: '', color: '' }))
+export const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+
+export const board = [...new Array(6)].map(() =>
+  new Array(5).fill({ value: '', color: '' }),
+)
 
 export const keyBoard = [
   [

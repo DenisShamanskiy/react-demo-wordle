@@ -56,6 +56,7 @@ const userSlice = createSlice({
       state.id = null
       state.email = null
       state.isLoggedIn = false
+      state.isActivated = false
       state.statistics = statistics,
       localStorage.setItem('user', JSON.stringify(state))
       localStorage.removeItem('token')

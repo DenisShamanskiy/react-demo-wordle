@@ -2,7 +2,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
-  content: ['./src/**/*.{js,jsx,ts,tsx}', './node_modules/tw-elements/dist/js/**/*.js'],
+  content: [
+    './src/**/*.{js,jsx,ts,tsx}',
+    './node_modules/tw-elements/dist/js/**/*.js',
+  ],
   theme: {
     extend: {
       keyframes: {
@@ -35,11 +38,29 @@ module.exports = {
           '85%': { transform: 'translate(-50%, 41px)' },
           '100%': { transform: 'translate(-50%, 0px)' },
         },
+        errorShow: {
+          '0%': {
+            transform: 'translateY(0)',
+          },
+          '100%': {
+            transform: '-translateY(120px)',
+          },
+        },
+        errorHidden: {
+          '0%': {
+            transform: 'translateY(-20px)',
+          },
+          '100%': {
+            transform: 'translateY(0)',
+          },
+        },
       },
       animation: {
         modalOpen: 'modalOpen 500ms ease 1',
         modalClosed: 'modalClosed 500ms ease 1',
         notificationShow: 'notificationShow 5s ease 1',
+        errorShow: 'errorShow 500ms ease 1',
+        errorHidden: 'errorHidden 500ms ease 1',
       },
       boxShadow: {
         modal: '0 4px 23px 0 rgb(0 0 0 / 20%)',

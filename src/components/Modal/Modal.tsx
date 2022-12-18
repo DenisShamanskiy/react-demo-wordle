@@ -1,3 +1,5 @@
+import Confirm from 'components/ModalContent/Confirm'
+import GameResult from 'components/ModalContent/GameResult'
 import { useEffect, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { closeModal } from 'store/modalSlice'
@@ -5,15 +7,23 @@ import { useAppDispatch, useAppSelector } from 'utils/hook'
 import './modal.css'
 import ReactPortal from './ReactPortal'
 
-type ModalProps = {
-  children?: JSX.Element
-}
-
-function Modal({ children }: ModalProps) {
+function Modal() {
   const nodeRef = useRef(null)
-  const { open } = useAppSelector((state) => state.modal)
+  const { open, window } = useAppSelector((state) => state.modal)
 
   const dispatch = useAppDispatch()
+
+  const getModalContent = (titleContent: string) => {
+    switch (titleContent) {
+      case 'Confirm':
+        return <Confirm />
+      case 'GameResult':
+        return <GameResult />
+      default:
+        return
+    }
+  }
+
   useEffect(() => {
     const closeOnEscapeKey = (event: KeyboardEvent) =>
       event.key === 'Escape' ? dispatch(closeModal()) : null
@@ -44,7 +54,7 @@ function Modal({ children }: ModalProps) {
             }`}
             onClick={(event) => event.stopPropagation()}
           >
-            {children}
+            {getModalContent(window)}
           </div>
         </dialog>
       </CSSTransition>

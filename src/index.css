@@ -6,8 +6,9 @@
 
 @layer base {
   html {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-      'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+      'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -17,6 +18,16 @@
 }
 @layer components {
   .button-key {
-    @apply h-[48px] text-base md:text-xl rounded border-b dark:border-none flex justify-center items-center font-bold uppercase cursor-pointer active:border-none active:scale-95;
+    @apply flex h-[48px] cursor-pointer items-center justify-center rounded border-b text-base font-bold uppercase active:scale-95 active:border-none dark:border-none md:text-xl;
   }
+  .input-autofill {
+    @apply autofill:bg-transparent autofill:text-w-green;
+  }
+  .label-autofill {
+    @apply autofill:text-w-green;
+  }
+  /* .input-autofill {
+    @apply autofill:bg-transparent autofill:text-w-green;
+  } */
 }
+/* peer relative z-10 w-full border-none autofill:bg-transparent px-2.5 pt-5 pb-2.5 font-semibold tracking-wider text-w-black outline-none */
