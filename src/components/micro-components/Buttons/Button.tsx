@@ -9,7 +9,14 @@ interface IButtonProps {
   onClick?: () => void
 }
 
-const Button: FC<IButtonProps> = ({ type, text, color, disabled, size, onClick }) => {
+const Button: FC<IButtonProps> = ({
+  type,
+  text,
+  color,
+  disabled,
+  size,
+  onClick,
+}) => {
   const addClassColor = (color: string): string => {
     if (disabled) {
       return 'disabled:border-w-disabled dark:disabled:border-w-disabled-dark disabled:text-w-disabled dark:disabled:text-w-disabled-dark'
@@ -30,16 +37,18 @@ const Button: FC<IButtonProps> = ({ type, text, color, disabled, size, onClick }
   }
 
   const addSize = (size: string): string => {
-      switch (size) {
-        case 's':
-          return 'w-32 md:w-36'
-        case 'm':
-          return 'w-44 md:w-48'
-        case 'l':
-          return 'w-48 md:w-56'
-        default:
-          return ''
-      }
+    switch (size) {
+      case 's':
+        return 'w-32 md:w-36'
+      case 'm':
+        return 'w-40 md:w-48'
+      case 'l':
+        return 'w-48 md:w-56'
+      case 'full':
+        return 'w-full'
+      default:
+        return ''
+    }
   }
 
   return (
@@ -47,8 +56,12 @@ const Button: FC<IButtonProps> = ({ type, text, color, disabled, size, onClick }
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${addSize(size)} h-10 md:h-12 inline-block rounded border-2 border-w-quartz dark:border-w-white-dark bg-transparent text-sm md:text-lg font-bold uppercase text-w-quartz dark:text-w-white-dark transition-all duration-300 ${
-        disabled ? 'disabled:cursor-not-allowed' : 'cursor-pointer active:scale-95'
+      className={`${addSize(
+        size,
+      )} inline-block h-10 rounded border-2 border-w-quartz bg-transparent text-sm font-bold uppercase text-w-quartz transition-all duration-300 dark:border-w-white-dark dark:text-w-white-dark md:h-12 md:text-lg ${
+        disabled
+          ? 'disabled:cursor-not-allowed'
+          : 'cursor-pointer active:scale-95'
       }  ${addClassColor(color)}`}
     >
       {text}

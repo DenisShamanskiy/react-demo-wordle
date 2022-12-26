@@ -1,37 +1,42 @@
 import CountStats from 'components/micro-components/CountStats'
 import { useAppSelector } from 'utils/hook'
-import Heading2 from 'components/micro-components/Heading2'
+import Heading2 from 'components/micro-components/Heading'
 
 const Statistics = () => {
-  const { win, loss, surrender, bar } = useAppSelector((state) => state.user.statistics)
+  const { win, loss, surrender, bar } = useAppSelector(
+    (state) => state.user.statistics,
+  )
 
   return (
     <>
       <Heading2>Статистика</Heading2>
       <>
-        <div className='w-full max-w-md my-6 md:my-8 grid grid-cols-3 gap-1'>
+        <div className='mx-auto my-6 grid w-11/12 grid-cols-3 gap-1 md:my-8'>
           {[win, surrender, loss].map((item, index) => {
             return <CountStats count={item} index={index} key={index} />
           })}
         </div>
-        <div className='w-full'>
-          <h3 className='pb-4 md:pb-6 flex justify-center font-bold text-sm md:text-base text-w-quartz dark:text-w-white-dark uppercase'>
+        <div className='mx-auto w-11/12'>
+          <h3 className='flex justify-center pb-4 text-sm font-bold uppercase text-w-quartz dark:text-w-white-dark md:pb-6 md:text-base'>
             Выигрышные попытки
           </h3>
-          <ul className='max-w-md mx-auto py-4 border-y border-w-grey-tone-2 dark:border-w-grey-tone-3 grid grid-rows-6 gap-y-1 md:gap-y-2'>
+          <ul className='mx-auto grid max-w-md grid-rows-6 gap-y-1 border-y border-w-grey-tone-2 py-4 dark:border-w-grey-tone-3 md:gap-y-2'>
             {bar.map((row, index) => {
               return (
-                <li className='w-full flex justify-center items-center' key={index}>
-                  <p className='w-5 mr-2 md:mr-3 flex text-sm md:text-base font-bold text-w-quartz dark:text-w-white-dark'>
+                <li
+                  className='flex w-full items-center justify-center'
+                  key={index}
+                >
+                  <p className='mr-2 flex w-5 text-sm font-bold text-w-quartz dark:text-w-white-dark md:mr-3 md:text-base'>
                     #{row.name}
                   </p>
-                  <div className='w-10/12 h-3 md:h-4 rounded-xl bg-w-grey-tone-2/40 dark:bg-w-grey-dark/40 '>
+                  <div className='h-3 w-10/12 rounded-xl bg-w-grey-tone-2/40 dark:bg-w-grey-dark/40 md:h-4 '>
                     <span
-                      className='relative h-full rounded-xl block bg-w-green dark:bg-w-green-dark overflow-hidden'
+                      className='relative block h-full overflow-hidden rounded-xl bg-w-green dark:bg-w-green-dark'
                       style={{ width: `${row.percent}` }}
                     ></span>
                   </div>
-                  <p className='w-6 md:w-7 h-6 md:h-7 ml-3 md:ml-4 border dark:border-0 border-w-grey-tone-2 flex justify-center items-center bg-w-white dark:bg-w-grey-dark text-sm md:text-lg font-extrabold uppercase text-w-quartz dark:text-w-white box-border overflow-hidden'>
+                  <p className='ml-3 box-border flex h-6 w-6 items-center justify-center overflow-hidden border border-w-grey-tone-2 bg-w-white text-sm font-extrabold uppercase text-w-quartz dark:border-0 dark:bg-w-grey-dark dark:text-w-white md:ml-4 md:h-7 md:w-7 md:text-lg'>
                     {row.count}
                   </p>
                 </li>

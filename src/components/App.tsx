@@ -3,13 +3,17 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import useCurrentHeight from 'utils/getHeight'
 import Game from '../pages/Game'
-import Header from './Header'
 import Rules2 from 'pages/Rules'
 import Statistics from 'pages/Statistics'
 import Settings from 'pages/Settings'
 import Auth from 'pages/Auth'
 import Modal from './Modal/Modal'
-import { getLocalUserData, logout, setUser, updateStatsLocal } from 'store/userSlice'
+import {
+  getLocalUserData,
+  logout,
+  setUser,
+  updateStatsLocal,
+} from 'store/userSlice'
 import { openModal } from 'store/modalSlice'
 import { showNotification } from 'store/notificationSlice'
 import { WORDS } from 'utils/constants'
@@ -22,8 +26,14 @@ import {
   setRelultGame,
 } from 'store/gameSlice'
 import { checkAuth, updateStatistics } from 'api/api'
-import { addDataHardMode, getLocalSettingData, setTheme } from 'store/settingsSlice'
-import User from 'pages/User'
+import {
+  addDataHardMode,
+  getLocalSettingData,
+  setTheme,
+} from 'store/settingsSlice'
+import Notification from './Notification'
+import Layout from './Layout'
+import ProfileEdit from 'pages/ProfileEdit'
 import Profile from 'pages/Profile'
 
 const App = () => {
@@ -48,6 +58,8 @@ const App = () => {
   } = useAppSelector((state) => state.game)
   const id = useAppSelector((state) => state.user.id)
   const statistics = useAppSelector((state) => state.user.statistics)
+  const visible = useAppSelector((state) => state.notification.visible)
+
   const path = useLocation()
   const goHome = () => navigate('/', { replace: true })
 
@@ -60,13 +72,21 @@ const App = () => {
     if (currentGuessStr === currentWord) {
       dispatch(setRelultGame('WIN'))
       dispatch(updateStatsLocal({ result: 'WIN', currentRowIndex }))
-      dispatch(openModal({ wnd: 'GameResult', title: 'Победа', window: 'GameResult' }))
+      dispatch(
+        openModal({ wnd: 'GameResult', title: 'Победа', window: 'GameResult' }),
+      )
     } else {
       dispatch(nextStep(indexColorArray))
       if (currentRowIndex === 5) {
         dispatch(setRelultGame({ result: 'FAIL', currentRowIndex }))
         dispatch(updateStatsLocal('FAIL'))
-        dispatch(openModal({ wnd: 'GameResult', title: 'Поражение', window: 'GameResult' }))
+        dispatch(
+          openModal({
+            wnd: 'GameResult',
+            title: 'Поражение',
+            window: 'GameResult',
+          }),
+        )
       }
     }
   }
@@ -76,7 +96,10 @@ const App = () => {
     currentGuessStr: string,
     indexColorArray: number[],
   ) => {
-    if (letters.length > 0 && !letters.every((item) => currentGuess.includes(item))) {
+    if (
+      letters.length > 0 &&
+      !letters.every((item) => currentGuess.includes(item))
+    ) {
       dispatch(showNotification({ message: 'Использованы не все подсказки' }))
     } else if (wordsHardMode.includes(currentGuessStr)) {
       dispatch(showNotification({ message: 'Слово уже было' }))
@@ -85,15 +108,27 @@ const App = () => {
     }
   }
 
+  const showNotify = (type: string, message: string) => {
+    if (!visible) {
+      dispatch(
+        showNotification({
+          type: type,
+          message: message,
+        }),
+      )
+    }
+    return
+  }
+
   const checkGuess = () => {
     const currentGuessStr = currentGuess.join('')
 
     if (currentGuessStr.length !== 5) {
-      dispatch(showNotification({ message: 'Введены не все буквы' }))
+      showNotify('notify-warning', 'Введены не все буквы')
       return
     }
     if (!WORDS.includes(currentGuessStr)) {
-      dispatch(showNotification({ message: 'Такого слова нет в списке' }))
+      showNotify('notify-warning', 'Такого слова нет в списке')
       return
     }
     const indexColorArray: number[] = []
@@ -101,7 +136,9 @@ const App = () => {
       indexColorArray.push(currentWord.indexOf(currentGuess[i]!))
     }
     const lettersHardMode = [
-      ...new Set([...currentWord].filter((letter) => currentGuess.includes(letter))),
+      ...new Set(
+        [...currentWord].filter((letter) => currentGuess.includes(letter)),
+      ),
     ]
 
     active
@@ -114,7 +151,7 @@ const App = () => {
     if (gameStatus === 'WIN') return
 
     if (pressedKey.length === 1 && pressedKey.match(/[a-z]/gi)) {
-      dispatch(showNotification({ message: 'Игра поддерживает только русский язык' }))
+      showNotify('notify-info', 'Игра поддерживает только русский язык')
       return
     }
 
@@ -155,7 +192,9 @@ const App = () => {
     if (localStorage.getItem('settings')) {
       dispatch(getLocalSettingData())
     }
-    localStorage.getItem('game') ? dispatch(getLocalGameData()) : dispatch(initialGame())
+    localStorage.getItem('game')
+      ? dispatch(getLocalGameData())
+      : dispatch(initialGame())
   }, [])
 
   useEffect(() => {
@@ -168,7 +207,8 @@ const App = () => {
   useEffect(() => {
     if (
       localStorage['theme'] === 'dark' ||
-      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      (!('theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       document.documentElement.classList.add('dark')
       dispatch(setTheme(true))
@@ -190,19 +230,22 @@ const App = () => {
       style={styleHeight}
       tabIndex={0}
       onKeyDown={path.pathname === '/' ? handleKeyDown : undefined}
-      className='bg-w-white dark:bg-w-black relative w-screen h-screen min-w-[414px] flex flex-col justify-between justify-items-center focus:outline-none z-10'
+      className='relative z-10 flex h-screen w-screen min-w-[414px] flex-col justify-between justify-items-center bg-w-white focus:outline-none dark:bg-w-black'
     >
+      {visible && <Notification />}
+
       <Routes>
-        <Route path='/' element={<Header />}>
+        <Route path='/' element={<Layout />}>
           <Route index element={<Game checkGuess={checkGuess} />} />
-          <Route path='user' element={<User />} />
-          <Route path='user/profile' element={<Profile />} />
+          <Route path='profile' element={<Profile />} />
+          <Route path='profile/edit' element={<ProfileEdit />} />
           <Route path='auth' element={<Auth />} />
           <Route path='rules' element={<Rules2 />} />
           <Route path='statistics' element={<Statistics />} />
           <Route path='settings' element={<Settings />} />
         </Route>
       </Routes>
+
       <Modal />
     </div>
   )

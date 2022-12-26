@@ -26,8 +26,5 @@
   .label-autofill {
     @apply autofill:text-w-green;
   }
-  /* .input-autofill {
-    @apply autofill:bg-transparent autofill:text-w-green;
-  } */
 }
 /* peer relative z-10 w-full border-none autofill:bg-transparent px-2.5 pt-5 pb-2.5 font-semibold tracking-wider text-w-black outline-none */

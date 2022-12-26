@@ -29,14 +29,36 @@ module.exports = {
             opacity: '0',
           },
         },
+        newGameShow: {
+          '0%': {
+            transform: 'scale(0.2)',
+            opacity: '0',
+          },
+          '100%': {
+            transform: 'scale(1)',
+            opacity: '1',
+          },
+        },
+        newGameHide: {
+          '0%': {
+            transform: 'scale(1)',
+            opacity: '1',
+          },
+          '100%': {
+            transform: 'scale(0.2)',
+            opacity: '0',
+          },
+        },
         notificationShow: {
           '0%': { transform: 'translate(-50%, 0px)' },
-          '8%': { transform: 'translate(-50%, 36px)' },
-          '12%': { transform: 'translate(-50%, 38px)' },
-          '16%': { transform: 'translate(-50%, 36px)' },
-          '80%': { transform: 'translate(-50%, 36px)' },
-          '85%': { transform: 'translate(-50%, 41px)' },
-          '100%': { transform: 'translate(-50%, 0px)' },
+          '12%': { transform: 'translate(-50%, 130%)' },
+          '16%': { transform: 'translate(-50%, 120%)' },
+          '100%': { transform: 'translate(-50%, 120%)' },
+        },
+        notificationHide: {
+          '0%': { transform: 'translate(-50%, 120%)' },
+          '25%': { transform: 'translate(-50%, 125%)' },
+          '100%': { transform: 'translate(-50%, -40%)' },
         },
         errorShow: {
           '0%': {
@@ -58,12 +80,17 @@ module.exports = {
       animation: {
         modalOpen: 'modalOpen 500ms ease 1',
         modalClosed: 'modalClosed 500ms ease 1',
-        notificationShow: 'notificationShow 5s ease 1',
+        newGameShow: 'newGameShow 500ms ease 1 forwards',
+        newGameHide: 'newGameHide 500ms ease 1 forwards',
         errorShow: 'errorShow 500ms ease 1',
         errorHidden: 'errorHidden 500ms ease 1',
+        notificationShow: 'notificationShow 4s ease 1 forwards',
+        notificationHide: ' notificationHide 1s ease 1 forwards',
       },
       boxShadow: {
         modal: '0 4px 23px 0 rgb(0 0 0 / 20%)',
+        glossWhite: '0 4px 30px rgba(0, 0, 0, 0.1)',
+        glossBlack: '0 4px 30px rgba(255, 255 ,255, 0.1)',
       },
       gridTemplateRows: {
         board: 'repeat(6, 56px)',
@@ -104,6 +131,7 @@ module.exports = {
         'w-border-light': '#d3d6da',
         'w-border-dark': '#3a3a3c',
         //
+
         wordleGreen: '#6aaa64',
         wordleYellow: '#c9b458',
         wordleGrey: '#787c7e',
