@@ -1,67 +1,23 @@
-// import Button from 'components/micro-components/Buttons/Button'
 import ButtonIcon from 'components/micro-components/Buttons/ButtonIcon'
 import Heading2 from 'components/micro-components/Heading'
 import InputSwitch from 'components/micro-components/InputSwitch'
 import SettingsRow from 'components/micro-components/SettingsRow'
 import { DarkModeSwitch } from 'react-toggle-dark-mode'
-// import { openModal } from 'store/modalSlice'
 import { toggleHardMode, toggleTheme } from 'store/settingsSlice'
-import useCurrentWidth from 'utils/getWidth'
+import useCurrentWidth from 'hook/useCurrentWidth'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 
 const Settings = () => {
   const dispatch = useAppDispatch()
-  // const { board, gameStatus } = useAppSelector((state) => state.game)
+  const styleWidth = useCurrentWidth()
   const {
     darkMode,
     hardMode: { active },
   } = useAppSelector((state) => state.settings)
 
-  const styleWidth = useCurrentWidth()
-
   return (
     <section className='mx-auto w-full max-w-sm select-none md:max-w-md'>
       <div className='flex flex-col items-center justify-center'>
-        {/* <Heading2>Игра</Heading2>
-        <div className='my-4 mx-auto grid w-full grid-rows-2 justify-center gap-y-2 border-y border-w-grey-tone-2 py-4 dark:border-w-grey-tone-3 md:my-5 md:gap-y-3 md:py-5'>
-          <Button
-            type='button'
-            text={'новая игра'}
-            color='green'
-            size='m'
-            onClick={() =>
-              dispatch(
-                openModal({
-                  window: 'Confirm',
-                  title: 'Новая игра?',
-                  type: 'NewGame',
-                }),
-              )
-            }
-            disabled={board[0]?.every((item) => item.color === '')}
-          />
-          <Button
-            type='button'
-            text={'сдаться'}
-            color='yellow'
-            size='m'
-            onClick={() =>
-              dispatch(
-                openModal({
-                  window: 'Confirm',
-                  title: 'Сдаёшься?',
-                  type: 'Leave',
-                  description:
-                    'Узнаешь загаданное слово, но cдача засчитается в статистике',
-                }),
-              )
-            }
-            disabled={
-              board[0]?.every((item) => item.color === '') ||
-              ['WIN', 'FAIL', 'LEAVE'].includes(gameStatus)
-            }
-          />
-        </div> */}
         <Heading2>Настройки</Heading2>
         <div className='mt-8 w-full md:mt-10'>
           <SettingsRow>

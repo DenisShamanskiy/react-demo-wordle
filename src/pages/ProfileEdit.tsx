@@ -1,43 +1,64 @@
+import { updatePrifile } from 'api/api'
 import Button from 'components/micro-components/Buttons/Button'
 import Heading from 'components/micro-components/Heading'
 import InputText from 'components/micro-components/InputText'
 import { IFormValues } from 'models/IFormValues'
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { setUser } from 'store/userSlice'
 import { emailRegex } from 'utils/constants'
-import { useAppSelector } from 'utils/hook'
-// import { useAppSelector } from 'utils/hook'
+import { useAppDispatch, useAppSelector } from 'utils/hook'
 
-const ProfileEdit = () => {
+type ProfileEditProps = {
+  showNotify: (type: string, message: string) => void
+}
+
+const ProfileEdit: FC<ProfileEditProps> = ({ showNotify }) => {
+  const { id, email, username } = useAppSelector((state) => state.user)
   const {
     register,
     formState: { errors, isValid, isDirty },
     handleSubmit,
     watch,
     setValue,
+    reset,
   } = useForm<IFormValues>({
     mode: 'onTouched',
   })
-
-  const { email } = useAppSelector((state) => state.user)
-  const name = email
+  const dispatch = useAppDispatch()
 
   const watchAllFields = watch()
-  console.log(watchAllFields)
 
-  const onSubmit: SubmitHandler<IFormValues> = (data) =>
-    alert(JSON.stringify(data))
+  const handleEditProfile = async (
+    id: string,
+    username: string,
+    email: string,
+  ) => {
+    try {
+      const response = await updatePrifile(id, username, email)
+      dispatch(setUser(response))
+      reset({
+        username: username,
+        email: email,
+      })
+      showNotify('notify-success', 'Профиль сохранён')
+    } catch (e) {
+      showNotify('notify-failure', e.response?.data?.message)
+    }
+  }
+  const onSubmit: SubmitHandler<IFormValues> = (data) => {
+    const { username, email } = data
+    handleEditProfile(id!, username!, email!)
+  }
 
   useEffect(() => {
-    setValue('name', email!, {
+    setValue('username', username ? username : email!, {
       shouldValidate: true,
-      shouldDirty: true,
     })
     setValue('email', email!, {
       shouldValidate: true,
-      shouldDirty: true,
     })
-  }, [name, email])
+  }, [username, email])
 
   return (
     <section className='mx-auto flex h-full w-full max-w-xs select-none flex-col items-center justify-center md:max-w-sm'>
@@ -50,7 +71,7 @@ const ProfileEdit = () => {
         <div className='grid w-full grid-rows-2 gap-12 md:gap-16'>
           <InputText
             title='Имя'
-            label='name'
+            label='username'
             type='text'
             id='username'
             fill
@@ -61,9 +82,9 @@ const ProfileEdit = () => {
                 message: 'Минимум 5 символов',
               },
             }}
-            error={errors.name}
+            error={errors.username}
             register={register}
-            value={watchAllFields.name}
+            value={watchAllFields.username}
           />
 
           <InputText

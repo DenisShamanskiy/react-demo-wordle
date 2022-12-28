@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { setUser } from 'store/userSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
-import Heading2 from 'components/micro-components/Heading'
+import Heading from 'components/micro-components/Heading'
 import { useNavigate } from 'react-router-dom'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import Button from 'components/micro-components/Buttons/Button'
@@ -11,7 +11,11 @@ import InputText from 'components/micro-components/InputText'
 import { IFormValues } from 'models/IFormValues'
 import { emailRegex } from 'utils/constants'
 
-const Auth = () => {
+type AuthProps = {
+  showNotify: (type: string, message: string) => void
+}
+
+const Auth: FC<AuthProps> = ({ showNotify }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const statistics = useAppSelector((state) => state.user.statistics)
@@ -22,14 +26,13 @@ const Auth = () => {
     handleSubmit,
     watch,
   } = useForm<IFormValues>({
-    mode: 'onTouched',
+    mode: 'onBlur',
   })
   const watchAllFields = watch()
 
   const goHome = () => navigate('/', { replace: true })
 
   const [typeFormLogin, setTypeFormLogin] = useState<boolean>(true)
-  const [errorMessage, setErrorMessage] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleRegistration = async (
@@ -40,13 +43,11 @@ const Auth = () => {
     setIsLoading(true)
     try {
       const response = await AuthService.registration(email, password, stats)
-      console.log(response)
       localStorage.setItem('token', response.data.accessToken)
       dispatch(setUser(response.data.user))
       goHome()
     } catch (e) {
-      console.log(e.response?.data?.message)
-      setErrorMessage(e.response?.data?.message)
+      showNotify('notify-failure', e.response?.data?.message)
     } finally {
       setIsLoading(false)
     }
@@ -56,13 +57,11 @@ const Auth = () => {
     setIsLoading(true)
     try {
       const response = await AuthService.login(email, password)
-      console.log(response)
       localStorage.setItem('token', response.data.accessToken)
       dispatch(setUser(response.data.user))
       goHome()
     } catch (e) {
-      setErrorMessage(e.response?.data?.message)
-      console.log(e.response?.data?.message)
+      showNotify('notify-failure', e.response?.data?.message)
     } finally {
       setIsLoading(false)
     }
@@ -75,11 +74,9 @@ const Auth = () => {
       : handleRegistration(email!, password!, statistics)
   }
 
-  console.log(errorMessage)
-
   return (
     <section className='mx-auto w-full max-w-xs select-none md:max-w-sm'>
-      <Heading2>Введите ваши данные</Heading2>
+      <Heading>Введите ваши данные</Heading>
       <div className='relative mt-12 flex h-10 w-full items-center text-sm font-bold uppercase md:mt-16 md:h-12 md:text-lg'>
         <input
           type='radio'
@@ -111,12 +108,6 @@ const Auth = () => {
           Войти
         </label>
       </div>
-
-      {errorMessage && (
-        <p className='absolute left-0 right-0 top-[10px] my-0 mx-auto text-center text-sm text-red-500 '>
-          {errorMessage}
-        </p>
-      )}
 
       <form
         className='relative mt-12 flex w-full flex-col items-center justify-center md:mt-16'

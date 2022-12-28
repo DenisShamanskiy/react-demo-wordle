@@ -14,8 +14,6 @@ const Layout = () => {
   const gameStatus = useAppSelector((state) => state.game.gameStatus)
   const board = useAppSelector((state) => state.game.board)
 
-  console.log(gameStatus)
-
   const {
     darkMode: darkTheme,
     hardMode: { active },

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
-import useCurrentHeight from 'utils/getHeight'
+import useCurrentHeight from 'hook/useCurrentHeight'
 import Game from '../pages/Game'
 import Rules2 from 'pages/Rules'
 import Statistics from 'pages/Statistics'
@@ -176,7 +176,6 @@ const App = () => {
   const checkUser = async () => {
     try {
       const response = await checkAuth()
-      console.log(response)
       localStorage.setItem('token', response.data.accessToken)
       dispatch(setUser(response.data.user))
     } catch (e) {
@@ -238,8 +237,11 @@ const App = () => {
         <Route path='/' element={<Layout />}>
           <Route index element={<Game checkGuess={checkGuess} />} />
           <Route path='profile' element={<Profile />} />
-          <Route path='profile/edit' element={<ProfileEdit />} />
-          <Route path='auth' element={<Auth />} />
+          <Route
+            path='profile/edit'
+            element={<ProfileEdit showNotify={showNotify} />}
+          />
+          <Route path='auth' element={<Auth showNotify={showNotify} />} />
           <Route path='rules' element={<Rules2 />} />
           <Route path='statistics' element={<Statistics />} />
           <Route path='settings' element={<Settings />} />

@@ -49,16 +49,27 @@ module.exports = {
             opacity: '0',
           },
         },
-        notificationShow: {
-          '0%': { transform: 'translate(-50%, 0px)' },
+        notifyShow: {
+          '0%': { transform: 'translate(-50%, 0%)' },
+          '12%': { transform: 'translate(-50%, 90%)' },
+          '16%': { transform: 'translate(-50%, 80%)' },
+          '100%': { transform: 'translate(-50%, 80%)' },
+        },
+        notifyHide: {
+          '0%': { transform: 'translate(-50%, 80%)' },
+          '25%': { transform: 'translate(-50%, 90%)' },
+          '100%': { transform: 'translate(-50%, -40%)' },
+        },
+        notifyShowMD: {
+          '0%': { transform: 'translate(-50%, 0%)' },
           '12%': { transform: 'translate(-50%, 130%)' },
           '16%': { transform: 'translate(-50%, 120%)' },
           '100%': { transform: 'translate(-50%, 120%)' },
         },
-        notificationHide: {
+        notifyHideMD: {
           '0%': { transform: 'translate(-50%, 120%)' },
-          '25%': { transform: 'translate(-50%, 125%)' },
-          '100%': { transform: 'translate(-50%, -40%)' },
+          '25%': { transform: 'translate(-50%, 130%)' },
+          '100%': { transform: 'translate(-50%, -120%)' },
         },
         errorShow: {
           '0%': {
@@ -84,8 +95,10 @@ module.exports = {
         newGameHide: 'newGameHide 500ms ease 1 forwards',
         errorShow: 'errorShow 500ms ease 1',
         errorHidden: 'errorHidden 500ms ease 1',
-        notificationShow: 'notificationShow 4s ease 1 forwards',
-        notificationHide: ' notificationHide 1s ease 1 forwards',
+        notifyShow: 'notifyShow 4s ease 1 forwards',
+        notifyHide: 'notifyHide 1s ease 1 forwards',
+        notifyShowMD: 'notifyShowMD 4s ease 1 forwards',
+        notifyHideMD: ' notifyHideMD 1s ease 1 forwards',
       },
       boxShadow: {
         modal: '0 4px 23px 0 rgb(0 0 0 / 20%)',

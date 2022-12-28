@@ -12,9 +12,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  /* .act {
-    background-color: red;
-  } */
 }
 @layer components {
   .button-key {
@@ -27,4 +24,3 @@
     @apply autofill:text-w-green;
   }
 }
-/* peer relative z-10 w-full border-none autofill:bg-transparent px-2.5 pt-5 pb-2.5 font-semibold tracking-wider text-w-black outline-none */

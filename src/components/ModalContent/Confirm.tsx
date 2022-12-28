@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { restartGame, setRelultGame } from 'store/gameSlice'
 import { closeModal, openModal } from 'store/modalSlice'
 import { resetDataHardMode } from 'store/settingsSlice'
-import { deleteNewGame, hideNewGame } from 'store/newGameSlice'
+import { hideNewGame } from 'store/newGameSlice'
 import { updateStatsLocal } from 'store/userSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 
@@ -24,9 +24,6 @@ const Confirm: FC = (): JSX.Element => {
       dispatch(resetDataHardMode())
       dispatch(closeModal())
       dispatch(hideNewGame())
-      setTimeout(() => {
-        dispatch(deleteNewGame())
-      }, 500)
     }
     if (type === 'Leave') {
       goHome()
@@ -34,9 +31,7 @@ const Confirm: FC = (): JSX.Element => {
       dispatch(setRelultGame('LEAVE'))
       dispatch(updateStatsLocal('LEAVE'))
       dispatch(hideNewGame())
-      setTimeout(() => {
-        dispatch(deleteNewGame())
-      }, 500)
+
       setTimeout(
         () => dispatch(openModal({ window: 'GameResult', title: 'Сдался' })),
         500,

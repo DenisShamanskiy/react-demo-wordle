@@ -31,6 +31,7 @@ const notificationSlice = createSlice({
     deleteNotification(state) {
       state.type = ''
       state.visible = false
+      state.message = ''
     },
   },
 })

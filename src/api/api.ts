@@ -5,7 +5,11 @@ import AuthService from 'services/AuthService'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const axios = require('axios').default
 
-export async function registration(email: string, password: string, statistics: Statistics) {
+export async function registration(
+  email: string,
+  password: string,
+  statistics: Statistics,
+) {
   try {
     const response = await AuthService.registration(email, password, statistics)
     localStorage.setItem('token', response.data.accessToken)
@@ -38,12 +42,38 @@ export async function logout() {
 
 export async function checkAuth() {
   try {
-      const response = await axios.get(`${API_URL}/refresh`, {withCredentials: true})
-      localStorage.setItem('token', response.data.accessToken);
-      return response
+    const response = await axios.get(`${API_URL}/refresh`, {
+      withCredentials: true,
+    })
+    localStorage.setItem('token', response.data.accessToken)
+    return response
   } catch (e) {
-      console.log(e.response?.data?.message);
-      return e.request.status
+    console.log(e.response?.data?.message)
+    return e.request.status
+  }
+}
+
+export async function updatePrifile(
+  id: string,
+  username: string,
+  email: string,
+) {
+  try {
+    const response = await axios({
+      method: 'put',
+      url: `${API_URL}/profile/edit`,
+      data: {
+        id: id,
+        username: username,
+        email: email,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+    return response.data
+  } catch (e) {
+    console.log(e)
   }
 }
 
@@ -57,8 +87,8 @@ export async function updateStatistics(id: string, statistics: Statistics) {
         statistics: statistics,
       },
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}` 
-      }
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
     })
     return response.data
   } catch (e) {
