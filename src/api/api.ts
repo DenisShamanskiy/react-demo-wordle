@@ -45,6 +45,8 @@ export async function checkAuth() {
     const response = await axios.get(`${API_URL}/refresh`, {
       withCredentials: true,
     })
+    console.log('response', response)
+
     localStorage.setItem('token', response.data.accessToken)
     return response
   } catch (e) {

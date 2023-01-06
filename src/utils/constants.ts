@@ -1,4 +1,4 @@
-type NonEmptyArr<T> = [T, ...T[]]
+// type NonEmptyArr<T> = [T, ...T[]]
 
 export const exampleRules = [
   {
@@ -109,7 +109,7 @@ export const statistics = {
   ],
 }
 
-export const WORDS: NonEmptyArr<string> = [
+export const WORDS: string[] = [
   'линия',
   'транс',
   'курок',

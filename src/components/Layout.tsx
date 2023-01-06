@@ -61,6 +61,10 @@ const Layout = () => {
         </div>
 
         <div className='absolute right-4 flex gap-x-1 md:right-5 md:gap-x-2 lg:right-0 '>
+          <CustomLink to='/admin'>
+            {globalSvgSelector('key', darkTheme)}
+          </CustomLink>
+
           <CustomLink to='/rules'>
             {globalSvgSelector('rules', darkTheme)}
           </CustomLink>
@@ -74,7 +78,7 @@ const Layout = () => {
           </CustomLink>
         </div>
       </header>
-      <main className='relative mx-auto flex h-full w-full max-w-5xl items-center'>
+      <main className='mx-auto flex h-[calc(100%-64px)] w-full max-w-5xl items-center'>
         <Outlet />
         {visible && <Sidebar />}
       </main>

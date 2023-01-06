@@ -35,6 +35,8 @@ import Notification from './Notification'
 import Layout from './Layout'
 import ProfileEdit from 'pages/ProfileEdit'
 import Profile from 'pages/Profile'
+import Admin from 'pages/Admin'
+import AdminWords from 'pages/AdminWords'
 
 const App = () => {
   const styleHeight = {
@@ -175,10 +177,13 @@ const App = () => {
 
   const checkUser = async () => {
     try {
-      const response = await checkAuth()
-      localStorage.setItem('token', response.data.accessToken)
-      dispatch(setUser(response.data.user))
+      const { data } = await checkAuth()
+      console.log(data)
+
+      localStorage.setItem('token', data.accessToken)
+      dispatch(setUser(data.user))
     } catch (e) {
+      console.log(e)
       dispatch(logout())
       goHome()
     }
@@ -219,7 +224,6 @@ const App = () => {
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      // checkAuth()
       checkUser()
     }
   }, [])
@@ -229,13 +233,15 @@ const App = () => {
       style={styleHeight}
       tabIndex={0}
       onKeyDown={path.pathname === '/' ? handleKeyDown : undefined}
-      className='relative z-10 flex h-screen w-screen min-w-[414px] flex-col justify-between justify-items-center bg-w-white focus:outline-none dark:bg-w-black'
+      className=' relative z-10 flex h-screen w-screen min-w-[414px] flex-col justify-between justify-items-center overflow-hidden bg-w-white focus:outline-none dark:bg-w-black'
     >
       {visible && <Notification />}
 
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Game checkGuess={checkGuess} />} />
+          <Route path='admin' element={<Admin />} />
+          <Route path='admin/words' element={<AdminWords />} />
           <Route path='profile' element={<Profile />} />
           <Route
             path='profile/edit'

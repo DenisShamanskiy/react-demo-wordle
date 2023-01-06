@@ -104,6 +104,7 @@ module.exports = {
         modal: '0 4px 23px 0 rgb(0 0 0 / 20%)',
         glossWhite: '0 4px 30px rgba(0, 0, 0, 0.1)',
         glossBlack: '0 4px 30px rgba(255, 255 ,255, 0.1)',
+        test: '0 47px 8px 0 rgba(9, 9, 9, 0.1) inset',
       },
       gridTemplateRows: {
         board: 'repeat(6, 56px)',
