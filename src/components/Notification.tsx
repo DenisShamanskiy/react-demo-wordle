@@ -8,13 +8,6 @@ const Notification = () => {
   const darkMode = useAppSelector((state) => state.settings.darkMode)
   const { type, open, message } = useAppSelector((state) => state.notification)
 
-  // const hidden = () => {
-  //   dispatch(hideNotification())
-  //   setTimeout(() => {
-  //     dispatch(deleteNotification())
-  //   }, 1100)
-  // }
-
   const addColorClassBg = (type: string) => {
     switch (type) {
       case 'notify-success':
@@ -41,13 +34,10 @@ const Notification = () => {
   }, [open])
 
   useEffect(() => {
-    if (type !== 'notify-failure') {
-      const timeout = setTimeout(() => {
-        dispatch(hideNotification())
-      }, 5000)
-      return () => clearTimeout(timeout)
-    }
-    return
+    const timeout = setTimeout(() => {
+      dispatch(hideNotification())
+    }, 5000)
+    return () => clearTimeout(timeout)
   }, [type])
 
   return (

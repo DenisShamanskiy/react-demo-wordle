@@ -21,6 +21,7 @@ type UserState = {
   isLoggedIn: boolean
   isActivated: boolean
   statistics: StatisticsState
+  roles: string[]
 }
 
 const initialState: UserState = {
@@ -30,6 +31,7 @@ const initialState: UserState = {
   isLoggedIn: false,
   isActivated: false,
   statistics: statistics,
+  roles: [],
 }
 
 const userSlice = createSlice({
@@ -44,16 +46,18 @@ const userSlice = createSlice({
       state.isLoggedIn = localData.isLoggedIn
       state.isActivated = localData.isActivated
       state.statistics = localData.statistics
+      state.roles = localData.roles
     },
 
     setUser(state, action) {
-      ;(state.id = action.payload.id),
-        (state.email = action.payload.email),
-        (state.username = action.payload.username),
-        (state.isLoggedIn = true),
-        (state.isActivated = action.payload.isActivated),
-        (state.statistics = action.payload.statistics),
-        localStorage.setItem('user', JSON.stringify(state))
+      state.id = action.payload.id
+      state.email = action.payload.email
+      state.username = action.payload.username
+      state.isLoggedIn = true
+      state.isActivated = action.payload.isActivated
+      state.statistics = action.payload.statistics
+      state.roles = action.payload.roles
+      localStorage.setItem('user', JSON.stringify(state))
     },
 
     logout(state) {
@@ -62,8 +66,9 @@ const userSlice = createSlice({
       state.username = null
       state.isLoggedIn = false
       state.isActivated = false
-      ;(state.statistics = statistics),
-        localStorage.setItem('user', JSON.stringify(state))
+      state.statistics = statistics
+      state.roles = []
+      localStorage.setItem('user', JSON.stringify(state))
       localStorage.removeItem('token')
     },
 

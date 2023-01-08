@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { board, keyBoard, WORDS } from 'utils/constants'
+import { board, keyBoard } from 'utils/constants'
 
 type BoardRow = {
   value: string | undefined
@@ -19,6 +19,7 @@ type gameState = {
   keyBoard: KeyBoardRow[][]
   nextLetter: number
   word: {
+    words: string[]
     currentWord: string
     previousWord: string
   }
@@ -32,6 +33,7 @@ const initialState: gameState = {
   keyBoard: keyBoard,
   nextLetter: 0,
   word: {
+    words: [''],
     currentWord: '',
     previousWord: '',
   },
@@ -51,25 +53,33 @@ const gameSlice = createSlice({
       state.nextLetter = localData.nextLetter
       state.word = localData.word
     },
-    initialGame(state) {
-      state.word.currentWord = WORDS[Math.floor(Math.random() * WORDS.length)]!
+    initialGame(state, action) {
+      console.log(action.payload)
+
+      state.word.words = action.payload
+      state.word.currentWord =
+        action.payload[Math.floor(Math.random() * action.payload.length)]
       localStorage.setItem('game', JSON.stringify(state))
     },
     setStatusGame(state, action) {
       state.gameStatus = action.payload
       localStorage.setItem('game', JSON.stringify(state))
     },
-    restartGame(state) {
-      ;(state.gameStatus = 'IN_GAME'),
-        (state.word = {
-          previousWord: state.word.currentWord,
-          currentWord: WORDS[Math.floor(Math.random() * WORDS.length)]!,
-        }),
-        (state.board = [...new Array(6)].map(() => new Array(5).fill({ value: '', color: '' }))),
-        (state.keyBoard = keyBoard),
-        (state.nextLetter = 0),
-        (state.currentGuess = []),
-        (state.currentRowIndex = 0)
+    restartGame(state, action) {
+      state.gameStatus = 'IN_GAME'
+      state.word = {
+        words: action.payload,
+        previousWord: state.word.currentWord,
+        currentWord:
+          action.payload[Math.floor(Math.random() * action.payload.length)],
+      }
+      state.board = [...new Array(6)].map(() =>
+        new Array(5).fill({ value: '', color: '' }),
+      )
+      state.keyBoard = keyBoard
+      state.nextLetter = 0
+      state.currentGuess = []
+      state.currentRowIndex = 0
       localStorage.setItem('game', JSON.stringify(state))
     },
     addLetterBoard(state, actions) {
@@ -146,7 +156,10 @@ const gameSlice = createSlice({
       state.keyBoard = state.keyBoard.map((row) =>
         row.map(function (key) {
           for (let i = 0; i < action.payload.length; i++) {
-            if (action.payload[i]!.value === key.value && key.color !== 'letter-green')
+            if (
+              action.payload[i]!.value === key.value &&
+              key.color !== 'letter-green'
+            )
               return action.payload[i]
           }
           return key

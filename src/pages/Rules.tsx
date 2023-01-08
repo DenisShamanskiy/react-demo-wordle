@@ -1,10 +1,13 @@
 import Example from 'components/micro-components/Example'
 import Heading2 from 'components/micro-components/Heading'
 import Paragraph from 'components/micro-components/Paragraph'
-import { exampleRules, WORDS } from 'utils/constants'
+import { exampleRules } from 'utils/constants'
 import { numWord } from 'utils/formate'
+import { useAppSelector } from 'utils/hook'
 
 const Rules = () => {
+  const words = useAppSelector((state) => state.game.word.words)
+
   return (
     <section className='mx-auto w-11/12 max-w-xl select-none md:w-full md:max-w-2xl'>
       <Heading2>Как играть</Heading2>
@@ -54,7 +57,7 @@ const Rules = () => {
         })}
       </div>
       <p className='mt-4 text-center text-xs text-w-quartz dark:text-w-white-dark md:mt-6 md:text-sm'>
-        В игре <strong>{WORDS.length}</strong> {numWord(WORDS.length)}
+        В игре <strong>{words.length}</strong> {numWord(words.length)}
       </p>
     </section>
   )

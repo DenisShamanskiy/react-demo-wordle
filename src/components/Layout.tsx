@@ -5,12 +5,11 @@ import { useAppDispatch, useAppSelector } from 'utils/hook'
 import CustomLink from './CustomLink'
 import IconSVG from './micro-components/IconSVG'
 import Sidebar from './NewGame'
-// import Sidebar from './Sidebar'
 
 const Layout = () => {
   const dispatch = useAppDispatch()
 
-  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
+  const { roles } = useAppSelector((state) => state.user)
   const gameStatus = useAppSelector((state) => state.game.gameStatus)
   const board = useAppSelector((state) => state.game.board)
 
@@ -37,7 +36,7 @@ const Layout = () => {
           onClick={() => (visible ? hidden() : dispatch(showNewGame()))}
           className='absolute left-4 cursor-pointer transition-all duration-300 hover:scale-110 disabled:scale-100 disabled:cursor-auto disabled:opacity-50 md:left-5 lg:left-0 '
         >
-          <IconSVG icon='game' />
+          <IconSVG icon='game' size='m' />
         </button>
         <div className='ml-11 md:ml-0'>
           <NavLink to='/'>
@@ -61,15 +60,17 @@ const Layout = () => {
         </div>
 
         <div className='absolute right-4 flex gap-x-1 md:right-5 md:gap-x-2 lg:right-0 '>
-          <CustomLink to='/admin'>
-            {globalSvgSelector('key', darkTheme)}
-          </CustomLink>
+          {roles.includes('ADMIN') && (
+            <CustomLink to='/admin'>
+              {globalSvgSelector('hammer', darkTheme)}
+            </CustomLink>
+          )}
 
           <CustomLink to='/rules'>
             {globalSvgSelector('rules', darkTheme)}
           </CustomLink>
 
-          <CustomLink to={isLoggedIn ? '/profile' : '/auth'}>
+          <CustomLink to='/profile'>
             {globalSvgSelector('person', darkTheme)}
           </CustomLink>
 

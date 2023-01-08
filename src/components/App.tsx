@@ -3,8 +3,7 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import useCurrentHeight from 'hook/useCurrentHeight'
 import Game from '../pages/Game'
-import Rules2 from 'pages/Rules'
-import Statistics from 'pages/Statistics'
+import Rules from 'pages/Rules'
 import Settings from 'pages/Settings'
 import Auth from 'pages/Auth'
 import Modal from './Modal/Modal'
@@ -16,7 +15,6 @@ import {
 } from 'store/userSlice'
 import { openModal } from 'store/modalSlice'
 import { showNotification } from 'store/notificationSlice'
-import { WORDS } from 'utils/constants'
 import {
   addLetterBoard,
   getLocalGameData,
@@ -25,7 +23,7 @@ import {
   removeLetterBoard,
   setRelultGame,
 } from 'store/gameSlice'
-import { checkAuth, updateStatistics } from 'api/api'
+import { checkAuth, getWords, updateStatistics } from 'api/api'
 import {
   addDataHardMode,
   getLocalSettingData,
@@ -37,6 +35,8 @@ import ProfileEdit from 'pages/ProfileEdit'
 import Profile from 'pages/Profile'
 import Admin from 'pages/Admin'
 import AdminWords from 'pages/AdminWords'
+import AdminAddWord from 'pages/AdminAddWord'
+import ProtectedRoute from './ProtectedRoute'
 
 const App = () => {
   const styleHeight = {
@@ -54,11 +54,12 @@ const App = () => {
   const {
     nextLetter,
     currentGuess,
-    word: { currentWord },
+    word: { words, currentWord },
     currentRowIndex,
     gameStatus,
   } = useAppSelector((state) => state.game)
-  const id = useAppSelector((state) => state.user.id)
+
+  const { id } = useAppSelector((state) => state.user)
   const statistics = useAppSelector((state) => state.user.statistics)
   const visible = useAppSelector((state) => state.notification.visible)
 
@@ -129,7 +130,7 @@ const App = () => {
       showNotify('notify-warning', 'Введены не все буквы')
       return
     }
-    if (!WORDS.includes(currentGuessStr)) {
+    if (!words.includes(currentGuessStr)) {
       showNotify('notify-warning', 'Такого слова нет в списке')
       return
     }
@@ -178,8 +179,6 @@ const App = () => {
   const checkUser = async () => {
     try {
       const { data } = await checkAuth()
-      console.log(data)
-
       localStorage.setItem('token', data.accessToken)
       dispatch(setUser(data.user))
     } catch (e) {
@@ -196,9 +195,20 @@ const App = () => {
     if (localStorage.getItem('settings')) {
       dispatch(getLocalSettingData())
     }
-    localStorage.getItem('game')
-      ? dispatch(getLocalGameData())
-      : dispatch(initialGame())
+  }, [])
+
+  useEffect(() => {
+    if (localStorage.getItem('game')) {
+      dispatch(getLocalGameData())
+    } else {
+      const fetchData = async () => {
+        const { words } = await getWords()
+        console.log(words)
+
+        dispatch(initialGame(words))
+      }
+      fetchData().catch(console.error)
+    }
   }, [])
 
   useEffect(() => {
@@ -240,16 +250,48 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Game checkGuess={checkGuess} />} />
-          <Route path='admin' element={<Admin />} />
-          <Route path='admin/words' element={<AdminWords />} />
-          <Route path='profile' element={<Profile />} />
+          <Route
+            path='admin'
+            element={
+              <ProtectedRoute role='ADMIN'>
+                <Admin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='admin/words'
+            element={
+              <ProtectedRoute role='ADMIN'>
+                <AdminWords showNotify={showNotify} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='admin/add-word'
+            element={
+              <ProtectedRoute role='ADMIN'>
+                <AdminAddWord showNotify={showNotify} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='profile'
+            element={
+              <ProtectedRoute role='USER' redirectPath={'/auth'}>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path='profile/edit'
-            element={<ProfileEdit showNotify={showNotify} />}
+            element={
+              <ProtectedRoute role='USER' redirectPath={'/auth'}>
+                <ProfileEdit showNotify={showNotify} />
+              </ProtectedRoute>
+            }
           />
           <Route path='auth' element={<Auth showNotify={showNotify} />} />
-          <Route path='rules' element={<Rules2 />} />
-          <Route path='statistics' element={<Statistics />} />
+          <Route path='rules' element={<Rules />} />
           <Route path='settings' element={<Settings />} />
         </Route>
       </Routes>

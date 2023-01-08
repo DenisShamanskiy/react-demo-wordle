@@ -53,7 +53,7 @@ const Settings = () => {
         </div>
       </div>
       <p className='mt-8 text-xs text-[#787c7e] md:mt-10 md:text-sm'>
-        © 2022 Денис Шаманский
+        © 2023 Денис Шаманский
       </p>
     </section>
   )

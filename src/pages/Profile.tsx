@@ -7,6 +7,7 @@ import { restartGame } from 'store/gameSlice'
 import { resetDataHardMode } from 'store/settingsSlice'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import Heading from 'components/micro-components/Heading'
+import { getWords } from 'api/api'
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -20,19 +21,19 @@ const Profile = () => {
 
   const darkMode = useAppSelector((state) => state.settings.darkMode)
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setTimeout(() => {
       dispatch(logout())
     }, 500)
     goAuth()
-    dispatch(restartGame())
+    const { words } = await getWords()
+    dispatch(restartGame(words))
     dispatch(resetDataHardMode())
   }
 
   return (
     <section className='mx-auto w-11/12 max-w-[448px] select-none '>
       <Heading>Игрок</Heading>
-
       <NavLink to='/profile/edit'>
         <div className='relative mx-auto mt-6 flex h-10 w-11/12 items-center justify-center rounded-lg border-2 border-w-grey-tone-2 text-sm font-semibold tracking-wider text-w-quartz transition-all duration-300 hover:scale-105 dark:border-w-grey-tone-3 dark:text-w-white-dark md:mt-8 md:h-12 md:text-base'>
           <div

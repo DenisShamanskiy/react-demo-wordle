@@ -5,6 +5,7 @@ import userReducer from './userSlice'
 import gameReducer from './gameSlice'
 import settingsReducer from './settingsSlice'
 import newGameReducer from './newGameSlice'
+import adminReducer from './adminSlice'
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     game: gameReducer,
     settings: settingsReducer,
     newGame: newGameReducer,
+    admin: adminReducer,
   },
 })
 export type RootState = ReturnType<typeof store.getState>

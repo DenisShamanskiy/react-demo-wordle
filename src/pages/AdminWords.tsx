@@ -1,54 +1,78 @@
+import { getWords } from 'api/api'
+import InputText from 'components/micro-components/InputText'
 import Word from 'components/Word'
 import { IFormValues } from 'models/IFormValues'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { WORDS } from 'utils/constants'
+import { setWordList } from 'store/adminSlice'
+import { useAppDispatch, useAppSelector } from 'utils/hook'
 
-const AdminWords = () => {
-  const [filterWords, setFilterWords] = useState(WORDS)
+type AdminWordsProps = {
+  showNotify: (type: string, message: string) => void
+}
+
+const AdminWords: FC<AdminWordsProps> = ({ showNotify }) => {
+  const dispatch = useAppDispatch()
+
   const { register, handleSubmit, watch } = useForm<IFormValues>()
-  const handleFilterWords = (search: string) => {
-    setFilterWords(() => WORDS.filter((word) => word.includes(search)))
-  }
-
   const watchAllFields = watch()
+
+  const { words } = useAppSelector((state) => state.admin.wordList)
+
+  const [filterWords, setFilterWords] = useState([''])
+
+  const handleFilterWords = (search: string) => {
+    setFilterWords(() => words!.filter((word) => word.includes(search)))
+  }
 
   const onSubmit: SubmitHandler<IFormValues> = (data) =>
     handleFilterWords(data.word!)
+
+  const requestWordList = async () => {
+    const { id, words } = await getWords()
+    dispatch(setWordList({ id, words }))
+    setFilterWords(words)
+  }
 
   useEffect(() => {
     handleSubmit(onSubmit)()
   }, [watchAllFields.word])
 
+  useEffect(() => {
+    requestWordList()
+  }, [words!.length])
+
   return (
-    <section className='mx-auto flex h-[90%] w-80 select-none flex-col  '>
+    <section className='mx-auto flex h-[90%] w-80 select-none flex-col'>
       <form className='flex w-full' onSubmit={handleSubmit(onSubmit)}>
         <div className='relative w-full'>
-          <input
-            maxLength={5}
-            {...register('word')}
-            id='word'
+          <InputText
+            label='word'
             type='search'
-            placeholder='Введи слово...'
+            id='word'
             autoComplete='off'
-            className='transition-color peer relative z-10 box-border h-10 w-full border-none bg-transparent px-2.5 text-base font-semibold tracking-wider text-w-black placeholder-w-quartz outline-none duration-1000 dark:placeholder-w-white-dark focus:dark:placeholder-w-black md:h-12 md:text-lg'
-          ></input>
-          <span
-            className={`pointer-events-none absolute left-0 bottom-0 z-[9] w-full rounded bg-[#CBDFF8] transition-all duration-500 peer-focus:h-10 dark:bg-w-white-dark md:peer-focus:h-12 ${
-              watchAllFields.word ? 'h-10 md:h-12' : 'h-0.5'
-            }`}
-          ></span>
+            maxLength={5}
+            placeholder='Поиск...'
+            register={register}
+          />
         </div>
       </form>
-      {filterWords.length ? (
+      {filterWords!.length ? (
         <ul className='scrollbar-hide mt-6 box-border flex flex-col items-center overflow-y-auto rounded-md md:mt-8'>
-          {filterWords.map((word, number) => {
-            return <Word number={number + 1} word={word} key={number} />
+          {filterWords!.map((word, index) => {
+            return (
+              <Word
+                index={index}
+                word={word}
+                key={index}
+                showNotify={showNotify}
+              />
+            )
           })}
         </ul>
       ) : (
         <p className='mt-6 text-center text-sm font-medium text-w-quartz dark:text-w-white-dark md:mt-8 md:text-base'>
-          Нет такого слова
+          Ничего не найдено
         </p>
       )}
     </section>

@@ -8,6 +8,7 @@ import { resetDataHardMode } from 'store/settingsSlice'
 import { hideNewGame } from 'store/newGameSlice'
 import { updateStatsLocal } from 'store/userSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
+import { getWords } from 'api/api'
 
 const Confirm: FC = (): JSX.Element => {
   const navigate = useNavigate()
@@ -17,10 +18,11 @@ const Confirm: FC = (): JSX.Element => {
 
   const goHome = () => navigate('/', { replace: true })
 
-  const handleConfirm = (type: string) => {
+  const handleConfirm = async (type: string) => {
     if (type === 'NewGame') {
       goHome()
-      dispatch(restartGame())
+      const { words } = await getWords()
+      dispatch(restartGame(words))
       dispatch(resetDataHardMode())
       dispatch(closeModal())
       dispatch(hideNewGame())

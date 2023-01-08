@@ -12,6 +12,8 @@ export async function registration(
 ) {
   try {
     const response = await AuthService.registration(email, password, statistics)
+    console.log(response)
+
     localStorage.setItem('token', response.data.accessToken)
     return response.data
   } catch (e) {
@@ -45,8 +47,6 @@ export async function checkAuth() {
     const response = await axios.get(`${API_URL}/refresh`, {
       withCredentials: true,
     })
-    console.log('response', response)
-
     localStorage.setItem('token', response.data.accessToken)
     return response
   } catch (e) {
@@ -93,6 +93,61 @@ export async function updateStatistics(id: string, statistics: Statistics) {
       },
     })
     return response.data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+// WORDS //
+
+export async function getWords() {
+  try {
+    const response = await axios({
+      method: 'get',
+      url: `${API_URL}/admin/words`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function addNewWord(id: string, word: string) {
+  try {
+    const response = await axios({
+      method: 'put',
+      url: `${API_URL}/admin/words/add-word`,
+      data: {
+        id: id,
+        word: word,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+    return response.data.words
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function deleteWord(id: string, word: string) {
+  try {
+    const response = await axios({
+      method: 'put',
+      url: `${API_URL}/admin/words/delete-word`,
+      data: {
+        id: id,
+        word: word,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+    return response.data.words
   } catch (e) {
     console.log(e)
   }
