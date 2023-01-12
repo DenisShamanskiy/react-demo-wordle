@@ -7,7 +7,10 @@ type ParagraphProps = {
 
 const Paragraph = ({ children, style }: ParagraphProps) => {
   return (
-    <p className='text-w-quartz dark:text-w-white-dark my-2 md:my-4 text-sm md:text-base' style={style}>
+    <p
+      className='my-2 text-sm text-w-quartz dark:text-w-white-dark md:my-4 md:text-base'
+      style={style}
+    >
       {children}
     </p>
   )

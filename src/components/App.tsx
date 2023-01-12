@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import useCurrentHeight from 'hook/useCurrentHeight'
@@ -11,6 +11,8 @@ import {
   getLocalUserData,
   logout,
   setUser,
+  // logout,
+  // setUser,
   updateStatsLocal,
 } from 'store/userSlice'
 import { openModal } from 'store/modalSlice'
@@ -37,6 +39,7 @@ import Admin from 'pages/Admin'
 import AdminWords from 'pages/AdminWords'
 import AdminAddWord from 'pages/AdminAddWord'
 import ProtectedRoute from './ProtectedRoute'
+import { setLoading } from 'store/loadingSlice'
 
 const App = () => {
   const styleHeight = {
@@ -65,6 +68,8 @@ const App = () => {
 
   const path = useLocation()
   const goHome = () => navigate('/', { replace: true })
+
+  const [load, setLoad] = useState(false)
 
   const handleGuess = (
     lettersHardMode: string[],
@@ -177,14 +182,23 @@ const App = () => {
   }
 
   const checkUser = async () => {
+    dispatch(setLoading(true))
+    setLoad(true)
     try {
       const { data } = await checkAuth()
+      console.log(data)
+
       localStorage.setItem('token', data.accessToken)
       dispatch(setUser(data.user))
+
+      console.log('after')
     } catch (e) {
       console.log(e)
       dispatch(logout())
       goHome()
+    } finally {
+      dispatch(setLoading(false))
+      setLoad(false)
     }
   }
 
@@ -202,9 +216,7 @@ const App = () => {
       dispatch(getLocalGameData())
     } else {
       const fetchData = async () => {
-        const { words } = await getWords()
-        console.log(words)
-
+        const words = await getWords()
         dispatch(initialGame(words))
       }
       fetchData().catch(console.error)
@@ -253,7 +265,7 @@ const App = () => {
           <Route
             path='admin'
             element={
-              <ProtectedRoute role='ADMIN'>
+              <ProtectedRoute load={load} role='ADMIN'>
                 <Admin />
               </ProtectedRoute>
             }
@@ -261,7 +273,7 @@ const App = () => {
           <Route
             path='admin/words'
             element={
-              <ProtectedRoute role='ADMIN'>
+              <ProtectedRoute load={load} role='ADMIN'>
                 <AdminWords showNotify={showNotify} />
               </ProtectedRoute>
             }
@@ -269,7 +281,7 @@ const App = () => {
           <Route
             path='admin/add-word'
             element={
-              <ProtectedRoute role='ADMIN'>
+              <ProtectedRoute load={load} role='ADMIN'>
                 <AdminAddWord showNotify={showNotify} />
               </ProtectedRoute>
             }
@@ -277,7 +289,7 @@ const App = () => {
           <Route
             path='profile'
             element={
-              <ProtectedRoute role='USER' redirectPath={'/auth'}>
+              <ProtectedRoute load={load} role='USER' redirectPath={'/auth'}>
                 <Profile />
               </ProtectedRoute>
             }
@@ -285,7 +297,7 @@ const App = () => {
           <Route
             path='profile/edit'
             element={
-              <ProtectedRoute role='USER' redirectPath={'/auth'}>
+              <ProtectedRoute load={load} role='USER' redirectPath={'/auth'}>
                 <ProfileEdit showNotify={showNotify} />
               </ProtectedRoute>
             }

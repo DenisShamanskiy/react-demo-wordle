@@ -4,7 +4,7 @@ type SettingsRowProps = {
 
 const SettingsRow = ({ children }: SettingsRowProps) => {
   return (
-    <div className='relative w-full h-14 md:h-16 p-2 flex justify-between items-center transition-all duration-300'>
+    <div className='relative flex h-14 w-full items-center justify-between p-2 transition-all duration-300 md:h-16'>
       {children}
     </div>
   )

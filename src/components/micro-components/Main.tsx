@@ -6,7 +6,9 @@ type MainProps = {
 }
 
 const Main: FC<MainProps> = ({ children, style }) => {
-  return <main className={`m-auto p-5 sm:p-7 select-none ${style}`}>{children}</main>
+  return (
+    <main className={`m-auto select-none p-5 sm:p-7 ${style}`}>{children}</main>
+  )
 }
 
 export default Main

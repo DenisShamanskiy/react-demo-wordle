@@ -1,7 +1,7 @@
 import { deleteWord } from 'api/api'
 import { FC } from 'react'
-import { setWordList } from 'store/adminSlice'
-import { useAppDispatch, useAppSelector } from 'utils/hook'
+import { setWords } from 'store/gameSlice'
+import { useAppDispatch } from 'utils/hook'
 import IconSVG from './micro-components/IconSVG'
 
 type WordProps = {
@@ -13,12 +13,10 @@ type WordProps = {
 const Word: FC<WordProps> = ({ index, word, showNotify }) => {
   const dispatch = useAppDispatch()
 
-  const { id } = useAppSelector((state) => state.admin.wordList)
-
   const handleDeleteWord = async (word: string) => {
     try {
-      const words = await deleteWord(id!, word)
-      dispatch(setWordList({ id, words }))
+      const words = await deleteWord(word)
+      dispatch(setWords(words))
       showNotify('notify-success', `Слово "${word}" удалено`)
     } catch (error) {
       console.log(error)

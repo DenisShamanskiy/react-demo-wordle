@@ -1,15 +1,14 @@
 import { FC, useState } from 'react'
 import { setUser } from 'store/userSlice'
-import { useAppDispatch, useAppSelector } from 'utils/hook'
+import { useAppDispatch } from 'utils/hook'
 import Heading from 'components/micro-components/Heading'
 import { useNavigate } from 'react-router-dom'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import Button from 'components/micro-components/Buttons/Button'
-import { Statistics } from 'models/IStats'
-import AuthService from 'services/AuthService'
 import InputText from 'components/micro-components/InputText'
-import { IFormValues } from 'models/IFormValues'
+import { AuthForm, IFormValues } from 'models/IFormValues'
 import { emailRegex } from 'utils/constants'
+import { signin, signup } from 'api/auth'
 
 type AuthProps = {
   showNotify: (type: string, message: string) => void
@@ -18,7 +17,6 @@ type AuthProps = {
 const Auth: FC<AuthProps> = ({ showNotify }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const statistics = useAppSelector((state) => state.user.statistics)
 
   const {
     register,
@@ -35,17 +33,13 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
   const [typeFormLogin, setTypeFormLogin] = useState<boolean>(true)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const handleRegistration = async (
-    email: string,
-    password: string,
-    stats: Statistics,
-  ) => {
+  const handleSignup = async (data: AuthForm) => {
     setIsLoading(true)
     try {
-      const response = await AuthService.registration(email, password, stats)
-      localStorage.setItem('token', response.data.accessToken)
-      dispatch(setUser(response.data.user))
+      const { user } = await signup(data)
+      dispatch(setUser(user))
       goHome()
+      showNotify('notify-success', 'Вы успешно зарегистрировались')
     } catch (e) {
       showNotify('notify-failure', e.response?.data?.message)
     } finally {
@@ -53,13 +47,14 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
     }
   }
 
-  const handleLogin = async (email: string, password: string) => {
+  const handleSignin = async (data: AuthForm) => {
     setIsLoading(true)
     try {
-      const response = await AuthService.login(email, password)
-      localStorage.setItem('token', response.data.accessToken)
-      dispatch(setUser(response.data.user))
+      const { user } = await signin(data)
+      dispatch(setUser(user))
       goHome()
+      user.username !== user.email &&
+        showNotify('notify-success', `С возвращением, ${user.username}`)
     } catch (e) {
       showNotify('notify-failure', e.response?.data?.message)
     } finally {
@@ -67,11 +62,8 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
     }
   }
 
-  const onSubmit: SubmitHandler<IFormValues> = (data) => {
-    const { email, password } = data
-    typeFormLogin
-      ? handleLogin(email!, password!)
-      : handleRegistration(email!, password!, statistics)
+  const onSubmit: SubmitHandler<AuthForm> = (data) => {
+    typeFormLogin ? handleSignin(data) : handleSignup(data)
   }
 
   return (

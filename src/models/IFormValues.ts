@@ -4,3 +4,8 @@ export interface IFormValues {
   password?: string
   word?: string
 }
+
+export type AuthForm = {
+  email: string
+  password: string
+}

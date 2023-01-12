@@ -20,9 +20,15 @@ const CountStats = ({ index, count }: ICountStatsProps) => {
   ]
 
   return (
-    <div className={`flex flex-col justify-center text-center ${dataCountStats[index]!.style}`}>
-      <p className='mb-2 text-3xl md:text-4xl font-bold'>{count}</p>
-      <p className='text-base md:text-lg font-bold uppercase'>{dataCountStats[index]!.text}</p>
+    <div
+      className={`flex flex-col justify-center text-center ${
+        dataCountStats[index]!.style
+      }`}
+    >
+      <p className='mb-2 text-3xl font-bold md:text-4xl'>{count}</p>
+      <p className='text-base font-bold uppercase md:text-lg'>
+        {dataCountStats[index]!.text}
+      </p>
     </div>
   )
 }

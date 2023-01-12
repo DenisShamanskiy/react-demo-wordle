@@ -20,9 +20,9 @@ const Example = ({ index, letter, row }: IExampleProps) => {
 
   return (
     <li
-      className={`w-9 md:w-10 h-9 md:h-10 flex justify-center items-center font-['Bitter'] text-xl md:text-2xl font-extrabold uppercase box-border ${
+      className={`box-border flex h-9 w-9 items-center justify-center font-['Bitter'] text-xl font-extrabold uppercase md:h-10 md:w-10 md:text-2xl ${
         index !== row
-          ? 'border-2 border-w-grey-tone-1 dark:border-w-grey-tone-3 text-w-quartz dark:text-w-white-dark'
+          ? 'border-2 border-w-grey-tone-1 text-w-quartz dark:border-w-grey-tone-3 dark:text-w-white-dark'
           : getColorLetter(row)
       }`}
       key={index}

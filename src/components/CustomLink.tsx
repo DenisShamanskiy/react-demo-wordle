@@ -8,7 +8,10 @@ interface ICustomLinkProps {
 
 const CustomLink: FC<ICustomLinkProps> = ({ children, to }) => {
   return (
-    <Link to={to} className='w-7 md:w-9 hover:scale-110 transition-all duration-300'>
+    <Link
+      to={to}
+      className='w-7 transition-all duration-300 hover:scale-110 md:w-9'
+    >
       {children}
     </Link>
   )

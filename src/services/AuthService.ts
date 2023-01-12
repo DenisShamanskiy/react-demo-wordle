@@ -1,22 +1,20 @@
 import $api from '../http'
 import { AxiosResponse } from 'axios'
 import { AuthResponse } from '../models/response/AuthResponse'
-import { Statistics } from 'models/IStats'
+import { AuthForm } from 'models/IFormValues'
 
 export default class AuthService {
-  static async login(email: string, password: string): Promise<AxiosResponse<AuthResponse>> {
+  static async signin(data: AuthForm): Promise<AxiosResponse<AuthResponse>> {
+    const { email, password } = data
     return $api.post<AuthResponse>('/login', { email, password })
   }
 
-  static async registration(
-    email: string,
-    password: string,
-    statistics: Statistics,
-  ): Promise<AxiosResponse<AuthResponse>> {
-    return $api.post<AuthResponse>('/registration', { email, password, statistics })
+  static async signup(data: AuthForm): Promise<AxiosResponse<AuthResponse>> {
+    const { email, password } = data
+    return $api.post<AuthResponse>('/registration', { email, password })
   }
 
-  static async logout(): Promise<void> {
+  static async signout(): Promise<void> {
     return $api.post('/logout')
   }
 }

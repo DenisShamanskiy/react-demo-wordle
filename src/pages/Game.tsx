@@ -1,9 +1,9 @@
-import Board from '../components/Board';
-import Keyboard from '../components/Keyboard';
+import Board from '../components/Board'
+import Keyboard from '../components/Keyboard'
 
 type KeyboardProps = {
-  checkGuess: () => void;
-};
+  checkGuess: () => void
+}
 
 const Game = ({ checkGuess }: KeyboardProps) => {
   return (
@@ -13,7 +13,7 @@ const Game = ({ checkGuess }: KeyboardProps) => {
         <Keyboard checkGuess={checkGuess} />
       </section>
     </main>
-  );
-};
+  )
+}
 
-export default Game;
+export default Game

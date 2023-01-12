@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 
 const getHeight = () =>
-  window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+  window.innerHeight ||
+  document.documentElement.clientHeight ||
+  document.body.clientHeight
 
 export default function useCurrentHeight() {
   const [height, setHeight] = useState(getHeight())

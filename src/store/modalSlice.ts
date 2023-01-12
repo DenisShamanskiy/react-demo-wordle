@@ -6,7 +6,6 @@ type ModalState = {
   title: string
   type?: string
   description?: string
-
 }
 
 const initialState: ModalState = {
@@ -14,7 +13,7 @@ const initialState: ModalState = {
   window: '',
   title: '',
   type: '',
-  description: ''
+  description: '',
 }
 
 const modalSlice = createSlice({

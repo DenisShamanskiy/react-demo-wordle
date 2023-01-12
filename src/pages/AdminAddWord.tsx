@@ -5,7 +5,7 @@ import InputText from 'components/micro-components/InputText'
 import { IFormValues } from 'models/IFormValues'
 import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { setWordList } from 'store/adminSlice'
+import { setWords } from 'store/gameSlice'
 import { ruRegex } from 'utils/constants'
 import { useAppDispatch } from 'utils/hook'
 
@@ -30,13 +30,13 @@ const AdminAddWord: FC<AdminAddWordProps> = ({ showNotify }) => {
 
   const handleAddWord = async (word: string) => {
     try {
-      const { id, words } = await getWords()
-      if (words.includes(word.toLowerCase())) {
+      const words = await getWords()
+      if (words.includes(word)) {
         showNotify('notify-failure', `Слово "${word}" уже есть в списке`)
         return
       }
-      const updateWords = await addNewWord(id, word)
-      dispatch(setWordList({ id, words: updateWords }))
+      const updateWords = await addNewWord(word)
+      dispatch(setWords(updateWords))
       showNotify('notify-success', `Слово "${word}" успешно добавлено`)
       reset()
     } catch (error) {
@@ -45,7 +45,7 @@ const AdminAddWord: FC<AdminAddWordProps> = ({ showNotify }) => {
   }
 
   const onSubmit: SubmitHandler<IFormValues> = (data) => {
-    handleAddWord(data.word!)
+    handleAddWord(data.word!.toLowerCase())
   }
 
   return (

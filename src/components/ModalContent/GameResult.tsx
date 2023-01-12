@@ -32,11 +32,11 @@ const GameResult = () => {
   }
 
   return (
-    <section className='relative w-72 md:w-80 select-none'>
+    <section className='relative w-72 select-none md:w-80'>
       <button
         type='button'
         className={
-          'absolute min-w-[24px] md:min-w-[28px] -top-3 md:-top-4 -right-3 md:-right-4 block rounded hover:scale-110 hover:rotate-180 transition duration-300 ease-in-out'
+          'absolute -top-3 -right-3 block min-w-[24px] rounded transition duration-300 ease-in-out hover:rotate-180 hover:scale-110 md:-top-4 md:-right-4 md:min-w-[28px]'
         }
         onClick={() => dispatch(closeModal())}
       >
@@ -45,19 +45,19 @@ const GameResult = () => {
       <img
         src={getDataResult(title).img}
         alt={getDataResult(title).imgAlt}
-        className='w-40 md:w-44 min-h-[160px] md:min-h-[176px] h-auto mx-auto'
+        className='mx-auto h-auto min-h-[160px] w-40 md:min-h-[176px] md:w-44'
       ></img>
 
       {title !== 'Победа' && (
         <>
-          <p className='pt-4 md:pt-8 pb-2 md:pb-4 text-base md:text-lg font-extrabold text-center uppercase text-w-quartz dark:text-w-white-dark'>
+          <p className='pt-4 pb-2 text-center text-base font-extrabold uppercase text-w-quartz dark:text-w-white-dark md:pt-8 md:pb-4 md:text-lg'>
             Загаданное слово
           </p>
-          <ul className='py-2 md:py-4 mx-auto grid grid-cols-5 gap-x-1 w-fit'>
+          <ul className='mx-auto grid w-fit grid-cols-5 gap-x-1 py-2 md:py-4'>
             {[...rightGuess].map((letter, index) => {
               return (
                 <li
-                  className='w-9 md:w-11 h-9 md:h-11 flex justify-center items-center bg-w-green dark:bg-w-green-dark font-["Bitter"] text-2xl md:text-3xl font-extrabold text-w-white uppercase'
+                  className='flex h-9 w-9 items-center justify-center bg-w-green font-["Bitter"] text-2xl font-extrabold uppercase text-w-white dark:bg-w-green-dark md:h-11 md:w-11 md:text-3xl'
                   key={index}
                 >
                   {letter}

@@ -3,7 +3,10 @@ import { useAppSelector } from 'utils/hook'
 const Board = () => {
   const board = useAppSelector((state) => state.game.board)
 
-  const getColorLetter = (value: string | undefined, color: string | undefined) => {
+  const getColorLetter = (
+    value: string | undefined,
+    color: string | undefined,
+  ) => {
     if (value && color) {
       switch (color) {
         case 'letter-green':
@@ -23,17 +26,17 @@ const Board = () => {
   }
 
   return (
-    <div className='m-auto grid grid-rows-board md:grid-rows-boardMD gap-1 md:gap-1.5 font-["Bitter"] font-extrabold uppercase box-border select-none'>
+    <div className='m-auto box-border grid select-none grid-rows-board gap-1 font-["Bitter"] font-extrabold uppercase md:grid-rows-boardMD md:gap-1.5'>
       {board.map((_, indexRow) => {
         return (
           <div
-            className='grid grid-cols-board md:grid-cols-boardMD gap-1 md:gap-1.5 text-[28px] md:text-[32px]'
+            className='grid grid-cols-board gap-1 text-[28px] md:grid-cols-boardMD md:gap-1.5 md:text-[32px]'
             key={indexRow}
           >
             {board[indexRow]!.map((letter, indexLetter) => {
               return (
                 <div
-                  className={`flex justify-center items-center ${getColorLetter(
+                  className={`flex items-center justify-center ${getColorLetter(
                     letter.value,
                     letter.color,
                   )}`}

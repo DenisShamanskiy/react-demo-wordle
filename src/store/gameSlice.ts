@@ -61,6 +61,10 @@ const gameSlice = createSlice({
         action.payload[Math.floor(Math.random() * action.payload.length)]
       localStorage.setItem('game', JSON.stringify(state))
     },
+    setWords(state, action) {
+      state.word.words = action.payload
+      localStorage.setItem('game', JSON.stringify(state))
+    },
     setStatusGame(state, action) {
       state.gameStatus = action.payload
       localStorage.setItem('game', JSON.stringify(state))
@@ -173,6 +177,7 @@ const gameSlice = createSlice({
 export const {
   getLocalGameData,
   initialGame,
+  setWords,
   setStatusGame,
   restartGame,
   addLetterBoard,
