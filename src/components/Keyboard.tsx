@@ -1,5 +1,9 @@
 import { useEffect } from 'react'
-import { addLetterBoard, colorKey, removeLetterBoard } from 'store/gameSlice'
+import {
+  addLetterBoard,
+  colorKey,
+  removeLetterBoard,
+} from 'redux/features/gameSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 
 type KeyboardProps = {
@@ -98,25 +102,30 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
                   />
                 </svg>
               </button>
-              {keyBoard[indexRow]?.map((buttonKey, indexKey) => {
-                return (
-                  <button
-                    type='button'
-                    data-key={buttonKey.value}
-                    className={`button-key w-[calc((100%-(6px*11))/12)] ${
-                      buttonKey.color
-                        ? `${addClassColor(
-                            buttonKey.color,
-                          )} } border-[#6c6e70] text-w-white`
-                        : 'border-w-grey-tone-1 bg-w-white text-w-quartz dark:bg-w-grey-tone-5 dark:text-w-white'
-                    }`}
-                    onClick={handleClick}
-                    key={indexKey}
-                  >
-                    {buttonKey.value}
-                  </button>
-                )
-              })}
+              {keyBoard[indexRow]?.map(
+                (
+                  buttonKey: { value: string; color: string },
+                  indexKey: number,
+                ) => {
+                  return (
+                    <button
+                      type='button'
+                      data-key={buttonKey.value}
+                      className={`button-key w-[calc((100%-(6px*11))/12)] ${
+                        buttonKey.color
+                          ? `${addClassColor(
+                              buttonKey.color,
+                            )} } border-[#6c6e70] text-w-white`
+                          : 'border-w-grey-tone-1 bg-w-white text-w-quartz dark:bg-w-grey-tone-5 dark:text-w-white'
+                      }`}
+                      onClick={handleClick}
+                      key={indexKey}
+                    >
+                      {buttonKey.value}
+                    </button>
+                  )
+                },
+              )}
               <button
                 type='button'
                 data-key='←'
@@ -188,25 +197,30 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
         }
         return (
           <div className='flex w-full gap-x-1.5' key={indexRow}>
-            {keyBoard[indexRow]?.map((buttonKey, indexKey) => {
-              return (
-                <button
-                  type='button'
-                  data-key={buttonKey.value}
-                  className={`button-key w-[calc((100%-(6px*11))/12)] ${
-                    buttonKey.color
-                      ? `${addClassColor(
-                          buttonKey.color,
-                        )} } border-[#6c6e70] text-w-white`
-                      : 'border-w-grey-tone-1 bg-w-white text-w-quartz dark:bg-w-grey-tone-5 dark:text-w-white'
-                  }`}
-                  onClick={handleClick}
-                  key={indexKey}
-                >
-                  {buttonKey.value}
-                </button>
-              )
-            })}
+            {keyBoard[indexRow]?.map(
+              (
+                buttonKey: { value: string; color: string },
+                indexKey: number,
+              ) => {
+                return (
+                  <button
+                    type='button'
+                    data-key={buttonKey.value}
+                    className={`button-key w-[calc((100%-(6px*11))/12)] ${
+                      buttonKey.color
+                        ? `${addClassColor(
+                            buttonKey.color,
+                          )} } border-[#6c6e70] text-w-white`
+                        : 'border-w-grey-tone-1 bg-w-white text-w-quartz dark:bg-w-grey-tone-5 dark:text-w-white'
+                    }`}
+                    onClick={handleClick}
+                    key={indexKey}
+                  >
+                    {buttonKey.value}
+                  </button>
+                )
+              },
+            )}
           </div>
         )
       })}

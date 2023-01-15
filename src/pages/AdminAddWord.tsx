@@ -1,21 +1,18 @@
-import { addNewWord, getWords } from 'api/api'
 import Button from 'components/micro-components/Buttons/Button'
 import Heading from 'components/micro-components/Heading'
 import InputText from 'components/micro-components/InputText'
 import { IFormValues } from 'models/IFormValues'
 import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { setWords } from 'store/gameSlice'
+import { useAddWordMutation } from 'redux/api/wordsApi'
 import { ruRegex } from 'utils/constants'
-import { useAppDispatch } from 'utils/hook'
 
 type AdminAddWordProps = {
   showNotify: (type: string, message: string) => void
 }
 
 const AdminAddWord: FC<AdminAddWordProps> = ({ showNotify }) => {
-  const dispatch = useAppDispatch()
-
+  const [addProduct] = useAddWordMutation()
   const {
     register,
     formState: { errors, isValid, isDirty },
@@ -30,14 +27,15 @@ const AdminAddWord: FC<AdminAddWordProps> = ({ showNotify }) => {
 
   const handleAddWord = async (word: string) => {
     try {
-      const words = await getWords()
-      if (words.includes(word)) {
-        showNotify('notify-failure', `Слово "${word}" уже есть в списке`)
+      const response = await addProduct(word).unwrap()
+      if (response.errors) {
+        showNotify('notify-failure', `${response.errors[0]}`)
         return
       }
-      const updateWords = await addNewWord(word)
-      dispatch(setWords(updateWords))
-      showNotify('notify-success', `Слово "${word}" успешно добавлено`)
+      showNotify(
+        'notify-success',
+        `Слово "${word.toUpperCase()}" успешно добавлено`,
+      )
       reset()
     } catch (error) {
       console.log(error)

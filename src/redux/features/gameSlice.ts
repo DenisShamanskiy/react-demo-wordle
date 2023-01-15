@@ -1,29 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { wordsApi } from 'redux/api/wordsApi'
+import { gameState } from 'types/store'
 import { board, keyBoard } from 'utils/constants'
-
-type BoardRow = {
-  value: string | undefined
-  color: string | undefined
-}
-
-type KeyBoardRow = {
-  value: string
-  color: string
-}
-
-type gameState = {
-  board: BoardRow[][]
-  currentGuess: string[]
-  currentRowIndex: number
-  gameStatus: string
-  keyBoard: KeyBoardRow[][]
-  nextLetter: number
-  word: {
-    words: string[]
-    currentWord: string
-    previousWord: string
-  }
-}
 
 const initialState: gameState = {
   board: board,
@@ -53,37 +31,42 @@ const gameSlice = createSlice({
       state.nextLetter = localData.nextLetter
       state.word = localData.word
     },
-    initialGame(state, action) {
-      console.log(action.payload)
-
-      state.word.words = action.payload
+    initialGame(state) {
       state.word.currentWord =
-        action.payload[Math.floor(Math.random() * action.payload.length)]
-      localStorage.setItem('game', JSON.stringify(state))
-    },
-    setWords(state, action) {
-      state.word.words = action.payload
+        state.word.words[Math.floor(Math.random() * state.word.words.length)]!
       localStorage.setItem('game', JSON.stringify(state))
     },
     setStatusGame(state, action) {
       state.gameStatus = action.payload
       localStorage.setItem('game', JSON.stringify(state))
     },
-    restartGame(state, action) {
-      state.gameStatus = 'IN_GAME'
-      state.word = {
-        words: action.payload,
-        previousWord: state.word.currentWord,
-        currentWord:
-          action.payload[Math.floor(Math.random() * action.payload.length)],
+    setRelultGame(state, action) {
+      if (action.payload === 'WIN') {
+        state.gameStatus = action.payload
+        state.board = state.board.map((row, index) =>
+          index === state.currentRowIndex
+            ? row.map((letter) => {
+                return { value: letter.value, color: 'letter-green' }
+              })
+            : row,
+        )
+      } else if (action.payload === 'FAIL') {
+        state.gameStatus = action.payload
+      } else {
+        state.gameStatus = action.payload
       }
-      state.board = [...new Array(6)].map(() =>
-        new Array(5).fill({ value: '', color: '' }),
-      )
-      state.keyBoard = keyBoard
-      state.nextLetter = 0
+      localStorage.setItem('game', JSON.stringify(state))
+    },
+    restartGame(state) {
+      state.board = board
       state.currentGuess = []
       state.currentRowIndex = 0
+      state.gameStatus = 'IN_GAME'
+      state.keyBoard = keyBoard
+      state.nextLetter = 0
+      state.word.previousWord = state.word.currentWord
+      state.word.currentWord =
+        state.word.words[Math.floor(Math.random() * state.word.words.length)]!
       localStorage.setItem('game', JSON.stringify(state))
     },
     addLetterBoard(state, actions) {
@@ -122,23 +105,6 @@ const gameSlice = createSlice({
       state.nextLetter = state.nextLetter - 1
       localStorage.setItem('persist', JSON.stringify(state))
     },
-    setRelultGame(state, action) {
-      if (action.payload === 'WIN') {
-        state.gameStatus = action.payload
-        state.board = state.board.map((row, index) =>
-          index === state.currentRowIndex
-            ? row.map((letter) => {
-                return { value: letter.value, color: 'letter-green' }
-              })
-            : row,
-        )
-      } else if (action.payload === 'FAIL') {
-        state.gameStatus = action.payload
-      } else {
-        state.gameStatus = action.payload
-      }
-      localStorage.setItem('game', JSON.stringify(state))
-    },
     nextStep(state, action) {
       state.board = state.board.map((row, index) =>
         index === state.currentRowIndex
@@ -172,12 +138,19 @@ const gameSlice = createSlice({
       localStorage.setItem('game', JSON.stringify(state))
     },
   },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      wordsApi.endpoints.getWords.matchFulfilled,
+      (state, { payload }) => {
+        state.word.words = payload
+      },
+    )
+  },
 })
 
 export const {
   getLocalGameData,
   initialGame,
-  setWords,
   setStatusGame,
   restartGame,
   addLetterBoard,

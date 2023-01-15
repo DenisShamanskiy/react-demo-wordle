@@ -1,3 +1,5 @@
+import { BoardRow } from 'types/store'
+
 export const exampleRules = [
   {
     word: ['к', 'р', 'о', 'в', 'ь'],
@@ -24,7 +26,7 @@ export const exampleRules = [
 export const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
 export const ruRegex = /^[А-яЁё]{5}$/
 
-export const board = [...new Array(6)].map(() =>
+export const board: BoardRow[][] = [...new Array(6)].map(() =>
   new Array(5).fill({ value: '', color: '' }),
 )
 

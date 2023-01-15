@@ -1,5 +1,8 @@
 import { useEffect } from 'react'
-import { deleteNotification, hideNotification } from 'store/notificationSlice'
+import {
+  deleteNotification,
+  hideNotification,
+} from 'redux/features/notificationSlice'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 

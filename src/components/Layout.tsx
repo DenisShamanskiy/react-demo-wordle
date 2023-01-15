@@ -1,12 +1,22 @@
+import { FC } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import { deleteNewGame, hideNewGame, showNewGame } from 'store/newGameSlice'
+import {
+  deleteNewGame,
+  hideNewGame,
+  showNewGame,
+} from 'redux/features/newGameSlice'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import CustomLink from './CustomLink'
+import Loader from './Loader'
 import IconSVG from './micro-components/IconSVG'
 import Sidebar from './NewGame'
 
-const Layout = () => {
+type LayoutProps = {
+  isLoading: boolean
+}
+
+const Layout: FC<LayoutProps> = ({ isLoading }) => {
   const dispatch = useAppDispatch()
 
   const { roles } = useAppSelector((state) => state.user)
@@ -80,7 +90,7 @@ const Layout = () => {
         </div>
       </header>
       <main className='mx-auto flex h-[calc(100%-64px)] w-full max-w-5xl items-center'>
-        <Outlet />
+        {isLoading ? <Loader /> : <Outlet />}
         {visible && <Sidebar />}
       </main>
     </>

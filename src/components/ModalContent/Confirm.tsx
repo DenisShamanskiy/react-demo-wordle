@@ -2,13 +2,13 @@ import Button from 'components/micro-components/Buttons/Button'
 import Heading2 from 'components/micro-components/Heading'
 import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { restartGame, setRelultGame } from 'store/gameSlice'
-import { closeModal, openModal } from 'store/modalSlice'
-import { resetDataHardMode } from 'store/settingsSlice'
-import { hideNewGame } from 'store/newGameSlice'
-import { updateStatsLocal } from 'store/userSlice'
+import { restartGame, setRelultGame } from 'redux/features/gameSlice'
+import { closeModal, openModal } from 'redux/features/modalSlice'
+import { resetDataHardMode } from 'redux/features/settingsSlice'
+import { hideNewGame } from 'redux/features/newGameSlice'
+import { updateStatsLocal } from 'redux/features/userSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
-import { getWords } from 'api/api'
+// import { getWords } from 'api/api'
 
 const Confirm: FC = (): JSX.Element => {
   const navigate = useNavigate()
@@ -21,8 +21,8 @@ const Confirm: FC = (): JSX.Element => {
   const handleConfirm = async (type: string) => {
     if (type === 'NewGame') {
       goHome()
-      const { words } = await getWords()
-      dispatch(restartGame(words))
+      // const { words } = await getWords()
+      dispatch(restartGame())
       dispatch(resetDataHardMode())
       dispatch(closeModal())
       dispatch(hideNewGame())

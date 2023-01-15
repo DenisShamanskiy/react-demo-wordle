@@ -5,7 +5,7 @@ import InputText from 'components/micro-components/InputText'
 import { IFormValues } from 'models/IFormValues'
 import { FC, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { setUser } from 'store/userSlice'
+import { setUser } from 'redux/features/userSlice'
 import { emailRegex } from 'utils/constants'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 

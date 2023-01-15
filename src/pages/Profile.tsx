@@ -1,13 +1,13 @@
 import Button from 'components/micro-components/Buttons/Button'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { logout } from 'store/userSlice'
+import { logout } from 'redux/features/userSlice'
 import Statistics from './Statistics'
-import { restartGame } from 'store/gameSlice'
-import { resetDataHardMode } from 'store/settingsSlice'
+import { restartGame } from 'redux/features/gameSlice'
+import { resetDataHardMode } from 'redux/features/settingsSlice'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import Heading from 'components/micro-components/Heading'
-import { getWords } from 'api/api'
+// import { getWords } from 'api/api'
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -26,8 +26,8 @@ const Profile = () => {
       dispatch(logout())
     }, 500)
     goAuth()
-    const { words } = await getWords()
-    dispatch(restartGame(words))
+    // const { words } = await getWords()
+    dispatch(restartGame())
     dispatch(resetDataHardMode())
   }
 

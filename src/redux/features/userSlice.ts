@@ -57,7 +57,7 @@ const userSlice = createSlice({
       state.isActivated = action.payload.isActivated
       state.statistics = action.payload.statistics
       state.roles = action.payload.roles
-      localStorage.setItem('user', JSON.stringify(state))
+      // localStorage.setItem('user', JSON.stringify(state))
     },
 
     logout(state) {

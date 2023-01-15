@@ -31,7 +31,6 @@ const settingsSlice = createSlice({
     },
     toggleHardMode(state) {
       state.hardMode.active = !state.hardMode.active
-
       localStorage.setItem('settings', JSON.stringify(state))
     },
     addDataHardMode(state, action) {
@@ -43,13 +42,11 @@ const settingsSlice = createSlice({
       state.hardMode.words = [
         ...new Set(state.hardMode.words.concat(action.payload.currentGuessStr)),
       ]
-
       localStorage.setItem('settings', JSON.stringify(state))
     },
     resetDataHardMode(state) {
       state.hardMode.letters = []
       state.hardMode.words = []
-
       localStorage.setItem('settings', JSON.stringify(state))
     },
     toggleTheme(state) {
@@ -57,7 +54,6 @@ const settingsSlice = createSlice({
       state.darkMode
         ? (localStorage['theme'] = 'dark')
         : (localStorage['theme'] = 'light')
-
       localStorage.setItem('settings', JSON.stringify(state))
     },
     setTheme(state, action) {
@@ -65,7 +61,6 @@ const settingsSlice = createSlice({
       state.darkMode
         ? (localStorage['theme'] = 'dark')
         : (localStorage['theme'] = 'light')
-
       localStorage.setItem('settings', JSON.stringify(state))
     },
   },

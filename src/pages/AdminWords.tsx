@@ -3,6 +3,7 @@ import Word from 'components/Word'
 import { IFormValues } from 'models/IFormValues'
 import { FC, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+// import { useGetWordsQuery } from 'redux/wordsApi'
 import { useAppSelector } from 'utils/hook'
 
 type AdminWordsProps = {
@@ -10,12 +11,14 @@ type AdminWordsProps = {
 }
 
 const AdminWords: FC<AdminWordsProps> = ({ showNotify }) => {
-  const { register, handleSubmit, watch } = useForm<IFormValues>()
+  // const { data = [] } = useGetWordsQuery()
+
+  const { register, handleSubmit, watch, reset } = useForm<IFormValues>()
   const watchAllFields = watch()
 
   const words = useAppSelector((state) => state.game.word.words)
 
-  const [filterWords, setFilterWords] = useState(words)
+  const [filterWords, setFilterWords] = useState([''])
 
   const handleFilterWords = (search: string) => {
     setFilterWords(() =>
@@ -23,12 +26,16 @@ const AdminWords: FC<AdminWordsProps> = ({ showNotify }) => {
     )
   }
 
-  const onSubmit: SubmitHandler<IFormValues> = (data) =>
-    handleFilterWords(data.word!)
+  const onSubmit: SubmitHandler<IFormValues> = (words) =>
+    handleFilterWords(words.word!)
 
   useEffect(() => {
     handleSubmit(onSubmit)()
   }, [watchAllFields.word])
+
+  useEffect(() => {
+    setFilterWords(words!)
+  }, [words])
 
   return (
     <section className='mx-auto flex h-[90%] w-80 select-none flex-col'>
@@ -45,6 +52,7 @@ const AdminWords: FC<AdminWordsProps> = ({ showNotify }) => {
           />
         </div>
       </form>
+
       {filterWords!.length ? (
         <ul className='scrollbar-hide mt-6 box-border flex flex-col items-center overflow-y-auto rounded-md md:mt-8'>
           {filterWords!.map((word, index) => {
@@ -54,6 +62,7 @@ const AdminWords: FC<AdminWordsProps> = ({ showNotify }) => {
                 word={word}
                 key={index}
                 showNotify={showNotify}
+                reset={reset}
               />
             )
           })}

@@ -1,4 +1,4 @@
-import { closeModal } from 'store/modalSlice'
+import { closeModal } from 'redux/features/modalSlice'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import win from '../../assets/gif/win.gif'

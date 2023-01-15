@@ -3,7 +3,7 @@ import Heading2 from 'components/micro-components/Heading'
 import InputSwitch from 'components/micro-components/InputSwitch'
 import SettingsRow from 'components/micro-components/SettingsRow'
 import { DarkModeSwitch } from 'react-toggle-dark-mode'
-import { toggleHardMode, toggleTheme } from 'store/settingsSlice'
+import { toggleHardMode, toggleTheme } from 'redux/features/settingsSlice'
 import useCurrentWidth from 'hook/useCurrentWidth'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 

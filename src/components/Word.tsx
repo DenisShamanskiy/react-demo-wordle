@@ -1,23 +1,30 @@
-import { deleteWord } from 'api/api'
+// import { deleteWord } from 'api/api'
+import { IFormValues } from 'models/IFormValues'
 import { FC } from 'react'
-import { setWords } from 'store/gameSlice'
-import { useAppDispatch } from 'utils/hook'
+import { UseFormReset } from 'react-hook-form'
+import { useDeleteWordMutation } from '../redux/api/wordsApi'
+// import { setWords } from 'store/gameSlice'
+// import { useAppDispatch } from 'utils/hook'
 import IconSVG from './micro-components/IconSVG'
 
 type WordProps = {
   index: number
   word: string
+  reset: UseFormReset<IFormValues>
   showNotify: (type: string, message: string) => void
 }
 
-const Word: FC<WordProps> = ({ index, word, showNotify }) => {
-  const dispatch = useAppDispatch()
+const Word: FC<WordProps> = ({ index, word, showNotify, reset }) => {
+  // const dispatch = useAppDispatch()
+  const [deleteWord] = useDeleteWordMutation()
 
   const handleDeleteWord = async (word: string) => {
     try {
-      const words = await deleteWord(word)
-      dispatch(setWords(words))
+      await deleteWord(word)
+      // const words = await deleteWord(word)
+      // dispatch(setWords(words))
       showNotify('notify-success', `Слово "${word}" удалено`)
+      reset()
     } catch (error) {
       console.log(error)
     }

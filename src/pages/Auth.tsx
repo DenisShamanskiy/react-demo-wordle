@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { setUser } from 'store/userSlice'
+import { setUser } from 'redux/features/userSlice'
 import { useAppDispatch } from 'utils/hook'
 import Heading from 'components/micro-components/Heading'
 import { useNavigate } from 'react-router-dom'
