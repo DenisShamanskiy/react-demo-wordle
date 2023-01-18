@@ -58,7 +58,7 @@ const Button: FC<IButtonProps> = ({
       disabled={disabled}
       className={`${addSize(
         size,
-      )} inline-block h-10 rounded border-2 border-w-quartz bg-transparent text-sm font-bold uppercase text-w-quartz transition-all duration-300 dark:border-w-white-dark dark:text-w-white-dark md:h-12 md:text-lg ${
+      )} inline-block h-10 rounded border-2 border-w-quartz bg-transparent text-sm font-medium text-w-quartz transition-all duration-300 dark:border-w-white-dark dark:text-w-white-dark md:h-12 md:text-lg ${
         disabled
           ? 'disabled:cursor-not-allowed'
           : 'cursor-pointer active:scale-95'

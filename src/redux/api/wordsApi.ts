@@ -1,18 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
-type WordsMutation = {
-  status: number
-  errors?: string[]
-}
-
-const API_URL = 'http://localhost:3002/api'
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { baseQueryWithReauth } from './baseQueryWithReauth'
+import { NonEmptyArr, WordsResponse } from './types'
 
 export const wordsApi = createApi({
   reducerPath: 'wordsApi',
   tagTypes: ['Words'],
-  baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
+  baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
-    getWords: build.query<string[], void>({
+    getWords: build.query<NonEmptyArr<string>, void>({
       query: () => 'words',
       providesTags: (result) =>
         result
@@ -22,26 +17,19 @@ export const wordsApi = createApi({
             ]
           : [{ type: 'Words', id: 'LIST' }],
     }),
-    addWord: build.mutation<WordsMutation, string>({
+    addWord: build.mutation<WordsResponse, string>({
       query: (word) => ({
         url: 'words/add',
         method: 'PATCH',
         body: { word: word },
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
       }),
-
       invalidatesTags: [{ type: 'Words', id: 'LIST' }],
     }),
-    deleteWord: build.mutation<WordsMutation, string>({
+    deleteWord: build.mutation<WordsResponse, string>({
       query: (word) => ({
         url: 'words/delete',
         method: 'PATCH',
         body: { word: word },
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
       }),
       invalidatesTags: [{ type: 'Words', id: 'LIST' }],
     }),

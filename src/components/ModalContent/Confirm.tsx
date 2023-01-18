@@ -6,9 +6,8 @@ import { restartGame, setRelultGame } from 'redux/features/gameSlice'
 import { closeModal, openModal } from 'redux/features/modalSlice'
 import { resetDataHardMode } from 'redux/features/settingsSlice'
 import { hideNewGame } from 'redux/features/newGameSlice'
-import { updateStatsLocal } from 'redux/features/userSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
-// import { getWords } from 'api/api'
+import useUpdateStats from 'hook/useUpdateStatistics'
 
 const Confirm: FC = (): JSX.Element => {
   const navigate = useNavigate()
@@ -18,10 +17,11 @@ const Confirm: FC = (): JSX.Element => {
 
   const goHome = () => navigate('/', { replace: true })
 
+  const { updateStatistics } = useUpdateStats()
+
   const handleConfirm = async (type: string) => {
     if (type === 'NewGame') {
       goHome()
-      // const { words } = await getWords()
       dispatch(restartGame())
       dispatch(resetDataHardMode())
       dispatch(closeModal())
@@ -31,9 +31,8 @@ const Confirm: FC = (): JSX.Element => {
       goHome()
       dispatch(closeModal())
       dispatch(setRelultGame('LEAVE'))
-      dispatch(updateStatsLocal('LEAVE'))
+      await updateStatistics({ result: 'LEAVE' })
       dispatch(hideNewGame())
-
       setTimeout(
         () => dispatch(openModal({ window: 'GameResult', title: 'Сдался' })),
         500,

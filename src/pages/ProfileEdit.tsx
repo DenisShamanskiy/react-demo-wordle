@@ -1,13 +1,12 @@
-import { updatePrifile } from 'api/api'
 import Button from 'components/micro-components/Buttons/Button'
 import Heading from 'components/micro-components/Heading'
 import InputText from 'components/micro-components/InputText'
 import { IFormValues } from 'models/IFormValues'
 import { FC, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { setUser } from 'redux/features/userSlice'
+import { useUpdateProfileMutation } from 'redux/api/userApi'
 import { emailRegex } from 'utils/constants'
-import { useAppDispatch, useAppSelector } from 'utils/hook'
+import { useAppSelector } from 'utils/hook'
 
 type ProfileEditProps = {
   showNotify: (type: string, message: string) => void
@@ -25,9 +24,10 @@ const ProfileEdit: FC<ProfileEditProps> = ({ showNotify }) => {
   } = useForm<IFormValues>({
     mode: 'onTouched',
   })
-  const dispatch = useAppDispatch()
 
   const watchAllFields = watch()
+
+  const [updateProfile] = useUpdateProfileMutation()
 
   const handleEditProfile = async (
     id: string,
@@ -35,15 +35,14 @@ const ProfileEdit: FC<ProfileEditProps> = ({ showNotify }) => {
     email: string,
   ) => {
     try {
-      const response = await updatePrifile(id, username, email)
-      dispatch(setUser(response))
+      await updateProfile({ id, username, email })
       reset({
         username: username,
         email: email,
       })
       showNotify('notify-success', 'Профиль сохранён')
     } catch (e) {
-      showNotify('notify-failure', e.response?.data?.message)
+      console.log(e)
     }
   }
   const onSubmit: SubmitHandler<IFormValues> = (data) => {

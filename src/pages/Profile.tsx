@@ -7,7 +7,7 @@ import { restartGame } from 'redux/features/gameSlice'
 import { resetDataHardMode } from 'redux/features/settingsSlice'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import Heading from 'components/micro-components/Heading'
-// import { getWords } from 'api/api'
+import { useSignoutMutation } from 'redux/api/authApi'
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -17,16 +17,17 @@ const Profile = () => {
     })
   const dispatch = useAppDispatch()
 
+  const [signout] = useSignoutMutation()
+
   const { username, email } = useAppSelector((state) => state.user)
 
   const darkMode = useAppSelector((state) => state.settings.darkMode)
 
   const handleLogout = async () => {
-    setTimeout(() => {
-      dispatch(logout())
-    }, 500)
+    await signout().unwrap()
+    dispatch(logout())
+    localStorage.removeItem('user')
     goAuth()
-    // const { words } = await getWords()
     dispatch(restartGame())
     dispatch(resetDataHardMode())
   }

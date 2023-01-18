@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import useCurrentHeight from 'hook/useCurrentHeight'
 import Game from '../pages/Game'
@@ -7,13 +7,6 @@ import Rules from 'pages/Rules'
 import Settings from 'pages/Settings'
 import Auth from 'pages/Auth'
 import Modal from './Modal/Modal'
-import {
-  logout,
-  setUser,
-  // logout,
-  // setUser,
-  updateStatsLocal,
-} from 'redux/features/userSlice'
 import { showNotification } from 'redux/features/notificationSlice'
 import {
   addLetterBoard,
@@ -23,8 +16,11 @@ import {
   removeLetterBoard,
   setRelultGame,
 } from 'redux/features/gameSlice'
-import { checkAuth, updateStatistics } from 'api/api'
-import { addDataHardMode, setTheme } from 'redux/features/settingsSlice'
+import {
+  addDataHardMode,
+  getLocalSettingData,
+  setTheme,
+} from 'redux/features/settingsSlice'
 import Notification from './Notification'
 import Layout from './Layout'
 import ProfileEdit from 'pages/ProfileEdit'
@@ -33,19 +29,20 @@ import Admin from 'pages/Admin'
 import AdminWords from 'pages/AdminWords'
 import AdminAddWord from 'pages/AdminAddWord'
 import ProtectedRoute from './ProtectedRoute'
-import { setLoading } from 'redux/features/loadingSlice'
 import { useGetWordsQuery } from 'redux/api/wordsApi'
 import { openModal } from 'redux/features/modalSlice'
+import { useCheckAuthQuery } from 'redux/api/authApi'
+import useUpdateStatistics from 'hook/useUpdateStatistics'
 
 const App = () => {
   const styleHeight = {
     height: `${useCurrentHeight()}px`,
   }
-  // RTK
-  const { isLoading, isSuccess } = useGetWordsQuery()
-
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+  const { isSuccess } = useGetWordsQuery()
+  const { isLoading: isLoadingCheckAuth } = useCheckAuthQuery(null)
+
+  // const navigate = useNavigate()
 
   const {
     darkMode: darkTheme,
@@ -60,14 +57,14 @@ const App = () => {
     gameStatus,
   } = useAppSelector((state) => state.game)
 
-  const { id } = useAppSelector((state) => state.user)
-  const statistics = useAppSelector((state) => state.user.statistics)
   const visible = useAppSelector((state) => state.notification.visible)
 
   const path = useLocation()
-  const goHome = () => navigate('/', { replace: true })
+  const { updateStatistics } = useUpdateStatistics()
 
-  const handleGuess = (
+  // const goHome = () => navigate('/', { replace: true })
+
+  const handleGuess = async (
     lettersHardMode: string[],
     currentGuessStr: string,
     indexColorArray: number[],
@@ -75,7 +72,8 @@ const App = () => {
     dispatch(addDataHardMode({ lettersHardMode, currentGuessStr }))
     if (currentGuessStr === currentWord) {
       dispatch(setRelultGame('WIN'))
-      dispatch(updateStatsLocal({ result: 'WIN', currentRowIndex }))
+      await updateStatistics({ result: 'WIN', currentRowIndex })
+
       dispatch(
         openModal({ wnd: 'GameResult', title: 'Победа', window: 'GameResult' }),
       )
@@ -83,7 +81,7 @@ const App = () => {
       dispatch(nextStep(indexColorArray))
       if (currentRowIndex === 5) {
         dispatch(setRelultGame({ result: 'FAIL', currentRowIndex }))
-        dispatch(updateStatsLocal('FAIL'))
+        await updateStatistics({ result: 'FAIL' })
         dispatch(
           openModal({
             wnd: 'GameResult',
@@ -173,29 +171,12 @@ const App = () => {
       return
     } else dispatch(addLetterBoard(pressedKey))
   }
-  const checkUser = async () => {
-    dispatch(setLoading(true))
 
-    try {
-      const { data } = await checkAuth()
-      localStorage.setItem('token', data.accessToken)
-      dispatch(setUser(data.user))
-    } catch (e) {
-      dispatch(logout())
-      goHome()
-    } finally {
-      dispatch(setLoading(false))
+  useEffect(() => {
+    if (localStorage.getItem('settings')) {
+      dispatch(getLocalSettingData())
     }
-  }
-
-  // useEffect(() => {
-  //   if (localStorage.getItem('user')) {
-  //     dispatch(getLocalUserData())
-  //   }
-  //   if (localStorage.getItem('settings')) {
-  //     dispatch(getLocalSettingData())
-  //   }
-  // }, [])
+  }, [])
 
   useEffect(() => {
     if (localStorage.getItem('game')) {
@@ -206,12 +187,6 @@ const App = () => {
       }
     }
   }, [isSuccess])
-
-  useEffect(() => {
-    if (id) {
-      updateStatistics(id, statistics)
-    }
-  }, [statistics])
 
   // Проверка темы
   useEffect(() => {
@@ -228,12 +203,6 @@ const App = () => {
     }
   }, [darkTheme])
 
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      checkUser()
-    }
-  }, [])
-
   return (
     <div
       style={styleHeight}
@@ -244,7 +213,7 @@ const App = () => {
       {visible && <Notification />}
 
       <Routes>
-        <Route path='/' element={<Layout isLoading={isLoading} />}>
+        <Route path='/' element={<Layout isLoading={isLoadingCheckAuth} />}>
           <Route index element={<Game checkGuess={checkGuess} />} />
           <Route
             path='admin'

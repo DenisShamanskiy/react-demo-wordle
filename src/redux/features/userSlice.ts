@@ -1,18 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { authApi } from 'redux/api/authApi'
+import { Statistics } from 'redux/api/types'
+import { userApi } from 'redux/api/userApi'
 import { statistics } from 'utils/constants'
-
-type BarRow = {
-  name: number
-  percent: string
-  count: number
-}
-
-type StatisticsState = {
-  win: number
-  loss: number
-  surrender: number
-  bar: BarRow[]
-}
 
 type UserState = {
   id: string | null
@@ -20,8 +10,9 @@ type UserState = {
   username: string | null
   isLoggedIn: boolean
   isActivated: boolean
-  statistics: StatisticsState
+  statistics: Statistics
   roles: string[]
+  token: string | null
 }
 
 const initialState: UserState = {
@@ -32,75 +23,80 @@ const initialState: UserState = {
   isActivated: false,
   statistics: statistics,
   roles: [],
+  token: null,
 }
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    getLocalUserData(state) {
-      const localData = JSON.parse(localStorage['user'])
-      state.id = localData.id
-      state.email = localData.email
-      state.username = localData.username
-      state.isLoggedIn = localData.isLoggedIn
-      state.isActivated = localData.isActivated
-      state.statistics = localData.statistics
-      state.roles = localData.roles
-    },
-
-    setUser(state, action) {
-      state.id = action.payload.id
-      state.email = action.payload.email
-      state.username = action.payload.username
-      state.isLoggedIn = true
-      state.isActivated = action.payload.isActivated
-      state.statistics = action.payload.statistics
-      state.roles = action.payload.roles
-      // localStorage.setItem('user', JSON.stringify(state))
-    },
-
-    logout(state) {
-      state.id = null
-      state.email = null
-      state.username = null
-      state.isLoggedIn = false
-      state.isActivated = false
-      state.statistics = statistics
-      state.roles = []
-      localStorage.setItem('user', JSON.stringify(state))
-      localStorage.removeItem('token')
-    },
-
-    updateStatsLocal(state, action) {
-      if (action.payload.result === 'WIN') {
-        state.statistics.win = state.statistics.win + 1
-        state.statistics.bar = state.statistics.bar.map((item, index) => {
-          return {
-            name: item.name,
-            count:
-              index === action.payload.currentRowIndex
-                ? item.count + 1
-                : item.count,
-            percent:
-              index === action.payload.currentRowIndex
-                ? `${Math.round(
-                    (100 / state.statistics.win) * (item.count + 1),
-                  )}%`
-                : `${Math.round((100 / state.statistics.win) * item.count)}%`,
-          }
-        })
-      } else if (action.payload.result === 'FAIL') {
-        state.statistics.loss = state.statistics.loss + 1
-      } else {
-        state.statistics.surrender = state.statistics.surrender + 1
-      }
+    setToken(state, action) {
+      state.token = action.payload.accessToken
       localStorage.setItem('user', JSON.stringify(state))
     },
+
+    logout: () => initialState,
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      authApi.endpoints.checkAuth.matchFulfilled,
+      (state, { payload }) => {
+        state.id = payload.user.id
+        state.email = payload.user.email
+        state.username = payload.user.username
+        state.isLoggedIn = true
+        state.isActivated = payload.user.isActivated
+        state.statistics = payload.user.statistics
+        state.roles = payload.user.roles
+        state.token = payload.accessToken
+        localStorage.setItem('user', JSON.stringify(state))
+      },
+    )
+    builder.addMatcher(
+      authApi.endpoints.signup.matchFulfilled,
+      (state, { payload }) => {
+        state.id = payload.user.id
+        state.email = payload.user.email
+        state.username = payload.user.username
+        state.isLoggedIn = true
+        state.isActivated = payload.user.isActivated
+        state.statistics = payload.user.statistics
+        state.roles = payload.user.roles
+        state.token = payload.accessToken
+        localStorage.setItem('user', JSON.stringify(state))
+      },
+    )
+    builder.addMatcher(
+      authApi.endpoints.signin.matchFulfilled,
+      (state, { payload }) => {
+        state.id = payload.user.id
+        state.email = payload.user.email
+        state.username = payload.user.username
+        state.isLoggedIn = true
+        state.isActivated = payload.user.isActivated
+        state.statistics = payload.user.statistics
+        state.roles = payload.user.roles
+        state.token = payload.accessToken
+        localStorage.setItem('user', JSON.stringify(state))
+      },
+    )
+    builder.addMatcher(
+      userApi.endpoints.updateProfile.matchFulfilled,
+      (state, { payload }) => {
+        state.username = payload.username
+        localStorage.setItem('user', JSON.stringify(state))
+      },
+    )
+    builder.addMatcher(
+      userApi.endpoints.updateStatistics.matchFulfilled,
+      (state, { payload }) => {
+        state.statistics = payload
+        localStorage.setItem('user', JSON.stringify(state))
+      },
+    )
   },
 })
 
-export const { getLocalUserData, setUser, logout, updateStatsLocal } =
-  userSlice.actions
+export const { logout, setToken } = userSlice.actions
 
 export default userSlice.reducer

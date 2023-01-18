@@ -143,6 +143,7 @@ const gameSlice = createSlice({
       wordsApi.endpoints.getWords.matchFulfilled,
       (state, { payload }) => {
         state.word.words = payload
+        localStorage.setItem('game', JSON.stringify(state))
       },
     )
   },

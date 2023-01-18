@@ -1,5 +1,7 @@
 import { BoardRow } from 'types/store'
 
+export const API_URL = 'http://localhost:3002/api'
+
 export const exampleRules = [
   {
     word: ['к', 'р', 'о', 'в', 'ь'],
@@ -74,36 +76,30 @@ export const keyBoard = [
 
 export const statistics = {
   win: 0,
-  loss: 0,
-  surrender: 0,
+  fail: 0,
+  leave: 0,
   bar: [
     {
-      name: 1,
       percent: '0%',
       count: 0,
     },
     {
-      name: 2,
       percent: '0%',
       count: 0,
     },
     {
-      name: 3,
       percent: '0%',
       count: 0,
     },
     {
-      name: 4,
       percent: '0%',
       count: 0,
     },
     {
-      name: 5,
       percent: '0%',
       count: 0,
     },
     {
-      name: 6,
       percent: '0%',
       count: 0,
     },

@@ -3,7 +3,6 @@ import Word from 'components/Word'
 import { IFormValues } from 'models/IFormValues'
 import { FC, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-// import { useGetWordsQuery } from 'redux/wordsApi'
 import { useAppSelector } from 'utils/hook'
 
 type AdminWordsProps = {
@@ -11,8 +10,6 @@ type AdminWordsProps = {
 }
 
 const AdminWords: FC<AdminWordsProps> = ({ showNotify }) => {
-  // const { data = [] } = useGetWordsQuery()
-
   const { register, handleSubmit, watch, reset } = useForm<IFormValues>()
   const watchAllFields = watch()
 
@@ -52,7 +49,6 @@ const AdminWords: FC<AdminWordsProps> = ({ showNotify }) => {
           />
         </div>
       </form>
-
       {filterWords!.length ? (
         <ul className='scrollbar-hide mt-6 box-border flex flex-col items-center overflow-y-auto rounded-md md:mt-8'>
           {filterWords!.map((word, index) => {

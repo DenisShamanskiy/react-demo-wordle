@@ -3,7 +3,7 @@ import { useAppSelector } from 'utils/hook'
 import Heading2 from 'components/micro-components/Heading'
 
 const Statistics = () => {
-  const { win, loss, surrender, bar } = useAppSelector(
+  const { win, fail, leave, bar } = useAppSelector(
     (state) => state.user.statistics,
   )
 
@@ -12,7 +12,7 @@ const Statistics = () => {
       <Heading2>Статистика</Heading2>
       <>
         <div className='mx-auto my-6 grid w-11/12 grid-cols-3 gap-1 md:my-8'>
-          {[win, surrender, loss].map((item, index) => {
+          {[win, leave, fail].map((item, index) => {
             return <CountStats count={item} index={index} key={index} />
           })}
         </div>
@@ -28,7 +28,7 @@ const Statistics = () => {
                   key={index}
                 >
                   <p className='mr-2 flex w-5 text-sm font-bold text-w-quartz dark:text-w-white-dark md:mr-3 md:text-base'>
-                    #{row.name}
+                    #{index + 1}
                   </p>
                   <div className='h-3 w-10/12 rounded-xl bg-w-grey-tone-2/40 dark:bg-w-grey-dark/40 md:h-4 '>
                     <span

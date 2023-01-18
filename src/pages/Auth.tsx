@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
-import { setUser } from 'redux/features/userSlice'
-import { useAppDispatch } from 'utils/hook'
+// import { setUser } from 'redux/features/userSlice'
+// import { useAppDispatch } from 'utils/hook'
 import Heading from 'components/micro-components/Heading'
 import { useNavigate } from 'react-router-dom'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -8,7 +8,8 @@ import Button from 'components/micro-components/Buttons/Button'
 import InputText from 'components/micro-components/InputText'
 import { AuthForm, IFormValues } from 'models/IFormValues'
 import { emailRegex } from 'utils/constants'
-import { signin, signup } from 'api/auth'
+// import { signin } from 'api/auth'
+import { useSigninMutation, useSignupMutation } from 'redux/api/authApi'
 
 type AuthProps = {
   showNotify: (type: string, message: string) => void
@@ -16,7 +17,7 @@ type AuthProps = {
 
 const Auth: FC<AuthProps> = ({ showNotify }) => {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
 
   const {
     register,
@@ -30,18 +31,21 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
 
   const goHome = () => navigate('/', { replace: true })
 
+  const [signup] = useSignupMutation()
+  const [signin] = useSigninMutation()
+
   const [typeFormLogin, setTypeFormLogin] = useState<boolean>(true)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const handleSignup = async (data: AuthForm) => {
     setIsLoading(true)
     try {
-      const { user } = await signup(data)
-      dispatch(setUser(user))
+      await signup(data).unwrap()
       goHome()
       showNotify('notify-success', 'Вы успешно зарегистрировались')
     } catch (e) {
-      showNotify('notify-failure', e.response?.data?.message)
+      console.log(e.data.message)
+      showNotify('notify-failure', e.data.message)
     } finally {
       setIsLoading(false)
     }
@@ -50,13 +54,12 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
   const handleSignin = async (data: AuthForm) => {
     setIsLoading(true)
     try {
-      const { user } = await signin(data)
-      dispatch(setUser(user))
+      const { user } = await signin(data).unwrap()
       goHome()
       user.username !== user.email &&
         showNotify('notify-success', `С возвращением, ${user.username}`)
     } catch (e) {
-      showNotify('notify-failure', e.response?.data?.message)
+      showNotify('notify-failure', e.data.message)
     } finally {
       setIsLoading(false)
     }
@@ -148,10 +151,10 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
             disabled={!isDirty || !isValid}
             text={
               isLoading
-                ? 'загрузка...'
+                ? 'Загрузка'
                 : typeFormLogin
-                ? 'войти'
-                : 'создать аккаунт'
+                ? 'Войти'
+                : 'Создать аккаунт'
             }
             color={typeFormLogin ? 'green' : 'blue'}
             size='full'
