@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import notificationSliceReducer from './features/notificationSlice'
 import modalReducer from './features/modalSlice'
 import userReducer from './features/userSlice'
+import usersReducer from './features/usersSlice'
 import gameReducer from './features/gameSlice'
 import settingsReducer from './features/settingsSlice'
 import newGameReducer from './features/newGameSlice'
@@ -15,6 +16,7 @@ export const store = configureStore({
     notification: notificationSliceReducer,
     modal: modalReducer,
     user: userReducer,
+    users: usersReducer,
     game: gameReducer,
     settings: settingsReducer,
     newGame: newGameReducer,

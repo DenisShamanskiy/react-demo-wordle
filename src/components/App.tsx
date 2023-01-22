@@ -34,6 +34,10 @@ import { openModal } from 'redux/features/modalSlice'
 import { useCheckAuthQuery } from 'redux/api/authApi'
 import useUpdateStatistics from 'hook/useUpdateStatistics'
 import Statistics from 'pages/Statistics'
+import AdminUsers from 'pages/AdminUsers'
+import { useGetUsersQuery } from 'redux/api/userApi'
+import User from 'pages/User'
+import { logout } from 'redux/features/usersSlice'
 
 const App = () => {
   const styleHeight = {
@@ -41,9 +45,9 @@ const App = () => {
   }
   const dispatch = useAppDispatch()
   const { isSuccess } = useGetWordsQuery()
-  const { isLoading: isLoadingCheckAuth } = useCheckAuthQuery(null)
-
-  // const navigate = useNavigate()
+  useGetUsersQuery()
+  const { isLoading: isLoadingCheckAuth, isSuccess: isSuccessCheckAuth } =
+    useCheckAuthQuery(null)
 
   const {
     darkMode: darkTheme,
@@ -59,11 +63,10 @@ const App = () => {
   } = useAppSelector((state) => state.game)
 
   const visible = useAppSelector((state) => state.notification.visible)
+  // const roles = useAppSelector((state) => state.user.roles)
 
   const path = useLocation()
   const { updateStatistics } = useUpdateStatistics()
-
-  // const goHome = () => navigate('/', { replace: true })
 
   const handleGuess = async (
     lettersHardMode: string[],
@@ -203,6 +206,23 @@ const App = () => {
       dispatch(setTheme(false))
     }
   }, [darkTheme])
+  // Загрузка списка игроком для администратора
+  // useEffect(() => {
+  //   if (roles.includes('ADMIN')) {
+  //     console.log('roles.includes("ADMIN")', true)
+  //   } else {
+  //     if (isSuccessUsers) {
+  //       console.log('Загрузка')
+  //     }
+  //   }
+  // }, [isSuccessUsers])
+  useEffect(() => {
+    if (!isLoadingCheckAuth && !isSuccessCheckAuth) {
+      console.log(!isLoadingCheckAuth && !isSuccessCheckAuth)
+
+      dispatch(logout())
+    }
+  }, [isSuccessCheckAuth, isLoadingCheckAuth])
 
   return (
     <div
@@ -221,6 +241,22 @@ const App = () => {
             element={
               <ProtectedRoute role='ADMIN'>
                 <Admin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='admin/users/:id'
+            element={
+              <ProtectedRoute role='ADMIN'>
+                <User showNotify={showNotify} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='admin/users'
+            element={
+              <ProtectedRoute role='ADMIN'>
+                <AdminUsers />
               </ProtectedRoute>
             }
           />

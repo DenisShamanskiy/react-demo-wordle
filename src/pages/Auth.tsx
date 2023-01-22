@@ -17,7 +17,6 @@ type AuthProps = {
 
 const Auth: FC<AuthProps> = ({ showNotify }) => {
   const navigate = useNavigate()
-  // const dispatch = useAppDispatch()
 
   const {
     register,

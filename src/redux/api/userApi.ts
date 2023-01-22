@@ -1,13 +1,32 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
+import { UserAdmin } from 'redux/features/usersSlice'
 import { baseQueryWithReauth } from './baseQueryWithReauth'
-import { User } from './types'
+import { User, WordsResponse } from './types'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
+  tagTypes: ['Users'],
   baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
-    getUsers: build.query<string[], void>({
+    getUsers: build.query<UserAdmin[], void>({
       query: () => 'users',
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ _id }) => ({ type: 'Users' as const, _id })),
+              { type: 'Users', id: 'LIST' },
+            ]
+          : [{ type: 'Users', id: 'LIST' }],
+    }),
+    getUser: build.query<UserAdmin, string>({
+      query: (id) => ({ url: `users/${id}` }),
+    }),
+    deleteUser: build.mutation<WordsResponse, string>({
+      query: (id) => ({
+        url: `users/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: [{ type: 'Users', id: 'LIST' }],
     }),
     updateProfile: build.mutation<
       User,
@@ -38,6 +57,8 @@ export const userApi = createApi({
 
 export const {
   useGetUsersQuery,
+  useGetUserQuery,
+  useDeleteUserMutation,
   useUpdateProfileMutation,
   useUpdateStatisticsMutation,
 } = userApi
