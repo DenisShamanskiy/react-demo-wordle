@@ -1,4 +1,4 @@
-import Button from 'components/micro-components/Buttons/Button'
+import Button from 'components/Button'
 import Heading2 from 'components/micro-components/Heading'
 import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -51,14 +51,14 @@ const Confirm: FC = (): JSX.Element => {
       <div className='mt-6 flex w-full justify-center gap-4 md:mt-8 md:gap-5'>
         <Button
           type='button'
-          text={'нет'}
+          text={'Нет'}
           color={'red'}
           size='s'
           onClick={() => dispatch(closeModal())}
         />
         <Button
           type='button'
-          text={'да'}
+          text={'Да'}
           color={'blue'}
           size='s'
           onClick={() => handleConfirm(type!)}

@@ -1,9 +1,8 @@
-// import { deleteWord } from 'api/api'
 import { IFormValues } from 'models/IFormValues'
 import { FC } from 'react'
 import { UseFormReset } from 'react-hook-form'
 import { useDeleteWordMutation } from '../redux/api/wordsApi'
-import IconSVG from './micro-components/IconSVG'
+import ButtonIcon from './ButtonIcon'
 
 type WordProps = {
   index: number
@@ -41,13 +40,11 @@ const Word: FC<WordProps> = ({ index, word, showNotify, reset }) => {
       <p className='m-auto flex items-center justify-center text-sm font-medium uppercase text-w-quartz dark:text-w-white-dark md:text-base'>
         {word}
       </p>
-      <button
-        type='button'
+      <ButtonIcon
+        icon='remove'
+        size='s'
         onClick={() => handleDeleteWord(word)}
-        className='cursor-pointer transition-all duration-300 hover:scale-110'
-      >
-        <IconSVG icon='remove-circle' size='s' />
-      </button>
+      />
     </li>
   )
 }

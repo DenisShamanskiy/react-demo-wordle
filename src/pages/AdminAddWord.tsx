@@ -1,4 +1,4 @@
-import Button from 'components/micro-components/Buttons/Button'
+import Button from 'components/Button'
 import Heading from 'components/micro-components/Heading'
 import InputText from 'components/micro-components/InputText'
 import { IFormValues } from 'models/IFormValues'
@@ -27,7 +27,7 @@ const AdminAddWord: FC<AdminAddWordProps> = ({ showNotify }) => {
 
   const handleAddWord = async (word: string) => {
     try {
-      const response = await addProduct(word).unwrap()
+      const response = await addProduct(word.toLowerCase()).unwrap()
       if (response.errors) {
         showNotify('notify-failure', `${response.errors[0]}`)
         return

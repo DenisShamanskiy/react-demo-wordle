@@ -1,18 +1,17 @@
+import CustomLink from 'components/CustomLink'
 import Heading from 'components/micro-components/Heading'
-import NavLinkСontainer from 'components/micro-components/NavLinkСontainer'
-import { NavLink } from 'react-router-dom'
 
 const Admin = () => {
   return (
-    <section className='mx-auto w-11/12 max-w-[448px] select-none '>
+    <section className='mx-auto w-11/12 max-w-[380px] select-none md:max-w-[448px] '>
       <Heading>Администратор</Heading>
-      <div className='mx-auto my-6 grid w-11/12 grid-rows-2 gap-6 md:my-8 md:gap-8'>
-        <NavLink to='/admin/words'>
-          <NavLinkСontainer title={'Список слов'} />
-        </NavLink>
-        <NavLink to='/admin/add-word'>
-          <NavLinkСontainer title={'Добавить слово'} />
-        </NavLink>
+      <div className='mt-8 flex w-full flex-col justify-center gap-5 md:mt-10 md:gap-6'>
+        <CustomLink to={'/admin/words'} icon='list'>
+          Список слов
+        </CustomLink>
+        <CustomLink to={'/admin/add-word'} icon='add'>
+          Добавить слово
+        </CustomLink>
       </div>
     </section>
   )

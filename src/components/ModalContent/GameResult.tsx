@@ -1,14 +1,13 @@
 import { closeModal } from 'redux/features/modalSlice'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import win from '../../assets/gif/win.gif'
 import leave from '../../assets/gif/leave.gif'
 import fail from '../../assets/gif/fail.gif'
+import ButtonIcon from 'components/ButtonIcon'
 
 const GameResult = () => {
   const dispatch = useAppDispatch()
   const rightGuess = useAppSelector((state) => state.game.word.currentWord)
-  const darkTheme = useAppSelector((state) => state.settings.darkMode)
   const title = useAppSelector((state) => state.modal.title)
 
   const getDataResult = (result: string) => {
@@ -33,15 +32,12 @@ const GameResult = () => {
 
   return (
     <section className='relative w-72 select-none md:w-80'>
-      <button
-        type='button'
-        className={
-          'absolute -top-3 -right-3 block min-w-[24px] rounded transition duration-300 ease-in-out hover:rotate-180 hover:scale-110 md:-top-4 md:-right-4 md:min-w-[28px]'
-        }
+      <ButtonIcon
+        icon={'close'}
+        position='close'
+        size='close'
         onClick={() => dispatch(closeModal())}
-      >
-        {globalSvgSelector('close', darkTheme)}
-      </button>
+      />
       <img
         src={getDataResult(title).img}
         alt={getDataResult(title).imgAlt}

@@ -1,4 +1,4 @@
-import Button from 'components/micro-components/Buttons/Button'
+import Button from 'components/Button'
 import Heading from 'components/micro-components/Heading'
 import InputText from 'components/micro-components/InputText'
 import { IFormValues } from 'models/IFormValues'

@@ -1,4 +1,4 @@
-import ButtonIcon from 'components/micro-components/Buttons/ButtonIcon'
+import ButtonIcon from 'components/ButtonIcon'
 import Heading2 from 'components/micro-components/Heading'
 import InputSwitch from 'components/micro-components/InputSwitch'
 import SettingsRow from 'components/micro-components/SettingsRow'
@@ -48,7 +48,11 @@ const Settings = () => {
               <p className='text-lg font-bold md:text-xl'>LocalStorage</p>
               <p className='text-xs md:text-sm'>Очистить</p>
             </div>
-            <ButtonIcon icon={'trash'} onClick={() => localStorage.clear()} />
+            <ButtonIcon
+              icon={'trash'}
+              size='m'
+              onClick={() => localStorage.clear()}
+            />
           </SettingsRow>
         </div>
       </div>

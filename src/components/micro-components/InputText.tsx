@@ -45,7 +45,7 @@ const InputText: FC<InputTextProps> = ({
         autoComplete={autoComplete}
         maxLength={maxLength}
         placeholder={placeholder}
-        className={`peer relative z-10 box-border h-10 w-full border-none bg-transparent p-2.5 text-base font-semibold tracking-wider text-w-black outline-none autofill:rounded autofill:border-2 autofill:border-solid autofill:border-w-green dark:text-w-white-dark autofill:dark:border-none dark:focus:text-w-black md:h-12 md:text-lg ${
+        className={`peer relative z-10 box-border h-10 w-full border-none bg-transparent p-2.5 text-base font-semibold tracking-wider text-w-black outline-none autofill:rounded autofill:border-2 autofill:border-solid autofill:border-w-green dark:text-w-black autofill:dark:border-none dark:focus:text-w-black md:h-12 md:text-lg ${
           title
             ? 'mt-1.5 md:mt-2.5'
             : `placeholder-w-quartz placeholder-opacity-50 dark:placeholder-w-white-dark dark:placeholder-opacity-50 ${

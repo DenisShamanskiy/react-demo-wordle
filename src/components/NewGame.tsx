@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { openModal } from 'redux/features/modalSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
-import Button from './micro-components/Buttons/Button'
+import Button from './Button'
 import { useOutsideClick } from '../hook/useOutsideClick'
 import { hideNewGame, deleteNewGame } from 'redux/features/newGameSlice'
 
@@ -35,7 +35,7 @@ export const NewGame = () => {
         <div className=' mx-auto  grid w-full grid-rows-2 justify-center gap-y-2   md:gap-y-3 '>
           <Button
             type='button'
-            text={'новая игра'}
+            text={'Новая игра'}
             color='green'
             size='m'
             onClick={() =>
@@ -51,7 +51,7 @@ export const NewGame = () => {
           />
           <Button
             type='button'
-            text={'сдаться'}
+            text={'Сдаться'}
             color='yellow'
             size='m'
             onClick={() =>

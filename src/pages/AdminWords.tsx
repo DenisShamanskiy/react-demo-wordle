@@ -45,6 +45,7 @@ const AdminWords: FC<AdminWordsProps> = ({ showNotify }) => {
             autoComplete='off'
             maxLength={5}
             placeholder='Поиск...'
+            value={watchAllFields.word}
             register={register}
           />
         </div>

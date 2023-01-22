@@ -33,6 +33,7 @@ import { useGetWordsQuery } from 'redux/api/wordsApi'
 import { openModal } from 'redux/features/modalSlice'
 import { useCheckAuthQuery } from 'redux/api/authApi'
 import useUpdateStatistics from 'hook/useUpdateStatistics'
+import Statistics from 'pages/Statistics'
 
 const App = () => {
   const styleHeight = {
@@ -252,6 +253,14 @@ const App = () => {
             element={
               <ProtectedRoute role='USER' redirectPath={'/auth'}>
                 <ProfileEdit showNotify={showNotify} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='profile/statistics'
+            element={
+              <ProtectedRoute role='USER' redirectPath={'/auth'}>
+                <Statistics />
               </ProtectedRoute>
             }
           />

@@ -713,6 +713,156 @@ export function globalSvgSelector(icon: string, dark: boolean) {
           />
         </svg>
       )
+    case 'stats-chart':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <title>stats-chart</title>
+          <path
+            d='M104,496H72a24,24,0,0,1-24-24V328a24,24,0,0,1,24-24h32a24,24,0,0,1,24,24V472A24,24,0,0,1,104,496Z'
+            fill={color}
+          />
+          <path
+            d='M328,496H296a24,24,0,0,1-24-24V232a24,24,0,0,1,24-24h32a24,24,0,0,1,24,24V472A24,24,0,0,1,328,496Z'
+            fill={color}
+          />
+          <path
+            d='M440,496H408a24,24,0,0,1-24-24V120a24,24,0,0,1,24-24h32a24,24,0,0,1,24,24V472A24,24,0,0,1,440,496Z'
+            fill={color}
+          />
+          <path
+            d='M216,496H184a24,24,0,0,1-24-24V40a24,24,0,0,1,24-24h32a24,24,0,0,1,24,24V472A24,24,0,0,1,216,496Z'
+            fill={color}
+          />
+        </svg>
+      )
+    case 'chevron-forward':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <title>chevron-forward</title>
+          <polyline
+            points='184 112 328 256 184 400'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='48px'
+          />
+        </svg>
+      )
+    case 'list':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <title>list</title>
+          <line
+            x1='160'
+            y1='144'
+            x2='448'
+            y2='144'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='160'
+            y1='256'
+            x2='448'
+            y2='256'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='160'
+            y1='368'
+            x2='448'
+            y2='368'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <circle
+            cx='80'
+            cy='144'
+            r='16'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <circle
+            cx='80'
+            cy='256'
+            r='16'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <circle
+            cx='80'
+            cy='368'
+            r='16'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+        </svg>
+      )
+    case 'add':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <title>add</title>
+          <line
+            x1='256'
+            y1='112'
+            x2='256'
+            y2='400'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='400'
+            y1='256'
+            x2='112'
+            y2='256'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+        </svg>
+      )
+    case 'remove':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <title>remove</title>
+          <line
+            x1='400'
+            y1='256'
+            x2='112'
+            y2='256'
+            fill='none'
+            stroke='#EF4444'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+        </svg>
+      )
     default:
       return null
   }
