@@ -14,7 +14,7 @@ const CustomLink: FC<CustomLinkProps> = ({ to, icon, children }) => {
   const darkMode = useAppSelector((state) => state.settings.darkMode)
   return children ? (
     <NavLink to={to}>
-      <div className='relative flex h-10 w-full items-center justify-center rounded-lg border-2 border-w-grey-tone-2 text-sm font-semibold tracking-wider text-w-quartz transition-all duration-300 hover:scale-105 dark:border-w-grey-tone-3 dark:text-w-white-dark md:h-12 md:text-base'>
+      <div className='relative flex h-12 w-full items-center justify-center rounded-lg border-2 border-w-grey-tone-2 text-sm font-semibold tracking-wider text-w-quartz transition-all duration-300 hover:scale-105 dark:border-w-grey-tone-3 dark:text-w-white-dark md:text-base'>
         <IconSVG icon={icon} size='m' position='left' />
         {children}
         <IconSVG icon={'chevron-forward'} size='m' position='right' />

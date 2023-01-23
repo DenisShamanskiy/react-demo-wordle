@@ -12,7 +12,7 @@ type WordProps = {
 }
 
 const Word: FC<WordProps> = ({ index, word, showNotify, reset }) => {
-  const [deleteWord] = useDeleteWordMutation()
+  const [deleteWord, { isLoading }] = useDeleteWordMutation()
 
   const handleDeleteWord = async (word: string) => {
     try {
@@ -41,9 +41,10 @@ const Word: FC<WordProps> = ({ index, word, showNotify, reset }) => {
         {word}
       </p>
       <ButtonIcon
-        icon='remove'
+        icon='close'
         size='s'
         onClick={() => handleDeleteWord(word)}
+        disabled={isLoading}
       />
     </li>
   )

@@ -101,6 +101,19 @@ module.exports = {
             opacity: '0',
           },
         },
+        loaderBtn: {
+          '0%': {
+            transform: 'scale(1)',
+          },
+          '50%': {
+            opacity: '0.3',
+            transform: 'scale(2)',
+          },
+          '100%': {
+            transform: 'scale(1)',
+            background: '#787c7e',
+          },
+        },
       },
       animation: {
         modalOpen: 'modalOpen 500ms ease 1',
@@ -115,6 +128,7 @@ module.exports = {
         notifyHideMD: ' notifyHideMD 1s ease 1 forwards',
         loaderCircleScaleBefore: 'loaderCircleScale 1s linear 0s infinite',
         loaderCircleScaleAfter: 'loaderCircleScale 1s linear 0.5s infinite',
+        loaderBtn: 'loaderBtn 1s infinite',
       },
       boxShadow: {
         modal: '0 4px 23px 0 rgb(0 0 0 / 20%)',

@@ -1,4 +1,5 @@
 import { FC, useMemo } from 'react'
+import LoaderBtn from './Loaders/LoaderBtn'
 
 interface IButtonProps {
   type: 'button' | 'submit' | 'reset'
@@ -7,6 +8,7 @@ interface IButtonProps {
   disabled?: boolean
   size: 's' | 'm' | 'l' | 'full' | 'icon'
   onClick?: () => void
+  isLoading?: boolean
 }
 
 const getColorClasses = (color: string, disabled?: boolean): string => {
@@ -53,6 +55,7 @@ const Button: FC<IButtonProps> = ({
   disabled,
   size,
   onClick,
+  isLoading,
 }) => {
   const computedClasses = useMemo(() => {
     const colorClass = getColorClasses(color!, disabled)
@@ -67,7 +70,7 @@ const Button: FC<IButtonProps> = ({
       disabled={disabled}
       className={`${BASE_BUTTON_CLASSES} ${computedClasses}`}
     >
-      {text}
+      {isLoading ? <LoaderBtn /> : text}
     </button>
   )
 }

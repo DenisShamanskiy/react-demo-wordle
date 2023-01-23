@@ -12,7 +12,7 @@ type AdminAddWordProps = {
 }
 
 const AdminAddWord: FC<AdminAddWordProps> = ({ showNotify }) => {
-  const [addProduct] = useAddWordMutation()
+  const [addNewWord, { isLoading }] = useAddWordMutation()
   const {
     register,
     formState: { errors, isValid, isDirty },
@@ -27,7 +27,7 @@ const AdminAddWord: FC<AdminAddWordProps> = ({ showNotify }) => {
 
   const handleAddWord = async (word: string) => {
     try {
-      const response = await addProduct(word.toLowerCase()).unwrap()
+      const response = await addNewWord(word.toLowerCase()).unwrap()
       if (response.errors) {
         showNotify('notify-failure', `${response.errors[0]}`)
         return
@@ -79,10 +79,11 @@ const AdminAddWord: FC<AdminAddWordProps> = ({ showNotify }) => {
           <div className='mt-12 w-full md:mt-16'>
             <Button
               type='submit'
-              disabled={!isDirty || !isValid}
+              disabled={!isDirty || !isValid || isLoading}
               text='Добавить'
               color='blue'
               size='full'
+              isLoading={isLoading}
             />
           </div>
         </div>

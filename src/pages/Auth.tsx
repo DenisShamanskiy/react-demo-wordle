@@ -1,6 +1,4 @@
 import { FC, useState } from 'react'
-// import { setUser } from 'redux/features/userSlice'
-// import { useAppDispatch } from 'utils/hook'
 import Heading from 'components/micro-components/Heading'
 import { useNavigate } from 'react-router-dom'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -8,7 +6,6 @@ import Button from 'components/Button'
 import InputText from 'components/micro-components/InputText'
 import { AuthForm, IFormValues } from 'models/IFormValues'
 import { emailRegex } from 'utils/constants'
-// import { signin } from 'api/auth'
 import { useSigninMutation, useSignupMutation } from 'redux/api/authApi'
 
 type AuthProps = {
@@ -30,8 +27,8 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
 
   const goHome = () => navigate('/', { replace: true })
 
-  const [signup] = useSignupMutation()
-  const [signin] = useSigninMutation()
+  const [signup, { isLoading: isLoadSignup }] = useSignupMutation()
+  const [signin, { isLoading: isLoadSignin }] = useSigninMutation()
 
   const [typeFormLogin, setTypeFormLogin] = useState<boolean>(true)
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -147,7 +144,7 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
         <div className='mt-12 w-full md:mt-16'>
           <Button
             type='submit'
-            disabled={!isDirty || !isValid}
+            disabled={!isDirty || !isValid || isLoadSignin || isLoadSignup}
             text={
               isLoading
                 ? 'Загрузка'
@@ -157,6 +154,7 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
             }
             color={typeFormLogin ? 'green' : 'blue'}
             size='full'
+            isLoading={typeFormLogin ? isLoadSignin : isLoadSignup}
           />
         </div>
       </form>

@@ -27,7 +27,7 @@ const ProfileEdit: FC<ProfileEditProps> = ({ showNotify }) => {
 
   const watchAllFields = watch()
 
-  const [updateProfile] = useUpdateProfileMutation()
+  const [updateProfile, { isLoading }] = useUpdateProfileMutation()
 
   const handleEditProfile = async (
     id: string,
@@ -108,10 +108,11 @@ const ProfileEdit: FC<ProfileEditProps> = ({ showNotify }) => {
         <div className='mt-12 w-full md:mt-16'>
           <Button
             type='submit'
-            disabled={!isDirty || !isValid}
+            disabled={!isDirty || !isValid || isLoading}
             text='Сохранить'
             color='blue'
             size='full'
+            isLoading={isLoading}
           />
         </div>
       </form>

@@ -103,7 +103,7 @@ const gameSlice = createSlice({
       )
       state.currentGuess.pop()
       state.nextLetter = state.nextLetter - 1
-      localStorage.setItem('persist', JSON.stringify(state))
+      localStorage.setItem('game', JSON.stringify(state))
     },
     nextStep(state, action) {
       state.board = state.board.map((row, index) =>

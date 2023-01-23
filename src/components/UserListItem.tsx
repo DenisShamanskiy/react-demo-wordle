@@ -1,8 +1,8 @@
 import { FC } from 'react'
-import { UserAdmin } from 'redux/features/usersSlice'
+import { User } from 'redux/api/types'
 
 type UserProps = {
-  user: UserAdmin
+  user: User
 }
 
 const UserListItem: FC<UserProps> = ({ user }) => {

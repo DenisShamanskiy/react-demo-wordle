@@ -16,7 +16,7 @@ const Profile = () => {
     })
   const dispatch = useAppDispatch()
 
-  const [signout] = useSignoutMutation()
+  const [signout, { isLoading }] = useSignoutMutation()
 
   const { username } = useAppSelector((state) => state.user)
 
@@ -46,6 +46,8 @@ const Profile = () => {
         color={'red'}
         size='m'
         onClick={() => handleLogout()}
+        isLoading={isLoading}
+        disabled={isLoading}
       />
     </section>
   )

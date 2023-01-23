@@ -8,8 +8,8 @@ import {
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import ButtonIcon from './ButtonIcon'
 import CustomLink from './CustomLink'
-import Loader from './Loader'
-import Sidebar from './NewGame'
+import Loader from './Loaders/Loader'
+import NewGame from './NewGame'
 
 type LayoutProps = {
   isLoading: boolean
@@ -74,9 +74,9 @@ const Layout: FC<LayoutProps> = ({ isLoading }) => {
           <CustomLink to='/settings' icon='settings' />
         </div>
       </header>
-      <main className='relative mx-auto flex h-[calc(100%-64px)] w-full max-w-5xl items-center'>
+      <main className='relative mx-auto flex h-[calc(100%-40px)] w-full max-w-5xl items-center md:h-[calc(100%-64px)]'>
         {isLoading ? <Loader /> : <Outlet />}
-        {visible && <Sidebar />}
+        {visible && <NewGame />}
       </main>
     </>
   )

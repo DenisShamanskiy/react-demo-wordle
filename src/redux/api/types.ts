@@ -18,12 +18,12 @@ export type Statistics = {
 }
 
 export type User = {
-  email: string
   id: string
-  isActivated: boolean
-  roles: NonEmptyArr<string>
-  statistics: Statistics
+  email: string
   username: string
+  statistics: Statistics
+  roles: NonEmptyArr<string>
+  isActivated: boolean
 }
 
 export type AuthResponse = {
