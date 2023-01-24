@@ -36,6 +36,7 @@ import useUpdateStatistics from 'hook/useUpdateStatistics'
 import Statistics from 'pages/Statistics'
 import AdminUsers from 'pages/AdminUsers'
 import User from 'pages/User'
+import NotFoundPage from 'pages/NotFoundPage'
 
 const App = () => {
   const styleHeight = {
@@ -282,6 +283,7 @@ const App = () => {
           <Route path='rules' element={<Rules />} />
           <Route path='settings' element={<Settings />} />
         </Route>
+        <Route path='*' element={<NotFoundPage />} />
       </Routes>
 
       <Modal />
