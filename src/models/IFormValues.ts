@@ -3,6 +3,7 @@ export interface IFormValues {
   email?: string
   password?: string
   word?: string
+  password_repeat?: string
 }
 
 export type AuthForm = {

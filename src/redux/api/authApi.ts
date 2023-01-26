@@ -25,7 +25,10 @@ export const authApi = createApi({
         return {
           url: 'registration',
           method: 'POST',
-          body: data,
+          body: {
+            email: data.email,
+            password: data.password,
+          },
         }
       },
     }),

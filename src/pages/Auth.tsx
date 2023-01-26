@@ -139,6 +139,22 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
             register={register}
             value={watchAllFields.password}
           />
+          {!typeFormLogin && (
+            <InputText
+              title='Подтвердите пароль'
+              label='password_repeat'
+              type='password'
+              id='password_repeat'
+              option={{
+                required: 'Поле обязательно к заполнению',
+                validate: (value) =>
+                  value === watchAllFields.password || 'Пароли не совпадают',
+              }}
+              error={errors.password_repeat}
+              register={register}
+              value={watchAllFields.password_repeat}
+            />
+          )}
         </div>
 
         <div className='mt-12 w-full md:mt-16'>
