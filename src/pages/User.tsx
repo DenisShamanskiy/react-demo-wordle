@@ -18,9 +18,9 @@ const User: FC<UserProps> = ({ showNotify }) => {
   const { data, isLoading } = useGetUserQuery(id!)
   const [deleteUser, { isLoading: isLoadDeleteUser }] = useDeleteUserMutation()
 
-  const handleDeleteUser = async (word: string) => {
+  const handleDeleteUser = async (id: string) => {
     try {
-      const response = await deleteUser(word).unwrap()
+      const response = await deleteUser(id).unwrap()
       if (response.errors) {
         showNotify('notify-failure', `${response.errors[0]}`)
         return
@@ -36,6 +36,10 @@ const User: FC<UserProps> = ({ showNotify }) => {
     <section className='mx-auto flex w-11/12 max-w-[380px] select-none flex-col items-center justify-center md:max-w-[448px]'>
       {isLoading ? (
         <Loader />
+      ) : !data ? (
+        <h2 className='text-center text-base font-bold text-w-quartz dark:text-w-white-dark md:text-xl'>
+          Здесь никого нет
+        </h2>
       ) : (
         <>
           <h2 className='text-center text-base font-bold text-w-quartz dark:text-w-white-dark md:text-xl'>
