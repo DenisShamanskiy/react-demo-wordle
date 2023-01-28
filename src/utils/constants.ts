@@ -1,7 +1,9 @@
 import { BoardRow } from 'types/store'
 
-// export const API_URL = 'http://localhost:3002/api'
-export const API_URL = 'https://react-demo-wordle-api.vercel.app/api'
+export const API_URL =
+  process.env.NODE_ENV !== 'development'
+    ? process.env['REACT_APP_API_URL_PRODUCTION']
+    : process.env['REACT_APP_API_URL']
 
 export const exampleRules = [
   {

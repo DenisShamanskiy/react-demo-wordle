@@ -1,5 +1,6 @@
+import ButtonIcon from 'components/ButtonIcon'
 import { IFormValues } from 'models/IFormValues'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import {
   FieldError,
   Path,
@@ -36,25 +37,41 @@ const InputText: FC<InputTextProps> = ({
   maxLength,
   placeholder,
 }): JSX.Element => {
+  const [isShowPassword, setShowPassword] = useState('password')
+  const toggleShowPassword = () => {
+    setShowPassword(isShowPassword === 'password' ? 'text' : 'password')
+    console.log(isShowPassword)
+  }
+
   return (
     <div className='relative w-full'>
       <input
         {...register(label, option)}
         id={id}
-        type={type}
+        type={type !== 'password' ? type : isShowPassword}
         autoComplete={autoComplete}
         maxLength={maxLength}
         placeholder={placeholder}
-        className={`peer relative z-10 box-border h-10 w-full border-none bg-transparent p-2.5 text-base font-semibold tracking-wider text-w-black outline-none autofill:rounded autofill:border-2 autofill:border-solid autofill:border-w-green dark:text-w-black autofill:dark:border-none dark:focus:text-w-black md:h-12 md:text-lg ${
+        className={`peer relative z-10 box-border h-10 w-full border-none bg-transparent ${
+          type === 'password' ? 'p-2.5 pr-10' : 'p-2.5'
+        } text-base font-semibold tracking-wider text-w-black outline-none autofill:rounded dark:text-w-white-dark autofill:dark:border-none dark:focus:text-w-white-dark md:h-12 md:text-lg ${
           title
             ? 'mt-1.5 md:mt-2.5'
             : `placeholder-w-quartz placeholder-opacity-50 dark:placeholder-w-white-dark dark:placeholder-opacity-50 ${
                 error
-                  ? 'dark:placeholder-w-black dark:placeholder-opacity-50'
-                  : 'dark:focus:placeholder-w-black dark:focus:placeholder-opacity-50'
+                  ? 'dark:placeholder-opacity-50'
+                  : 'dark:focus:placeholder-w-white-dark dark:focus:placeholder-opacity-50'
               }`
         }`}
       ></input>
+      {type === 'password' && (
+        <ButtonIcon
+          icon={isShowPassword === 'password' ? 'eye' : 'eye-off'}
+          size={'xs'}
+          position='password'
+          onClick={() => toggleShowPassword()}
+        />
+      )}
       {title ? (
         <label
           htmlFor={id}
@@ -68,7 +85,7 @@ const InputText: FC<InputTextProps> = ({
         </label>
       ) : null}
       <span
-        className={`pointer-events-none absolute left-0 bottom-0 z-[9] w-full rounded bg-[#CBDFF8] transition-all duration-500 peer-focus:h-10 dark:bg-w-white-dark md:peer-focus:h-12 ${
+        className={`pointer-events-none absolute left-0 bottom-0 z-[9] w-full rounded bg-w-grey-tone-2 transition-all duration-500 peer-focus:h-10 dark:bg-w-grey-tone-3 md:peer-focus:h-12 ${
           value || error || fill ? 'h-10 md:h-12' : 'h-0.5'
         }`}
       ></span>
