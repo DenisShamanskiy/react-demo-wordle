@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import Heading from 'components/micro-components/Heading'
 import { useNavigate } from 'react-router-dom'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -20,6 +20,7 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
     formState: { errors, isValid, isDirty },
     handleSubmit,
     watch,
+    reset,
   } = useForm<IFormValues>({
     mode: 'onBlur',
   })
@@ -64,6 +65,14 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
   const onSubmit: SubmitHandler<AuthForm> = (data) => {
     typeFormLogin ? handleSignin(data) : handleSignup(data)
   }
+  const [type, setType] = useState('password')
+  const toggleTypeInput = () => {
+    setType(type === 'password' ? 'text' : 'password')
+  }
+
+  useEffect(() => {
+    reset()
+  }, [typeFormLogin])
 
   return (
     <section className='mx-auto w-full max-w-xs select-none md:max-w-sm'>
@@ -111,6 +120,7 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
             label='email'
             type='email'
             id='email'
+            autoComplete={typeFormLogin ? 'on' : 'off'}
             option={{
               required: 'Поле обязательно к заполнению',
               pattern: {
@@ -126,8 +136,9 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
           <InputText
             title='Пароль'
             label='password'
-            type='password'
+            type={type}
             id='password'
+            autoComplete={typeFormLogin ? 'on' : 'off'}
             option={{
               required: 'Поле обязательно к заполнению',
               minLength: {
@@ -138,12 +149,13 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
             error={errors.password}
             register={register}
             value={watchAllFields.password}
+            onClick={toggleTypeInput}
           />
           {!typeFormLogin && (
             <InputText
               title='Подтвердите пароль'
               label='password_repeat'
-              type='password'
+              type={type}
               id='password_repeat'
               option={{
                 required: 'Поле обязательно к заполнению',
@@ -153,6 +165,7 @@ const Auth: FC<AuthProps> = ({ showNotify }) => {
               error={errors.password_repeat}
               register={register}
               value={watchAllFields.password_repeat}
+              onClick={toggleTypeInput}
             />
           )}
         </div>

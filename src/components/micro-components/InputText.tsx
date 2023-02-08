@@ -1,6 +1,6 @@
 import ButtonIcon from 'components/ButtonIcon'
 import { IFormValues } from 'models/IFormValues'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import {
   FieldError,
   Path,
@@ -21,6 +21,7 @@ type InputTextProps = {
   autoComplete?: string
   maxLength?: number
   placeholder?: string
+  onClick?: () => void
 }
 
 const InputText: FC<InputTextProps> = ({
@@ -36,19 +37,14 @@ const InputText: FC<InputTextProps> = ({
   autoComplete,
   maxLength,
   placeholder,
+  onClick,
 }): JSX.Element => {
-  const [isShowPassword, setShowPassword] = useState('password')
-  const toggleShowPassword = () => {
-    setShowPassword(isShowPassword === 'password' ? 'text' : 'password')
-    console.log(isShowPassword)
-  }
-
   return (
     <div className='relative w-full'>
       <input
         {...register(label, option)}
         id={id}
-        type={type !== 'password' ? type : isShowPassword}
+        type={type}
         autoComplete={autoComplete}
         maxLength={maxLength}
         placeholder={placeholder}
@@ -64,12 +60,12 @@ const InputText: FC<InputTextProps> = ({
               }`
         }`}
       ></input>
-      {type === 'password' && (
+      {['password', 'password_repeat'].includes(id) && (
         <ButtonIcon
-          icon={isShowPassword === 'password' ? 'eye' : 'eye-off'}
+          icon={type === 'password' ? 'eye' : 'eye-off'}
           size={'xs'}
           position='password'
-          onClick={() => toggleShowPassword()}
+          onClick={onClick!}
         />
       )}
       {title ? (
