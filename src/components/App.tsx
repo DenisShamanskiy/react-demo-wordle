@@ -38,12 +38,17 @@ import AdminUserList from 'pages/AdminUserList'
 import User from 'pages/User'
 import NotFoundPage from 'pages/NotFoundPage'
 import useNotification from 'hook/useNotification'
+import useEncryption from 'hook/useEncryption'
+import { getRandomWord } from 'utils/helpers'
 
 const App = () => {
   const styleHeight = {
     height: `${useCurrentHeight()}px`,
   }
   const dispatch = useAppDispatch()
+  const { encryptValue, decryptValue } = useEncryption(
+    process.env['REACT_APP_CRYPTO_KEY']!,
+  )
   const { isSuccess } = useGetWordsQuery()
   const { isLoading: isLoadingCheckAuth } = useCheckAuthQuery(null)
 
@@ -72,7 +77,7 @@ const App = () => {
     indexColorArray: number[],
   ) => {
     dispatch(addDataHardMode({ lettersHardMode, currentGuessStr }))
-    if (currentGuessStr === currentWord) {
+    if (currentGuessStr === decryptValue(currentWord)) {
       dispatch(setRelultGame('WIN'))
       await updateStatistics({ result: 'WIN', currentRowIndex })
 
@@ -123,11 +128,13 @@ const App = () => {
     }
     const indexColorArray: number[] = []
     for (let i = 0; i < 5; i++) {
-      indexColorArray.push(currentWord.indexOf(currentGuess[i]!))
+      indexColorArray.push(decryptValue(currentWord).indexOf(currentGuess[i]!))
     }
     const lettersHardMode = [
       ...new Set(
-        [...currentWord].filter((letter) => currentGuess.includes(letter)),
+        [...decryptValue(currentWord)].filter((letter) =>
+          currentGuess.includes(letter),
+        ),
       ),
     ]
 
@@ -174,7 +181,7 @@ const App = () => {
       dispatch(getLocalGameData())
     } else {
       if (isSuccess) {
-        dispatch(initialGame())
+        dispatch(initialGame(encryptValue(getRandomWord(words))))
       }
     }
   }, [isSuccess])

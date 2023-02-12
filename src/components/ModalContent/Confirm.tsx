@@ -8,12 +8,20 @@ import { resetDataHardMode } from 'redux/features/settingsSlice'
 import { hideNewGame } from 'redux/features/newGameSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import useUpdateStats from 'hook/useUpdateStatistics'
+import { getRandomWord } from 'utils/helpers'
+import useEncryption from 'hook/useEncryption'
 
 const Confirm: FC = (): JSX.Element => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const { encryptValue, decryptValue } = useEncryption(
+    process.env['REACT_APP_CRYPTO_KEY']!,
+  )
 
   const { title, type, description } = useAppSelector((state) => state.modal)
+  const {
+    word: { words, currentWord },
+  } = useAppSelector((state) => state.game)
 
   const goHome = () => navigate('/', { replace: true })
 
@@ -22,7 +30,12 @@ const Confirm: FC = (): JSX.Element => {
   const handleConfirm = async (type: string) => {
     if (type === 'NewGame') {
       goHome()
-      dispatch(restartGame())
+      dispatch(
+        restartGame({
+          currentWord: encryptValue(getRandomWord(words)),
+          previousWord: decryptValue(currentWord),
+        }),
+      )
       dispatch(resetDataHardMode())
       dispatch(closeModal())
       dispatch(hideNewGame())

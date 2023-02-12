@@ -31,9 +31,8 @@ const gameSlice = createSlice({
       state.nextLetter = localData.nextLetter
       state.word = localData.word
     },
-    initialGame(state) {
-      state.word.currentWord =
-        state.word.words[Math.floor(Math.random() * state.word.words.length)]!
+    initialGame(state, actions) {
+      state.word.currentWord = actions.payload
       localStorage.setItem('game', JSON.stringify(state))
     },
     setStatusGame(state, action) {
@@ -57,16 +56,15 @@ const gameSlice = createSlice({
       }
       localStorage.setItem('game', JSON.stringify(state))
     },
-    restartGame(state) {
+    restartGame(state, actions) {
       state.board = board
       state.currentGuess = []
       state.currentRowIndex = 0
       state.gameStatus = 'IN_GAME'
       state.keyBoard = keyBoard
       state.nextLetter = 0
-      state.word.previousWord = state.word.currentWord
-      state.word.currentWord =
-        state.word.words[Math.floor(Math.random() * state.word.words.length)]!
+      state.word.previousWord = actions.payload.previousWord
+      state.word.currentWord = actions.payload.currentWord
       localStorage.setItem('game', JSON.stringify(state))
     },
     addLetterBoard(state, actions) {
@@ -143,7 +141,6 @@ const gameSlice = createSlice({
       wordsApi.endpoints.getWords.matchFulfilled,
       (state, { payload }) => {
         state.word.words = payload
-        localStorage.setItem('game', JSON.stringify(state))
       },
     )
   },

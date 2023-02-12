@@ -2,7 +2,7 @@ import Button from 'components/Button'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import { useNavigate } from 'react-router-dom'
 import { logout } from 'redux/features/userSlice'
-import { restartGame } from 'redux/features/gameSlice'
+// import { restartGame } from 'redux/features/gameSlice'
 import { resetDataHardMode } from 'redux/features/settingsSlice'
 import Heading from 'components/micro-components/Heading'
 import { useSignoutMutation } from 'redux/api/authApi'
@@ -25,7 +25,7 @@ const Profile = () => {
     dispatch(logout())
     localStorage.removeItem('user')
     goAuth()
-    dispatch(restartGame())
+    // dispatch(restartGame())
     dispatch(resetDataHardMode())
   }
 

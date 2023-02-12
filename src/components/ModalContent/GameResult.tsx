@@ -4,9 +4,11 @@ import win from '../../assets/gif/win.gif'
 import leave from '../../assets/gif/leave.gif'
 import fail from '../../assets/gif/fail.gif'
 import ButtonIcon from 'components/ButtonIcon'
+import useEncryption from 'hook/useEncryption'
 
 const GameResult = () => {
   const dispatch = useAppDispatch()
+  const { decryptValue } = useEncryption(process.env['REACT_APP_CRYPTO_KEY']!)
   const rightGuess = useAppSelector((state) => state.game.word.currentWord)
   const title = useAppSelector((state) => state.modal.title)
 
@@ -50,7 +52,7 @@ const GameResult = () => {
             Загаданное слово
           </p>
           <ul className='mx-auto grid w-fit grid-cols-5 gap-x-1 py-2 md:py-4'>
-            {[...rightGuess].map((letter, index) => {
+            {[...decryptValue(rightGuess)].map((letter, index) => {
               return (
                 <li
                   className='flex h-9 w-9 items-center justify-center bg-w-green font-["Bitter"] text-2xl font-extrabold uppercase text-w-white dark:bg-w-green-dark md:h-11 md:w-11 md:text-3xl'

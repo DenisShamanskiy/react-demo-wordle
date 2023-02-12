@@ -2,7 +2,7 @@ import Example from 'components/micro-components/Example'
 import Heading2 from 'components/micro-components/Heading'
 import Paragraph from 'components/micro-components/Paragraph'
 import { exampleRules } from 'utils/constants'
-import { numWord } from 'utils/formate'
+import { numWord } from 'utils/helpers'
 import { useAppSelector } from 'utils/hook'
 
 const Rules = () => {

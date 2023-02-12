@@ -1,4 +1,4 @@
-export function numWord(value: number) {
+export const numWord = (value: number) => {
   const words = ['слово', 'слова', 'слов']
   value = Math.abs(value) % 100
   const num = value % 10
@@ -6,4 +6,9 @@ export function numWord(value: number) {
   if (num > 1 && num < 5) return words[1]
   if (num === 1) return words[0]
   return words[2]
+}
+
+export const getRandomWord = (words: string[]): string => {
+  const randomIndex = Math.floor(Math.random() * words.length)
+  return words[randomIndex]!
 }
