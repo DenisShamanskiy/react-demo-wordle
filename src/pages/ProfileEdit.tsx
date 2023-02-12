@@ -1,6 +1,7 @@
 import Button from 'components/Button'
 import Heading from 'components/micro-components/Heading'
 import InputText from 'components/micro-components/InputText'
+import useNotification from 'hook/useNotification'
 import { IFormValues } from 'models/IFormValues'
 import { FC, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -8,11 +9,8 @@ import { useUpdateProfileMutation } from 'redux/api/userApi'
 import { emailRegex } from 'utils/constants'
 import { useAppSelector } from 'utils/hook'
 
-type ProfileEditProps = {
-  showNotify: (type: string, message: string) => void
-}
-
-const ProfileEdit: FC<ProfileEditProps> = ({ showNotify }) => {
+const ProfileEdit: FC = () => {
+  const showNotify = useNotification()
   const { id, email, username } = useAppSelector((state) => state.user)
   const {
     register,

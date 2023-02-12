@@ -3,7 +3,7 @@ import UserListItem from 'components/UserListItem'
 import { Link } from 'react-router-dom'
 import { useGetUsersQuery } from 'redux/api/userApi'
 
-const AdminUsers = () => {
+const AdminUserList = () => {
   const { data, isLoading } = useGetUsersQuery()
 
   return (
@@ -38,4 +38,4 @@ const AdminUsers = () => {
   )
 }
 
-export default AdminUsers
+export default AdminUserList

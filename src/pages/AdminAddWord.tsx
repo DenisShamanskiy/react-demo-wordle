@@ -1,17 +1,15 @@
 import Button from 'components/Button'
 import Heading from 'components/micro-components/Heading'
 import InputText from 'components/micro-components/InputText'
+import useNotification from 'hook/useNotification'
 import { IFormValues } from 'models/IFormValues'
 import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAddWordMutation } from 'redux/api/wordsApi'
 import { ruRegex } from 'utils/constants'
 
-type AdminAddWordProps = {
-  showNotify: (type: string, message: string) => void
-}
-
-const AdminAddWord: FC<AdminAddWordProps> = ({ showNotify }) => {
+const AdminAddWord: FC = () => {
+  const showNotify = useNotification()
   const [addNewWord, { isLoading }] = useAddWordMutation()
   const {
     register,

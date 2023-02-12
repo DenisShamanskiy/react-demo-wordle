@@ -1,15 +1,13 @@
 import InputText from 'components/micro-components/InputText'
 import Word from 'components/Word'
+import useNotification from 'hook/useNotification'
 import { IFormValues } from 'models/IFormValues'
 import { FC, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAppSelector } from 'utils/hook'
 
-type AdminWordsProps = {
-  showNotify: (type: string, message: string) => void
-}
-
-const AdminWords: FC<AdminWordsProps> = ({ showNotify }) => {
+const AdminWords: FC = () => {
+  const showNotify = useNotification()
   const { register, handleSubmit, watch, reset } = useForm<IFormValues>()
   const watchAllFields = watch()
 

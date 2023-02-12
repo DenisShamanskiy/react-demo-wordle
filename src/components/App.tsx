@@ -34,9 +34,10 @@ import { openModal } from 'redux/features/modalSlice'
 import { useCheckAuthQuery } from 'redux/api/authApi'
 import useUpdateStatistics from 'hook/useUpdateStatistics'
 import Statistics from 'pages/Statistics'
-import AdminUsers from 'pages/AdminUsers'
+import AdminUserList from 'pages/AdminUserList'
 import User from 'pages/User'
 import NotFoundPage from 'pages/NotFoundPage'
+import useNotification from 'hook/useNotification'
 
 const App = () => {
   const styleHeight = {
@@ -63,6 +64,7 @@ const App = () => {
 
   const path = useLocation()
   const { updateStatistics } = useUpdateStatistics()
+  const showNotify = useNotification()
 
   const handleGuess = async (
     lettersHardMode: string[],
@@ -107,17 +109,6 @@ const App = () => {
     } else {
       handleGuess(lettersHardMode, currentGuessStr, indexColorArray)
     }
-  }
-  const showNotify = (type: string, message: string) => {
-    if (!visible) {
-      dispatch(
-        showNotification({
-          type: type,
-          message: message,
-        }),
-      )
-    }
-    return
   }
   const checkGuess = () => {
     const currentGuessStr = currentGuess.join('')
@@ -227,7 +218,7 @@ const App = () => {
             path='admin/users/:id'
             element={
               <ProtectedRoute role='ADMIN'>
-                <User showNotify={showNotify} />
+                <User />
               </ProtectedRoute>
             }
           />
@@ -235,7 +226,7 @@ const App = () => {
             path='admin/users'
             element={
               <ProtectedRoute role='ADMIN'>
-                <AdminUsers />
+                <AdminUserList />
               </ProtectedRoute>
             }
           />
@@ -243,7 +234,7 @@ const App = () => {
             path='admin/words'
             element={
               <ProtectedRoute role='ADMIN'>
-                <AdminWords showNotify={showNotify} />
+                <AdminWords />
               </ProtectedRoute>
             }
           />
@@ -251,7 +242,7 @@ const App = () => {
             path='admin/add-word'
             element={
               <ProtectedRoute role='ADMIN'>
-                <AdminAddWord showNotify={showNotify} />
+                <AdminAddWord />
               </ProtectedRoute>
             }
           />
@@ -267,7 +258,7 @@ const App = () => {
             path='profile/edit'
             element={
               <ProtectedRoute role='USER' redirectPath={'/auth'}>
-                <ProfileEdit showNotify={showNotify} />
+                <ProfileEdit />
               </ProtectedRoute>
             }
           />
@@ -279,7 +270,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route path='auth' element={<Auth showNotify={showNotify} />} />
+          <Route path='auth' element={<Auth />} />
           <Route path='rules' element={<Rules />} />
           <Route path='settings' element={<Settings />} />
         </Route>

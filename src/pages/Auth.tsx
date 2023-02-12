@@ -7,12 +7,10 @@ import InputText from 'components/micro-components/InputText'
 import { AuthForm, IFormValues } from 'models/IFormValues'
 import { emailRegex } from 'utils/constants'
 import { useSigninMutation, useSignupMutation } from 'redux/api/authApi'
+import useNotification from 'hook/useNotification'
 
-type AuthProps = {
-  showNotify: (type: string, message: string) => void
-}
-
-const Auth: FC<AuthProps> = ({ showNotify }) => {
+const Auth: FC = () => {
+  const showNotify = useNotification()
   const navigate = useNavigate()
 
   const {
