@@ -23,6 +23,7 @@
     scrollbar-width: none; /* Firefox */
   }
 }
+
 @layer components {
   .button-key {
     @apply flex h-[48px] cursor-pointer items-center justify-center rounded border-b text-base font-bold uppercase active:scale-95 active:border-none dark:border-none md:text-xl;
@@ -38,5 +39,18 @@
   }
   .loader-circle-after {
     @apply after:absolute after:top-0 after:left-0 after:block after:h-[70px] after:w-[70px] after:animate-loaderCircleScaleAfter after:rounded-full after:border-4 after:border-w-grey-tone-2 after:opacity-0 dark:after:border-w-grey-tone-3;
+  }
+
+  .signin-active {
+    @apply border-w-green dark:border-w-green-dark;
+  }
+  .signin-inactive {
+    @apply border-transparent;
+  }
+  .signup-active {
+    @apply border-w-blue dark:border-w-blue-dark;
+  }
+  .signup-inactive {
+    @apply border-transparent;
   }
 }

@@ -1,0 +1,24 @@
+.form-animation-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.form-animation-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.form-animation-exit {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.form-animation-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.form-animation-exit-active,
+.form-animation-enter-active {
+  transition: opacity 500ms, transform 500ms;
+}

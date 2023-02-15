@@ -2,8 +2,6 @@
 
 Wordle - это веб-приложение, которое предлагает пользователям испытать свои навыки в запоминании слов.
 
-Поиграть можно на [Github Pages](https://denisshamanskiy.github.io/react-demo-wordle/)
-
 ## Демо
 
 Демонстрацию проекта можно посмотреть на [Vercel](https://react-demo-wordle.vercel.app/)
