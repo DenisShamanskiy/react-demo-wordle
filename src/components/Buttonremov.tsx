@@ -12,11 +12,22 @@ interface IButtonProps {
   isRounded?: boolean
 }
 
-const getColorClasses = (disabled?: boolean): string => {
+const getColorClasses = (color: string, disabled?: boolean): string => {
   if (disabled) {
     return 'disabled:border-w-disabled dark:disabled:border-w-disabled-dark disabled:text-w-disabled dark:disabled:text-w-disabled-dark'
   } else {
-    return 'border-w-white text-w-quartz shadow-inactive hover:text-w-blue-dark active:shadow-active dark:border-w-black dark:text-w-white-dark dark:shadow-inactiveDark dark:hover:text-w-yellow-dark dark:active:shadow-activeDark'
+    switch (color) {
+      case 'green':
+        return 'border-w-green bg-w-green hover:border-w-green dark:border-w-green-dark dark:bg-w-green-dark dark:hover:border-w-green-dark'
+      case 'yellow':
+        return 'border-w-yellow bg-w-yellow hover:border-w-yellow dark:border-w-yellow-dark dark:bg-w-yellow-dark dark:hover:border-w-yellow-dark'
+      case 'red':
+        return 'border-w-red bg-w-red hover:border-w-red dark:border-w-red-dark dark:bg-w-red-dark dark:hover:border-w-red-dark'
+      case 'blue':
+        return 'border-w-blue bg-w-blue hover:border-w-blue dark:border-w-blue-dark dark:bg-w-blue-dark dark:hover:border-w-blue-dark'
+      default:
+        return ''
+    }
   }
 }
 
@@ -39,7 +50,7 @@ const getRoundedClasses = (isRounded: boolean | undefined): string =>
   isRounded ? 'rounded-full' : 'rounded'
 
 const BASE_BUTTON_CLASSES =
-  'inline-block h-10 border text-sm font-medium uppercase transition-all duration-500 md:h-12 md:w-56 md:text-base'
+  'inline-block h-10 border-2 text-sm font-medium text-w-white transition-all duration-300 hover:bg-transparent hover:text-w-quartz dark:text-w-black dark:hover:bg-transparent dark:hover:text-w-white-dark md:h-12 md:text-lg'
 
 const Button: FC<IButtonProps> = ({
   type,
@@ -52,7 +63,7 @@ const Button: FC<IButtonProps> = ({
   isRounded,
 }) => {
   const computedClasses = useMemo(() => {
-    const colorClass = getColorClasses(disabled)
+    const colorClass = getColorClasses(color!, disabled)
     const sizeClass = getSizeClasses(size)
     const roundedClass = getRoundedClasses(isRounded)
     return [colorClass, sizeClass, roundedClass].join(' ')

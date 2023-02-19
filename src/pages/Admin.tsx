@@ -3,9 +3,9 @@ import Heading from 'components/micro-components/Heading'
 
 const Admin = () => {
   return (
-    <section className='mx-auto w-11/12 max-w-[380px] select-none md:max-w-[448px] '>
+    <section className='scrollbar-hide mx-auto h-5/6 w-full max-w-[380px] select-none overflow-y-auto md:max-w-[448px] '>
       <Heading>Администратор</Heading>
-      <div className='mt-8 flex w-full flex-col justify-center gap-5 md:mt-10 md:gap-6'>
+      <div className='mx-auto flex w-11/12 flex-col justify-center gap-5 md:mt-10 md:gap-6'>
         <CustomLink to={'/admin/users'} icon='people'>
           Игроки
         </CustomLink>

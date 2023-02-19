@@ -27,17 +27,17 @@ export const NewGame = () => {
   return (
     <div
       ref={squareBoxRef}
-      className={`absolute left-2 top-2 z-50 h-fit origin-top-left rounded-md border border-white/80 bg-white/10 p-4 shadow-glossWhite backdrop-blur-xl transition-all duration-500 dark:border-black/80 dark:bg-black/10 dark:shadow-glossBlack md:p-6 ${
+      className={`absolute left-2 top-2 z-50 h-fit origin-top-left rounded-xl border border-white/80 bg-white/10 p-4 shadow-glossWhite backdrop-blur-xl transition-all duration-500 dark:border-black/80 dark:bg-black/10 dark:shadow-glossBlack md:p-6 ${
         show ? 'animate-newGameShow' : 'animate-newGameHide'
       } `}
     >
       <section className='mx-auto w-11/12 max-w-[448px] select-none'>
-        <div className=' mx-auto  grid w-full grid-rows-2 justify-center gap-y-2   md:gap-y-3 '>
+        <div className=' mx-auto  grid w-full grid-rows-2 justify-center gap-y-2 md:gap-y-3 '>
           <Button
             type='button'
             text={'Новая игра'}
-            color='green'
             size='m'
+            isRounded
             onClick={() =>
               dispatch(
                 openModal({
@@ -52,8 +52,8 @@ export const NewGame = () => {
           <Button
             type='button'
             text={'Сдаться'}
-            color='yellow'
             size='m'
+            isRounded
             onClick={() =>
               dispatch(
                 openModal({

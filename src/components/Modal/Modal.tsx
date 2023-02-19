@@ -49,7 +49,7 @@ function Modal() {
           onClick={() => dispatch(closeModal())}
         >
           <div
-            className={`w-fit max-w-lg rounded-xl border border-[#f6f7f8] bg-w-white p-6 shadow-modal dark:border-[#1a1a1b] dark:bg-[#1e1e20] md:p-8 ${
+            className={`w-fit max-w-lg rounded-xl border border-[#f6f7f8] bg-w-white p-6 shadow-modal dark:border-[#1a1a1b] dark:bg-[#1e1e20] dark:shadow-modalDark md:p-8 ${
               open ? 'animate-modalOpen' : 'animate-modalClosed'
             }`}
             onClick={(event) => event.stopPropagation()}

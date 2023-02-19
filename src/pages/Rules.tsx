@@ -9,7 +9,7 @@ const Rules = () => {
   const words = useAppSelector((state) => state.game.word.words)
 
   return (
-    <section className='mx-auto w-11/12 max-w-xl select-none md:w-full md:max-w-2xl'>
+    <section className='mx-auto h-5/6 w-11/12 max-w-xl select-none md:w-full md:max-w-2xl'>
       <Heading2>Как играть</Heading2>
       <div className='mt-8 md:mt-10'>
         <Paragraph>

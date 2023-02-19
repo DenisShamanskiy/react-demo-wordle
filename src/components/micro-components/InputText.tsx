@@ -49,8 +49,8 @@ const InputText: FC<InputTextProps> = ({
         maxLength={maxLength}
         placeholder={placeholder}
         className={`peer relative z-10 box-border h-10 w-full border-none bg-transparent ${
-          type === 'password' ? 'p-2.5 pr-10' : 'p-2.5'
-        } text-base font-semibold tracking-wider text-w-black outline-none autofill:rounded dark:text-w-white-dark autofill:dark:border-none dark:focus:text-w-white-dark md:h-12 md:text-lg ${
+          type === 'password' ? 'py-2.5 pr-10 pl-5' : 'py-2.5 px-5'
+        } text-base font-semibold tracking-wider text-w-black outline-none autofill:rounded-full dark:text-w-white-dark autofill:dark:border-none dark:focus:text-w-white-dark md:h-12 md:text-lg ${
           title
             ? 'mt-1.5 md:mt-2.5'
             : `placeholder-w-quartz placeholder-opacity-50 dark:placeholder-w-white-dark dark:placeholder-opacity-50 ${
@@ -81,7 +81,7 @@ const InputText: FC<InputTextProps> = ({
         </label>
       ) : null}
       <span
-        className={`pointer-events-none absolute left-0 bottom-0 z-[9] w-full rounded bg-w-grey-tone-2 transition-all duration-500 peer-focus:h-10 dark:bg-w-grey-tone-3 md:peer-focus:h-12 ${
+        className={`pointer-events-none absolute left-0 bottom-0 z-[9] w-full rounded-full bg-w-grey-tone-2 transition-all duration-500 peer-focus:h-10 dark:bg-w-grey-tone-3 md:peer-focus:h-12 md:peer-focus:w-full  ${
           value || error || fill ? 'h-10 md:h-12' : 'h-0.5'
         }`}
       ></span>

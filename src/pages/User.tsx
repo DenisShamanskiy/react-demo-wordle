@@ -31,7 +31,7 @@ const User: FC = () => {
   }
 
   return (
-    <section className='mx-auto flex w-11/12 max-w-[380px] select-none flex-col items-center justify-center md:max-w-[448px]'>
+    <section className='mx-auto flex h-5/6 w-11/12 max-w-[380px] flex-col items-center md:max-w-[448px]'>
       {isLoading ? (
         <Loader />
       ) : !data ? (
@@ -44,13 +44,13 @@ const User: FC = () => {
             id: {data?.id}
           </h2>
           <div className='my-8 flex w-full flex-col gap-3 md:my-10'>
-            <div className='flex h-10 rounded-lg border-2 border-w-grey-tone-2 text-w-quartz dark:border-w-grey-tone-3 dark:text-w-white-dark md:h-12'>
+            <div className='flex h-10 rounded-2xl border-2 border-w-grey-tone-2 text-w-quartz dark:border-w-grey-tone-3 dark:text-w-white-dark md:h-12'>
               <p className='flex w-32 items-center pl-4 font-semibold'>Имя</p>
               <p className='m-auto flex items-center font-semibold'>
                 {data?.username}
               </p>
             </div>
-            <div className='flex h-10 rounded-lg border-2 border-w-grey-tone-2 font-semibold text-w-quartz dark:border-w-grey-tone-3 dark:text-w-white-dark md:h-12'>
+            <div className='flex h-10 rounded-2xl border-2 border-w-grey-tone-2 font-semibold text-w-quartz dark:border-w-grey-tone-3 dark:text-w-white-dark md:h-12'>
               <p className='flex w-32 items-center pl-4 font-semibold'>
                 Email
                 <span className='ml-1 w-4'>
@@ -62,7 +62,7 @@ const User: FC = () => {
               </p>
               <p className='m-auto flex items-center'>{data?.email}</p>
             </div>
-            <div className='flex h-10 rounded-lg border-2 border-w-grey-tone-2 text-w-quartz dark:border-w-grey-tone-3 dark:text-w-white-dark md:h-12'>
+            <div className='flex h-10 rounded-2xl border-2 border-w-grey-tone-2 text-w-quartz dark:border-w-grey-tone-3 dark:text-w-white-dark md:h-12'>
               <p className='flex w-32 items-center pl-4 font-semibold'>Роли</p>
               <p className='m-auto flex items-center font-semibold'>
                 {data?.roles.join(', ')}
@@ -73,10 +73,10 @@ const User: FC = () => {
             type={'button'}
             text={'Удалить'}
             size={'s'}
-            color='red'
             onClick={() => handleDeleteUser(id!)}
             disabled={isLoadDeleteUser}
             isLoading={isLoadDeleteUser}
+            isRounded
           />
         </>
       )}

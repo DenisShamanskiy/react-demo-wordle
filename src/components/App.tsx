@@ -23,10 +23,10 @@ import {
 } from 'redux/features/settingsSlice'
 import Notification from './Notification'
 import Layout from './Layout'
-import ProfileEdit from 'pages/ProfileEdit'
+import ProfileEditForm from 'pages/ProfileEditForm'
 import Profile from 'pages/Profile'
 import Admin from 'pages/Admin'
-import AdminWords from 'pages/AdminWords'
+import AdminWordsList from 'pages/AdminWordsList'
 import AdminAddWord from 'pages/AdminAddWord'
 import ProtectedRoute from './ProtectedRoute'
 import { useGetWordsQuery } from 'redux/api/wordsApi'
@@ -241,7 +241,7 @@ const App = () => {
             path='admin/words'
             element={
               <ProtectedRoute role='ADMIN'>
-                <AdminWords />
+                <AdminWordsList />
               </ProtectedRoute>
             }
           />
@@ -265,7 +265,7 @@ const App = () => {
             path='profile/edit'
             element={
               <ProtectedRoute role='USER' redirectPath={'/auth'}>
-                <ProfileEdit />
+                <ProfileEditForm />
               </ProtectedRoute>
             }
           />

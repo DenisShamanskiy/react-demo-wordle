@@ -67,6 +67,7 @@ const Confirm: FC = (): JSX.Element => {
           text={'Нет'}
           color={'red'}
           size='s'
+          isRounded
           onClick={() => dispatch(closeModal())}
         />
         <Button
@@ -74,6 +75,7 @@ const Confirm: FC = (): JSX.Element => {
           text={'Да'}
           color={'blue'}
           size='s'
+          isRounded
           onClick={() => handleConfirm(type!)}
         />
       </div>

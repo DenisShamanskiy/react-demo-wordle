@@ -12,21 +12,21 @@ const Auth: FC = () => {
   const toggleForm = () => setIsSigninForm((prev) => !prev)
 
   return (
-    <section className='mx-auto w-full max-w-xs select-none md:max-w-sm'>
+    <section className='mx-auto h-5/6 w-full max-w-xs select-none md:max-w-sm'>
       <Heading>Авторизация</Heading>
-      <div className='mt-8 flex h-10 items-center md:mt-12 md:h-10'>
+      <div className='mt-8 flex h-10 w-full items-center justify-center rounded-full text-center md:mt-12 md:h-10'>
         <InputRadio
           id='sign-in'
           title='Войти'
           peer
-          customClass='signin-inactive peer-checked:signin-active'
+          customClass='peer-checked:signin-active signin-inactive mr-1'
           checked={isSigninForm}
           onChange={toggleForm}
         />
         <InputRadio
           id='sign-up'
           title='Регистрация'
-          customClass='signup-active peer-checked:signup-inactive'
+          customClass='signup-active peer-checked:signup-inactive ml-1'
           checked={!isSigninForm}
           onChange={toggleForm}
         />

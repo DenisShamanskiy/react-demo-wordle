@@ -45,13 +45,13 @@ const AdminAddWord: FC = () => {
   }
 
   return (
-    <section className='mx-auto w-full max-w-xs select-none md:max-w-sm'>
+    <section className='mx-auto h-5/6 w-full max-w-xs select-none md:max-w-sm'>
       <Heading>Новое слово</Heading>
       <form
-        className='md:nt-16 mt-12 flex w-full'
+        className='mt-12 flex w-full md:mt-16'
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className='relative w-full'>
+        <div className='relative flex w-full flex-col items-center'>
           <InputText
             label='word'
             type='text'
@@ -74,14 +74,14 @@ const AdminAddWord: FC = () => {
             register={register}
             value={watchAllFields.word}
           />
-          <div className='mt-12 w-full md:mt-16'>
+          <div className='mt-12 md:mt-16'>
             <Button
               type='submit'
               disabled={!isDirty || !isValid || isLoading}
               text='Добавить'
-              color='blue'
-              size='full'
+              size='l'
               isLoading={isLoading}
+              isRounded
             />
           </div>
         </div>

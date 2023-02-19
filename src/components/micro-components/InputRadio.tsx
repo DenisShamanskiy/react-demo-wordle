@@ -17,8 +17,7 @@ const InputRadio: FC<InputRadioProps> = ({
   peer,
   customClass,
 }): JSX.Element => {
-  const labelClassName = `ml-2.5 mr-2.5 inline cursor-pointer border-b-2 pb-1 text-left text-sm font-medium uppercase text-w-quartz transition-all duration-500 ease-in-out dark:text-w-white-dark md:pb-2 md:text-lg ${customClass}`
-
+  const labelClassName = `flex h-full w-1/2 cursor-pointer items-center justify-center rounded-full text-sm font-medium uppercase md:text-base ${customClass}`
   return (
     <>
       <input
@@ -29,7 +28,7 @@ const InputRadio: FC<InputRadioProps> = ({
         onChange={onChange}
         className={`${peer ? 'peer hidden' : 'hidden'}`}
       />
-      <label htmlFor={id} className={labelClassName}>
+      <label htmlFor={id} className={`${labelClassName}`}>
         {title}
       </label>
     </>

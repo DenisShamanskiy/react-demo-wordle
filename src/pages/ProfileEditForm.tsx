@@ -9,7 +9,7 @@ import { useUpdateProfileMutation } from 'redux/api/userApi'
 import { emailRegex } from 'utils/constants'
 import { useAppSelector } from 'utils/hook'
 
-const ProfileEdit: FC = () => {
+const ProfileEditForm: FC = () => {
   const showNotify = useNotification()
   const { id, email, username } = useAppSelector((state) => state.user)
   const {
@@ -20,7 +20,7 @@ const ProfileEdit: FC = () => {
     setValue,
     reset,
   } = useForm<IFormValues>({
-    mode: 'onTouched',
+    mode: 'onChange',
   })
 
   const watchAllFields = watch()
@@ -58,25 +58,26 @@ const ProfileEdit: FC = () => {
   }, [username, email])
 
   return (
-    <section className='mx-auto flex h-full w-full max-w-xs select-none flex-col items-center justify-center md:max-w-sm'>
+    <section className='mx-auto flex h-5/6 w-full max-w-xs select-none flex-col items-center md:max-w-sm'>
       <Heading>Изменить профиль</Heading>
       <form
-        className='mt-12 w-full md:mt-16'
+        className='mt-12 flex w-full flex-col items-center justify-center md:mt-16'
         noValidate
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className='grid w-full grid-rows-2 gap-12 md:gap-16'>
+        <div className='mb-12 grid w-full grid-rows-2 gap-12 md:mb-16 md:gap-16'>
           <InputText
             title='Имя'
             label='username'
             type='text'
             id='username'
+            autoComplete='off'
             fill
             option={{
               required: 'Поле обязательно к заполнению',
               minLength: {
-                value: 5,
-                message: 'Минимум 5 символов',
+                value: 1,
+                message: 'Минимум 1 символ',
               },
             }}
             error={errors.username}
@@ -89,6 +90,7 @@ const ProfileEdit: FC = () => {
             label='email'
             type='email'
             id='email'
+            autoComplete='off'
             fill
             option={{
               required: 'Поле обязательно к заполнению',
@@ -103,19 +105,23 @@ const ProfileEdit: FC = () => {
           />
         </div>
 
-        <div className='mt-12 w-full md:mt-16'>
-          <Button
-            type='submit'
-            disabled={!isDirty || !isValid || isLoading}
-            text='Сохранить'
-            color='blue'
-            size='full'
-            isLoading={isLoading}
-          />
-        </div>
+        <Button
+          type='submit'
+          disabled={
+            (username === watchAllFields.username &&
+              email === watchAllFields.email) ||
+            !isDirty ||
+            !isValid ||
+            isLoading
+          }
+          text='Сохранить'
+          size='l'
+          isLoading={isLoading}
+          isRounded
+        />
       </form>
     </section>
   )
 }
 
-export default ProfileEdit
+export default ProfileEditForm

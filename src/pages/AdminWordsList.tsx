@@ -6,7 +6,7 @@ import { FC, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAppSelector } from 'utils/hook'
 
-const AdminWords: FC = () => {
+const AdminWordsList: FC = () => {
   const showNotify = useNotification()
   const { register, handleSubmit, watch, reset } = useForm<IFormValues>()
   const watchAllFields = watch()
@@ -71,4 +71,4 @@ const AdminWords: FC = () => {
   )
 }
 
-export default AdminWords
+export default AdminWordsList

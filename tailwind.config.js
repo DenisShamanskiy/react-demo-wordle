@@ -131,10 +131,18 @@ module.exports = {
         loaderBtn: 'loaderBtn 1s infinite',
       },
       boxShadow: {
-        modal: '0 4px 23px 0 rgb(0 0 0 / 20%)',
-        glossWhite: '0 4px 30px rgba(0, 0, 0, 0.1)',
-        glossBlack: '0 4px 30px rgba(255, 255 ,255, 0.1)',
-        test: '0 47px 8px 0 rgba(9, 9, 9, 0.1) inset',
+        modal: '0 4px 23px 0 #c1d9f0',
+        modalDark: '0 4px 23px 0 rgba(0, 0, 0, 0.8)',
+        glossWhite: '0 4px 30px #c1d9f0',
+        glossBlack: '0 4px 30px rgba(0, 0, 0, 0.8)',
+        active:
+          'inset 0.2rem 0.2rem 0.4rem #d5e0f3, inset -0.3rem -0.3rem 0.4rem #ffffff',
+        inactive:
+          '0.3rem 0.3rem 0.6rem #c1d9f0, -0.2rem -0.2rem 0.5rem #ffffff',
+        activeDark:
+          'inset 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.8), inset -0.2rem -0.2rem 0.3rem rgba(255, 255, 255, 0.1)',
+        inactiveDark:
+          '0.3rem 0.3rem 0.6rem rgba(0, 0, 0, 0.8), -0.2rem -0.2rem 0.5rem rgba(255, 255, 255, 0.1)',
       },
       gridTemplateRows: {
         board: 'repeat(6, 56px)',

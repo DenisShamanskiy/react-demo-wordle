@@ -8,7 +8,7 @@ const Statistics = () => {
   )
 
   return (
-    <section className='mx-auto w-full max-w-sm select-none md:max-w-md'>
+    <section className='mx-auto h-5/6 w-full max-w-sm select-none md:max-w-md'>
       <div className='flex flex-col items-center justify-center'>
         <Heading2>Статистика</Heading2>
         <>

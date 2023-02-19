@@ -30,7 +30,7 @@ const Profile = () => {
   }
 
   return (
-    <section className='mx-auto flex w-11/12 max-w-[380px] select-none flex-col items-center justify-center md:max-w-[448px] '>
+    <section className='mx-auto flex h-5/6 w-11/12 max-w-[380px] select-none flex-col items-center md:max-w-[448px] '>
       <Heading>{username}</Heading>
       <div className='my-8 flex w-full flex-col justify-center gap-5 md:my-10 md:gap-6'>
         <CustomLink to={'/profile/edit'} icon='edit-profile'>
@@ -43,10 +43,10 @@ const Profile = () => {
       <Button
         type='button'
         text={'Выйти'}
-        color={'red'}
         size='m'
         onClick={() => handleLogout()}
         isLoading={isLoading}
+        isRounded
         disabled={isLoading}
       />
     </section>
