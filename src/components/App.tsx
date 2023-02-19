@@ -27,7 +27,7 @@ import ProfileEditForm from 'pages/ProfileEditForm'
 import Profile from 'pages/Profile'
 import Admin from 'pages/Admin'
 import AdminWordsList from 'pages/AdminWordsList'
-import AdminAddWord from 'pages/AdminAddWord'
+import AdminAddWordForm from 'pages/AdminAddWordForm'
 import ProtectedRoute from './ProtectedRoute'
 import { useGetWordsQuery } from 'redux/api/wordsApi'
 import { openModal } from 'redux/features/modalSlice'
@@ -249,7 +249,7 @@ const App = () => {
             path='admin/add-word'
             element={
               <ProtectedRoute role='ADMIN'>
-                <AdminAddWord />
+                <AdminAddWordForm />
               </ProtectedRoute>
             }
           />

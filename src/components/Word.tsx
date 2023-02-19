@@ -1,17 +1,19 @@
+import useNotification from 'hook/useNotification'
 import { IFormValues } from 'models/IFormValues'
 import { FC } from 'react'
-import { UseFormReset } from 'react-hook-form'
+import { UseFormReset } from 'react-hook-form/dist/types/form'
 import { useDeleteWordMutation } from '../redux/api/wordsApi'
 import ButtonIcon from './ButtonIcon'
 
 type WordProps = {
+  style: React.CSSProperties
   index: number
   word: string
   reset: UseFormReset<IFormValues>
-  showNotify: (type: string, message: string) => void
 }
 
-const Word: FC<WordProps> = ({ index, word, showNotify, reset }) => {
+const Word: FC<WordProps> = ({ index, word, style, reset }) => {
+  const showNotify = useNotification()
   const [deleteWord, { isLoading }] = useDeleteWordMutation()
 
   const handleDeleteWord = async (word: string) => {
@@ -30,6 +32,7 @@ const Word: FC<WordProps> = ({ index, word, showNotify, reset }) => {
 
   return (
     <li
+      style={style}
       className={
         'flex h-10 w-full items-center border-b border-w-grey-tone-2 p-1 last-of-type:border-none dark:border-w-grey-tone-3 md:h-12 md:p-2 '
       }

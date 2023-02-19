@@ -1,13 +1,11 @@
 import InputText from 'components/micro-components/InputText'
-import Word from 'components/Word'
-import useNotification from 'hook/useNotification'
+import WordList from 'components/WordList'
 import { IFormValues } from 'models/IFormValues'
 import { FC, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAppSelector } from 'utils/hook'
 
 const AdminWordsList: FC = () => {
-  const showNotify = useNotification()
   const { register, handleSubmit, watch, reset } = useForm<IFormValues>()
   const watchAllFields = watch()
 
@@ -49,19 +47,7 @@ const AdminWordsList: FC = () => {
         </div>
       </form>
       {filterWords!.length ? (
-        <ul className='scrollbar-hide mt-6 box-border flex flex-col items-center overflow-y-auto rounded-md md:mt-8'>
-          {filterWords!.map((word, index) => {
-            return (
-              <Word
-                index={index}
-                word={word}
-                key={index}
-                showNotify={showNotify}
-                reset={reset}
-              />
-            )
-          })}
-        </ul>
+        <WordList words={filterWords} reset={reset} />
       ) : (
         <p className='mt-6 text-center text-sm font-medium text-w-quartz dark:text-w-white-dark md:mt-8 md:text-base'>
           Ничего не найдено

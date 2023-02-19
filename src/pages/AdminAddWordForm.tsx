@@ -8,7 +8,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAddWordMutation } from 'redux/api/wordsApi'
 import { ruRegex } from 'utils/constants'
 
-const AdminAddWord: FC = () => {
+const AdminAddWordForm: FC = () => {
   const showNotify = useNotification()
   const [addNewWord, { isLoading }] = useAddWordMutation()
   const {
@@ -32,7 +32,10 @@ const AdminAddWord: FC = () => {
       }
       showNotify(
         'notify-success',
-        `Слово "${word.toUpperCase()}" успешно добавлено`,
+        `Слово "${word.replace(
+          /^./,
+          word.charAt(0).toUpperCase(),
+        )}" успешно добавлено`,
       )
       reset()
     } catch (error) {
@@ -90,4 +93,4 @@ const AdminAddWord: FC = () => {
   )
 }
 
-export default AdminAddWord
+export default AdminAddWordForm
