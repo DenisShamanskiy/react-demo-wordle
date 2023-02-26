@@ -40,6 +40,9 @@ const Profile = () => {
         <CustomLink to={'/profile/statistics'} icon='stats-chart'>
           Статистика
         </CustomLink>
+        <CustomLink to={'/profile/rating'} icon='star'>
+          Рейтинг
+        </CustomLink>
       </div>
       <Button
         type='button'

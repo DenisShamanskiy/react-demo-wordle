@@ -40,6 +40,7 @@ import NotFoundPage from 'pages/NotFoundPage'
 import useNotification from 'hook/useNotification'
 import useEncryption from 'hook/useEncryption'
 import { getRandomWord } from 'utils/helpers'
+import Rating from 'pages/Rating'
 
 const App = () => {
   const styleHeight = {
@@ -274,6 +275,14 @@ const App = () => {
             element={
               <ProtectedRoute role='USER' redirectPath={'/auth'}>
                 <Statistics />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='profile/rating'
+            element={
+              <ProtectedRoute role='USER' redirectPath={'/rating'}>
+                <Rating />
               </ProtectedRoute>
             }
           />
