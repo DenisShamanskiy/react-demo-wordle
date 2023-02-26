@@ -1,4 +1,4 @@
-import '../css/form-animation.css'
+import '../styles/form-animation.css'
 import { FC, useState } from 'react'
 import { SwitchTransition, CSSTransition } from 'react-transition-group'
 import Signin from '../components/Signin'
