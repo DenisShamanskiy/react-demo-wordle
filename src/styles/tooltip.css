@@ -1,0 +1,30 @@
+.custom-tooltip {
+  color: #49474e;
+  background-color: rgb(242 243 244);
+  border-radius: 0.75rem;
+  border: 1px solid #f6f7f8;
+  box-shadow: 0 2px 9px 0 #c1d9f0;
+  font-weight: 600;
+  z-index: 100;
+}
+
+.custom-tooltip_dark {
+  color: #abaaa9;
+  background-color: rgb(30 30 32);
+  border-radius: 0.75rem;
+  border: 1px solid #1a1a1b;
+  box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .custom-tooltip {
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .custom-tooltip_dark {
+    font-size: 12px;
+    font-weight: 500;
+  }
+}

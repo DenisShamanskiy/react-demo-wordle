@@ -1,12 +1,15 @@
 import { FC, useMemo } from 'react'
 import { useAppSelector } from 'utils/hook'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
+import { Tooltip } from 'react-tooltip'
 
 interface IButtonIconProps {
   icon: string
   position?: 'header' | 'close' | 'password'
   size: 'header' | 'close' | 'xs' | 's' | 'm'
   disabled?: boolean
+  tooltip?: string
+  additionalStyles?: string
   onClick: () => void
 }
 
@@ -41,13 +44,15 @@ const getSizeClasses = (size: string): string => {
 }
 
 const BASE_BUTTON_CLASSES =
-  'inline-block rounded transition duration-300 ease-in-out hover:scale-110 disabled:pointer-events-none disabled:opacity-40'
+  'inline-block rounded transition duration-500 ease-in-out disabled:pointer-events-none disabled:opacity-40'
 
 const ButtonIcon: FC<IButtonIconProps> = ({
   icon,
   position,
   size,
   disabled,
+  tooltip,
+  additionalStyles,
   onClick,
 }) => {
   const darkTheme = useAppSelector((state) => state.settings.darkMode)
@@ -55,18 +60,32 @@ const ButtonIcon: FC<IButtonIconProps> = ({
   const computedClasses = useMemo(() => {
     const positionClass = getPositionClasses(position!)
     const sizeClass = getSizeClasses(size!)
-    return [positionClass, sizeClass].join(' ')
-  }, [position, size])
+    return [
+      positionClass,
+      sizeClass,
+      additionalStyles && additionalStyles,
+    ].join(' ')
+  }, [position, size, additionalStyles])
 
   return (
-    <button
-      type='button'
-      className={`${BASE_BUTTON_CLASSES} ${computedClasses}`}
-      disabled={disabled}
-      onClick={onClick}
-    >
-      {globalSvgSelector(icon, darkTheme)}
-    </button>
+    <>
+      <button
+        type='button'
+        className={`${BASE_BUTTON_CLASSES} ${computedClasses}`}
+        disabled={disabled}
+        onClick={onClick}
+        data-tooltip-id={icon}
+        data-tooltip-content={tooltip}
+        data-tooltip-delay-show={1000}
+      >
+        {globalSvgSelector(icon, darkTheme)}
+      </button>
+      <Tooltip
+        id={icon}
+        place='right'
+        className={`${darkTheme ? 'custom-tooltip_dark' : 'custom-tooltip'}`}
+      />
+    </>
   )
 }
 

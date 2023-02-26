@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
+// import { Tooltip } from 'react-tooltip'
 import {
   deleteNewGame,
   hideNewGame,
@@ -37,12 +38,14 @@ const Layout: FC<LayoutProps> = ({ isLoading }) => {
 
   return (
     <>
-      <header className='relative mx-auto flex min-h-[40px] w-full max-w-5xl select-none items-center gap-1 border-b border-w-grey-tone-2 bg-w-white px-4 text-w-quartz dark:border-w-grey-tone-3 dark:bg-w-black dark:text-w-white-dark md:min-h-[64px] md:justify-center  md:gap-2 md:px-5 lg:px-0'>
+      <header className='relative mx-auto flex min-h-[40px] w-full max-w-5xl select-none items-center gap-1 border-b border-w-grey-tone-2 bg-w-white px-4 text-w-quartz dark:border-w-grey-tone-3 dark:bg-w-black dark:text-w-white-dark md:min-h-[64px] md:justify-center md:gap-2 md:px-5 lg:px-0'>
         <ButtonIcon
-          icon='game'
+          icon='reload'
           position='header'
           size='header'
           disabled={board[0]?.every((item) => item.color === '')}
+          tooltip='Новая игра'
+          additionalStyles='hover:rotate-[360deg]'
           onClick={() => (visible ? hidden() : dispatch(showNewGame()))}
         />
 
@@ -68,10 +71,12 @@ const Layout: FC<LayoutProps> = ({ isLoading }) => {
         </div>
 
         <div className='absolute right-4 flex gap-x-1 md:right-5 md:gap-x-2 lg:right-0 '>
-          {roles.includes('ADMIN') && <CustomLink to='/admin' icon='hammer' />}
-          <CustomLink to='/rules' icon='rules' />
-          <CustomLink to='/profile' icon='person' />
-          <CustomLink to='/settings' icon='settings' />
+          {roles.includes('ADMIN') && (
+            <CustomLink to='/admin' icon='hammer' tooltip='Администратор' />
+          )}
+          <CustomLink to='/rules' icon='rules' tooltip='Правила игры' />
+          <CustomLink to='/profile' icon='person' tooltip='Профиль' />
+          <CustomLink to='/settings' icon='settings' tooltip='Настройки' />
         </div>
       </header>
       <main className='relative mx-auto flex h-[calc(100%-40px)] w-full max-w-5xl items-center md:h-[calc(100%-64px)]'>

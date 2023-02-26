@@ -2,47 +2,6 @@ export function globalSvgSelector(icon: string, dark: boolean) {
   const color = dark ? '#abaaa9' : '#49474E'
 
   switch (icon) {
-    case 'game':
-      return (
-        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-          <path
-            d='M467.51,248.83c-18.4-83.18-45.69-136.24-89.43-149.17A91.5,91.5,0,0,0,352,96c-26.89,0-48.11,16-96,16s-69.15-16-96-16a99.09,99.09,0,0,0-27.2,3.66C89,112.59,61.94,165.7,43.33,248.83c-19,84.91-15.56,152,21.58,164.88,26,9,49.25-9.61,71.27-37,25-31.2,55.79-40.8,119.82-40.8s93.62,9.6,118.66,40.8c22,27.41,46.11,45.79,71.42,37.16C487.1,399.86,486.52,334.74,467.51,248.83Z'
-            fill='none'
-            stroke={color}
-            strokeMiterlimit='10'
-            strokeWidth='32px'
-          />
-          <circle cx='292' cy='224' r='20' fill={color} />
-          <path
-            d='M336,288a20,20,0,1,1,20-19.95A20,20,0,0,1,336,288Z'
-            fill={color}
-          />
-          <circle cx='336' cy='180' r='20' fill={color} />
-          <circle cx='380' cy='224' r='20' fill={color} />
-          <line
-            x1='160'
-            y1='176'
-            x2='160'
-            y2='272'
-            fill='none'
-            stroke={color}
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='32px'
-          />
-          <line
-            x1='208'
-            y1='224'
-            x2='112'
-            y2='224'
-            fill='none'
-            stroke={color}
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='32px'
-          />
-        </svg>
-      )
     case 'menu':
       return (
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
@@ -714,7 +673,6 @@ export function globalSvgSelector(icon: string, dark: boolean) {
     case 'close-circle':
       return (
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-          <title>close-circle</title>
           <path
             d='M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z'
             fill='none'
@@ -780,6 +738,51 @@ export function globalSvgSelector(icon: string, dark: boolean) {
             d='M256,352a96,96,0,0,1-93.3-118.63,4,4,0,0,0-1.05-3.81L94.81,162.69a4,4,0,0,0-5.41-.23c-24.39,20.81-47,46.13-67.67,75.72a31.92,31.92,0,0,0-.64,35.54c26.41,41.33,60.39,76.14,98.28,100.65C162.06,402,207.92,416,255.68,416a238.22,238.22,0,0,0,72.64-11.55,4,4,0,0,0,1.61-6.64l-47.47-47.46a4,4,0,0,0-3.81-1.05A96,96,0,0,1,256,352Z'
             fill={color}
           />
+        </svg>
+      )
+    case 'reload':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <path
+            d='M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z'
+            fill='none'
+            stroke={color}
+            strokeMiterlimit='10'
+            strokeWidth='32px'
+          />
+          <path
+            d='M341.54,197.85l-11.37-13.23a103.37,103.37,0,1,0,22.71,105.84'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeMiterlimit='10'
+            strokeWidth='32px'
+          />
+          <path
+            d='M367.32,162a8.44,8.44,0,0,0-6,2.54l-59.54,59.54a8.61,8.61,0,0,0,6.09,14.71h59.54a8.62,8.62,0,0,0,8.62-8.62V170.61a8.61,8.61,0,0,0-8.68-8.63Z'
+            fill={color}
+          />
+        </svg>
+      )
+    case 'tooltip':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <path
+            d='M256,80A176,176,0,1,0,432,256,176,176,0,0,0,256,80Z'
+            fill='none'
+            stroke={color}
+            strokeMiterlimit='10'
+            strokeWidth='28px'
+          />
+          <path
+            d='M200,202.29s.84-17.5,19.57-32.57C230.68,160.77,244,158.18,256,158c10.93-.14,20.69,1.67,26.53,4.45,10,4.76,29.47,16.38,29.47,41.09,0,26-17,37.81-36.37,50.8S251,281.43,251,296'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeMiterlimit='10'
+            strokeWidth='24px'
+          />
+          <circle cx='250' cy='348' r='18' fill={color} />
         </svg>
       )
     default:

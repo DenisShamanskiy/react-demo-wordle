@@ -1,13 +1,18 @@
+import { FC } from 'react'
+import 'react-tooltip/dist/react-tooltip.css'
+import '../styles/tooltip.css'
 import ButtonIcon from 'components/ButtonIcon'
-import Heading2 from 'components/micro-components/Heading'
+import Heading from 'components/micro-components/Heading'
 import InputSwitch from 'components/micro-components/InputSwitch'
-import SettingsRow from 'components/micro-components/SettingsRow'
 import { DarkModeSwitch } from 'react-toggle-dark-mode'
 import { toggleHardMode, toggleTheme } from 'redux/features/settingsSlice'
 import useCurrentWidth from 'hook/useCurrentWidth'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
+import Section from 'components/Section'
+import IconTooltip from 'components/IconTooltip'
+import SettingsItem from 'components/SettingsItem'
 
-const Settings = () => {
+const Settings: FC = () => {
   const dispatch = useAppDispatch()
   const styleWidth = useCurrentWidth()
   const {
@@ -16,50 +21,39 @@ const Settings = () => {
   } = useAppSelector((state) => state.settings)
 
   return (
-    <section className='mx-auto h-5/6 w-full max-w-sm select-none md:max-w-md'>
-      <div className='flex flex-col items-center justify-center'>
-        <Heading2>Настройки</Heading2>
+    <Section>
+      <div className='flex w-full flex-col items-center justify-center'>
+        <Heading>Настройки</Heading>
         <div className='mt-8 w-full md:mt-10'>
-          <SettingsRow>
-            <div className='flex flex-col text-w-quartz dark:text-w-white-dark'>
-              <p className='text-lg font-bold md:text-xl'>Повысить сложность</p>
-              <p className='text-xs md:text-sm'>
-                Необходимо использовать все подсказки
-              </p>
-            </div>
+          <SettingsItem text='Повысить сложность'>
+            <IconTooltip tooltip='Необходимо использовать все подсказки' />
             <InputSwitch
               onChange={() => dispatch(toggleHardMode())}
               isChecked={active}
             />
-          </SettingsRow>
-          <SettingsRow>
-            <p className='text-lg font-bold text-w-quartz dark:text-w-white-dark md:text-xl'>
-              {darkMode ? 'Светлая тема' : 'Тёмная тема'}
-            </p>
+          </SettingsItem>
+          <SettingsItem text={darkMode ? 'Светлая тема' : 'Тёмная тема'}>
             <DarkModeSwitch
               checked={darkMode}
               sunColor={'#49474E'}
               onChange={() => dispatch(toggleTheme())}
               size={styleWidth > 768 ? 35 : 28}
             />
-          </SettingsRow>
-          <SettingsRow>
-            <div className='flex flex-col text-w-quartz dark:text-w-white-dark'>
-              <p className='text-lg font-bold md:text-xl'>LocalStorage</p>
-              <p className='text-xs md:text-sm'>Очистить</p>
-            </div>
+          </SettingsItem>
+          <SettingsItem text='LocalStorage'>
+            <IconTooltip tooltip='Очистить LocalStorage' />
             <ButtonIcon
               icon={'trash'}
               size='m'
               onClick={() => localStorage.clear()}
             />
-          </SettingsRow>
+          </SettingsItem>
         </div>
       </div>
       <p className='mt-8 text-xs text-[#787c7e] md:mt-10 md:text-sm'>
         © 2023 Денис Шаманский
       </p>
-    </section>
+    </Section>
   )
 }
 

@@ -53,7 +53,7 @@ const Notification = () => {
           : 'animate-notifyHide md:animate-notifyHideMD'
       } ${addColorClassBg(
         type,
-      )} dark:gloss-black gloss-white absolute left-1/2 -top-8 z-10 box-border flex h-11 w-80 -translate-x-1/2 cursor-pointer items-center rounded-xl px-2 shadow-glossWhite backdrop-blur-md dark:shadow-glossBlack md:-top-16 md:h-14 md:w-96 md:rounded-2xl`}
+      )}  absolute left-1/2 -top-8 z-10 box-border flex h-11 w-80 -translate-x-1/2 cursor-pointer items-center rounded-xl px-2 shadow-glossWhite backdrop-blur-md dark:shadow-glossBlack md:-top-16 md:h-14 md:w-96 md:rounded-2xl`}
     >
       <div
         className={

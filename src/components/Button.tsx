@@ -16,7 +16,7 @@ const getColorClasses = (disabled?: boolean): string => {
   if (disabled) {
     return 'disabled:border-w-disabled dark:disabled:border-w-disabled-dark disabled:text-w-disabled dark:disabled:text-w-disabled-dark'
   } else {
-    return 'border-w-white text-w-quartz shadow-inactive hover:text-w-blue-dark active:shadow-active dark:border-w-black dark:text-w-white-dark dark:shadow-inactiveDark dark:hover:text-w-yellow-dark dark:active:shadow-activeDark'
+    return 'border-transparent text-w-quartz shadow-inactive hover:text-w-blue-dark active:shadow-active dark:text-w-white-dark dark:shadow-inactiveDark dark:hover:text-w-yellow-dark dark:active:shadow-activeDark'
   }
 }
 

@@ -7,6 +7,7 @@ import { resetDataHardMode } from 'redux/features/settingsSlice'
 import Heading from 'components/micro-components/Heading'
 import { useSignoutMutation } from 'redux/api/authApi'
 import CustomLink from 'components/CustomLink'
+import Section from 'components/Section'
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -30,9 +31,9 @@ const Profile = () => {
   }
 
   return (
-    <section className='mx-auto flex h-5/6 w-11/12 max-w-[380px] select-none flex-col items-center md:max-w-[448px] '>
+    <Section>
       <Heading>{username}</Heading>
-      <div className='my-8 flex w-full flex-col justify-center gap-5 md:my-10 md:gap-6'>
+      <div className='my-8 flex w-11/12 flex-col justify-center gap-5 md:my-10 md:gap-6'>
         <CustomLink to={'/profile/edit'} icon='edit-profile'>
           Изменить профиль
         </CustomLink>
@@ -49,7 +50,7 @@ const Profile = () => {
         isRounded
         disabled={isLoading}
       />
-    </section>
+    </Section>
   )
 }
 

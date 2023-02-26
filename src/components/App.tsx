@@ -206,7 +206,7 @@ const App = () => {
       style={styleHeight}
       tabIndex={0}
       onKeyDown={path.pathname === '/' ? handleKeyDown : undefined}
-      className=' relative z-10 flex h-screen w-screen min-w-[414px] flex-col justify-between justify-items-center overflow-hidden bg-w-white focus:outline-none dark:bg-w-black'
+      className=' relative z-10 flex h-screen min-h-[600px] w-screen min-w-[360px] flex-col justify-between justify-items-center overflow-hidden bg-w-white focus:outline-none dark:bg-w-black'
     >
       {visible && <Notification />}
 
