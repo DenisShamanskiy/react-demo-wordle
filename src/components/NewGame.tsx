@@ -27,7 +27,7 @@ export const NewGame = () => {
   return (
     <div
       ref={squareBoxRef}
-      className={`absolute left-2 top-2 z-50 h-fit origin-top-left rounded-xl border border-white/80 bg-white/10 p-4 shadow-glossWhite backdrop-blur-xl transition-all duration-500 dark:border-black/80 dark:bg-black/10 dark:shadow-glossBlack md:p-6 ${
+      className={`absolute left-2 top-2 z-50 h-fit origin-top-left rounded-xl  bg-white/10 p-4 shadow-glossWhite backdrop-blur-xl transition-all duration-500  dark:bg-black/10 dark:shadow-glossBlack md:p-6 ${
         show ? 'animate-newGameShow' : 'animate-newGameHide'
       } `}
     >

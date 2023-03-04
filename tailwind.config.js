@@ -133,16 +133,24 @@ module.exports = {
       boxShadow: {
         modal: '0 4px 23px 0 #c1d9f0',
         modalDark: '0 4px 23px 0 rgba(0, 0, 0, 0.8)',
-        glossWhite: '0 4px 30px #c1d9f0',
-        glossBlack: '0 4px 30px rgba(0, 0, 0, 0.8)',
-        active:
-          'inset 0.2rem 0.2rem 0.4rem #d5e0f3, inset -0.3rem -0.3rem 0.4rem #ffffff',
-        inactive:
-          '0.3rem 0.3rem 0.6rem #c1d9f0, -0.2rem -0.2rem 0.5rem #ffffff',
-        activeDark:
-          'inset 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.8), inset -0.2rem -0.2rem 0.3rem rgba(255, 255, 255, 0.1)',
-        inactiveDark:
-          '0.3rem 0.3rem 0.6rem rgba(0, 0, 0, 0.8), -0.2rem -0.2rem 0.5rem rgba(255, 255, 255, 0.1)',
+        glossWhite: '0 4px 30px rgba(169, 170, 170, 0.945)',
+        glossBlack: '0 4px 30px rgba(0, 0, 0, 0.56)',
+        popped:
+          '-2px -2px 2px #ffffffb2, 2px 2px 2px rgba(169, 170, 170, 0.945), 0 0 0 #ffffffb2 inset, 0 0 0 rgba(169, 170, 170, 0.945) inset',
+        pushed:
+          '0 0 0 #ffffffb2, 0 0 0 rgba(169, 170, 170, 0.945), -2px -2px 2px #ffffffb2 inset, 2px 2px 2px rgba(169, 170, 170, 0.945) inset',
+        hover:
+          '-1px -1px 1px #ffffffb2, 1px 1px 1px rgba(169, 170, 170, 0.945), 0 0 0 #ffffffb2 inset, 0 0 0 rgba(169, 170, 170, 0.945) inset',
+        disabled:
+          '1px 1px 1px #ffffffb2, -1px -1px 1px rgba(169, 170, 170, 0.945), 1px 1px 1px #ffffffb2 inset, -1px -1px 1px rgba(169, 170, 170, 0.945) inset',
+        poppedDark:
+          '-2px -2px 2px rgba(255, 255, 255, 0.08), 2px 2px 2px rgba(0, 0, 0, 0.56), 0 0 0 rgba(255, 255, 255, 0.08) inset, 0 0 0 rgba(0, 0, 0, 0.56) inset',
+        pushedDark:
+          '0 0 0 rgba(255, 255, 255, 0.08), 0 0 0 rgba(0, 0, 0, 0.56), -2px -2px 2px rgba(255, 255, 255, 0.08) inset, 2px 2px 2px rgba(0, 0, 0, 0.56) inset',
+        hoverDark:
+          '-1px -1px 1px rgba(255, 255, 255, 0.08), 1px 1px 1px rgba(0, 0, 0, 0.56), 0 0 0 rgba(255, 255, 255, 0.08) inset, 0 0 0 rgba(0, 0, 0, 0.56) inset',
+        disabledDark:
+          '1px 1px 1px rgba(255, 255, 255, 0.08), -1px -1px 1px rgba(0, 0, 0, 0.56), 1px 1px 1px rgba(255, 255, 255, 0.08) inset, -1px -1px 1px rgba(0, 0, 0, 0.56) inset',
       },
       gridTemplateRows: {
         board: 'repeat(6, 56px)',

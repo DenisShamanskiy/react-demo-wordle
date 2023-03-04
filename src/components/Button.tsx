@@ -14,9 +14,9 @@ interface IButtonProps {
 
 const getColorClasses = (disabled?: boolean): string => {
   if (disabled) {
-    return 'disabled:border-w-disabled dark:disabled:border-w-disabled-dark disabled:text-w-disabled dark:disabled:text-w-disabled-dark'
+    return 'disabled:shadow-disabled dark:disabled:shadow-disabledDark disabled:text-w-disabled dark:disabled:text-w-disabled-dark'
   } else {
-    return 'border-transparent text-w-quartz shadow-inactive hover:text-w-blue-dark active:shadow-active dark:text-w-white-dark dark:shadow-inactiveDark dark:hover:text-w-yellow-dark dark:active:shadow-activeDark'
+    return 'text-w-quartz shadow-popped active:shadow-pushed hover:shadow-hover dark:hover:shadow-hoverDark hover:text-w-blue-dark dark:text-w-white-dark dark:shadow-poppedDark dark:hover:text-w-yellow-dark dark:active:shadow-pushedDark'
   }
 }
 
@@ -39,7 +39,7 @@ const getRoundedClasses = (isRounded: boolean | undefined): string =>
   isRounded ? 'rounded-full' : 'rounded'
 
 const BASE_BUTTON_CLASSES =
-  'inline-block h-10 border text-sm font-medium uppercase transition-all duration-500 md:h-12 md:w-56 md:text-base'
+  'inline-block h-10 text-sm font-medium uppercase md:h-12 md:w-56 md:text-base transition-all'
 
 const Button: FC<IButtonProps> = ({
   type,

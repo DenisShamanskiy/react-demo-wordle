@@ -38,14 +38,14 @@ const Layout: FC<LayoutProps> = ({ isLoading }) => {
 
   return (
     <>
-      <header className='relative mx-auto flex min-h-[40px] w-full max-w-5xl select-none items-center gap-1 border-b border-w-grey-tone-2 bg-w-white px-4 text-w-quartz dark:border-w-grey-tone-3 dark:bg-w-black dark:text-w-white-dark md:min-h-[64px] md:justify-center md:gap-2 md:px-5 lg:px-0'>
+      <header className='relative mx-auto flex min-h-[40px] w-full max-w-5xl select-none items-center gap-1 border-b border-w-grey-tone-2 bg-transparent px-4 text-w-quartz dark:border-w-grey-tone-3 dark:text-w-white-dark md:min-h-[64px] md:justify-center md:gap-2 md:px-5 lg:px-0'>
         <ButtonIcon
           icon='reload'
           position='header'
           size='header'
           disabled={board[0]?.every((item) => item.color === '')}
           tooltip='Новая игра'
-          additionalStyles='hover:rotate-[360deg]'
+          additionalStyles='hover:rotate-[270deg]'
           onClick={() => (visible ? hidden() : dispatch(showNewGame()))}
         />
 

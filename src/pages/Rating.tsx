@@ -1,14 +1,48 @@
+import { FC, useEffect, useState } from 'react'
 import { useGetUsersQuery } from 'redux/api/userApi'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import { useAppSelector } from 'utils/hook'
 import Loader from 'components/Loaders/Loader'
 import Section from 'components/Section'
 import Heading from 'components/micro-components/Heading'
-import RatingListItem from 'components/RatingListItem'
+import { User } from 'redux/api/types'
+import RatingHeader from 'components/RatingHeader'
+import RatingUserList from 'components/RatingUserList'
 
-const Rating = () => {
+export type SortKey = 'username' | 'leave' | 'win' | 'fail'
+
+const Rating: FC = () => {
   const { data, isLoading } = useGetUsersQuery()
   const darkMode = useAppSelector((state) => state.settings.darkMode)
+  const [filterArr, setFilterArr] = useState<User[]>([])
+  const [sortBy, setSortBy] = useState<SortKey | null>(null)
+  const [sortAsc, setSortAsc] = useState(true)
+
+  const sortUsersByStatistics = (sortType: SortKey): void => {
+    setSortBy(sortType)
+    setSortAsc((prev) => (sortBy === sortType ? !prev : true))
+  }
+
+  useEffect(() => {
+    if (!isLoading && sortBy) {
+      const newArr = [...data!].sort((a, b) => {
+        if (sortBy === 'username') {
+          return sortAsc
+            ? a[sortBy].localeCompare(b[sortBy])
+            : b[sortBy].localeCompare(a[sortBy])
+        }
+        return sortAsc
+          ? a.statistics[sortBy] - b.statistics[sortBy]
+          : b.statistics[sortBy] - a.statistics[sortBy]
+      })
+      setFilterArr(newArr)
+    } else {
+      if (!isLoading) {
+        setFilterArr(data!)
+      }
+    }
+  }, [isLoading, sortBy, sortAsc])
+
   return (
     <Section>
       {isLoading ? (
@@ -17,33 +51,45 @@ const Rating = () => {
         <>
           <Heading>Рейтинг игроков</Heading>
           <div className='my-8 flex w-full flex-col justify-center md:my-10'>
-            <div className='grid h-10 w-full grid-cols-[1fr_40px_40px_40px] items-center gap-1 self-center border-b border-w-grey-tone-2 text-w-quartz dark:border-w-grey-tone-3 dark:text-w-white-dark md:h-12'>
-              <div className='flex w-full items-center px-1.5 text-sm font-bold md:text-lg'>
+            <div className='w- grid h-10 w-full grid-cols-[1fr_40px_40px_40px] items-center gap-2 self-center text-w-quartz dark:text-w-white-dark md:h-12 md:grid-cols-[1fr_48px_48px_48px]'>
+              <RatingHeader
+                id='username'
+                sortBy={sortBy}
+                sortAsc={sortAsc}
+                sortUsersByStatistics={sortUsersByStatistics}
+                customClass='py-0.5 px-1.5 text-sm font-bold md:text-lg'
+              >
                 ИГРОК
-              </div>
-              <div className='m-auto w-6 md:w-7'>
+              </RatingHeader>
+              <RatingHeader
+                id='win'
+                sortBy={sortBy}
+                sortAsc={sortAsc}
+                sortUsersByStatistics={sortUsersByStatistics}
+                customClass='m-auto p-2 md:p-2.5 w-full'
+              >
                 {globalSvgSelector('medal', darkMode)}
-              </div>
-              <div className='m-auto w-6 md:w-7'>
+              </RatingHeader>
+              <RatingHeader
+                id='leave'
+                sortBy={sortBy}
+                sortAsc={sortAsc}
+                sortUsersByStatistics={sortUsersByStatistics}
+                customClass='m-auto p-2 md:p-2.5 w-full'
+              >
                 {globalSvgSelector('flag', darkMode)}
-              </div>
-              <div className='m-auto w-6 md:w-7'>
+              </RatingHeader>
+              <RatingHeader
+                id='fail'
+                sortBy={sortBy}
+                sortAsc={sortAsc}
+                sortUsersByStatistics={sortUsersByStatistics}
+                customClass='m-auto p-2 md:p-2.5 w-full'
+              >
                 {globalSvgSelector('skull', darkMode)}
-              </div>
+              </RatingHeader>
             </div>
-            <ul className='scrollbar-hide box-border flex w-full flex-col overflow-y-auto pt-1'>
-              {data!.map((user, index) => {
-                return (
-                  <RatingListItem
-                    key={index}
-                    username={user.username}
-                    fail={user.statistics.fail}
-                    leave={user.statistics.leave}
-                    win={user.statistics.win}
-                  />
-                )
-              })}
-            </ul>
+            <RatingUserList users={filterArr} />
           </div>
         </>
       )}

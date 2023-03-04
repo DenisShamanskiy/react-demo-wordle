@@ -831,6 +831,54 @@ export function globalSvgSelector(icon: string, dark: boolean) {
           />
         </svg>
       )
+    case 'arrow-down':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <polyline
+            points='112 268 256 412 400 268'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='48px'
+          />
+          <line
+            x1='256'
+            y1='392'
+            x2='256'
+            y2='100'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='48px'
+          />
+        </svg>
+      )
+    case 'arrow-up':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <polyline
+            points='112 244 256 100 400 244'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='48px'
+          />
+          <line
+            x1='256'
+            y1='120'
+            x2='256'
+            y2='412'
+            fill='none'
+            stroke={color}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='48px'
+          />
+        </svg>
+      )
     default:
       return null
   }

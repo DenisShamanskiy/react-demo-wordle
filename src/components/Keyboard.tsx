@@ -55,7 +55,7 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
   }, [currentRowIndex]) // eslint-disable-line
 
   return (
-    <div className='mx-auto flex w-full max-w-2xl select-none flex-col gap-y-1.5 rounded-t bg-w-grey-tone-2 p-1.5 font-sans dark:bg-w-black'>
+    <div className='mx-auto flex w-full max-w-2xl select-none flex-col gap-y-1.5 rounded-t bg-w-grey-tone-2 p-1.5 font-sans dark:bg-w-black dark:bg-transparent'>
       {keyBoard.map((_, indexRow) => {
         if (indexRow === 2) {
           return (

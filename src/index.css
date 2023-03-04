@@ -40,17 +40,17 @@
   .loader-circle-after {
     @apply after:absolute after:top-0 after:left-0 after:block after:h-[70px] after:w-[70px] after:animate-loaderCircleScaleAfter after:rounded-full after:border-4 after:border-w-grey-tone-2 after:opacity-0 dark:after:border-w-grey-tone-3;
   }
-  /* Анимация переключения форм Signin и Signup */
+
   .signin-active {
-    @apply text-w-blue-dark shadow-active dark:text-w-yellow dark:shadow-activeDark;
+    @apply text-w-blue-dark shadow-pushed dark:text-w-yellow dark:shadow-pushedDark;
   }
   .signin-inactive {
-    @apply text-w-quartz shadow-inactive dark:text-w-white-dark dark:shadow-inactiveDark;
+    @apply text-w-quartz shadow-popped dark:text-w-white-dark dark:shadow-poppedDark;
   }
   .signup-active {
-    @apply text-w-blue-dark shadow-active dark:text-w-yellow dark:shadow-activeDark;
+    @apply text-w-blue-dark shadow-pushed dark:text-w-yellow dark:shadow-pushedDark;
   }
   .signup-inactive {
-    @apply text-w-quartz shadow-inactive dark:text-w-white-dark dark:shadow-inactiveDark;
+    @apply text-w-quartz shadow-popped dark:text-w-white-dark dark:shadow-poppedDark;
   }
 }

@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
 interface IRatingListItemProps {
+  style: React.CSSProperties
   username: string
   fail: number
   leave: number
@@ -8,13 +9,17 @@ interface IRatingListItemProps {
 }
 
 const RatingListItem: FC<IRatingListItemProps> = ({
+  style,
   username,
   fail,
   leave,
   win,
 }) => {
   return (
-    <li className='grid h-10 w-full grid-cols-[1fr_40px_40px_40px] items-center gap-1 md:h-12'>
+    <li
+      style={style}
+      className='grid h-10 w-full grid-cols-[1fr_40px_40px_40px] items-center gap-2 md:h-12 md:grid-cols-[1fr_48px_48px_48px]'
+    >
       <p className='truncate px-1.5 text-sm font-medium leading-10 text-w-quartz dark:text-w-white-dark md:text-base'>
         {username}
       </p>
