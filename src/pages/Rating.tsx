@@ -1,7 +1,5 @@
 import { FC, useEffect, useState } from 'react'
 import { useGetUsersQuery } from 'redux/api/userApi'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
-import { useAppSelector } from 'utils/hook'
 import Loader from 'components/Loaders/Loader'
 import Section from 'components/Section'
 import Heading from 'components/micro-components/Heading'
@@ -13,7 +11,6 @@ export type SortKey = 'username' | 'leave' | 'win' | 'fail'
 
 const Rating: FC = () => {
   const { data, isLoading } = useGetUsersQuery()
-  const darkMode = useAppSelector((state) => state.settings.darkMode)
   const [filterArr, setFilterArr] = useState<User[]>([])
   const [sortBy, setSortBy] = useState<SortKey | null>(null)
   const [sortAsc, setSortAsc] = useState(true)
@@ -67,27 +64,21 @@ const Rating: FC = () => {
                 sortAsc={sortAsc}
                 sortUsersByStatistics={sortUsersByStatistics}
                 customClass='m-auto p-2 md:p-2.5 w-full'
-              >
-                {globalSvgSelector('medal', darkMode)}
-              </RatingHeader>
+              ></RatingHeader>
               <RatingHeader
                 id='leave'
                 sortBy={sortBy}
                 sortAsc={sortAsc}
                 sortUsersByStatistics={sortUsersByStatistics}
                 customClass='m-auto p-2 md:p-2.5 w-full'
-              >
-                {globalSvgSelector('flag', darkMode)}
-              </RatingHeader>
+              ></RatingHeader>
               <RatingHeader
                 id='fail'
                 sortBy={sortBy}
                 sortAsc={sortAsc}
                 sortUsersByStatistics={sortUsersByStatistics}
                 customClass='m-auto p-2 md:p-2.5 w-full'
-              >
-                {globalSvgSelector('skull', darkMode)}
-              </RatingHeader>
+              ></RatingHeader>
             </div>
             <RatingUserList users={filterArr} />
           </div>

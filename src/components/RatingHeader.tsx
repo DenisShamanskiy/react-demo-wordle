@@ -9,7 +9,7 @@ interface IRatingHeaderProps {
   sortAsc: boolean
   sortUsersByStatistics: (key: SortKey) => void
   customClass?: string
-  children: string | React.ReactNode
+  children?: string
 }
 
 const RatingHeader: FC<IRatingHeaderProps> = ({
@@ -28,7 +28,7 @@ const RatingHeader: FC<IRatingHeaderProps> = ({
       className={`${btnClassName}`}
       onClick={() => sortUsersByStatistics(id)}
     >
-      {children}
+      {children ? children : globalSvgSelector(id, darkMode)}
       {sortBy === id && (
         <span className='absolute -bottom-[18px] right-1/2 w-3 translate-x-1/2 md:-bottom-5'>
           {globalSvgSelector(sortAsc ? 'arrow-down' : 'arrow-up', darkMode)}

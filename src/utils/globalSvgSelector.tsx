@@ -797,7 +797,7 @@ export function globalSvgSelector(icon: string, dark: boolean) {
           />
         </svg>
       )
-    case 'skull':
+    case 'fail':
       return (
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
           <path
@@ -806,7 +806,7 @@ export function globalSvgSelector(icon: string, dark: boolean) {
           />
         </svg>
       )
-    case 'flag':
+    case 'leave':
       return (
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
           <path
@@ -815,7 +815,7 @@ export function globalSvgSelector(icon: string, dark: boolean) {
           />
         </svg>
       )
-    case 'medal':
+    case 'win':
       return (
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
           <circle cx='256' cy='352' r='32' fill={colorMedal} />
