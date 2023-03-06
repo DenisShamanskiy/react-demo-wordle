@@ -1,0 +1,104 @@
+.wordle {
+  width: 128px;
+}
+.wordle-enter {
+  width: 128px;
+}
+.wordle-enter-active {
+  width: 217px;
+  transition: all 1s;
+}
+.wordle-enter-done {
+  width: 217px;
+}
+.wordle-exit {
+  width: 217px;
+}
+.wordle-exit-active {
+  width: 128px;
+  transition: all 1s 0.4s;
+}
+.wordle-exit-done {
+  width: 128px;
+}
+.hard-mode-animation {
+  opacity: 0;
+}
+.hard-mode-animation-enter {
+  opacity: 0;
+}
+.hard-mode-animation-enter-active {
+  opacity: 0;
+  transition: all 0.4s 0.5s;
+}
+.hard-mode-animation-enter-done {
+  opacity: 1;
+  transition: all 0.4s 0.5s;
+}
+.hard-mode-animation-exit {
+  opacity: 1;
+}
+.hard-mode-animation-exit-active {
+  opacity: 0;
+  transition: all 0.4s;
+}
+.hard-mode-animation-exit-done {
+  opacity: 0;
+}
+
+@media (max-width: 768px) {
+  .wordle {
+    width: 85px;
+    height: 32px;
+  }
+  .wordle-enter {
+    width: 85px;
+    height: 32px;
+  }
+  .wordle-enter-active {
+    width: 85px;
+    height: 48px;
+    transition: all 0.7s;
+  }
+  .wordle-enter-done {
+    width: 85px;
+    height: 48px;
+  }
+  .wordle-exit {
+    width: 85px;
+    height: 48px;
+  }
+  .wordle-exit-active {
+    width: 85px;
+    height: 32px;
+    transition: all 0.7s 0.4s;
+  }
+  .wordle-exit-done {
+    width: 85px;
+    height: 32px;
+  }
+  .hard-mode-animation {
+    opacity: 0;
+  }
+  .hard-mode-animation-enter {
+    opacity: 0;
+  }
+  .hard-mode-animation-enter-active {
+    opacity: 0;
+    transition: all 0.4s 0.4s;
+  }
+  .hard-mode-animation-enter-done {
+    opacity: 1;
+    transition: all 0.4s 0.4s;
+  }
+  .hard-mode-animation-exit {
+    opacity: 1;
+  }
+  .hard-mode-animation-exit-active {
+    opacity: 0;
+    transition: all 0.4s;
+  }
+  .hard-mode-animation-exit-done {
+    opacity: 0;
+  }
+}

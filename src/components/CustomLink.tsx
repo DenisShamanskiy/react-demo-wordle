@@ -33,13 +33,15 @@ const CustomLink: FC<CustomLinkProps> = ({ to, icon, children, tooltip }) => {
       >
         {globalSvgSelector(icon, darkMode)}
       </Link>
-      <Tooltip
-        id={icon}
-        place='top'
-        className={`${
-          darkMode ? 'custom-tooltip_dark' : 'custom-tooltip'
-        } z-20 translate-x-1`}
-      />
+      {!('ontouchstart' in window) && (
+        <Tooltip
+          id={icon}
+          place='top'
+          className={`${
+            darkMode ? 'custom-tooltip_dark' : 'custom-tooltip'
+          } z-20 translate-x-1`}
+        />
+      )}
     </>
   )
 }

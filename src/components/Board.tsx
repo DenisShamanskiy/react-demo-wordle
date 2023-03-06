@@ -36,7 +36,7 @@ const Board = () => {
             {board[indexRow]!.map((letter, indexLetter) => {
               return (
                 <div
-                  className={`flex items-center justify-center ${getColorLetter(
+                  className={`flex items-center justify-center rounded-md ${getColorLetter(
                     letter.value,
                     letter.color,
                   )}`}

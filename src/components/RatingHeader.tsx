@@ -2,6 +2,8 @@ import { SortKey } from 'pages/Rating'
 import { FC } from 'react'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import { useAppSelector } from 'utils/hook'
+import Button from './Button'
+import ButtonIcon from './ButtonIcon'
 
 interface IRatingHeaderProps {
   id: SortKey
@@ -9,7 +11,8 @@ interface IRatingHeaderProps {
   sortAsc: boolean
   sortUsersByStatistics: (key: SortKey) => void
   customClass?: string
-  children?: string
+  text?: string
+  tooltip?: string
 }
 
 const RatingHeader: FC<IRatingHeaderProps> = ({
@@ -17,24 +20,41 @@ const RatingHeader: FC<IRatingHeaderProps> = ({
   sortBy,
   sortAsc,
   sortUsersByStatistics,
-  customClass,
-  children,
+  text,
+  tooltip,
 }) => {
   const darkMode = useAppSelector((state) => state.settings.darkMode)
-  const btnClassName = `shadow-popped active:shadow-pushed dark:shadow-poppedDark dark:active:shadow-pushedDark hover:shadow-hover dark:hover:shadow-hoverDark h-full relative flex items-center justify-center rounded-full ${customClass}`
-  return (
-    <button
-      id={id}
-      className={`${btnClassName}`}
+  return text ? (
+    <Button
+      type={'button'}
+      text={text}
+      size='full'
       onClick={() => sortUsersByStatistics(id)}
+      isRounded
+      customClass='relative'
     >
-      {children ? children : globalSvgSelector(id, darkMode)}
       {sortBy === id && (
         <span className='absolute -bottom-[18px] right-1/2 w-3 translate-x-1/2 md:-bottom-5'>
           {globalSvgSelector(sortAsc ? 'arrow-down' : 'arrow-up', darkMode)}
         </span>
       )}
-    </button>
+    </Button>
+  ) : (
+    <ButtonIcon
+      icon={id}
+      size='full'
+      onClick={() => sortUsersByStatistics(id)}
+      tooltip={tooltip}
+      customClass='m-auto p-2 md:p-2.5 relative'
+      place='top'
+      isShadow
+    >
+      {sortBy === id && (
+        <span className='absolute -bottom-[18px] right-1/2 w-3 translate-x-1/2 md:-bottom-5'>
+          {globalSvgSelector(sortAsc ? 'arrow-down' : 'arrow-up', darkMode)}
+        </span>
+      )}
+    </ButtonIcon>
   )
 }
 

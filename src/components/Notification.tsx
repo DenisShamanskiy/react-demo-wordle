@@ -48,12 +48,10 @@ const Notification = () => {
       type='button'
       onClick={() => dispatch(hideNotification())}
       className={`${
-        open
-          ? 'animate-notifyShow md:animate-notifyShowMD'
-          : 'animate-notifyHide md:animate-notifyHideMD'
+        open ? 'animate-notifyShowMD' : 'animate-notifyHideMD'
       } ${addColorClassBg(
         type,
-      )}  absolute left-1/2 -top-8 z-10 box-border flex h-11 w-80 -translate-x-1/2 cursor-pointer items-center rounded-xl px-2 shadow-glossWhite backdrop-blur-md dark:shadow-glossBlack md:-top-16 md:h-14 md:w-96 md:rounded-2xl`}
+      )} absolute left-1/2 -top-16 z-10 box-border flex h-14 w-80 -translate-x-1/2 cursor-pointer items-center rounded-2xl px-2 shadow-glossWhite backdrop-blur-md dark:shadow-glossBlack md:w-96`}
     >
       <div
         className={
@@ -62,7 +60,7 @@ const Notification = () => {
       >
         {globalSvgSelector(type, darkMode)}
       </div>
-      <p className='relative w-full pl-9 text-center text-xs font-medium text-w-black dark:font-normal dark:text-w-white md:pl-12 md:text-sm '>
+      <p className='relative w-full pl-9 text-center text-sm font-medium text-w-black dark:font-normal dark:text-w-white md:pl-12 '>
         {message}
       </p>
     </button>

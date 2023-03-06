@@ -1,16 +1,21 @@
 import { FC, useMemo } from 'react'
 import { useAppSelector } from 'utils/hook'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
-import { Tooltip } from 'react-tooltip'
+import { PlacesType, Tooltip } from 'react-tooltip'
+import { disabledClasses, shadowClasses } from 'utils/constants'
 
 interface IButtonIconProps {
   icon: string
   position?: 'header' | 'close' | 'password'
-  size: 'header' | 'close' | 'xs' | 's' | 'm'
+  size?: 'close' | 'xs' | 's' | 'm' | 'l' | 'full'
   disabled?: boolean
   tooltip?: string
   additionalStyles?: string
+  customClass?: string
   onClick: () => void
+  place?: PlacesType
+  children?: React.ReactNode
+  isShadow?: boolean
 }
 
 const getPositionClasses = (position: string): string => {
@@ -28,8 +33,6 @@ const getPositionClasses = (position: string): string => {
 
 const getSizeClasses = (size: string): string => {
   switch (size) {
-    case 'header':
-      return 'w-7 md:w-9'
     case 'close':
       return 'w-6 md:w-7'
     case 'xs':
@@ -38,13 +41,14 @@ const getSizeClasses = (size: string): string => {
       return 'w-6'
     case 'm':
       return 'w-7 md:w-8'
+    case 'l':
+      return 'w-10 md:w-12'
+    case 'full':
+      return 'w-full'
     default:
       return ''
   }
 }
-
-const BASE_BUTTON_CLASSES =
-  'inline-block rounded transition duration-500 ease-in-out disabled:pointer-events-none disabled:opacity-40'
 
 const ButtonIcon: FC<IButtonIconProps> = ({
   icon,
@@ -54,6 +58,10 @@ const ButtonIcon: FC<IButtonIconProps> = ({
   tooltip,
   additionalStyles,
   onClick,
+  place,
+  children,
+  customClass,
+  isShadow,
 }) => {
   const darkTheme = useAppSelector((state) => state.settings.darkMode)
 
@@ -64,27 +72,35 @@ const ButtonIcon: FC<IButtonIconProps> = ({
       positionClass,
       sizeClass,
       additionalStyles && additionalStyles,
+      isShadow && shadowClasses,
+      disabled && disabledClasses,
     ].join(' ')
-  }, [position, size, additionalStyles])
+  }, [position, size, additionalStyles, disabledClasses])
 
   return (
     <>
       <button
         type='button'
-        className={`${BASE_BUTTON_CLASSES} ${computedClasses}`}
+        className={`flex items-center justify-center rounded-full transition-all ${computedClasses} ${customClass}`}
         disabled={disabled}
         onClick={onClick}
-        data-tooltip-id={icon}
-        data-tooltip-content={tooltip}
-        data-tooltip-delay-show={1000}
+        data-tooltip-id={tooltip ? icon : undefined}
+        data-tooltip-content={tooltip ? tooltip : undefined}
+        data-tooltip-delay-show={tooltip ? 1000 : undefined}
       >
-        {globalSvgSelector(icon, darkTheme)}
+        <span className='w-full'>
+          {globalSvgSelector(icon, darkTheme)}
+          {children}
+        </span>
       </button>
-      <Tooltip
-        id={icon}
-        place='right'
-        className={`${darkTheme ? 'custom-tooltip_dark' : 'custom-tooltip'}`}
-      />
+
+      {tooltip && (
+        <Tooltip
+          id={icon}
+          place={place}
+          className={`${darkTheme ? 'custom-tooltip_dark' : 'custom-tooltip'}`}
+        />
+      )}
     </>
   )
 }

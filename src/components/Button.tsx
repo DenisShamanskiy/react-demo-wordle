@@ -10,6 +10,8 @@ interface IButtonProps {
   onClick?: () => void
   isLoading?: boolean
   isRounded?: boolean
+  children?: React.ReactNode
+  customClass?: string
 }
 
 const getColorClasses = (disabled?: boolean): string => {
@@ -39,7 +41,7 @@ const getRoundedClasses = (isRounded: boolean | undefined): string =>
   isRounded ? 'rounded-full' : 'rounded'
 
 const BASE_BUTTON_CLASSES =
-  'inline-block h-10 text-sm font-medium uppercase md:h-12 md:w-56 md:text-base transition-all'
+  'inline-block h-10 text-sm font-medium uppercase md:h-12 md:text-base transition-all'
 
 const Button: FC<IButtonProps> = ({
   type,
@@ -50,6 +52,8 @@ const Button: FC<IButtonProps> = ({
   onClick,
   isLoading,
   isRounded,
+  children,
+  customClass,
 }) => {
   const computedClasses = useMemo(() => {
     const colorClass = getColorClasses(disabled)
@@ -63,9 +67,12 @@ const Button: FC<IButtonProps> = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${BASE_BUTTON_CLASSES} ${computedClasses}`}
+      className={`${BASE_BUTTON_CLASSES} ${computedClasses} ${customClass}`}
     >
-      {isLoading ? <LoaderBtn /> : text}
+      <>
+        {isLoading ? <LoaderBtn /> : text}
+        {children}
+      </>
     </button>
   )
 }

@@ -51,19 +51,19 @@ const Rating: FC = () => {
             <div className='w- grid h-10 w-full grid-cols-[1fr_40px_40px_40px] items-center gap-2 self-center text-w-quartz dark:text-w-white-dark md:h-12 md:grid-cols-[1fr_48px_48px_48px]'>
               <RatingHeader
                 id='username'
+                text='ИГРОК'
                 sortBy={sortBy}
                 sortAsc={sortAsc}
                 sortUsersByStatistics={sortUsersByStatistics}
                 customClass='py-0.5 px-1.5 text-sm font-bold md:text-lg'
-              >
-                ИГРОК
-              </RatingHeader>
+              ></RatingHeader>
               <RatingHeader
                 id='win'
                 sortBy={sortBy}
                 sortAsc={sortAsc}
                 sortUsersByStatistics={sortUsersByStatistics}
                 customClass='m-auto p-2 md:p-2.5 w-full'
+                tooltip='Выиграл'
               ></RatingHeader>
               <RatingHeader
                 id='leave'
@@ -71,6 +71,7 @@ const Rating: FC = () => {
                 sortAsc={sortAsc}
                 sortUsersByStatistics={sortUsersByStatistics}
                 customClass='m-auto p-2 md:p-2.5 w-full'
+                tooltip='Сдался'
               ></RatingHeader>
               <RatingHeader
                 id='fail'
@@ -78,6 +79,7 @@ const Rating: FC = () => {
                 sortAsc={sortAsc}
                 sortUsersByStatistics={sortUsersByStatistics}
                 customClass='m-auto p-2 md:p-2.5 w-full'
+                tooltip='Проиграл'
               ></RatingHeader>
             </div>
             <RatingUserList users={filterArr} />
