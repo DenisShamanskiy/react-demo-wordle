@@ -1,16 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-
-type NotificationState = {
-  type: string
-  open: boolean
-  visible: boolean
-  message: string
-}
+import { NotificationState } from 'types/store'
 
 const initialState: NotificationState = {
-  type: '',
+  type: null,
   open: false,
-  visible: false,
   message: '',
 }
 
@@ -21,22 +14,15 @@ const notificationSlice = createSlice({
     showNotification(state, action) {
       state.type = action.payload.type
       state.open = true
-      state.visible = true
       state.message = action.payload.message
     },
 
     hideNotification(state) {
       state.open = false
     },
-    deleteNotification(state) {
-      state.type = ''
-      state.visible = false
-      state.message = ''
-    },
   },
 })
 
-export const { showNotification, hideNotification, deleteNotification } =
-  notificationSlice.actions
+export const { showNotification, hideNotification } = notificationSlice.actions
 
 export default notificationSlice.reducer

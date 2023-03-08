@@ -21,3 +21,23 @@ export type gameState = {
     previousWord: string
   }
 }
+
+export enum NotificationColor {
+  success = 'notify-success',
+  failure = 'notify-failure',
+  warning = 'notify-warning',
+  info = 'notify-info',
+}
+
+export type NotificationType =
+  | 'notify-success'
+  | 'notify-failure'
+  | 'notify-warning'
+  | 'notify-info'
+  | null
+
+export type NotificationState = {
+  type: NotificationType
+  open: boolean
+  message: string
+}

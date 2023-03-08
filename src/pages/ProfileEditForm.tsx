@@ -6,6 +6,7 @@ import { IFormValues } from 'models/IFormValues'
 import { FC, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useUpdateProfileMutation } from 'redux/api/userApi'
+import { NotificationColor } from 'types/store'
 import { emailRegex } from 'utils/constants'
 import { useAppSelector } from 'utils/hook'
 
@@ -38,7 +39,7 @@ const ProfileEditForm: FC = () => {
         username: username,
         email: email,
       })
-      showNotify('notify-success', 'Профиль сохранён')
+      showNotify(NotificationColor.success, 'Профиль сохранён')
     } catch (e) {
       console.log(e)
     }

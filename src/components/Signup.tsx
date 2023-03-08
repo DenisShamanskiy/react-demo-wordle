@@ -8,6 +8,7 @@ import { emailRegex } from 'utils/constants'
 import { useSignupMutation } from 'redux/api/authApi'
 import useNotification from 'hook/useNotification'
 import { usePasswordToggle } from 'hook/usePasswordVisibility'
+import { NotificationColor } from 'types/store'
 
 const Signup: FC = () => {
   const navigate = useNavigate()
@@ -33,10 +34,10 @@ const Signup: FC = () => {
     try {
       await signup(data).unwrap()
       goHome()
-      showNotify('notify-success', 'Вы успешно зарегистрировались')
+      showNotify(NotificationColor.success, 'Вы успешно зарегистрировались')
     } catch (e) {
       console.log(e.data.message)
-      showNotify('notify-failure', e.data.message)
+      showNotify(NotificationColor.failure, e.data.message)
     }
   }
 

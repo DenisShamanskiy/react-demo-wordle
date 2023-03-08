@@ -13,10 +13,10 @@ type ReactPortalProps = {
   wrapperId: string
 }
 
-function ReactPortal({
+const ReactPortal = ({
   children,
   wrapperId = 'react-portal-wrapper',
-}: ReactPortalProps) {
+}: ReactPortalProps) => {
   const [wrapperElement, setWrapperElement] = useState<HTMLElement | null>(null)
 
   useLayoutEffect(() => {

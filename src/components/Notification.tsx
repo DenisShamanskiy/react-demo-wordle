@@ -1,17 +1,20 @@
-import { useEffect } from 'react'
-import {
-  deleteNotification,
-  hideNotification,
-} from 'redux/features/notificationSlice'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
+import { FC, useEffect, useRef } from 'react'
+import '../styles/notification-animation.css'
+import { NotificationType } from 'types/store'
+import ReactPortal from 'utils/ReactPortal'
+import { CSSTransition } from 'react-transition-group'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
+import { hideNotification } from 'redux/features/notificationSlice'
 
-const Notification = () => {
+const Notification: FC = () => {
+  const nodeRef = useRef(null)
   const dispatch = useAppDispatch()
-  const darkMode = useAppSelector((state) => state.settings.darkMode)
   const { type, open, message } = useAppSelector((state) => state.notification)
 
-  const addColorClassBg = (type: string) => {
+  const BASE_NOTIFICATION_CLASSES =
+    'fixed right-1/2 top-0 z-10 flex h-14 w-80 translate-x-1/2 cursor-pointer items-center justify-center rounded-2xl text-sm font-medium text-w-black shadow-glossWhite backdrop-blur-md dark:font-normal dark:text-w-white dark:shadow-glossBlack md:w-96'
+
+  const addColorClassBg = (type: NotificationType) => {
     switch (type) {
       case 'notify-success':
         return 'bg-[#32c682]/30'
@@ -22,48 +25,35 @@ const Notification = () => {
       case 'notify-info':
         return 'bg-[#26c0d3]/30'
       default:
-        return ''
+        return null
     }
   }
-
-  useEffect(() => {
-    if (!open) {
-      const timeout = setTimeout(() => {
-        dispatch(deleteNotification())
-      }, 500)
-      return () => clearTimeout(timeout)
-    }
-    return
-  }, [open])
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       dispatch(hideNotification())
     }, 5000)
     return () => clearTimeout(timeout)
-  }, [type])
+  }, [type, open])
 
   return (
-    <button
-      type='button'
-      onClick={() => dispatch(hideNotification())}
-      className={`${
-        open ? 'animate-notifyShowMD' : 'animate-notifyHideMD'
-      } ${addColorClassBg(
-        type,
-      )} absolute left-1/2 -top-16 z-10 box-border flex h-14 w-80 -translate-x-1/2 cursor-pointer items-center rounded-2xl px-2 shadow-glossWhite backdrop-blur-md dark:shadow-glossBlack md:w-96`}
-    >
-      <div
-        className={
-          'absolute block min-w-[28px] rounded transition duration-300 disabled:opacity-40 md:min-w-[40px]'
-        }
+    <ReactPortal wrapperId='notification'>
+      <CSSTransition
+        in={open}
+        timeout={500}
+        unmountOnExit
+        classNames='notification'
+        nodeRef={nodeRef}
       >
-        {globalSvgSelector(type, darkMode)}
-      </div>
-      <p className='relative w-full pl-9 text-center text-sm font-medium text-w-black dark:font-normal dark:text-w-white md:pl-12 '>
-        {message}
-      </p>
-    </button>
+        <div
+          ref={nodeRef}
+          onClick={() => dispatch(hideNotification())}
+          className={`${BASE_NOTIFICATION_CLASSES} ${addColorClassBg(type)}`}
+        >
+          {message}
+        </div>
+      </CSSTransition>
+    </ReactPortal>
   )
 }
 

@@ -1,11 +1,12 @@
 import { showNotification } from 'redux/features/notificationSlice'
+import { NotificationType } from 'types/store'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 
 const useNotification = () => {
   const dispatch = useAppDispatch()
-  const visible = useAppSelector((state) => state.notification.visible)
-  const showNotify = (type: string, message: string) => {
-    if (!visible) {
+  const open = useAppSelector((state) => state.notification.open)
+  const showNotify = (type: NotificationType, message: string) => {
+    if (!open) {
       dispatch(
         showNotification({
           type: type,

@@ -8,6 +8,7 @@ import { emailRegex } from 'utils/constants'
 import { useSigninMutation } from 'redux/api/authApi'
 import useNotification from 'hook/useNotification'
 import { usePasswordToggle } from 'hook/usePasswordVisibility'
+import { NotificationColor } from 'types/store'
 
 const Signin: FC = () => {
   const navigate = useNavigate()
@@ -34,9 +35,12 @@ const Signin: FC = () => {
       const { user } = await signin(data).unwrap()
       goHome()
       user.username !== user.email &&
-        showNotify('notify-success', `С возвращением, ${user.username}`)
+        showNotify(
+          NotificationColor.success,
+          `С возвращением, ${user.username}`,
+        )
     } catch (e) {
-      showNotify('notify-failure', e.data.message)
+      showNotify(NotificationColor.failure, e.data.message)
     }
   }
 

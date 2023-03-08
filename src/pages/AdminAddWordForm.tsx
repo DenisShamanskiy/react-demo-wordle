@@ -6,6 +6,7 @@ import { IFormValues } from 'models/IFormValues'
 import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAddWordMutation } from 'redux/api/wordsApi'
+import { NotificationColor } from 'types/store'
 import { ruRegex } from 'utils/constants'
 
 const AdminAddWordForm: FC = () => {
@@ -27,11 +28,11 @@ const AdminAddWordForm: FC = () => {
     try {
       const response = await addNewWord(word.toLowerCase()).unwrap()
       if (response.errors) {
-        showNotify('notify-failure', `${response.errors[0]}`)
+        showNotify(NotificationColor.failure, `${response.errors[0]}`)
         return
       }
       showNotify(
-        'notify-success',
+        NotificationColor.success,
         `Слово "${word.replace(
           /^./,
           word.charAt(0).toUpperCase(),

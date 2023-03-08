@@ -6,7 +6,6 @@ import Game from '../pages/Game'
 import Rules from 'pages/Rules'
 import Settings from 'pages/Settings'
 import Auth from 'pages/Auth'
-import Modal from './Modal/Modal'
 import { showNotification } from 'redux/features/notificationSlice'
 import {
   addLetterBoard,
@@ -21,7 +20,6 @@ import {
   getLocalSettingData,
   setTheme,
 } from 'redux/features/settingsSlice'
-import Notification from './Notification'
 import Layout from './Layout'
 import ProfileEditForm from 'pages/ProfileEditForm'
 import Profile from 'pages/Profile'
@@ -41,6 +39,9 @@ import useNotification from 'hook/useNotification'
 import useEncryption from 'hook/useEncryption'
 import { getRandomWord } from 'utils/helpers'
 import Rating from 'pages/Rating'
+import Notification from './Notification'
+import Modal from './Modal'
+import { NotificationColor } from 'types/store'
 
 const App = () => {
   const styleHeight = {
@@ -65,8 +66,6 @@ const App = () => {
     currentRowIndex,
     gameStatus,
   } = useAppSelector((state) => state.game)
-
-  const visible = useAppSelector((state) => state.notification.visible)
 
   const path = useLocation()
   const { updateStatistics } = useUpdateStatistics()
@@ -120,11 +119,11 @@ const App = () => {
     const currentGuessStr = currentGuess.join('')
 
     if (currentGuessStr.length !== 5) {
-      showNotify('notify-warning', 'Введены не все буквы')
+      showNotify(NotificationColor.warning, 'Введены не все буквы')
       return
     }
     if (!words.includes(currentGuessStr)) {
-      showNotify('notify-warning', 'Такого слова нет в списке')
+      showNotify(NotificationColor.warning, 'Такого слова нет в списке')
       return
     }
     const indexColorArray: number[] = []
@@ -149,7 +148,10 @@ const App = () => {
     if (gameStatus === 'WIN') return
 
     if (pressedKey.length === 1 && pressedKey.match(/[a-z]/gi)) {
-      showNotify('notify-info', 'Игра поддерживает только русский язык')
+      showNotify(
+        NotificationColor.info,
+        'Игра поддерживает только русский язык',
+      )
       return
     }
 
@@ -209,8 +211,6 @@ const App = () => {
       onKeyDown={path.pathname === '/' ? handleKeyDown : undefined}
       className='relative z-10 flex h-screen min-h-[600px] w-screen min-w-[360px] flex-col justify-between justify-items-center overflow-hidden bg-w-white focus:outline-none dark:bg-gradient-to-br dark:from-[#333] dark:to-[#111]'
     >
-      {visible && <Notification />}
-
       <Routes>
         <Route path='/' element={<Layout isLoading={isLoadingCheckAuth} />}>
           <Route index element={<Game checkGuess={checkGuess} />} />
@@ -292,8 +292,8 @@ const App = () => {
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>
-
       <Modal />
+      <Notification />
     </div>
   )
 }

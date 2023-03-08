@@ -1,0 +1,18 @@
+.notification-enter {
+  top: -70px;
+}
+.notification-enter-active {
+  top: 12px;
+  transition: all 0.5s ease-out;
+}
+.notification-enter-done {
+  top: 4px;
+  transition: all 0.3s ease-out;
+}
+.notification-exit {
+  top: 4px;
+}
+.notification-exit-active {
+  top: -90px;
+  transition: all 0.5s ease-out;
+}

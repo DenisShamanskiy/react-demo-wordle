@@ -4,6 +4,7 @@ import useNotification from 'hook/useNotification'
 import { FC } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDeleteUserMutation, useGetUserQuery } from 'redux/api/userApi'
+import { NotificationColor } from 'types/store'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 
 const User: FC = () => {
@@ -20,10 +21,10 @@ const User: FC = () => {
     try {
       const response = await deleteUser(id).unwrap()
       if (response.errors) {
-        showNotify('notify-failure', `${response.errors[0]}`)
+        showNotify(NotificationColor.failure, `${response.errors[0]}`)
         return
       }
-      showNotify('notify-success', 'Данные пользователя удалены')
+      showNotify(NotificationColor.success, 'Данные пользователя удалены')
       goBack()
     } catch (error) {
       console.log(error)
