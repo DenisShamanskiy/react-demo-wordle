@@ -10,9 +10,9 @@ export const NewGame = () => {
   const dispatch = useAppDispatch()
   const { board, gameStatus } = useAppSelector((state) => state.game)
   const show = useAppSelector((state) => state.newGame.show)
-  const open = useAppSelector((state) => state.modal.open)
+  const isOpen = useAppSelector((state) => state.modal.isOpen)
 
-  useOutsideClick(squareBoxRef, () => dispatch(hideNewGame()), open)
+  useOutsideClick(squareBoxRef, () => dispatch(hideNewGame()), isOpen)
 
   useEffect(() => {
     if (!show) {
@@ -27,23 +27,25 @@ export const NewGame = () => {
   return (
     <div
       ref={squareBoxRef}
-      className={`absolute left-2 top-2 z-50 h-fit origin-top-left rounded-xl  bg-white/10 p-4 shadow-glossWhite backdrop-blur-xl transition-all duration-500  dark:bg-black/10 dark:shadow-glossBlack md:p-6 ${
+      className={`absolute left-2 top-2 z-50 h-fit origin-top-left rounded-xl bg-white/10 p-4 shadow-glossWhite backdrop-blur-xl transition-all duration-500  dark:bg-black/10 dark:shadow-glossBlack md:p-6 ${
         show ? 'animate-newGameShow' : 'animate-newGameHide'
       } `}
     >
       <section className='mx-auto w-11/12 max-w-[448px] select-none'>
-        <div className=' mx-auto  grid w-full grid-rows-2 justify-center gap-y-2 md:gap-y-3 '>
+        <div className='mx-auto grid w-full grid-rows-2 justify-center gap-y-2 md:gap-y-3 '>
           <Button
             type='button'
-            text={'Новая игра'}
+            text='Новая игра'
             size='m'
             isRounded
             onClick={() =>
               dispatch(
                 openModal({
-                  window: 'Confirm',
-                  title: 'Новая игра?',
-                  type: 'NewGame',
+                  component: 'Confirm',
+                  props: {
+                    heading: 'Новая игра?',
+                    type: 'new-game',
+                  },
                 }),
               )
             }
@@ -51,17 +53,19 @@ export const NewGame = () => {
           />
           <Button
             type='button'
-            text={'Сдаться'}
+            text='Сдаться'
             size='m'
             isRounded
             onClick={() =>
               dispatch(
                 openModal({
-                  window: 'Confirm',
-                  title: 'Сдаёшься?',
-                  type: 'Leave',
-                  description:
-                    'Узнаешь загаданное слово, но cдача засчитается в статистике',
+                  component: 'Confirm',
+                  props: {
+                    heading: 'Сдаёшься?',
+                    type: 'leave',
+                    description:
+                      'Узнаешь загаданное слово, но cдача засчитается в статистике',
+                  },
                 }),
               )
             }

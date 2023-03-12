@@ -1,19 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-type ModalState = {
-  open: boolean
-  window: string
-  title: string
-  type?: string
-  description?: string
+interface IModalState {
+  isOpen: boolean
+  component: 'Confirm' | 'GameResult' | null
+  props: {
+    heading: string
+    type?: 'new-game' | 'leave'
+    description?: string
+    result?: 'win' | 'leave' | 'fail'
+  }
 }
 
-const initialState: ModalState = {
-  open: false,
-  window: '',
-  title: '',
-  type: '',
-  description: '',
+const initialState: IModalState = {
+  isOpen: false,
+  component: null,
+  props: {
+    heading: '',
+    type: undefined,
+    description: '',
+    result: undefined,
+  },
 }
 
 const modalSlice = createSlice({
@@ -21,15 +27,13 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     openModal(state, action) {
-      state.open = true
-      state.window = action.payload.window
-      state.title = action.payload.title
-      state.type = action.payload.type
-      state.description = action.payload.description
+      state.isOpen = true
+      state.component = action.payload.component
+      state.props = action.payload.props
     },
 
     closeModal(state) {
-      state.open = false
+      state.isOpen = false
     },
   },
 })

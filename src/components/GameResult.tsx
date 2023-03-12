@@ -1,25 +1,29 @@
+import { FC } from 'react'
 import { closeModal } from 'redux/features/modalSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
-import win from '../../assets/gif/win.gif'
-import leave from '../../assets/gif/leave.gif'
-import fail from '../../assets/gif/fail.gif'
+import win from '../assets/gif/win.gif'
+import leave from '../assets/gif/leave.gif'
+import fail from '../assets/gif/fail.gif'
 import ButtonIcon from 'components/ButtonIcon'
 import useEncryption from 'hook/useEncryption'
 
-const GameResult = () => {
+interface IGameResultProps {
+  result: 'win' | 'leave' | 'fail'
+}
+
+const GameResult: FC<IGameResultProps> = ({ result }) => {
   const dispatch = useAppDispatch()
   const { decryptValue } = useEncryption(process.env['REACT_APP_CRYPTO_KEY']!)
-  const rightGuess = useAppSelector((state) => state.game.word.currentWord)
-  const title = useAppSelector((state) => state.modal.title)
+  const currentWord = useAppSelector((state) => state.game.word.currentWord)
 
-  const getDataResult = (result: string) => {
+  const getGifResult = (result: string) => {
     switch (result) {
-      case 'Победа':
+      case 'win':
         return {
           img: win,
           imgAlt: 'giphy winner',
         }
-      case 'Поражение':
+      case 'fail':
         return {
           img: fail,
           imgAlt: 'giphy fail',
@@ -35,27 +39,27 @@ const GameResult = () => {
   return (
     <section className='relative w-72 select-none md:w-80'>
       <ButtonIcon
-        icon={'close'}
+        icon='close'
         position='close'
         size='close'
         onClick={() => dispatch(closeModal())}
       />
       <img
-        src={getDataResult(title).img}
-        alt={getDataResult(title).imgAlt}
+        src={getGifResult(result!).img}
+        alt={getGifResult(result!).imgAlt}
         className='mx-auto h-auto min-h-[160px] w-40 md:min-h-[176px] md:w-44'
       ></img>
 
-      {title !== 'Победа' && (
+      {result !== 'win' && (
         <>
           <p className='pt-4 pb-2 text-center text-base font-extrabold uppercase text-w-quartz dark:text-w-white-dark md:pt-8 md:pb-4 md:text-lg'>
             Загаданное слово
           </p>
           <ul className='mx-auto grid w-fit grid-cols-5 gap-x-1 py-2 md:py-4'>
-            {[...decryptValue(rightGuess)].map((letter, index) => {
+            {[...decryptValue(currentWord)].map((letter, index) => {
               return (
                 <li
-                  className='flex h-9 w-9 items-center justify-center bg-w-green font-["Bitter"] text-2xl font-extrabold uppercase text-w-white dark:bg-w-green-dark md:h-11 md:w-11 md:text-3xl'
+                  className='flex h-9 w-9 items-center justify-center rounded bg-w-green font-["Bitter"] text-2xl font-extrabold uppercase text-w-white dark:bg-w-green-dark md:h-11 md:w-11 md:text-3xl'
                   key={index}
                 >
                   {letter}

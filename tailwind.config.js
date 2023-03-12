@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       keyframes: {
-        modalOpen: {
+        appearDialog: {
           '0%': {
             transform: 'translateY(30px)',
             opacity: '0',
@@ -19,7 +19,7 @@ module.exports = {
             opacity: '1',
           },
         },
-        modalClosed: {
+        disappearDialog: {
           '0%': {
             transform: 'translateY(0px)',
             opacity: '1',
@@ -48,28 +48,6 @@ module.exports = {
             transform: 'scale(0.2)',
             opacity: '0',
           },
-        },
-        notifyShow: {
-          '0%': { transform: 'translate(-50%, 0%)' },
-          '12%': { transform: 'translate(-50%, 90%)' },
-          '16%': { transform: 'translate(-50%, 80%)' },
-          '100%': { transform: 'translate(-50%, 80%)' },
-        },
-        notifyHide: {
-          '0%': { transform: 'translate(-50%, 80%)' },
-          '25%': { transform: 'translate(-50%, 90%)' },
-          '100%': { transform: 'translate(-50%, -40%)' },
-        },
-        notifyShowMD: {
-          '0%': { transform: 'translate(-50%, 0%)' },
-          '12%': { transform: 'translate(-50%, 130%)' },
-          '16%': { transform: 'translate(-50%, 120%)' },
-          '100%': { transform: 'translate(-50%, 120%)' },
-        },
-        notifyHideMD: {
-          '0%': { transform: 'translate(-50%, 120%)' },
-          '25%': { transform: 'translate(-50%, 130%)' },
-          '100%': { transform: 'translate(-50%, -120%)' },
         },
         errorShow: {
           '0%': {
@@ -116,23 +94,19 @@ module.exports = {
         },
       },
       animation: {
-        modalOpen: 'modalOpen 500ms ease 1',
-        modalClosed: 'modalClosed 500ms ease 1',
+        appearDialog: 'appearDialog 500ms ease 1',
+        disappearDialog: 'disappearDialog 500ms ease 1',
         newGameShow: 'newGameShow 500ms ease 1 forwards',
         newGameHide: 'newGameHide 500ms ease 1 forwards',
         errorShow: 'errorShow 500ms ease 1',
         errorHidden: 'errorHidden 500ms ease 1',
-        notifyShow: 'notifyShow 4s ease 1 forwards',
-        notifyHide: 'notifyHide 1s ease 1 forwards',
-        notifyShowMD: 'notifyShowMD 4s ease 1 forwards',
-        notifyHideMD: ' notifyHideMD 1s ease 1 forwards',
         loaderCircleScaleBefore: 'loaderCircleScale 1s linear 0s infinite',
         loaderCircleScaleAfter: 'loaderCircleScale 1s linear 0.5s infinite',
         loaderBtn: 'loaderBtn 1s infinite',
       },
       boxShadow: {
-        modal: '0 4px 23px 0 #c1d9f0',
-        modalDark: '0 4px 23px 0 rgba(0, 0, 0, 0.8)',
+        modal: '0 4px 23px 0 rgba(169, 170, 170, 0.945)',
+        modalDark: '0 4px 23px 0 rgba(0, 0, 0, 0.56)',
         glossWhite: '0 4px 30px rgba(169, 170, 170, 0.945)',
         glossBlack: '0 4px 30px rgba(0, 0, 0, 0.56)',
         popped:

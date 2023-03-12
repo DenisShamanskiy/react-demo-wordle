@@ -1,26 +1,90 @@
 import '../styles/modal-animation.css'
-import Confirm from 'components/ModalContent/Confirm'
-import GameResult from 'components/ModalContent/GameResult'
 import { useEffect, useRef } from 'react'
-import { CSSTransition } from 'react-transition-group'
-import { closeModal } from 'redux/features/modalSlice'
-import { useAppDispatch, useAppSelector } from 'utils/hook'
 import ReactPortal from 'utils/ReactPortal'
+import { CSSTransition } from 'react-transition-group'
+import { useAppDispatch, useAppSelector } from 'utils/hook'
+import { closeModal, openModal } from 'redux/features/modalSlice'
+import useEncryption from 'hook/useEncryption'
+import { useNavigate } from 'react-router-dom'
+import useUpdateStats from 'hook/useUpdateStatistics'
+import { restartGame, setRelultGame } from 'redux/features/gameSlice'
+import { getRandomWord } from 'utils/helpers'
+import { resetDataHardMode } from 'redux/features/settingsSlice'
+import { hideNewGame } from 'redux/features/newGameSlice'
+import Confirm from './Confirm'
+import GameResult from './GameResult'
 
-function Modal() {
+const Modal = () => {
   const nodeRef = useRef(null)
-  const { open, window } = useAppSelector((state) => state.modal)
-
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const { encryptValue, decryptValue } = useEncryption(
+    process.env['REACT_APP_CRYPTO_KEY']!,
+  )
+  const { isOpen, component, props } = useAppSelector((state) => state.modal)
+  const {
+    word: { words, currentWord },
+  } = useAppSelector((state) => state.game)
+  const goHome = () => navigate('/', { replace: true })
+  const { updateStatistics } = useUpdateStats()
 
-  const getModalContent = (titleContent: string) => {
-    switch (titleContent) {
-      case 'Confirm':
-        return <Confirm />
-      case 'GameResult':
-        return <GameResult />
+  const handleConfirmNewGame = () => {
+    goHome()
+    dispatch(
+      restartGame({
+        currentWord: encryptValue(getRandomWord(words)),
+        previousWord: decryptValue(currentWord),
+      }),
+    )
+    dispatch(resetDataHardMode())
+    dispatch(closeModal())
+    dispatch(hideNewGame())
+  }
+
+  const handleConfirmLeaveGame = async () => {
+    goHome()
+    dispatch(closeModal())
+    dispatch(setRelultGame('LEAVE'))
+    await updateStatistics({ result: 'LEAVE' })
+    dispatch(hideNewGame())
+    setTimeout(
+      () =>
+        dispatch(
+          openModal({
+            component: 'GameResult',
+            props: {
+              result: 'leave',
+            },
+          }),
+        ),
+      500,
+    )
+  }
+
+  const getHandleConfirm = (type: string) => {
+    switch (type) {
+      case 'NewGame':
+        return handleConfirmNewGame()
+      case 'Leave':
+        return handleConfirmLeaveGame()
       default:
-        return
+        return null
+    }
+  }
+
+  const getModalContent = (content: string) => {
+    switch (content) {
+      case 'Confirm':
+        return (
+          <Confirm
+            {...props}
+            onConfirm={() => getHandleConfirm(props!.type!)}
+          />
+        )
+      case 'GameResult':
+        return <GameResult result={props!.result!} />
+      default:
+        return null
     }
   }
 
@@ -29,34 +93,36 @@ function Modal() {
       event.key === 'Escape' ? dispatch(closeModal()) : null
 
     document.body.addEventListener('keydown', closeOnEscapeKey)
+
     return () => {
       document.body.removeEventListener('keydown', closeOnEscapeKey)
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <ReactPortal wrapperId='modal'>
       <CSSTransition
-        in={open}
+        in={isOpen}
         timeout={{ enter: 0, exit: 300 }}
         unmountOnExit
         classNames='modal'
         nodeRef={nodeRef}
       >
-        <dialog
-          className='modal bg-white/60 dark:bg-black/60'
+        <div
+          className='modal fixed inset-0 z-50 flex h-full w-full items-center justify-center overflow-hidden bg-white/60 p-0 transition-all duration-300 ease-in-out dark:bg-black/60'
           ref={nodeRef}
           onClick={() => dispatch(closeModal())}
         >
-          <div
-            className={`w-fit max-w-lg rounded-xl border border-[#f6f7f8] bg-w-white p-6 shadow-modal dark:border-[#1a1a1b] dark:bg-[#1e1e20] dark:shadow-modalDark md:p-8 ${
-              open ? 'animate-modalOpen' : 'animate-modalClosed'
+          <dialog
+            open
+            className={`w-fit max-w-lg rounded-xl bg-w-white p-6 shadow-modal dark:bg-[#1e1e20] dark:shadow-modalDark md:p-8 ${
+              isOpen ? 'animate-appearDialog' : 'animate-disappearDialog'
             }`}
             onClick={(event) => event.stopPropagation()}
           >
-            {getModalContent(window)}
-          </div>
-        </dialog>
+            {component !== null && getModalContent(component)}
+          </dialog>
+        </div>
       </CSSTransition>
     </ReactPortal>
   )
