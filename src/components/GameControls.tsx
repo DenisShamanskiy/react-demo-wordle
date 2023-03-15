@@ -5,7 +5,7 @@ import Button from './Button'
 import { useOutsideClick } from '../hook/useOutsideClick'
 import { hideNewGame, deleteNewGame } from 'redux/features/newGameSlice'
 
-export const NewGame = () => {
+export const GameControls = () => {
   const squareBoxRef = useRef<HTMLDivElement>(null)
   const dispatch = useAppDispatch()
   const { board, gameStatus } = useAppSelector((state) => state.game)
@@ -44,7 +44,6 @@ export const NewGame = () => {
                   component: 'Confirm',
                   props: {
                     heading: 'Новая игра?',
-                    type: 'new-game',
                   },
                 }),
               )
@@ -62,7 +61,6 @@ export const NewGame = () => {
                   component: 'Confirm',
                   props: {
                     heading: 'Сдаёшься?',
-                    type: 'leave',
                     description:
                       'Узнаешь загаданное слово, но cдача засчитается в статистике',
                   },
@@ -79,4 +77,4 @@ export const NewGame = () => {
     </div>
   )
 }
-export default NewGame
+export default GameControls

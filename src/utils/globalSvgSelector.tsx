@@ -676,7 +676,7 @@ export function globalSvgSelector(icon: string, dark: boolean) {
           <path
             d='M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z'
             fill='none'
-            stroke='#ff5549'
+            stroke={dark ? '#cc443a' : '#ff5549'}
             strokeMiterlimit='10'
             strokeWidth='20px'
           />
@@ -686,7 +686,7 @@ export function globalSvgSelector(icon: string, dark: boolean) {
             x2='192'
             y2='192'
             fill='none'
-            stroke='#ff5549'
+            stroke={dark ? '#cc443a' : '#ff5549'}
             strokeLinecap='round'
             strokeLinejoin='round'
             strokeWidth='20px'
@@ -697,7 +697,7 @@ export function globalSvgSelector(icon: string, dark: boolean) {
             x2='320'
             y2='192'
             fill='none'
-            stroke='#ff5549'
+            stroke={dark ? '#cc443a' : '#ff5549'}
             strokeLinecap='round'
             strokeLinejoin='round'
             strokeWidth='20px'

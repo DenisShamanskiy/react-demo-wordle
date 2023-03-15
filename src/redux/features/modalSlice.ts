@@ -5,9 +5,12 @@ interface IModalState {
   component: 'Confirm' | 'GameResult' | null
   props: {
     heading: string
-    type?: 'new-game' | 'leave'
     description?: string
     result?: 'win' | 'leave' | 'fail'
+  }
+  error: {
+    status?: number | null
+    message?: string | null
   }
 }
 
@@ -16,9 +19,12 @@ const initialState: IModalState = {
   component: null,
   props: {
     heading: '',
-    type: undefined,
     description: '',
     result: undefined,
+  },
+  error: {
+    status: null,
+    message: null,
   },
 }
 
@@ -30,8 +36,8 @@ const modalSlice = createSlice({
       state.isOpen = true
       state.component = action.payload.component
       state.props = action.payload.props
+      state.error = action.payload.error
     },
-
     closeModal(state) {
       state.isOpen = false
     },

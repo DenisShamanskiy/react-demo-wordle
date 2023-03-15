@@ -3,86 +3,24 @@ import { useEffect, useRef } from 'react'
 import ReactPortal from 'utils/ReactPortal'
 import { CSSTransition } from 'react-transition-group'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
-import { closeModal, openModal } from 'redux/features/modalSlice'
-import useEncryption from 'hook/useEncryption'
-import { useNavigate } from 'react-router-dom'
-import useUpdateStats from 'hook/useUpdateStatistics'
-import { restartGame, setRelultGame } from 'redux/features/gameSlice'
-import { getRandomWord } from 'utils/helpers'
-import { resetDataHardMode } from 'redux/features/settingsSlice'
-import { hideNewGame } from 'redux/features/newGameSlice'
-import Confirm from './Confirm'
+import { closeModal } from 'redux/features/modalSlice'
+import { Confirm } from './Confirm'
 import GameResult from './GameResult'
+import ModalError from './ModalError'
 
 const Modal = () => {
   const nodeRef = useRef(null)
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { encryptValue, decryptValue } = useEncryption(
-    process.env['REACT_APP_CRYPTO_KEY']!,
-  )
-  const { isOpen, component, props } = useAppSelector((state) => state.modal)
-  const {
-    word: { words, currentWord },
-  } = useAppSelector((state) => state.game)
-  const goHome = () => navigate('/', { replace: true })
-  const { updateStatistics } = useUpdateStats()
-
-  const handleConfirmNewGame = () => {
-    goHome()
-    dispatch(
-      restartGame({
-        currentWord: encryptValue(getRandomWord(words)),
-        previousWord: decryptValue(currentWord),
-      }),
-    )
-    dispatch(resetDataHardMode())
-    dispatch(closeModal())
-    dispatch(hideNewGame())
-  }
-
-  const handleConfirmLeaveGame = async () => {
-    goHome()
-    dispatch(closeModal())
-    dispatch(setRelultGame('LEAVE'))
-    await updateStatistics({ result: 'LEAVE' })
-    dispatch(hideNewGame())
-    setTimeout(
-      () =>
-        dispatch(
-          openModal({
-            component: 'GameResult',
-            props: {
-              result: 'leave',
-            },
-          }),
-        ),
-      500,
-    )
-  }
-
-  const getHandleConfirm = (type: string) => {
-    switch (type) {
-      case 'NewGame':
-        return handleConfirmNewGame()
-      case 'Leave':
-        return handleConfirmLeaveGame()
-      default:
-        return null
-    }
-  }
+  const { isOpen, component } = useAppSelector((state) => state.modal)
 
   const getModalContent = (content: string) => {
     switch (content) {
       case 'Confirm':
-        return (
-          <Confirm
-            {...props}
-            onConfirm={() => getHandleConfirm(props!.type!)}
-          />
-        )
+        return <Confirm />
       case 'GameResult':
-        return <GameResult result={props!.result!} />
+        return <GameResult />
+      case 'Error':
+        return <ModalError />
       default:
         return null
     }
@@ -91,9 +29,7 @@ const Modal = () => {
   useEffect(() => {
     const closeOnEscapeKey = (event: KeyboardEvent) =>
       event.key === 'Escape' ? dispatch(closeModal()) : null
-
     document.body.addEventListener('keydown', closeOnEscapeKey)
-
     return () => {
       document.body.removeEventListener('keydown', closeOnEscapeKey)
     }

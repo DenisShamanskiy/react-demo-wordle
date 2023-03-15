@@ -6,13 +6,15 @@ import InputText from 'components/micro-components/InputText'
 import { AuthForm, IFormValues } from 'models/IFormValues'
 import { emailRegex } from 'utils/constants'
 import { useSignupMutation } from 'redux/api/authApi'
-import useNotification from 'hook/useNotification'
 import { usePasswordToggle } from 'hook/usePasswordVisibility'
 import { NotificationColor } from 'types/store'
+import { openModal } from 'redux/features/modalSlice'
+import { useAppDispatch } from 'utils/hook'
+import useGameLogic from 'hook/useGameLogic'
 
 const Signup: FC = () => {
   const navigate = useNavigate()
-
+  const dispatch = useAppDispatch()
   const {
     register,
     formState: { errors, isValid, isDirty },
@@ -28,7 +30,7 @@ const Signup: FC = () => {
   const [signup, { isLoading: isLoadSignup }] = useSignupMutation()
 
   const [isPasswordVisible, togglePasswordVisibility] = usePasswordToggle()
-  const showNotify = useNotification()
+  const { showNotify } = useGameLogic()
 
   const handleSignup = async (data: AuthForm) => {
     try {
@@ -36,8 +38,18 @@ const Signup: FC = () => {
       goHome()
       showNotify(NotificationColor.success, 'Вы успешно зарегистрировались')
     } catch (e) {
+      dispatch(
+        openModal({
+          component: 'Error',
+          error: {
+            status: e.status,
+            message: e.data.message,
+          },
+        }),
+      )
+      console.log('e', e)
       console.log(e.data.message)
-      showNotify(NotificationColor.failure, e.data.message)
+      // showNotify(NotificationColor.failure, e.data.message)
     }
   }
 

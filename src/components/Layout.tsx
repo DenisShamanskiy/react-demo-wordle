@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from 'utils/hook'
 import ButtonIcon from './ButtonIcon'
 import CustomLink from './CustomLink'
 import Loader from './Loaders/Loader'
-import NewGame from './NewGame'
+import GameControls from './GameControls'
 import { CSSTransition } from 'react-transition-group'
 
 type LayoutProps = {
@@ -102,7 +102,7 @@ const Layout: FC<LayoutProps> = ({ isLoading }) => {
       </header>
       <main className='relative mx-auto flex h-[calc(100%-40px)] w-full max-w-5xl items-center md:h-[calc(100%-64px)]'>
         {isLoading ? <Loader /> : <Outlet />}
-        {visible && <NewGame />}
+        {visible && <GameControls />}
       </main>
     </>
   )

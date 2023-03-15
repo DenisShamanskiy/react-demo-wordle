@@ -1,10 +1,10 @@
-import useNotification from 'hook/useNotification'
 import { IFormValues } from 'models/IFormValues'
 import { FC } from 'react'
 import { UseFormReset } from 'react-hook-form/dist/types/form'
 import { NotificationColor } from 'types/store'
 import { useDeleteWordMutation } from '../redux/api/wordsApi'
 import ButtonIcon from './ButtonIcon'
+import useGameLogic from 'hook/useGameLogic'
 
 type WordProps = {
   style: React.CSSProperties
@@ -14,7 +14,7 @@ type WordProps = {
 }
 
 const Word: FC<WordProps> = ({ index, word, style, reset }) => {
-  const showNotify = useNotification()
+  const { showNotify } = useGameLogic()
   const [deleteWord, { isLoading }] = useDeleteWordMutation()
 
   const handleDeleteWord = async (word: string) => {

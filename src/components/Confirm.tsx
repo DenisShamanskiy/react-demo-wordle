@@ -1,17 +1,73 @@
 import Button from 'components/Button'
 import Heading from 'components/micro-components/Heading'
-import { FC } from 'react'
-import { closeModal } from 'redux/features/modalSlice'
-import { useAppDispatch } from 'utils/hook'
+import useEncryption from 'hook/useEncryption'
+import { useNavigate } from 'react-router-dom'
+import { restartGame, setRelultGame } from 'redux/features/gameSlice'
+import { closeModal, openModal } from 'redux/features/modalSlice'
+import { hideNewGame } from 'redux/features/newGameSlice'
+import { resetDataHardMode } from 'redux/features/settingsSlice'
+import { getRandomWord } from 'utils/helpers'
+import { useAppDispatch, useAppSelector } from 'utils/hook'
+import useUpdateStats from 'hook/useUpdateStatistics'
 
-interface IConfirmProps {
-  heading: string
-  description?: string
-  onConfirm: () => void
-}
-
-const Confirm: FC<IConfirmProps> = ({ heading, description, onConfirm }) => {
+export const Confirm = () => {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const { updateStatistics } = useUpdateStats()
+
+  const { encryptValue, decryptValue } = useEncryption(
+    process.env['REACT_APP_CRYPTO_KEY']!,
+  )
+  const { heading, description } = useAppSelector((state) => state.modal.props)
+  const {
+    word: { words, currentWord },
+  } = useAppSelector((state) => state.game)
+
+  const goHome = () => navigate('/', { replace: true })
+
+  const handleConfirmNewGame = () => {
+    goHome()
+    dispatch(
+      restartGame({
+        currentWord: encryptValue(getRandomWord(words)),
+        previousWord: decryptValue(currentWord),
+      }),
+    )
+    dispatch(resetDataHardMode())
+    dispatch(closeModal())
+    dispatch(hideNewGame())
+  }
+
+  const handleConfirmLeaveGame = async () => {
+    goHome()
+    dispatch(closeModal())
+    dispatch(setRelultGame('LEAVE'))
+    await updateStatistics({ result: 'LEAVE' })
+    dispatch(hideNewGame())
+    setTimeout(
+      () =>
+        dispatch(
+          openModal({
+            component: 'GameResult',
+            props: {
+              result: 'leave',
+            },
+          }),
+        ),
+      500,
+    )
+  }
+
+  const getHandleConfirm = (heading: string) => {
+    switch (heading) {
+      case 'Новая игра?':
+        return handleConfirmNewGame()
+      case 'Сдаёшься?':
+        return handleConfirmLeaveGame()
+      default:
+        return null
+    }
+  }
 
   return (
     <section className='w-72 select-none md:w-80'>
@@ -34,11 +90,9 @@ const Confirm: FC<IConfirmProps> = ({ heading, description, onConfirm }) => {
           text='Да'
           size='s'
           isRounded
-          onClick={() => onConfirm()}
+          onClick={() => getHandleConfirm(heading)}
         />
       </div>
     </section>
   )
 }
-
-export default Confirm

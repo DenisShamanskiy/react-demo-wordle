@@ -1,21 +1,15 @@
+import useGameLogic from 'hook/useGameLogic'
 import { useEffect } from 'react'
-import {
-  addLetterBoard,
-  colorKey,
-  removeLetterBoard,
-} from 'redux/features/gameSlice'
+import { colorKey } from 'redux/features/gameSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 
-type KeyboardProps = {
-  checkGuess: () => void
-}
-
-const Keyboard = ({ checkGuess }: KeyboardProps) => {
+const Keyboard = () => {
   const dispatch = useAppDispatch()
 
   const darkTheme = useAppSelector((state) => state.settings.darkMode)
-  const { board, keyBoard, currentRowIndex, gameStatus, nextLetter } =
-    useAppSelector((state) => state.game)
+  const { board, keyBoard, currentRowIndex } = useAppSelector(
+    (state) => state.game,
+  )
 
   const addClassColor = (color: string | undefined) => {
     switch (color) {
@@ -30,23 +24,7 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
     }
   }
 
-  const handleClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    const pressedKey = event.currentTarget.dataset['key']!
-    if (gameStatus === 'WIN') return
-    if (pressedKey === '←' && nextLetter !== 0) {
-      dispatch(removeLetterBoard())
-      return
-    }
-    if (pressedKey === '↵') {
-      checkGuess()
-      return
-    }
-    const found = pressedKey.match(/[а-яА-ЯЁё]/gi)
-    if (!found || found.length > 1) return
-    else dispatch(addLetterBoard(pressedKey))
-  }
+  const { handleButtonPress } = useGameLogic()
 
   useEffect(() => {
     if (currentRowIndex > 0) {
@@ -64,7 +42,7 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
                 type='button'
                 data-key='↵'
                 className='button-key grow border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5'
-                onClick={handleClick}
+                onClick={handleButtonPress}
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -118,7 +96,7 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
                             )} } border-[#6c6e70] text-w-white`
                           : 'border-w-grey-tone-1 bg-w-white text-w-quartz dark:bg-w-grey-tone-5 dark:text-w-white'
                       }`}
-                      onClick={handleClick}
+                      onClick={handleButtonPress}
                       key={indexKey}
                     >
                       {buttonKey.value}
@@ -130,7 +108,7 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
                 type='button'
                 data-key='←'
                 className='button-key grow border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5'
-                onClick={handleClick}
+                onClick={handleButtonPress}
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -213,7 +191,7 @@ const Keyboard = ({ checkGuess }: KeyboardProps) => {
                           )} } border-[#6c6e70] text-w-white`
                         : 'border-w-grey-tone-1 bg-w-white text-w-quartz dark:bg-w-grey-tone-5 dark:text-w-white'
                     }`}
-                    onClick={handleClick}
+                    onClick={handleButtonPress}
                     key={indexKey}
                   >
                     {buttonKey.value}

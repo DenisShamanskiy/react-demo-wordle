@@ -10,7 +10,8 @@ type KeyBoardRow = {
 
 export type gameState = {
   board: BoardRow[][]
-  currentGuess: string[]
+  // currentGuess: string[]
+  currentGuess: string
   currentRowIndex: number
   gameStatus: string
   keyBoard: KeyBoardRow[][]

@@ -34,13 +34,13 @@ const settingsSlice = createSlice({
       localStorage.setItem('settings', JSON.stringify(state))
     },
     addDataHardMode(state, action) {
+      console.log(action.payload)
+
       state.hardMode.letters = [
-        ...new Set(
-          state.hardMode.letters.concat(action.payload.lettersHardMode),
-        ),
+        ...new Set(state.hardMode.letters.concat(action.payload.letters)),
       ]
       state.hardMode.words = [
-        ...new Set(state.hardMode.words.concat(action.payload.currentGuessStr)),
+        ...new Set(state.hardMode.words.concat(action.payload.currentGuess)),
       ]
       localStorage.setItem('settings', JSON.stringify(state))
     },

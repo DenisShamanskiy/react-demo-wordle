@@ -1,7 +1,7 @@
 import Button from 'components/Button'
 import Heading from 'components/micro-components/Heading'
 import InputText from 'components/micro-components/InputText'
-import useNotification from 'hook/useNotification'
+import useNotification from 'hook/useAppNotification'
 import { IFormValues } from 'models/IFormValues'
 import { FC, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -11,7 +11,7 @@ import { emailRegex } from 'utils/constants'
 import { useAppSelector } from 'utils/hook'
 
 const ProfileEditForm: FC = () => {
-  const showNotify = useNotification()
+  const { showNotify } = useNotification()
   const { id, email, username } = useAppSelector((state) => state.user)
   const {
     register,

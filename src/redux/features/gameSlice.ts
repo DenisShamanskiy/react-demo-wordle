@@ -5,7 +5,7 @@ import { board, keyBoard } from 'utils/constants'
 
 const initialState: gameState = {
   board: board,
-  currentGuess: [],
+  currentGuess: '',
   currentRowIndex: 0,
   gameStatus: 'IN_GAME',
   keyBoard: keyBoard,
@@ -58,7 +58,7 @@ const gameSlice = createSlice({
     },
     restartGame(state, actions) {
       state.board = board
-      state.currentGuess = []
+      state.currentGuess = ''
       state.currentRowIndex = 0
       state.gameStatus = 'IN_GAME'
       state.keyBoard = keyBoard
@@ -81,9 +81,8 @@ const gameSlice = createSlice({
             })
           : row,
       )
-      state.currentGuess.push(actions.payload)
+      state.currentGuess = state.currentGuess + actions.payload
       state.nextLetter = state.nextLetter + 1
-      localStorage.setItem('game', JSON.stringify(state))
     },
     removeLetterBoard(state) {
       state.board = state.board.map((row, index) =>
@@ -99,24 +98,24 @@ const gameSlice = createSlice({
             })
           : row,
       )
-      state.currentGuess.pop()
       state.nextLetter = state.nextLetter - 1
-      localStorage.setItem('game', JSON.stringify(state))
+      state.currentGuess = state.currentGuess.slice(0, -1)
     },
     nextStep(state, action) {
       state.board = state.board.map((row, index) =>
         index === state.currentRowIndex
-          ? row.map(function (letter, index) {
-              return action.payload[index] === -1
+          ? row.map((letter, index) => {
+              return action.payload.indexColorArray[index] === -1
                 ? { value: letter.value, color: 'letter-grey' }
-                : state.currentGuess[index] === state.word.currentWord[index]
+                : state.currentGuess[index] ===
+                  action.payload.decryptWord[index]
                 ? { value: letter.value, color: 'letter-green' }
                 : { value: letter.value, color: 'letter-yellow' }
             })
           : row,
       )
       state.currentRowIndex = state.currentRowIndex + 1
-      state.currentGuess = []
+      state.currentGuess = ''
       state.nextLetter = 0
       localStorage.setItem('game', JSON.stringify(state))
     },

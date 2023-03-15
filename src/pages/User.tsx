@@ -1,6 +1,6 @@
 import Button from 'components/Button'
 import Loader from 'components/Loaders/Loader'
-import useNotification from 'hook/useNotification'
+import useNotification from 'hook/useAppNotification'
 import { FC } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDeleteUserMutation, useGetUserQuery } from 'redux/api/userApi'
@@ -8,7 +8,7 @@ import { NotificationColor } from 'types/store'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 
 const User: FC = () => {
-  const showNotify = useNotification()
+  const { showNotify } = useNotification()
   const navigate = useNavigate()
   const goBack = () => navigate(-1)
 

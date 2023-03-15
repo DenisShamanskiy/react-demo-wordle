@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { closeModal } from 'redux/features/modalSlice'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import win from '../assets/gif/win.gif'
@@ -7,13 +6,10 @@ import fail from '../assets/gif/fail.gif'
 import ButtonIcon from 'components/ButtonIcon'
 import useEncryption from 'hook/useEncryption'
 
-interface IGameResultProps {
-  result: 'win' | 'leave' | 'fail'
-}
-
-const GameResult: FC<IGameResultProps> = ({ result }) => {
+const GameResult = () => {
   const dispatch = useAppDispatch()
   const { decryptValue } = useEncryption(process.env['REACT_APP_CRYPTO_KEY']!)
+  const { result } = useAppSelector((state) => state.modal.props)
   const currentWord = useAppSelector((state) => state.game.word.currentWord)
 
   const getGifResult = (result: string) => {

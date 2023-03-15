@@ -6,9 +6,9 @@ import InputText from 'components/micro-components/InputText'
 import { AuthForm, IFormValues } from 'models/IFormValues'
 import { emailRegex } from 'utils/constants'
 import { useSigninMutation } from 'redux/api/authApi'
-import useNotification from 'hook/useNotification'
 import { usePasswordToggle } from 'hook/usePasswordVisibility'
 import { NotificationColor } from 'types/store'
+import useGameLogic from 'hook/useGameLogic'
 
 const Signin: FC = () => {
   const navigate = useNavigate()
@@ -28,7 +28,7 @@ const Signin: FC = () => {
   const [signin, { isLoading: isLoadSignin }] = useSigninMutation()
 
   const [isPasswordVisible, togglePasswordVisibility] = usePasswordToggle()
-  const showNotify = useNotification()
+  const { showNotify } = useGameLogic()
 
   const handleSignin = async (data: AuthForm) => {
     try {
