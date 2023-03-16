@@ -1,9 +1,23 @@
 import CryptoJS from 'crypto-js'
 
+let cryptoJS: typeof CryptoJS | null = null
+
+if (typeof CryptoJS === 'object') {
+  cryptoJS = CryptoJS
+}
+
 const useEncryption = (secretKey: string) => {
   const encryptValue = (value: string) => {
+    process.env.NODE_ENV === 'development' &&
+      console.log('Загаданное слово:', value)
+
     try {
-      return CryptoJS.AES.encrypt(value, secretKey).toString()
+      if (cryptoJS) {
+        return cryptoJS.AES.encrypt(value, secretKey).toString()
+      } else {
+        console.error('CryptoJS library is not available')
+        return ''
+      }
     } catch (error) {
       console.error(error)
       return ''
@@ -12,7 +26,14 @@ const useEncryption = (secretKey: string) => {
 
   const decryptValue = (value: string) => {
     try {
-      return CryptoJS.AES.decrypt(value, secretKey).toString(CryptoJS.enc.Utf8)
+      if (cryptoJS) {
+        return cryptoJS.AES.decrypt(value, secretKey).toString(
+          cryptoJS.enc.Utf8,
+        )
+      } else {
+        console.error('CryptoJS library is not available')
+        return ''
+      }
     } catch (error) {
       console.error(error)
       return ''

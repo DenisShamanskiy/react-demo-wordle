@@ -1,20 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { wordsApi } from 'redux/api/wordsApi'
-import { gameState } from 'types/store'
+import { GameStatus, IGameState } from 'types/store'
 import { board, keyBoard } from 'utils/constants'
 
-const initialState: gameState = {
+const initialState: IGameState = {
   board: board,
   currentGuess: '',
   currentRowIndex: 0,
-  gameStatus: 'IN_GAME',
+  gameStatus: GameStatus.inGame,
   keyBoard: keyBoard,
   nextLetter: 0,
-  word: {
-    words: [''],
-    currentWord: '',
-    previousWord: '',
-  },
+  words: [''],
+  currentWord: '',
+  previousWord: '',
 }
 
 const gameSlice = createSlice({
@@ -22,49 +20,56 @@ const gameSlice = createSlice({
   initialState,
   reducers: {
     getLocalGameData(state) {
-      const localData = JSON.parse(localStorage['game'])
-      state.board = localData.board
-      state.currentGuess = localData.currentGuess
-      state.currentRowIndex = localData.currentRowIndex
-      state.gameStatus = localData.gameStatus
-      state.keyBoard = localData.keyBoard
-      state.nextLetter = localData.nextLetter
-      state.word = localData.word
+      const {
+        board,
+        currentGuess,
+        currentRowIndex,
+        gameStatus,
+        keyBoard,
+        nextLetter,
+        words,
+        currentWord,
+        previousWord,
+      } = JSON.parse(localStorage['game']) || {}
+      state.board = board ?? state.board
+      state.currentGuess = currentGuess ?? state.currentGuess
+      state.currentRowIndex = currentRowIndex ?? state.currentRowIndex
+      state.gameStatus = gameStatus ?? state.gameStatus
+      state.keyBoard = keyBoard ?? state.keyBoard
+      state.nextLetter = nextLetter ?? state.nextLetter
+      state.words = words ?? state.words
+      state.currentWord = currentWord ?? state.currentWord
+      state.previousWord = previousWord ?? state.previousWord
     },
     initialGame(state, actions) {
-      state.word.currentWord = actions.payload
-      localStorage.setItem('game', JSON.stringify(state))
-    },
-    setStatusGame(state, action) {
-      state.gameStatus = action.payload
+      state.currentWord = actions.payload
       localStorage.setItem('game', JSON.stringify(state))
     },
     setRelultGame(state, action) {
-      if (action.payload === 'WIN') {
-        state.gameStatus = action.payload
+      const { payload } = action
+      state.gameStatus = payload
+      if (payload === GameStatus.win) {
         state.board = state.board.map((row, index) =>
           index === state.currentRowIndex
-            ? row.map((letter) => {
-                return { value: letter.value, color: 'letter-green' }
-              })
+            ? row.map((item) => ({
+                letter: item.letter,
+                color: 'green',
+              }))
             : row,
         )
-      } else if (action.payload === 'FAIL') {
-        state.gameStatus = action.payload
-      } else {
-        state.gameStatus = action.payload
       }
       localStorage.setItem('game', JSON.stringify(state))
     },
     restartGame(state, actions) {
+      const { previousWord, currentWord } = actions.payload
       state.board = board
       state.currentGuess = ''
       state.currentRowIndex = 0
-      state.gameStatus = 'IN_GAME'
+      state.gameStatus = GameStatus.inGame
       state.keyBoard = keyBoard
       state.nextLetter = 0
-      state.word.previousWord = actions.payload.previousWord
-      state.word.currentWord = actions.payload.currentWord
+      state.previousWord = previousWord
+      state.currentWord = currentWord
       localStorage.setItem('game', JSON.stringify(state))
     },
     addLetterBoard(state, actions) {
@@ -73,7 +78,7 @@ const gameSlice = createSlice({
           ? row.map((letter, index) => {
               if (index === state.nextLetter) {
                 return {
-                  value: actions.payload,
+                  letter: actions.payload,
                   color: letter.color,
                 }
               }
@@ -87,47 +92,55 @@ const gameSlice = createSlice({
     removeLetterBoard(state) {
       state.board = state.board.map((row, index) =>
         index === state.currentRowIndex
-          ? row.map((letter, index) => {
+          ? row.map((item, index) => {
               if (index === state.nextLetter - 1) {
                 return {
-                  value: '',
-                  color: letter.color,
+                  letter: '',
+                  color: item.color,
                 }
               }
-              return letter
+              return item
             })
           : row,
       )
-      state.nextLetter = state.nextLetter - 1
+      state.nextLetter -= 1
       state.currentGuess = state.currentGuess.slice(0, -1)
     },
-    nextStep(state, action) {
-      state.board = state.board.map((row, index) =>
-        index === state.currentRowIndex
-          ? row.map((letter, index) => {
-              return action.payload.indexColorArray[index] === -1
-                ? { value: letter.value, color: 'letter-grey' }
-                : state.currentGuess[index] ===
-                  action.payload.decryptWord[index]
-                ? { value: letter.value, color: 'letter-green' }
-                : { value: letter.value, color: 'letter-yellow' }
+    advanceToNextRow(state, action) {
+      state.board = state.board.map((row, rowIndex) =>
+        rowIndex === state.currentRowIndex
+          ? row.map((item, letterIndex) => {
+              const guessLetter = state.currentGuess[letterIndex]
+              const decryptLetter = action.payload.decryptWord[letterIndex]
+              const indexColor = action.payload.indexColorArray[letterIndex]
+
+              if (indexColor === -1) {
+                return { letter: item.letter, color: 'grey' }
+              } else if (guessLetter === decryptLetter) {
+                return { letter: item.letter, color: 'green' }
+              } else {
+                return { letter: item.letter, color: 'yellow' }
+              }
             })
           : row,
       )
-      state.currentRowIndex = state.currentRowIndex + 1
+      state.currentRowIndex += 1
       state.currentGuess = ''
       state.nextLetter = 0
       localStorage.setItem('game', JSON.stringify(state))
     },
     colorKey(state, action) {
       state.keyBoard = state.keyBoard.map((row) =>
-        row.map(function (key) {
-          for (let i = 0; i < action.payload.length; i++) {
-            if (
-              action.payload[i]!.value === key.value &&
-              key.color !== 'letter-green'
-            )
-              return action.payload[i]
+        row.map((key) => {
+          const matchingValue = action.payload.find(
+            (item: { value: string }) =>
+              item.value === key.value && key.color !== 'letter-green',
+          )
+          if (matchingValue) {
+            return {
+              value: matchingValue.value,
+              color: matchingValue.color,
+            }
           }
           return key
         }),
@@ -139,7 +152,7 @@ const gameSlice = createSlice({
     builder.addMatcher(
       wordsApi.endpoints.getWords.matchFulfilled,
       (state, { payload }) => {
-        state.word.words = payload
+        state.words = payload
       },
     )
   },
@@ -148,12 +161,11 @@ const gameSlice = createSlice({
 export const {
   getLocalGameData,
   initialGame,
-  setStatusGame,
   restartGame,
   addLetterBoard,
   removeLetterBoard,
   setRelultGame,
-  nextStep,
+  advanceToNextRow,
   colorKey,
 } = gameSlice.actions
 

@@ -1,25 +1,23 @@
-import { useState } from 'react'
 import { BarRow } from 'redux/api/types'
 import { useUpdateStatisticsMutation } from 'redux/api/userApi'
 import { useAppSelector } from 'utils/hook'
 
-type Props = {
-  result: string
+interface Props {
+  result: 'WIN' | 'FAIL' | 'LEAVE'
   currentRowIndex?: number
 }
 
 const useUpdateStatistics = () => {
   const { id, statistics } = useAppSelector((state) => state.user)
-  const [newStatistics, setNewStatistics] = useState(statistics)
   const [setStatistics] = useUpdateStatisticsMutation()
 
   const updateStatistics = async (props: Props) => {
-    const updatedStats = { ...statistics }
+    const currentStatistics = { ...statistics }
 
     switch (props.result) {
       case 'WIN':
-        updatedStats.win = updatedStats.win + 1
-        updatedStats.bar = updatedStats.bar.map(
+        currentStatistics.win = currentStatistics.win + 1
+        currentStatistics.bar = currentStatistics.bar.map(
           (barRow: BarRow, index: number) => {
             return {
               count:
@@ -29,31 +27,28 @@ const useUpdateStatistics = () => {
               percent:
                 index === props.currentRowIndex
                   ? `${Math.round(
-                      (100 / updatedStats.win) * (barRow.count + 1),
+                      (100 / currentStatistics.win) * (barRow.count + 1),
                     )}%`
-                  : `${Math.round((100 / updatedStats.win) * barRow.count)}%`,
+                  : `${Math.round(
+                      (100 / currentStatistics.win) * barRow.count,
+                    )}%`,
             }
           },
         )
-        setNewStatistics(updatedStats)
         break
       case 'FAIL':
-        updatedStats.fail = updatedStats.fail + 1
-        setNewStatistics(updatedStats)
+        currentStatistics.fail = currentStatistics.fail + 1
         break
       case 'LEAVE':
-        updatedStats.leave = updatedStats.leave + 1
-        setNewStatistics(updatedStats)
+        currentStatistics.leave = currentStatistics.leave + 1
         break
       default:
-        return
+        throw new Error(`Invalid result value: ${props.result}`)
     }
-    setStatistics({ id: id!, statistics: updatedStats })
-    return updatedStats
+    setStatistics({ id: id!, statistics: currentStatistics })
   }
 
   return {
-    newStatistics,
     updateStatistics,
   }
 }

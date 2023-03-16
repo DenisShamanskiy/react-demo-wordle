@@ -6,7 +6,7 @@ import { numWord } from 'utils/helpers'
 import { useAppSelector } from 'utils/hook'
 
 const Rules = () => {
-  const words = useAppSelector((state) => state.game.word.words)
+  const words = useAppSelector((state) => state.game.words)
 
   return (
     <section className='mx-auto h-5/6 w-11/12 max-w-xl select-none md:w-full md:max-w-2xl'>

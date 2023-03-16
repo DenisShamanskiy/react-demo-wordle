@@ -1,17 +1,25 @@
 import { useEffect, useState } from 'react'
 
-const getWidth = () => window.screen.width
+export const useCurrentWidth = (delay = 100) => {
+  const getWidth = () => window.screen.width
 
-export default function useCurrentWidth() {
   const [width, setWidth] = useState(getWidth())
   useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>
+
     const resizeListener = () => {
-      setWidth(getWidth())
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(() => setWidth(getWidth()), delay)
     }
+
     window.addEventListener('resize', resizeListener)
+
     return () => {
       window.removeEventListener('resize', resizeListener)
+      clearTimeout(timeoutId)
     }
-  }, [])
+  }, [delay])
   return width
 }
+
+export default useCurrentWidth

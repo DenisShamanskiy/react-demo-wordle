@@ -10,7 +10,7 @@ const GameResult = () => {
   const dispatch = useAppDispatch()
   const { decryptValue } = useEncryption(process.env['REACT_APP_CRYPTO_KEY']!)
   const { result } = useAppSelector((state) => state.modal.props)
-  const currentWord = useAppSelector((state) => state.game.word.currentWord)
+  const currentWord = useAppSelector((state) => state.game.currentWord)
 
   const getGifResult = (result: string) => {
     switch (result) {

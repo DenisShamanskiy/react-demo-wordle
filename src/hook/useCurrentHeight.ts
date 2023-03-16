@@ -1,20 +1,29 @@
 import { useEffect, useState } from 'react'
 
-const getHeight = () =>
-  window.innerHeight ||
-  document.documentElement.clientHeight ||
-  document.body.clientHeight
+export const useCurrentHeight = (delay = 100) => {
+  const getHeight = () =>
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight
 
-export default function useCurrentHeight() {
   const [height, setHeight] = useState(getHeight())
   useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>
+
     const resizeListener = () => {
-      setHeight(getHeight())
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(() => setHeight(getHeight()), delay)
     }
+
     window.addEventListener('resize', resizeListener)
+
     return () => {
       window.removeEventListener('resize', resizeListener)
+      clearTimeout(timeoutId)
     }
-  }, [])
+  }, [delay])
+
   return height
 }
+
+export default useCurrentHeight

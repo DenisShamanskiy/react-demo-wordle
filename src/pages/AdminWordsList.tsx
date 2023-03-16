@@ -9,7 +9,7 @@ const AdminWordsList: FC = () => {
   const { register, handleSubmit, watch, reset } = useForm<IFormValues>()
   const watchAllFields = watch()
 
-  const words = useAppSelector((state) => state.game.word.words)
+  const words = useAppSelector((state) => state.game.words)
 
   const [filterWords, setFilterWords] = useState([''])
 

@@ -19,9 +19,7 @@ export const Confirm = () => {
     process.env['REACT_APP_CRYPTO_KEY']!,
   )
   const { heading, description } = useAppSelector((state) => state.modal.props)
-  const {
-    word: { words, currentWord },
-  } = useAppSelector((state) => state.game)
+  const { words, currentWord } = useAppSelector((state) => state.game)
 
   const goHome = () => navigate('/', { replace: true })
 

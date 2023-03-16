@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import useEncryption from './useEncryption'
 import useNotification from './useAppNotification'
-import { nextStep, setRelultGame } from 'redux/features/gameSlice'
+import { advanceToNextRow, setRelultGame } from 'redux/features/gameSlice'
 import { NotificationColor } from 'types/store'
 import { addDataHardMode } from 'redux/features/settingsSlice'
 import { openModal } from 'redux/features/modalSlice'
@@ -16,11 +16,9 @@ const useCheckGuess = () => {
     hardMode: { active, letters, words: wordsHardMode },
   } = useAppSelector((state) => state.settings)
 
-  const {
-    currentGuess,
-    word: { words, currentWord },
-    currentRowIndex,
-  } = useAppSelector((state) => state.game)
+  const { currentGuess, words, currentWord, currentRowIndex } = useAppSelector(
+    (state) => state.game,
+  )
 
   const { showNotify } = useNotification()
 
@@ -57,14 +55,14 @@ const useCheckGuess = () => {
 
   // Функция, которая обрабатывает догадку пользователя. В ней вызываются функции checkWin и checkFail, а также добавляются данные для режима сложной игры и обновляется состояние игры
   const handleGuess = async (
-    newLettersHardMode: string[],
+    letters: string[],
     currentGuess: string,
     indexColorArray: number[],
   ) => {
     const decryptWord = decryptValue(currentWord)
-    dispatch(addDataHardMode({ newLettersHardMode, currentGuess }))
+    dispatch(addDataHardMode({ letters, currentGuess }))
     if (await checkWin(currentGuess)) return
-    dispatch(nextStep({ indexColorArray, decryptWord }))
+    dispatch(advanceToNextRow({ indexColorArray, decryptWord }))
     if (await checkFail(currentRowIndex)) return
   }
 

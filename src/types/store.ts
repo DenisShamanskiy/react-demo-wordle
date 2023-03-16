@@ -1,26 +1,30 @@
-export type BoardRow = {
+interface IKeyBoardRow {
   value: string
   color: string
 }
 
-type KeyBoardRow = {
-  value: string
+export interface IBoardRow {
+  letter: string
   color: string
 }
 
-export type gameState = {
-  board: BoardRow[][]
-  // currentGuess: string[]
+export enum GameStatus {
+  inGame = 'IN_GAME',
+  win = 'WIN',
+  leave = 'LEAVE',
+  fail = 'FAIL',
+}
+
+export interface IGameState {
+  board: IBoardRow[][]
   currentGuess: string
   currentRowIndex: number
-  gameStatus: string
-  keyBoard: KeyBoardRow[][]
+  gameStatus: GameStatus
+  keyBoard: IKeyBoardRow[][]
   nextLetter: number
-  word: {
-    words: string[]
-    currentWord: string
-    previousWord: string
-  }
+  words: string[]
+  currentWord: string
+  previousWord: string
 }
 
 export enum NotificationColor {

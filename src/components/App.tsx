@@ -40,9 +40,7 @@ const App = () => {
 
   const darkMode = useAppSelector((state) => state.settings.darkMode)
 
-  const {
-    word: { words },
-  } = useAppSelector((state) => state.game)
+  const words = useAppSelector((state) => state.game.words)
 
   const path = useLocation()
 

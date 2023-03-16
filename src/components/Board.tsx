@@ -9,11 +9,11 @@ const Board = () => {
   ) => {
     if (value && color) {
       switch (color) {
-        case 'letter-green':
+        case 'green':
           return 'border-0 text-wordleWhite bg-w-green dark:bg-w-green-dark'
-        case 'letter-yellow':
+        case 'yellow':
           return 'border-0 text-wordleWhite bg-w-yellow dark:bg-w-yellow-dark'
-        case 'letter-grey':
+        case 'grey':
           return 'border-0 text-wordleWhite bg-w-grey dark:bg-w-grey-dark'
         default:
           return ''
@@ -33,16 +33,16 @@ const Board = () => {
             className='grid grid-cols-board gap-1 text-[28px] md:grid-cols-boardMD md:gap-1.5 md:text-[32px]'
             key={indexRow}
           >
-            {board[indexRow]!.map((letter, indexLetter) => {
+            {board[indexRow]!.map((item, indexLetter) => {
               return (
                 <div
                   className={`flex items-center justify-center rounded-md ${getColorLetter(
-                    letter.value,
-                    letter.color,
+                    item.letter,
+                    item.color,
                   )}`}
                   key={indexLetter}
                 >
-                  {letter.value}
+                  {item.letter}
                 </div>
               )
             })}
