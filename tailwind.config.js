@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  mode: 'jit',
+  purge: ['./public/**/*.html', './src/**/*.{js,jsx,ts,tsx}'],
   darkMode: 'class',
   content: [
     './src/**/*.{js,jsx,ts,tsx}',
@@ -145,6 +147,7 @@ module.exports = {
         //
         'w-green': '#6aaa64',
         'w-green-dark': '#538d4e',
+
         'w-yellow': '#c9b458',
         'w-yellow-dark': '#b59f3b',
         'w-blue': '#6475aa',

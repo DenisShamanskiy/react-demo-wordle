@@ -1,18 +1,20 @@
-import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import Button from 'components/Button'
-import InputText from 'components/micro-components/InputText'
 import { AuthForm, IFormValues } from 'models/IFormValues'
 import { emailRegex } from 'utils/constants'
 import { useSigninMutation } from 'redux/api/authApi'
 import { usePasswordToggle } from 'hook/usePasswordVisibility'
 import { NotificationColor } from 'types/store'
 import useGameLogic from 'hook/useGameLogic'
+import ButtonIcon from './ButtonIcon'
+import { useAppDispatch } from 'utils/hook'
+import { openModal } from 'redux/features/modalSlice'
+import { Input, InputGroup, InputLabel, InputRightElement } from './Input'
 
-const Signin: FC = () => {
+const Signin = () => {
   const navigate = useNavigate()
-
+  const dispatch = useAppDispatch()
   const {
     register,
     formState: { errors, isValid, isDirty },
@@ -39,8 +41,17 @@ const Signin: FC = () => {
           NotificationColor.success,
           `С возвращением, ${user.username}`,
         )
-    } catch (e) {
-      showNotify(NotificationColor.failure, e.data.message)
+    } catch (err) {
+      console.error(err)
+      dispatch(
+        openModal({
+          component: 'Error',
+          error: {
+            status: err.status,
+            message: err.data.message,
+          },
+        }),
+      )
     }
   }
 
@@ -53,42 +64,64 @@ const Signin: FC = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className='mb-12 grid w-full grid-rows-2 gap-12 md:mb-16 md:gap-16'>
-        <InputText
-          title='Почта'
-          label='email'
-          type='email'
-          id='email'
-          autoComplete='on'
-          option={{
-            required: 'Поле обязательно к заполнению',
-            pattern: {
-              value: emailRegex,
-              message: 'Неверный адрес почты',
-            },
-          }}
-          error={errors.email}
-          register={register}
-          value={watchAllFields.email}
-        />
-
-        <InputText
-          title='Пароль'
-          label='password'
-          type={isPasswordVisible ? 'text' : 'password'}
-          id='password'
-          autoComplete='on'
-          option={{
-            required: 'Поле обязательно к заполнению',
-            minLength: {
-              value: 5,
-              message: 'Минимум 5 символов',
-            },
-          }}
-          error={errors.password}
-          register={register}
-          value={watchAllFields.password}
-          onClick={togglePasswordVisibility}
-        />
+        <InputGroup>
+          <Input
+            name='email'
+            type='email'
+            id='email'
+            isLabel
+            autoComplete='on'
+            register={register}
+            option={{
+              required: 'Поле обязательно к заполнению',
+              pattern: {
+                value: emailRegex,
+                message: 'Неверный адрес почты',
+              },
+            }}
+            value={watchAllFields.email}
+            error={errors.email}
+          />
+          <InputLabel
+            id='email'
+            title='Почта'
+            value={watchAllFields.email}
+            error={errors.email}
+          />
+        </InputGroup>
+        <InputGroup>
+          <Input
+            name='password'
+            type={isPasswordVisible ? 'text' : 'password'}
+            id='password'
+            isLabel
+            autoComplete='on'
+            register={register}
+            option={{
+              required: 'Поле обязательно к заполнению',
+              minLength: {
+                value: 5,
+                message: 'Минимум 5 символов',
+              },
+            }}
+            value={watchAllFields.password}
+            error={errors.password}
+          />
+          <InputLabel
+            id='password'
+            title='Пароль'
+            value={watchAllFields.password}
+            error={errors.password}
+          />
+          <InputRightElement>
+            <ButtonIcon
+              icon={!isPasswordVisible ? 'eye' : 'eye-off'}
+              size={'xs'}
+              position='password'
+              onClick={togglePasswordVisibility}
+            />
+          </InputRightElement>
+        </InputGroup>
       </div>
       <Button
         type='submit'

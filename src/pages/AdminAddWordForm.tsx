@@ -1,15 +1,14 @@
 import Button from 'components/Button'
+import { Input, InputGroup } from 'components/Input'
 import Heading from 'components/micro-components/Heading'
-import InputText from 'components/micro-components/InputText'
 import useNotification from 'hook/useAppNotification'
 import { IFormValues } from 'models/IFormValues'
-import { FC } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAddWordMutation } from 'redux/api/wordsApi'
 import { NotificationColor } from 'types/store'
 import { ruRegex } from 'utils/constants'
 
-const AdminAddWordForm: FC = () => {
+const AdminAddWordForm = () => {
   const { showNotify } = useNotification()
   const [addNewWord, { isLoading }] = useAddWordMutation()
   const {
@@ -55,29 +54,31 @@ const AdminAddWordForm: FC = () => {
         className='mt-12 flex w-full md:mt-16'
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className='relative flex w-full flex-col items-center'>
-          <InputText
-            label='word'
-            type='text'
-            id='word'
-            autoComplete='off'
-            maxLength={5}
-            placeholder='Введи слово...'
-            option={{
-              required: 'Поле обязательно к заполнению',
-              pattern: {
-                value: ruRegex,
-                message: 'Слово должно быть на русском языке',
-              },
-              minLength: {
-                value: 5,
-                message: 'Слово должно быть из 5 букв',
-              },
-            }}
-            error={errors.word}
-            register={register}
-            value={watchAllFields.word}
-          />
+        <div className='flex w-full flex-col items-center'>
+          <InputGroup>
+            <Input
+              name='word'
+              type='text'
+              id='word'
+              autoComplete='off'
+              maxLength={5}
+              placeholder='Введи слово...'
+              option={{
+                required: 'Поле обязательно к заполнению',
+                pattern: {
+                  value: ruRegex,
+                  message: 'Слово должно быть на русском языке',
+                },
+                minLength: {
+                  value: 5,
+                  message: 'Слово должно быть из 5 букв',
+                },
+              }}
+              error={errors.word}
+              register={register}
+              value={watchAllFields.word}
+            />
+          </InputGroup>
           <div className='mt-12 md:mt-16'>
             <Button
               type='submit'

@@ -1,12 +1,18 @@
-interface IInputSwitchProps {
-  onChange: () => void
+import { FC } from 'react'
+
+interface ISwitchProps {
   isChecked: boolean
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const InputSwitch = ({ onChange, isChecked }: IInputSwitchProps) => {
+const Switch: FC<ISwitchProps> = ({ onChange, isChecked }) => {
   return (
-    <label className='relative inline-block h-5 w-8 transition-all duration-300 md:h-7 md:w-11'>
+    <label
+      htmlFor='switch'
+      className='relative inline-block h-5 w-8 transition-all duration-300 md:h-7 md:w-11'
+    >
       <input
+        id='switch'
         type='checkbox'
         className='h-0 w-0 opacity-0'
         checked={isChecked}
@@ -23,4 +29,4 @@ const InputSwitch = ({ onChange, isChecked }: IInputSwitchProps) => {
   )
 }
 
-export default InputSwitch
+export default Switch

@@ -4,7 +4,7 @@ interface IKeyBoardRow {
 }
 
 export interface IBoardRow {
-  letter: string
+  value: string
   color: string
 }
 

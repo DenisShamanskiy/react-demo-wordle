@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-type InputRadioProps = {
+interface IRadioProps {
   checked: boolean
   onChange: () => void
   id: string
@@ -9,7 +9,7 @@ type InputRadioProps = {
   customClass?: string
 }
 
-const InputRadio: FC<InputRadioProps> = ({
+const Radio: FC<IRadioProps> = ({
   checked,
   onChange,
   id,
@@ -35,4 +35,4 @@ const InputRadio: FC<InputRadioProps> = ({
   )
 }
 
-export default InputRadio
+export default Radio

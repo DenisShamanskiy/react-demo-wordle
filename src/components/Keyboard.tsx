@@ -13,11 +13,11 @@ const Keyboard = () => {
 
   const addClassColor = (color: string | undefined) => {
     switch (color) {
-      case 'letter-green':
+      case 'green':
         return 'bg-w-green dark:bg-w-green-dark'
-      case 'letter-yellow':
+      case 'yellow':
         return 'bg-w-yellow dark:bg-w-yellow-dark'
-      case 'letter-grey':
+      case 'grey':
         return 'bg-w-grey dark:bg-w-grey-dark'
       default:
         return ''
@@ -50,7 +50,6 @@ const Keyboard = () => {
                   height='28'
                   viewBox='0 0 512 512'
                 >
-                  <title>key-enter</title>
                   <path
                     d='M176,176V136a40,40,0,0,1,40-40H424a40,40,0,0,1,40,40V376a40,40,0,0,1-40,40H216a40,40,0,0,1-40-40V336'
                     fill='none'

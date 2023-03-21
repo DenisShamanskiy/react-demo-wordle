@@ -52,7 +52,7 @@ const gameSlice = createSlice({
         state.board = state.board.map((row, index) =>
           index === state.currentRowIndex
             ? row.map((item) => ({
-                letter: item.letter,
+                value: item.value,
                 color: 'green',
               }))
             : row,
@@ -78,7 +78,7 @@ const gameSlice = createSlice({
           ? row.map((letter, index) => {
               if (index === state.nextLetter) {
                 return {
-                  letter: actions.payload,
+                  value: actions.payload,
                   color: letter.color,
                 }
               }
@@ -95,7 +95,7 @@ const gameSlice = createSlice({
           ? row.map((item, index) => {
               if (index === state.nextLetter - 1) {
                 return {
-                  letter: '',
+                  value: '',
                   color: item.color,
                 }
               }
@@ -115,11 +115,11 @@ const gameSlice = createSlice({
               const indexColor = action.payload.indexColorArray[letterIndex]
 
               if (indexColor === -1) {
-                return { letter: item.letter, color: 'grey' }
+                return { value: item.value, color: 'grey' }
               } else if (guessLetter === decryptLetter) {
-                return { letter: item.letter, color: 'green' }
+                return { value: item.value, color: 'green' }
               } else {
-                return { letter: item.letter, color: 'yellow' }
+                return { value: item.value, color: 'yellow' }
               }
             })
           : row,
@@ -132,15 +132,9 @@ const gameSlice = createSlice({
     colorKey(state, action) {
       state.keyBoard = state.keyBoard.map((row) =>
         row.map((key) => {
-          const matchingValue = action.payload.find(
-            (item: { value: string }) =>
-              item.value === key.value && key.color !== 'letter-green',
-          )
-          if (matchingValue) {
-            return {
-              value: matchingValue.value,
-              color: matchingValue.color,
-            }
+          for (let i = 0; i < action.payload.length; i++) {
+            if (action.payload[i]!.value === key.value && key.color !== 'green')
+              return action.payload[i]
           }
           return key
         }),

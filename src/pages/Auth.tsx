@@ -1,12 +1,12 @@
 import '../styles/form-animation.css'
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { SwitchTransition, CSSTransition } from 'react-transition-group'
 import Signin from '../components/Signin'
 import Signup from '../components/Signup'
-import InputRadio from 'components/micro-components/InputRadio'
 import Heading from 'components/micro-components/Heading'
+import { Radio } from 'components/Input'
 
-const Auth: FC = () => {
+const Auth = () => {
   const [isSigninForm, setIsSigninForm] = useState(true)
 
   const toggleForm = () => setIsSigninForm((prev) => !prev)
@@ -15,7 +15,7 @@ const Auth: FC = () => {
     <section className='mx-auto h-5/6 w-full max-w-xs select-none md:max-w-sm'>
       <Heading>Авторизация</Heading>
       <div className='mt-8 flex h-10 w-full items-center justify-center rounded-full text-center md:mt-12 md:h-10'>
-        <InputRadio
+        <Radio
           id='sign-in'
           title='Войти'
           peer
@@ -23,7 +23,7 @@ const Auth: FC = () => {
           checked={isSigninForm}
           onChange={toggleForm}
         />
-        <InputRadio
+        <Radio
           id='sign-up'
           title='Регистрация'
           customClass='signup-active peer-checked:signup-inactive ml-1'

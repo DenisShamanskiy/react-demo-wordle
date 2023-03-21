@@ -32,7 +32,7 @@ export const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
 export const ruRegex = /^[А-яЁё]{5}$/
 
 export const board: IBoardRow[][] = [...new Array(6)].map(() =>
-  new Array(5).fill({ letter: '', color: '' }),
+  new Array(5).fill({ value: '', color: '' }),
 )
 
 export const keyBoard = [

@@ -37,12 +37,12 @@ const Board = () => {
               return (
                 <div
                   className={`flex items-center justify-center rounded-md ${getColorLetter(
-                    item.letter,
+                    item.value,
                     item.color,
                   )}`}
                   key={indexLetter}
                 >
-                  {item.letter}
+                  {item.value}
                 </div>
               )
             })}

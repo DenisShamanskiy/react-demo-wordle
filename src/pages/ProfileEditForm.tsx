@@ -1,16 +1,18 @@
 import Button from 'components/Button'
+import { Input } from 'components/Input'
+import InputGroup from 'components/Input/InputGroup'
+import InputLabel from 'components/Input/InputLabel'
 import Heading from 'components/micro-components/Heading'
-import InputText from 'components/micro-components/InputText'
 import useNotification from 'hook/useAppNotification'
 import { IFormValues } from 'models/IFormValues'
-import { FC, useEffect } from 'react'
+import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useUpdateProfileMutation } from 'redux/api/userApi'
 import { NotificationColor } from 'types/store'
 import { emailRegex } from 'utils/constants'
 import { useAppSelector } from 'utils/hook'
 
-const ProfileEditForm: FC = () => {
+const ProfileEditForm = () => {
   const { showNotify } = useNotification()
   const { id, email, username } = useAppSelector((state) => state.user)
   const {
@@ -67,43 +69,59 @@ const ProfileEditForm: FC = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className='mb-12 grid w-full grid-rows-2 gap-12 md:mb-16 md:gap-16'>
-          <InputText
-            title='Имя'
-            label='username'
-            type='text'
-            id='username'
-            autoComplete='off'
-            fill
-            option={{
-              required: 'Поле обязательно к заполнению',
-              minLength: {
-                value: 1,
-                message: 'Минимум 1 символ',
-              },
-            }}
-            error={errors.username}
-            register={register}
-            value={watchAllFields.username}
-          />
+          <InputGroup>
+            <Input
+              name='username'
+              type='text'
+              id='username'
+              isLabel
+              autoComplete='off'
+              fill
+              register={register}
+              option={{
+                required: 'Поле обязательно к заполнению',
+                minLength: {
+                  value: 1,
+                  message: 'Минимум 1 символ',
+                },
+              }}
+              value={watchAllFields.username}
+              error={errors.username}
+            />
+            <InputLabel
+              id='username'
+              title='Имя'
+              value={watchAllFields.username}
+              error={errors.username}
+            />
+          </InputGroup>
 
-          <InputText
-            title='Почта'
-            label='email'
-            type='email'
-            id='email'
-            autoComplete='off'
-            fill
-            option={{
-              required: 'Поле обязательно к заполнению',
-              pattern: {
-                value: emailRegex,
-                message: 'Неверный адрес почты',
-              },
-            }}
-            error={errors.email}
-            register={register}
-            value={watchAllFields.email}
-          />
+          <InputGroup>
+            <Input
+              name='email'
+              type='email'
+              id='email'
+              isLabel
+              autoComplete='off'
+              fill
+              register={register}
+              option={{
+                required: 'Поле обязательно к заполнению',
+                pattern: {
+                  value: emailRegex,
+                  message: 'Неверный адрес почты',
+                },
+              }}
+              value={watchAllFields.email}
+              error={errors.email}
+            />
+            <InputLabel
+              id='email'
+              title='Почта'
+              value={watchAllFields.email}
+              error={errors.email}
+            />
+          </InputGroup>
         </div>
 
         <Button

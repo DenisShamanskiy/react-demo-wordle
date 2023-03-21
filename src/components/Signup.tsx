@@ -1,8 +1,6 @@
-import { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import Button from 'components/Button'
-import InputText from 'components/micro-components/InputText'
 import { AuthForm, IFormValues } from 'models/IFormValues'
 import { emailRegex } from 'utils/constants'
 import { useSignupMutation } from 'redux/api/authApi'
@@ -11,8 +9,10 @@ import { NotificationColor } from 'types/store'
 import { openModal } from 'redux/features/modalSlice'
 import { useAppDispatch } from 'utils/hook'
 import useGameLogic from 'hook/useGameLogic'
+import ButtonIcon from './ButtonIcon'
+import { Input, InputGroup, InputLabel, InputRightElement } from './Input'
 
-const Signup: FC = () => {
+const Signup = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const {
@@ -37,19 +37,17 @@ const Signup: FC = () => {
       await signup(data).unwrap()
       goHome()
       showNotify(NotificationColor.success, 'Вы успешно зарегистрировались')
-    } catch (e) {
+    } catch (err) {
+      console.error(err)
       dispatch(
         openModal({
           component: 'Error',
           error: {
-            status: e.status,
-            message: e.data.message,
+            status: err.status,
+            message: err.data.message,
           },
         }),
       )
-      console.log('e', e)
-      console.log(e.data.message)
-      // showNotify(NotificationColor.failure, e.data.message)
     }
   }
 
@@ -62,56 +60,95 @@ const Signup: FC = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className='mb-12 grid w-full grid-rows-2 gap-12 md:mb-16 md:gap-16'>
-        <InputText
-          title='Почта'
-          label='email'
-          type='email'
-          id='email'
-          autoComplete='off'
-          option={{
-            required: 'Поле обязательно к заполнению',
-            pattern: {
-              value: emailRegex,
-              message: 'Неверный адрес почты',
-            },
-          }}
-          error={errors.email}
-          register={register}
-          value={watchAllFields.email}
-        />
-        <InputText
-          title='Пароль'
-          label='password'
-          type={isPasswordVisible ? 'text' : 'password'}
-          id='password'
-          autoComplete='off'
-          option={{
-            required: 'Поле обязательно к заполнению',
-            minLength: {
-              value: 5,
-              message: 'Минимум 5 символов',
-            },
-          }}
-          error={errors.password}
-          register={register}
-          value={watchAllFields.password}
-          onClick={togglePasswordVisibility}
-        />
-        <InputText
-          title='Подтвердите пароль'
-          label='password_repeat'
-          type={isPasswordVisible ? 'text' : 'password'}
-          id='password_repeat'
-          option={{
-            required: 'Поле обязательно к заполнению',
-            validate: (value) =>
-              value === watchAllFields.password || 'Пароли не совпадают',
-          }}
-          error={errors.password_repeat}
-          register={register}
-          value={watchAllFields.password_repeat}
-          onClick={togglePasswordVisibility}
-        />
+        <InputGroup>
+          <Input
+            name='email'
+            type='email'
+            id='email'
+            isLabel
+            autoComplete='on'
+            register={register}
+            option={{
+              required: 'Поле обязательно к заполнению',
+              pattern: {
+                value: emailRegex,
+                message: 'Неверный адрес почты',
+              },
+            }}
+            value={watchAllFields.email}
+            error={errors.email}
+          />
+          <InputLabel
+            id='email'
+            title='Почта'
+            value={watchAllFields.email}
+            error={errors.email}
+          />
+        </InputGroup>
+        <InputGroup>
+          <Input
+            name='password'
+            type={isPasswordVisible ? 'text' : 'password'}
+            id='password'
+            isLabel
+            autoComplete='on'
+            register={register}
+            option={{
+              required: 'Поле обязательно к заполнению',
+              minLength: {
+                value: 5,
+                message: 'Минимум 5 символов',
+              },
+            }}
+            value={watchAllFields.password}
+            error={errors.password}
+          />
+          <InputLabel
+            id='password'
+            title='Пароль'
+            value={watchAllFields.password}
+            error={errors.password}
+          />
+          <InputRightElement>
+            <ButtonIcon
+              icon={!isPasswordVisible ? 'eye' : 'eye-off'}
+              size={'xs'}
+              position='password'
+              onClick={togglePasswordVisibility}
+            />
+          </InputRightElement>
+        </InputGroup>
+        <InputGroup>
+          <Input
+            name='password_repeat'
+            type={isPasswordVisible ? 'text' : 'password'}
+            id='password_repeat'
+            isLabel
+            autoComplete='on'
+            register={register}
+            option={{
+              required: 'Поле обязательно к заполнению',
+              validate: (value) =>
+                value === watchAllFields.password || 'Пароли не совпадают',
+            }}
+            value={watchAllFields.password_repeat}
+            error={errors.password_repeat}
+          />
+          <InputLabel
+            id='password_repeat'
+            title='Подтвердите пароль'
+            value={watchAllFields.password_repeat}
+            error={errors.password_repeat}
+          />
+          <InputRightElement>
+            <ButtonIcon
+              icon={!isPasswordVisible ? 'eye' : 'eye-off'}
+              size={'xs'}
+              position='password'
+              onClick={togglePasswordVisibility}
+            />
+          </InputRightElement>
+        </InputGroup>
       </div>
       <Button
         type='submit'

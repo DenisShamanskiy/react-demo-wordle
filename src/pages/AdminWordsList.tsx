@@ -1,11 +1,11 @@
-import InputText from 'components/micro-components/InputText'
+import { Input, InputGroup } from 'components/Input'
 import WordList from 'components/WordList'
 import { IFormValues } from 'models/IFormValues'
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAppSelector } from 'utils/hook'
 
-const AdminWordsList: FC = () => {
+const AdminWordsList = () => {
   const { register, handleSubmit, watch, reset } = useForm<IFormValues>()
   const watchAllFields = watch()
 
@@ -33,20 +33,20 @@ const AdminWordsList: FC = () => {
   return (
     <section className='mx-auto flex h-[90%] w-80 select-none flex-col'>
       <form className='flex w-full' onSubmit={handleSubmit(onSubmit)}>
-        <div className='relative w-full'>
-          <InputText
-            label='word'
+        <InputGroup>
+          <Input
+            name='word'
             type='search'
             id='word'
             autoComplete='off'
+            register={register}
             maxLength={5}
             placeholder='Поиск...'
             value={watchAllFields.word}
-            register={register}
           />
-        </div>
+        </InputGroup>
       </form>
-      {filterWords!.length ? (
+      {filterWords.length ? (
         <WordList words={filterWords} reset={reset} />
       ) : (
         <p className='mt-6 text-center text-sm font-medium text-w-quartz dark:text-w-white-dark md:mt-8 md:text-base'>

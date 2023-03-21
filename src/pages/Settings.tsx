@@ -3,7 +3,6 @@ import 'react-tooltip/dist/react-tooltip.css'
 import '../styles/tooltip.css'
 import ButtonIcon from 'components/ButtonIcon'
 import Heading from 'components/micro-components/Heading'
-import InputSwitch from 'components/micro-components/InputSwitch'
 import { DarkModeSwitch } from 'react-toggle-dark-mode'
 import { toggleHardMode, toggleTheme } from 'redux/features/settingsSlice'
 import useCurrentWidth from 'hook/useCurrentWidth'
@@ -11,6 +10,7 @@ import { useAppDispatch, useAppSelector } from 'utils/hook'
 import Section from 'components/Section'
 import IconTooltip from 'components/IconTooltip'
 import SettingsItem from 'components/SettingsItem'
+import { Switch } from 'components/Input'
 
 const Settings: FC = () => {
   const dispatch = useAppDispatch()
@@ -27,7 +27,7 @@ const Settings: FC = () => {
         <div className='mt-8 w-full md:mt-10'>
           <SettingsItem text='Повысить сложность'>
             <IconTooltip tooltip='Необходимо использовать все подсказки' />
-            <InputSwitch
+            <Switch
               onChange={() => dispatch(toggleHardMode())}
               isChecked={active}
             />
