@@ -1,6 +1,6 @@
 import Button from 'components/Button'
 import { Input, InputGroup } from 'components/Input'
-import Heading from 'components/micro-components/Heading'
+import { Heading, Section } from 'components/common'
 import useNotification from 'hook/useAppNotification'
 import { IFormValues } from 'models/IFormValues'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -48,7 +48,7 @@ const AdminAddWordForm = () => {
   }
 
   return (
-    <section className='mx-auto h-5/6 w-full max-w-xs select-none md:max-w-sm'>
+    <Section width='s'>
       <Heading>Новое слово</Heading>
       <form
         className='mt-12 flex w-full md:mt-16'
@@ -91,7 +91,7 @@ const AdminAddWordForm = () => {
           </div>
         </div>
       </form>
-    </section>
+    </Section>
   )
 }
 

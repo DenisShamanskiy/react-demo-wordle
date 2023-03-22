@@ -1,11 +1,10 @@
 import { FC, useEffect, useState } from 'react'
 import { useGetUsersQuery } from 'redux/api/userApi'
 import Loader from 'components/Loaders/Loader'
-import Section from 'components/Section'
-import Heading from 'components/micro-components/Heading'
 import { User } from 'redux/api/types'
 import RatingHeader from 'components/RatingHeader'
 import RatingUserList from 'components/RatingUserList'
+import { Heading, Section } from 'components/common'
 
 export type SortKey = 'username' | 'leave' | 'win' | 'fail'
 
@@ -41,14 +40,14 @@ const Rating: FC = () => {
   }, [isLoading, sortBy, sortAsc])
 
   return (
-    <Section>
+    <Section width='m'>
       {isLoading ? (
         <Loader />
       ) : (
         <>
           <Heading>Рейтинг игроков</Heading>
           <div className='my-8 flex w-full flex-col justify-center md:my-10'>
-            <div className='w- grid h-10 w-full grid-cols-[1fr_40px_40px_40px] items-center gap-2 self-center text-w-quartz dark:text-w-white-dark md:h-12 md:grid-cols-[1fr_48px_48px_48px]'>
+            <div className='grid h-10 w-full grid-cols-[1fr_40px_40px_40px] items-center gap-2 self-center text-w-quartz dark:text-w-white-dark md:h-12 md:grid-cols-[1fr_48px_48px_48px]'>
               <RatingHeader
                 id='username'
                 text='ИГРОК'

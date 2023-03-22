@@ -2,12 +2,10 @@ import Button from 'components/Button'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import { useNavigate } from 'react-router-dom'
 import { logout } from 'redux/features/userSlice'
-// import { restartGame } from 'redux/features/gameSlice'
 import { resetDataHardMode } from 'redux/features/settingsSlice'
-import Heading from 'components/micro-components/Heading'
 import { useSignoutMutation } from 'redux/api/authApi'
 import CustomLink from 'components/CustomLink'
-import Section from 'components/Section'
+import { Heading, Section } from 'components/common'
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -31,7 +29,7 @@ const Profile = () => {
   }
 
   return (
-    <Section>
+    <Section width='m'>
       <Heading>{username}</Heading>
       <div className='my-8 flex w-11/12 flex-col justify-center gap-5 md:my-10 md:gap-6'>
         <CustomLink to={'/profile/edit'} icon='edit-profile'>

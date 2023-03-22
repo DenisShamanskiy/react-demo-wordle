@@ -9,7 +9,7 @@ export const ModalError = () => {
   const darkMode = useAppSelector((state) => state.settings.darkMode)
 
   return (
-    <section className='w-72 select-none md:w-80'>
+    <div className='w-72 select-none md:w-80'>
       <div className='mx-auto mb-6 w-16 md:mb-8 md:w-20'>
         {globalSvgSelector('close-circle', darkMode)}
       </div>
@@ -28,7 +28,7 @@ export const ModalError = () => {
           onClick={() => dispatch(closeModal())}
         />
       </div>
-    </section>
+    </div>
   )
 }
 export default ModalError

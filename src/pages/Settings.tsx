@@ -2,15 +2,14 @@ import { FC } from 'react'
 import 'react-tooltip/dist/react-tooltip.css'
 import '../styles/tooltip.css'
 import ButtonIcon from 'components/ButtonIcon'
-import Heading from 'components/micro-components/Heading'
 import { DarkModeSwitch } from 'react-toggle-dark-mode'
 import { toggleHardMode, toggleTheme } from 'redux/features/settingsSlice'
 import useCurrentWidth from 'hook/useCurrentWidth'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
-import Section from 'components/Section'
 import IconTooltip from 'components/IconTooltip'
 import SettingsItem from 'components/SettingsItem'
 import { Switch } from 'components/Input'
+import { Heading, Section } from 'components/common'
 
 const Settings: FC = () => {
   const dispatch = useAppDispatch()
@@ -21,7 +20,7 @@ const Settings: FC = () => {
   } = useAppSelector((state) => state.settings)
 
   return (
-    <Section>
+    <Section width='m'>
       <div className='flex w-full flex-col items-center justify-center'>
         <Heading>Настройки</Heading>
         <div className='mt-8 w-full md:mt-10'>

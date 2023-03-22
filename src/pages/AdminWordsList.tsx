@@ -1,5 +1,6 @@
 import { Input, InputGroup } from 'components/Input'
 import WordList from 'components/WordList'
+import { Section } from 'components/common'
 import { IFormValues } from 'models/IFormValues'
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -31,7 +32,7 @@ const AdminWordsList = () => {
   }, [words])
 
   return (
-    <section className='mx-auto flex h-[90%] w-80 select-none flex-col'>
+    <Section width='s'>
       <form className='flex w-full' onSubmit={handleSubmit(onSubmit)}>
         <InputGroup>
           <Input
@@ -53,7 +54,7 @@ const AdminWordsList = () => {
           Ничего не найдено
         </p>
       )}
-    </section>
+    </Section>
   )
 }
 

@@ -1,6 +1,5 @@
+import { Heading, Paragraph, Section } from 'components/common'
 import Example from 'components/micro-components/Example'
-import Heading2 from 'components/micro-components/Heading'
-import Paragraph from 'components/micro-components/Paragraph'
 import { exampleRules } from 'utils/constants'
 import { numWord } from 'utils/helpers'
 import { useAppSelector } from 'utils/hook'
@@ -9,8 +8,8 @@ const Rules = () => {
   const words = useAppSelector((state) => state.game.words)
 
   return (
-    <section className='mx-auto h-5/6 w-11/12 max-w-xl select-none md:w-full md:max-w-2xl'>
-      <Heading2>Как играть</Heading2>
+    <Section customClass='w-11/12 max-w-xl md:w-full md:max-w-2xl'>
+      <Heading>Как играть</Heading>
       <div className='mt-8 md:mt-10'>
         <Paragraph>
           <>
@@ -26,7 +25,7 @@ const Rules = () => {
         </Paragraph>
       </div>
 
-      <div className='border-y border-w-grey-tone-2 dark:border-w-grey-tone-3'>
+      <div className='w-full border-y border-w-grey-tone-2 dark:border-w-grey-tone-3'>
         <h3 className='mt-2 text-sm font-bold uppercase text-w-quartz dark:text-w-white-dark md:mt-4 md:text-lg'>
           Примеры
         </h3>
@@ -59,7 +58,7 @@ const Rules = () => {
       <p className='mt-4 text-center text-xs text-w-quartz dark:text-w-white-dark md:mt-6 md:text-sm'>
         В игре <strong>{words.length}</strong> {numWord(words.length)}
       </p>
-    </section>
+    </Section>
   )
 }
 

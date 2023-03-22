@@ -33,7 +33,7 @@ const GameResult = () => {
   }
 
   return (
-    <section className='relative w-72 select-none md:w-80'>
+    <div className='relative w-72 select-none md:w-80'>
       <ButtonIcon
         icon='close'
         position='close'
@@ -65,7 +65,7 @@ const GameResult = () => {
           </ul>
         </>
       )}
-    </section>
+    </div>
   )
 }
 

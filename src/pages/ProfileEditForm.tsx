@@ -2,7 +2,7 @@ import Button from 'components/Button'
 import { Input } from 'components/Input'
 import InputGroup from 'components/Input/InputGroup'
 import InputLabel from 'components/Input/InputLabel'
-import Heading from 'components/micro-components/Heading'
+import { Heading, Section } from 'components/common'
 import useNotification from 'hook/useAppNotification'
 import { IFormValues } from 'models/IFormValues'
 import { useEffect } from 'react'
@@ -61,7 +61,7 @@ const ProfileEditForm = () => {
   }, [username, email])
 
   return (
-    <section className='mx-auto flex h-5/6 w-full max-w-xs select-none flex-col items-center md:max-w-sm'>
+    <Section width='s'>
       <Heading>Изменить профиль</Heading>
       <form
         className='mt-12 flex w-full flex-col items-center justify-center md:mt-16'
@@ -139,7 +139,7 @@ const ProfileEditForm = () => {
           isRounded
         />
       </form>
-    </section>
+    </Section>
   )
 }
 

@@ -1,5 +1,6 @@
 import Button from 'components/Button'
 import Loader from 'components/Loaders/Loader'
+import { Section } from 'components/common'
 import useNotification from 'hook/useAppNotification'
 import { FC } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -32,7 +33,7 @@ const User: FC = () => {
   }
 
   return (
-    <section className='mx-auto flex h-5/6 w-11/12 max-w-[380px] flex-col items-center md:max-w-[448px]'>
+    <Section width='m'>
       {isLoading ? (
         <Loader />
       ) : !data ? (
@@ -81,7 +82,7 @@ const User: FC = () => {
           />
         </>
       )}
-    </section>
+    </Section>
   )
 }
 

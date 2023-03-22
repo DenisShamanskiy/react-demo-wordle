@@ -1,6 +1,6 @@
+import { Heading, Section } from 'components/common'
 import CountStats from 'components/micro-components/CountStats'
 import { useAppSelector } from 'utils/hook'
-import Heading2 from 'components/micro-components/Heading'
 
 const Statistics = () => {
   const { win, fail, leave, bar } = useAppSelector(
@@ -8,9 +8,9 @@ const Statistics = () => {
   )
 
   return (
-    <section className='mx-auto h-5/6 w-full max-w-sm select-none md:max-w-md'>
-      <div className='flex flex-col items-center justify-center'>
-        <Heading2>Статистика</Heading2>
+    <Section width='m'>
+      <div className='flex w-full flex-col items-center justify-center'>
+        <Heading>Статистика</Heading>
         <>
           <div className='mx-auto my-6 grid w-11/12 grid-cols-3 gap-1 md:my-8'>
             {[win, leave, fail].map((item, index) => {
@@ -47,7 +47,7 @@ const Statistics = () => {
           </div>
         </>
       </div>
-    </section>
+    </Section>
   )
 }
 

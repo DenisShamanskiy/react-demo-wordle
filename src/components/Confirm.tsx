@@ -1,5 +1,4 @@
 import Button from 'components/Button'
-import Heading from 'components/micro-components/Heading'
 import useEncryption from 'hook/useEncryption'
 import { useNavigate } from 'react-router-dom'
 import { restartGame, setRelultGame } from 'redux/features/gameSlice'
@@ -9,6 +8,7 @@ import { resetDataHardMode } from 'redux/features/settingsSlice'
 import { getRandomWord } from 'utils/helpers'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import useUpdateStats from 'hook/useUpdateStatistics'
+import { Heading } from './common'
 
 export const Confirm = () => {
   const navigate = useNavigate()
