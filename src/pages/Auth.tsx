@@ -14,7 +14,7 @@ const Auth = () => {
   return (
     <Section width='s'>
       <Heading>Авторизация</Heading>
-      <div className='mt-8 flex h-10 w-full items-center justify-center rounded-full text-center md:mt-12 md:h-10'>
+      <div className='mt-8 flex h-10 w-full items-center justify-center rounded-full text-center sm:mt-12 sm:h-10'>
         <Radio
           id='sign-in'
           title='Войти'

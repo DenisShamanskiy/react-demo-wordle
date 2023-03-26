@@ -1,12 +1,14 @@
+import { FC } from 'react'
+
 interface IExampleProps {
-  index: number
+  indexLetter: number
   letter: string
-  row: number
+  indexRow: number
 }
 
-const Example = ({ index, letter, row }: IExampleProps) => {
-  const getColorLetter = (row: number) => {
-    switch (row) {
+const Example: FC<IExampleProps> = ({ indexLetter, letter, indexRow }) => {
+  const getColorLetter = (indexRow: number) => {
+    switch (indexRow) {
       case 0:
         return 'border-0 text-w-white dark:text-w-black bg-w-green dark:bg-w-green-dark'
       case 1:
@@ -20,12 +22,12 @@ const Example = ({ index, letter, row }: IExampleProps) => {
 
   return (
     <li
-      className={`box-border flex h-9 w-9 items-center justify-center font-['Bitter'] text-xl font-extrabold uppercase md:h-10 md:w-10 md:text-2xl ${
-        index !== row
-          ? 'border-2 border-w-grey-tone-1 text-w-quartz dark:border-w-grey-tone-3 dark:text-w-white-dark'
-          : getColorLetter(row)
+      className={`box-border flex h-9 w-9 items-center justify-center rounded font-['Bitter'] text-xl font-extrabold uppercase sm:h-10 sm:w-10 sm:text-2xl ${
+        indexLetter !== indexRow
+          ? 'border-2 border-w-grey-tone-2 text-w-quartz dark:border-w-grey-dark dark:text-w-white-dark'
+          : getColorLetter(indexRow)
       }`}
-      key={index}
+      key={indexLetter}
     >
       {letter}
     </li>

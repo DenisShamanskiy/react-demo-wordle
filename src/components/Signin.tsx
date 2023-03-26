@@ -59,11 +59,11 @@ const Signin = () => {
 
   return (
     <form
-      className='relative mt-8 flex w-full flex-col items-center justify-center md:mt-10'
+      className='relative mt-8 flex w-full flex-col items-center justify-center sm:mt-10'
       noValidate
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className='mb-12 grid w-full grid-rows-2 gap-12 md:mb-16 md:gap-16'>
+      <div className='mb-12 grid w-full grid-rows-2 gap-12 sm:mb-16 sm:gap-16'>
         <InputGroup>
           <Input
             name='email'

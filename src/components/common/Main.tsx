@@ -1,13 +1,17 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 interface IMainProps {
-  children?: JSX.Element
+  children?: ReactNode
   style?: string | string[]
 }
 
 const Main: FC<IMainProps> = ({ children, style }) => {
   return (
-    <main className={`m-auto select-none p-5 sm:p-7 ${style}`}>{children}</main>
+    <main
+      className={`m-auto flex h-[calc(100%-40px)] w-full max-w-5xl select-none items-center justify-center md:h-[calc(100%-64px)] ${style}`}
+    >
+      {children}
+    </main>
   )
 }
 

@@ -19,10 +19,10 @@ const InputLabel: FC<IInputLabel> = ({
   return (
     <label
       htmlFor={id}
-      className={`pointer-events-none absolute left-0 px-0 pt-5 pb-2.5 font-semibold tracking-wider text-w-black transition-all duration-500 peer-focus:-translate-y-[34px] peer-focus:translate-x-5 peer-focus:text-xs dark:text-w-white-dark md:peer-focus:text-sm ${
+      className={`pointer-events-none absolute left-0 px-0 pt-5 pb-2.5 font-semibold tracking-wider text-w-black transition-all duration-500 peer-focus:-translate-y-[34px] peer-focus:translate-x-5 peer-focus:text-xs dark:text-w-white-dark sm:peer-focus:text-sm ${
         value || error || fill
-          ? '-translate-y-[34px] text-xs md:text-sm'
-          : '-translate-y-[0] text-sm md:text-lg'
+          ? '-translate-y-[34px] text-xs sm:text-sm'
+          : '-translate-y-[0] text-sm sm:text-lg'
       }`}
     >
       {title}

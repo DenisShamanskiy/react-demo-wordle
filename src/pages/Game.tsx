@@ -4,7 +4,7 @@ import Keyboard from '../components/Keyboard'
 
 const Game = () => {
   return (
-    <Section width='2xl' height='full'>
+    <Section width='full' height='full'>
       <Board />
       <Keyboard />
     </Section>

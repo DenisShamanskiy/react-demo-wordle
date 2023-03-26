@@ -21,11 +21,11 @@ interface IButtonIconProps {
 const getPositionClasses = (position: string): string => {
   switch (position) {
     case 'header':
-      return 'absolute left-4 md:left-5 lg:left-0'
+      return 'absolute left-4 sm:left-5'
     case 'close':
-      return 'absolute -top-3 -right-3 md:-top-4 md:-right-4 hover:rotate-180'
+      return 'absolute -top-3 -right-3 sm:-top-4 sm:-right-4 hover:rotate-180'
     case 'password':
-      return 'absolute right-3.5 bottom-2.5 md:bottom-3  z-10 inline-block'
+      return 'absolute right-3.5 bottom-2.5 sm:bottom-3 z-10 inline-block'
     default:
       return ''
   }
@@ -34,15 +34,15 @@ const getPositionClasses = (position: string): string => {
 const getSizeClasses = (size: string): string => {
   switch (size) {
     case 'close':
-      return 'w-6 md:w-7'
+      return 'w-6 sm:w-7'
     case 'xs':
-      return 'w-5 md:w-6'
+      return 'w-5 sm:w-6'
     case 's':
       return 'w-6'
     case 'm':
-      return 'w-7 md:w-8'
+      return 'w-7 sm:w-8'
     case 'l':
-      return 'w-10 md:w-12'
+      return 'w-10 sm:w-12'
     case 'full':
       return 'w-full'
     default:

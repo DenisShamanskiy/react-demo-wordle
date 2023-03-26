@@ -26,11 +26,11 @@ const Board = () => {
   }
 
   return (
-    <div className='m-auto box-border grid select-none grid-rows-board gap-1 font-["Bitter"] font-extrabold uppercase md:grid-rows-boardMD md:gap-1.5'>
+    <div className='m-auto box-border grid select-none grid-rows-board gap-1 font-["Bitter"] font-extrabold uppercase sm:grid-rows-boardMD sm:gap-1.5'>
       {board.map((_, indexRow) => {
         return (
           <div
-            className='grid grid-cols-board gap-1 text-[28px] md:grid-cols-boardMD md:gap-1.5 md:text-[32px]'
+            className='grid grid-cols-board gap-1 text-[28px] sm:grid-cols-boardMD sm:gap-1.5 sm:text-[32px]'
             key={indexRow}
           >
             {board[indexRow]!.map((item, indexLetter) => {

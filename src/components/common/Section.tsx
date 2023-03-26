@@ -2,7 +2,7 @@ import { FC, ReactNode, useMemo } from 'react'
 
 interface ISectionProps {
   children: ReactNode
-  width?: 's' | 'm' | '2xl'
+  width?: 's' | 'm' | '2xl' | 'full'
   height?: 'full'
   customClass?: string
 }
@@ -13,11 +13,13 @@ const getWidthClasses = (width?: ISectionProps['width']) => {
   }
   switch (width) {
     case 's':
-      return 'w-11/12 md:w-full max-w-sm'
+      return 'w-10/12 max-w-xs sm:w-full sm:max-w-sm'
     case 'm':
-      return 'w-11/12 md:w-full md:max-w-md'
+      return 'w-10/12 sm:w-full max-w-sm sm:max-w-md'
     case '2xl':
-      return 'w-11/12 md:w-full md:max-w-2xl'
+      return 'w-10/12 sm:w-full sm:max-w-2xl'
+    case 'full':
+      return 'w-full'
     default:
       return ''
   }
@@ -34,8 +36,7 @@ const getHeightClasses = (height?: ISectionProps['height']) => {
   }
 }
 
-const BASE_SECTION_CLASSES =
-  'mx-auto flex select-none flex-col items-center px-2 md:px-0'
+const BASE_SECTION_CLASSES = 'flex select-none flex-col items-center'
 
 const Section: FC<ISectionProps> = ({
   children,
@@ -46,13 +47,13 @@ const Section: FC<ISectionProps> = ({
   const computedClasses = useMemo(() => {
     const widthClass = getWidthClasses(width)
     const heightClass = getHeightClasses(height)
-    return [widthClass, heightClass].join(' ')
-  }, [width, height])
+    return [widthClass, heightClass, customClass]
+      .filter((item) => !!item)
+      .join(' ')
+  }, [width, height, customClass])
 
   return (
-    <section
-      className={`${BASE_SECTION_CLASSES} ${computedClasses} ${customClass}`}
-    >
+    <section className={`${BASE_SECTION_CLASSES} ${computedClasses}`}>
       {children}
     </section>
   )

@@ -17,7 +17,7 @@ const Radio: FC<IRadioProps> = ({
   peer,
   customClass,
 }): JSX.Element => {
-  const labelClassName = `flex h-full w-1/2 cursor-pointer items-center justify-center rounded-full text-sm font-medium uppercase md:text-base ${customClass}`
+  const labelClassName = `flex h-full w-1/2 cursor-pointer items-center justify-center rounded-full text-sm font-medium uppercase sm:text-base ${customClass}`
   return (
     <>
       <input

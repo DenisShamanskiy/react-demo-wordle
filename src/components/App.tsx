@@ -8,7 +8,6 @@ import Settings from 'pages/Settings'
 import Auth from 'pages/Auth'
 import { getLocalGameData, initialGame } from 'redux/features/gameSlice'
 import { getLocalSettingData, setTheme } from 'redux/features/settingsSlice'
-import Layout from './Layout'
 import ProfileEditForm from 'pages/ProfileEditForm'
 import Profile from 'pages/Profile'
 import Admin from 'pages/Admin'
@@ -27,6 +26,7 @@ import Rating from 'pages/Rating'
 import Notification from './Notification'
 import Modal from './Modal'
 import useGameLogic from 'hook/useGameLogic'
+import Layout from './Layout'
 
 const App = () => {
   const styleHeight = {
@@ -62,6 +62,7 @@ const App = () => {
 
   // Проверка темы
   useEffect(() => {
+    const themeColorMetaTag = document.querySelector('meta[name="theme-color"]')
     if (
       localStorage['theme'] === 'dark' ||
       (!('theme' in localStorage) &&
@@ -69,9 +70,11 @@ const App = () => {
     ) {
       document.documentElement.classList.add('dark')
       dispatch(setTheme(true))
+      themeColorMetaTag && themeColorMetaTag.setAttribute('content', '#333')
     } else {
       document.documentElement.classList.remove('dark')
       dispatch(setTheme(false))
+      themeColorMetaTag && themeColorMetaTag.setAttribute('content', '#F2F3F4')
     }
   }, [darkMode])
 

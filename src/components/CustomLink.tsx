@@ -16,7 +16,7 @@ const CustomLink: FC<CustomLinkProps> = ({ to, icon, children, tooltip }) => {
   const darkMode = useAppSelector((state) => state.settings.darkMode)
   return children ? (
     <NavLink to={to}>
-      <div className='relative flex h-11 items-center justify-center rounded-2xl text-sm font-semibold tracking-wider text-w-quartz shadow-popped transition-all duration-300 hover:translate-x-1 active:shadow-pushed dark:text-w-white-dark dark:shadow-poppedDark dark:active:shadow-pushedDark md:h-12 md:text-base'>
+      <div className='relative flex h-11 items-center justify-center rounded-2xl text-sm font-semibold tracking-wider text-w-quartz shadow-popped transition-all duration-300 hover:translate-x-1 active:shadow-pushed dark:text-w-white-dark dark:shadow-poppedDark dark:active:shadow-pushedDark sm:h-12 sm:text-base'>
         <IconSVG icon={icon} size='m' position='left' />
         {children}
         <IconSVG icon={'chevron-forward'} size='m' position='right' />
@@ -26,7 +26,7 @@ const CustomLink: FC<CustomLinkProps> = ({ to, icon, children, tooltip }) => {
     <>
       <Link
         to={to}
-        className='w-7 transition-all duration-300 hover:scale-105 md:w-9'
+        className='w-7 transition-all duration-300 hover:scale-105 sm:w-9'
         data-tooltip-id={icon}
         data-tooltip-content={tooltip}
         data-tooltip-delay-show={1000}
