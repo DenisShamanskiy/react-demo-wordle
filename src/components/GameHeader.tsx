@@ -30,7 +30,7 @@ const GameHeader = () => {
         <ButtonIcon
           icon='leave'
           position='header'
-          disabled={board[0]?.every((item) => item.color === '')}
+          disabled={board[0]?.every((item) => !item.color)}
           place='right'
           customClass='p-2 sm:p-2.5 w-10 sm:w-12'
           onClick={() => (visible ? hidden() : dispatch(showNewGame()))}

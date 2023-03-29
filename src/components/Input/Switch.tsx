@@ -19,7 +19,7 @@ const Switch: FC<ISwitchProps> = ({ onChange, isChecked }) => {
         onChange={onChange}
       ></input>
       <span
-        className={`absolute top-0 bottom-0 right-0 left-0 cursor-pointer rounded-full transition-all duration-500 before:absolute before:bottom-[2px] before:left-[2px]    before:h-4 before:w-4 before:rounded-full before:bg-w-white before:transition-all before:duration-300 sm:before:h-6 sm:before:w-6 ${
+        className={`absolute top-0 bottom-0 right-0 left-0 cursor-pointer rounded-full transition-all duration-500 before:absolute before:bottom-[2px] before:left-[2px] before:h-4 before:w-4 before:rounded-full before:bg-w-white before:transition-all before:duration-300 sm:before:h-6 sm:before:w-6 ${
           isChecked
             ? 'bg-w-green before:translate-x-[12px] before:bg-w-white sm:before:translate-x-[16px]'
             : 'bg-w-grey-tone-1'

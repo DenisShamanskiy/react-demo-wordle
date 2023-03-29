@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import useCurrentHeight from 'hook/useCurrentHeight'
-import Game from '../pages/Game'
 import Rules from 'pages/Rules'
 import Settings from 'pages/Settings'
 import Auth from 'pages/Auth'
@@ -13,7 +12,6 @@ import Profile from 'pages/Profile'
 import Admin from 'pages/Admin'
 import AdminWordsList from 'pages/AdminWordsList'
 import AdminAddWordForm from 'pages/AdminAddWordForm'
-import ProtectedRoute from './ProtectedRoute'
 import { useGetWordsQuery } from 'redux/api/wordsApi'
 import { useCheckAuthQuery } from 'redux/api/authApi'
 import Statistics from 'pages/Statistics'
@@ -23,10 +21,12 @@ import NotFoundPage from 'pages/NotFoundPage'
 import useEncryption from 'hook/useEncryption'
 import { getRandomWord } from 'utils/helpers'
 import Rating from 'pages/Rating'
-import Notification from './Notification'
-import Modal from './Modal'
 import useGameLogic from 'hook/useGameLogic'
-import Layout from './Layout'
+import Layout from 'components/Layout'
+import Game from 'pages/Game'
+import ProtectedRoute from 'components/ProtectedRoute'
+import Modal from 'components/Modal'
+import Notification from 'components/Notification'
 
 const App = () => {
   const styleHeight = {
@@ -48,9 +48,6 @@ const App = () => {
     if (localStorage.getItem('settings')) {
       dispatch(getLocalSettingData())
     }
-  }, [])
-
-  useEffect(() => {
     if (localStorage.getItem('game')) {
       dispatch(getLocalGameData())
     } else {
@@ -60,7 +57,6 @@ const App = () => {
     }
   }, [isSuccess])
 
-  // Проверка темы
   useEffect(() => {
     const themeColorMetaTag = document.querySelector('meta[name="theme-color"]')
     if (
@@ -83,7 +79,7 @@ const App = () => {
       style={styleHeight}
       tabIndex={0}
       onKeyDown={path.pathname === '/' ? handleKeyPress : undefined}
-      className='relative z-10 flex h-screen min-h-[600px] w-screen min-w-[360px] flex-col justify-between justify-items-center overflow-hidden bg-w-white focus:outline-none dark:bg-gradient-to-br dark:from-[#333] dark:to-[#111]'
+      className='relative z-10 flex h-screen min-h-[600px] w-screen min-w-[360px] flex-col justify-between justify-items-center overflow-hidden bg-w-white focus:outline-none dark:bg-[#222]'
     >
       <Routes>
         <Route path='/' element={<Layout isLoading={isLoadingCheckAuth} />}>

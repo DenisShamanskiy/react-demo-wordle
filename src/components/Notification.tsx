@@ -1,12 +1,12 @@
-import { FC, useEffect, useRef } from 'react'
 import '../styles/notification-animation.css'
+import { useEffect, useRef } from 'react'
 import { NotificationType } from 'types/store'
 import ReactPortal from 'utils/ReactPortal'
 import { CSSTransition } from 'react-transition-group'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
 import { hideNotification } from 'redux/features/notificationSlice'
 
-const Notification: FC = () => {
+const Notification = () => {
   const nodeRef = useRef(null)
   const dispatch = useAppDispatch()
   const { type, open, message } = useAppSelector((state) => state.notification)

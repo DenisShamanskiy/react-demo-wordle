@@ -13,13 +13,13 @@ const RatingUserList: FC<IRatingUserListProps> = ({ users }) => {
 
   return (
     <FixedSizeList
-      className='scrollbar-hide mt-6 box-border flex flex-col items-center overflow-y-auto rounded-md md:mt-8'
+      className='scrollbar-hide mt-6 box-border flex flex-col items-center overflow-y-auto rounded-md sm:mt-8'
       itemData={users}
       innerElementType='ul'
       itemCount={users.length}
       itemSize={41}
       height={height * 0.6}
-      width={'clamp(330px, 100%, 448px)'}
+      width={'clamp(300px, 100%, 448px)'}
     >
       {({ data, style, index }) => {
         return (

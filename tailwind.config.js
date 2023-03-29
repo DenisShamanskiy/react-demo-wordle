@@ -10,6 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        bitter: ['Bitter'],
+      },
       keyframes: {
         appearDialog: {
           '0%': {
@@ -129,12 +132,12 @@ module.exports = {
           '1px 1px 1px rgba(255, 255, 255, 0.08), -1px -1px 1px rgba(0, 0, 0, 0.56), 1px 1px 1px rgba(255, 255, 255, 0.08) inset, -1px -1px 1px rgba(0, 0, 0, 0.56) inset',
       },
       gridTemplateRows: {
-        board: 'repeat(6, 56px)',
-        boardMD: 'repeat(6, 64px)',
+        56: 'repeat(6, 56px)',
+        64: 'repeat(6, 64px)',
       },
       gridTemplateColumns: {
-        board: 'repeat(5, 58px)',
-        boardMD: 'repeat(5, 64px)',
+        56: 'repeat(5, 56px)',
+        64: 'repeat(5, 64px)',
         keyBoardLastRow:
           'minmax(44.55px, 1fr) repeat(9, minmax(27.66px, 49.16px)) minmax(44.55px, 1fr)',
       },

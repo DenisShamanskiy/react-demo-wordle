@@ -1,11 +1,13 @@
-interface IKeyBoardRow {
+export type ColorLetter = 'green' | 'yellow' | 'grey'
+
+export interface IKeyBoardRow {
   value: string
-  color: string
+  color: ColorLetter | null
 }
 
 export interface IBoardRow {
-  value: string
-  color: string
+  value: string | null
+  color: ColorLetter
 }
 
 export enum GameStatus {

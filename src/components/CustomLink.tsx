@@ -3,16 +3,16 @@ import { Link, NavLink, To } from 'react-router-dom'
 import { Tooltip } from 'react-tooltip'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import { useAppSelector } from 'utils/hook'
-import IconSVG from './micro-components/IconSVG'
+import IconSVG from './IconSVG'
 
-type CustomLinkProps = {
+interface ICustomLinkProps {
   to: To
   icon: string
   children?: string
   tooltip?: string
 }
 
-const CustomLink: FC<CustomLinkProps> = ({ to, icon, children, tooltip }) => {
+const CustomLink: FC<ICustomLinkProps> = ({ to, icon, children, tooltip }) => {
   const darkMode = useAppSelector((state) => state.settings.darkMode)
   return children ? (
     <NavLink to={to}>

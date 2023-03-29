@@ -1,7 +1,7 @@
-import { FC } from 'react'
+import { FC, HTMLAttributes } from 'react'
+import { Paragraph } from './common'
 
-interface IRatingListItemProps {
-  style: React.CSSProperties
+interface IRatingListItemProps extends HTMLAttributes<HTMLLIElement> {
   username: string
   fail: number
   leave: number
@@ -18,20 +18,24 @@ const RatingListItem: FC<IRatingListItemProps> = ({
   return (
     <li
       style={style}
-      className='grid h-10 w-full grid-cols-[1fr_40px_40px_40px] items-center gap-2 md:h-12 md:grid-cols-[1fr_48px_48px_48px]'
+      className='grid h-10 w-full grid-cols-[1fr_40px_40px_40px] items-center gap-2 sm:h-12 sm:grid-cols-[1fr_48px_48px_48px]'
     >
-      <p className='truncate px-1.5 text-sm font-medium leading-10 text-w-quartz dark:text-w-white-dark md:text-base'>
+      <Paragraph
+        fontSize='sm'
+        fontWeight='medium'
+        customClass='truncate px-1.5 sm:px-3'
+      >
         {username}
-      </p>
-      <p className='flex items-center justify-center text-base font-semibold text-w-quartz dark:text-w-white-dark md:text-lg'>
+      </Paragraph>
+      <Paragraph fontSize='base' fontWeight='semibold' textAlign='center'>
         {win}
-      </p>
-      <p className='flex items-center justify-center text-base font-semibold text-w-quartz dark:text-w-white-dark md:text-lg'>
+      </Paragraph>
+      <Paragraph fontSize='base' fontWeight='semibold' textAlign='center'>
         {leave}
-      </p>
-      <p className='flex items-center justify-center text-base font-semibold text-w-quartz dark:text-w-white-dark md:text-lg'>
+      </Paragraph>
+      <Paragraph fontSize='base' fontWeight='semibold' textAlign='center'>
         {fail}
-      </p>
+      </Paragraph>
     </li>
   )
 }

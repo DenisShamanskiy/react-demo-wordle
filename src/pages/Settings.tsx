@@ -20,7 +20,7 @@ const Settings: FC = () => {
   } = useAppSelector((state) => state.settings)
 
   return (
-    <Section width='m'>
+    <Section width='s'>
       <div className='flex w-full flex-col items-center justify-center'>
         <Heading>Настройки</Heading>
         <div className='mt-8 w-full md:mt-10'>

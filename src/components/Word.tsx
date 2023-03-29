@@ -6,14 +6,14 @@ import { useDeleteWordMutation } from '../redux/api/wordsApi'
 import ButtonIcon from './ButtonIcon'
 import useGameLogic from 'hook/useGameLogic'
 
-type WordProps = {
+interface IWordProps {
   style: React.CSSProperties
   index: number
   word: string
   reset: UseFormReset<IFormValues>
 }
 
-const Word: FC<WordProps> = ({ index, word, style, reset }) => {
+const Word: FC<IWordProps> = ({ index, word, style, reset }) => {
   const { showNotify } = useGameLogic()
   const [deleteWord, { isLoading }] = useDeleteWordMutation()
 
@@ -38,13 +38,13 @@ const Word: FC<WordProps> = ({ index, word, style, reset }) => {
     <li
       style={style}
       className={
-        'flex h-10 w-full items-center border-b border-w-grey-tone-2 p-1 last-of-type:border-none dark:border-w-grey-tone-3 md:h-12 md:p-2 '
+        'flex h-10 w-full items-center border-b border-w-grey-tone-2 p-1 last-of-type:border-none dark:border-w-grey-tone-3 sm:h-12 sm:p-2 '
       }
     >
-      <p className='flex h-full w-4 items-center justify-center text-sm font-medium text-w-quartz dark:text-w-white-dark md:w-6 md:text-base'>
+      <p className='flex h-full w-4 items-center justify-center text-sm font-medium text-w-quartz dark:text-w-white-dark sm:w-6 sm:text-base'>
         {index + 1}
       </p>
-      <p className='m-auto flex items-center justify-center text-sm font-medium uppercase text-w-quartz dark:text-w-white-dark md:text-base'>
+      <p className='m-auto flex items-center justify-center text-sm font-medium uppercase text-w-quartz dark:text-w-white-dark sm:text-base'>
         {word}
       </p>
       <ButtonIcon

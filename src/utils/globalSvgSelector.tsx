@@ -2,10 +2,107 @@ export function globalSvgSelector(icon: string, dark: boolean) {
   const color = dark ? '#abaaa9' : '#49474E'
 
   switch (icon) {
+    case 'key-enter':
+      return (
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='28'
+          height='28'
+          viewBox='0 0 512 512'
+        >
+          <path
+            d='M176,176V136a40,40,0,0,1,40-40H424a40,40,0,0,1,40,40V376a40,40,0,0,1-40,40H216a40,40,0,0,1-40-40V336'
+            fill='none'
+            stroke={dark ? '#F2F3F4' : '#49474E'}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <polyline
+            points='272 336 352 256 272 176'
+            fill='none'
+            stroke={dark ? '#F2F3F4' : '#49474E'}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='48'
+            y1='256'
+            x2='336'
+            y2='256'
+            fill='none'
+            stroke={dark ? '#F2F3F4' : '#49474E'}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+        </svg>
+      )
+    case 'key-backspace':
+      return (
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='28'
+          height='28'
+          viewBox='0 0 512 512'
+        >
+          <path
+            d='M135.19,390.14A28.79,28.79,0,0,0,156.87,400H403.13A29,29,0,0,0,432,371.13V140.87A29,29,0,0,0,403.13,112H156.87a28.84,28.84,0,0,0-21.67,9.84v0L46.33,256l88.86,134.11Z'
+            fill='none'
+            stroke={dark ? '#F2F3F4' : '#49474E'}
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='336.67'
+            y1='192.33'
+            x2='206.66'
+            y2='322.34'
+            fill='none'
+            stroke={dark ? '#F2F3F4' : '#49474E'}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='336.67'
+            y1='322.34'
+            x2='206.66'
+            y2='192.33'
+            fill='none'
+            stroke={dark ? '#F2F3F4' : '#49474E'}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='336.67'
+            y1='192.33'
+            x2='206.66'
+            y2='322.34'
+            fill='none'
+            stroke={dark ? '#F2F3F4' : '#49474E'}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='336.67'
+            y1='322.34'
+            x2='206.66'
+            y2='192.33'
+            fill='none'
+            stroke={dark ? '#F2F3F4' : '#49474E'}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+        </svg>
+      )
     case 'menu':
       return (
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-          <title>menu</title>
           <line
             x1='88'
             y1='152'
@@ -73,104 +170,6 @@ export function globalSvgSelector(icon: string, dark: boolean) {
           fill={color}
         >
           <path d='M289.94,256l95-95A24,24,0,0,0,351,127l-95,95-95-95A24,24,0,0,0,127,161l95,95-95,95A24,24,0,1,0,161,385l95-95,95,95A24,24,0,0,0,385,351Z' />
-        </svg>
-      )
-    case 'key-enter':
-      return (
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='28'
-          height='28'
-          viewBox='0 0 512 512'
-        >
-          <path
-            d='M176,176V136a40,40,0,0,1,40-40H424a40,40,0,0,1,40,40V376a40,40,0,0,1-40,40H216a40,40,0,0,1-40-40V336'
-            fill='none'
-            stroke={color}
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='32px'
-          />
-          <polyline
-            points='272 336 352 256 272 176'
-            fill='none'
-            stroke={color}
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='32px'
-          />
-          <line
-            x1='48'
-            y1='256'
-            x2='336'
-            y2='256'
-            fill='none'
-            stroke={color}
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='32px'
-          />
-        </svg>
-      )
-    case 'key-backspace':
-      return (
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='28'
-          height='28'
-          viewBox='0 0 512 512'
-        >
-          <path
-            d='M135.19,390.14A28.79,28.79,0,0,0,156.87,400H403.13A29,29,0,0,0,432,371.13V140.87A29,29,0,0,0,403.13,112H156.87a28.84,28.84,0,0,0-21.67,9.84v0L46.33,256l88.86,134.11Z'
-            fill='none'
-            stroke={color}
-            strokeLinejoin='round'
-            strokeWidth='32px'
-          />
-          <line
-            x1='336.67'
-            y1='192.33'
-            x2='206.66'
-            y2='322.34'
-            fill='none'
-            stroke={color}
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='32px'
-          />
-          <line
-            x1='336.67'
-            y1='322.34'
-            x2='206.66'
-            y2='192.33'
-            fill='none'
-            stroke={color}
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='32px'
-          />
-          <line
-            x1='336.67'
-            y1='192.33'
-            x2='206.66'
-            y2='322.34'
-            fill='none'
-            stroke={color}
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='32px'
-          />
-          <line
-            x1='336.67'
-            y1='322.34'
-            x2='206.66'
-            y2='192.33'
-            fill='none'
-            stroke={color}
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='32px'
-          />
         </svg>
       )
     case 'trash':

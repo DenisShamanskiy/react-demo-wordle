@@ -1,13 +1,12 @@
-import { FC, ReactNode, useMemo } from 'react'
+import { FC, HTMLProps, useMemo } from 'react'
 
-interface ISectionProps {
-  children: ReactNode
+interface ISectionProps extends HTMLProps<HTMLElement> {
   width?: 's' | 'm' | '2xl' | 'full'
   height?: 'full'
   customClass?: string
 }
 
-const getWidthClasses = (width?: ISectionProps['width']) => {
+const getWidthClasses = (width?: string) => {
   if (!width) {
     return ''
   }
@@ -25,7 +24,7 @@ const getWidthClasses = (width?: ISectionProps['width']) => {
   }
 }
 
-const getHeightClasses = (height?: ISectionProps['height']) => {
+const getHeightClasses = (height?: string) => {
   switch (height) {
     case 'full':
       return 'h-full'
@@ -36,13 +35,12 @@ const getHeightClasses = (height?: ISectionProps['height']) => {
   }
 }
 
-const BASE_SECTION_CLASSES = 'flex select-none flex-col items-center'
-
 const Section: FC<ISectionProps> = ({
   children,
   width,
   height,
   customClass,
+  ...restProps
 }) => {
   const computedClasses = useMemo(() => {
     const widthClass = getWidthClasses(width)
@@ -53,7 +51,10 @@ const Section: FC<ISectionProps> = ({
   }, [width, height, customClass])
 
   return (
-    <section className={`${BASE_SECTION_CLASSES} ${computedClasses}`}>
+    <section
+      className={`flex select-none flex-col items-center ${computedClasses}`}
+      {...restProps}
+    >
       {children}
     </section>
   )

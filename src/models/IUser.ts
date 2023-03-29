@@ -12,10 +12,6 @@ export type Statistics = {
 }
 
 export interface IUser {
-  // email: string
-  // isActivated: boolean
-  // id: string
-  // statistics: Statistics
   id: string | null
   email: string | null
   username: string | null

@@ -1,14 +1,14 @@
-import { FC, ReactNode } from 'react'
+import { FC, HTMLAttributes, ReactNode } from 'react'
 
-interface IMainProps {
+interface IMainProps extends HTMLAttributes<HTMLElement> {
   children?: ReactNode
-  style?: string | string[]
 }
 
-const Main: FC<IMainProps> = ({ children, style }) => {
+const Main: FC<IMainProps> = ({ children, ...props }) => {
   return (
     <main
-      className={`m-auto flex h-[calc(100%-40px)] w-full max-w-5xl select-none items-center justify-center md:h-[calc(100%-64px)] ${style}`}
+      className='m-auto flex h-full w-full max-w-5xl items-center justify-center'
+      {...props}
     >
       {children}
     </main>

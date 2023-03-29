@@ -1,36 +1,38 @@
 import useGameLogic from 'hook/useGameLogic'
 import { useEffect } from 'react'
 import { colorKey } from 'redux/features/gameSlice'
+import { ColorLetter } from 'types/store'
+import { globalSvgSelector } from 'utils/globalSvgSelector'
 import { useAppDispatch, useAppSelector } from 'utils/hook'
+
+const getColorClasses = (color: ColorLetter | null) => {
+  switch (color) {
+    case 'green':
+      return 'bg-w-green dark:bg-w-green-dark'
+    case 'yellow':
+      return 'bg-w-yellow dark:bg-w-yellow-dark'
+    case 'grey':
+      return 'bg-w-grey dark:bg-w-grey-dark'
+    default:
+      return null
+  }
+}
 
 const Keyboard = () => {
   const dispatch = useAppDispatch()
+  const darkMode = useAppSelector((state) => state.settings.darkMode)
 
-  const darkTheme = useAppSelector((state) => state.settings.darkMode)
   const { board, keyBoard, currentRowIndex } = useAppSelector(
     (state) => state.game,
   )
-
-  const addClassColor = (color: string | undefined) => {
-    switch (color) {
-      case 'green':
-        return 'bg-w-green dark:bg-w-green-dark'
-      case 'yellow':
-        return 'bg-w-yellow dark:bg-w-yellow-dark'
-      case 'grey':
-        return 'bg-w-grey dark:bg-w-grey-dark'
-      default:
-        return ''
-    }
-  }
 
   const { handleButtonPress } = useGameLogic()
 
   useEffect(() => {
     if (currentRowIndex > 0) {
-      dispatch(colorKey(board[currentRowIndex - 1]!))
+      dispatch(colorKey(board?.[currentRowIndex - 1]))
     }
-  }, [currentRowIndex]) // eslint-disable-line
+  }, [currentRowIndex])
 
   return (
     <div className='mx-auto flex w-full max-w-2xl select-none flex-col gap-y-1.5 rounded-t bg-w-grey-tone-2 p-1.5 font-sans dark:bg-w-black dark:bg-transparent'>
@@ -44,44 +46,11 @@ const Keyboard = () => {
                 className='button-key grow border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5'
                 onClick={handleButtonPress}
               >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='28'
-                  height='28'
-                  viewBox='0 0 512 512'
-                >
-                  <path
-                    d='M176,176V136a40,40,0,0,1,40-40H424a40,40,0,0,1,40,40V376a40,40,0,0,1-40,40H216a40,40,0,0,1-40-40V336'
-                    fill='none'
-                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='32px'
-                  />
-                  <polyline
-                    points='272 336 352 256 272 176'
-                    fill='none'
-                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='32px'
-                  />
-                  <line
-                    x1='48'
-                    y1='256'
-                    x2='336'
-                    y2='256'
-                    fill='none'
-                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='32px'
-                  />
-                </svg>
+                {globalSvgSelector('key-enter', darkMode)}
               </button>
               {keyBoard[indexRow]?.map(
                 (
-                  buttonKey: { value: string; color: string },
+                  buttonKey: { value: string; color: ColorLetter | null },
                   indexKey: number,
                 ) => {
                   return (
@@ -90,7 +59,7 @@ const Keyboard = () => {
                       data-key={buttonKey.value}
                       className={`button-key w-[calc((100%-(6px*11))/12)] ${
                         buttonKey.color
-                          ? `${addClassColor(
+                          ? `${getColorClasses(
                               buttonKey.color,
                             )} } border-[#6c6e70] text-w-white`
                           : 'border-w-grey-tone-1 bg-w-white text-w-quartz dark:bg-w-grey-tone-5 dark:text-w-white'
@@ -109,65 +78,7 @@ const Keyboard = () => {
                 className='button-key grow border-w-grey-tone-1 bg-w-white dark:bg-w-grey-tone-5'
                 onClick={handleButtonPress}
               >
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='28'
-                  height='28'
-                  viewBox='0 0 512 512'
-                >
-                  <title>key-backspace</title>
-                  <path
-                    d='M135.19,390.14A28.79,28.79,0,0,0,156.87,400H403.13A29,29,0,0,0,432,371.13V140.87A29,29,0,0,0,403.13,112H156.87a28.84,28.84,0,0,0-21.67,9.84v0L46.33,256l88.86,134.11Z'
-                    fill='none'
-                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
-                    strokeLinejoin='round'
-                    strokeWidth='32px'
-                  />
-                  <line
-                    x1='336.67'
-                    y1='192.33'
-                    x2='206.66'
-                    y2='322.34'
-                    fill='none'
-                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='32px'
-                  />
-                  <line
-                    x1='336.67'
-                    y1='322.34'
-                    x2='206.66'
-                    y2='192.33'
-                    fill='none'
-                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='32px'
-                  />
-                  <line
-                    x1='336.67'
-                    y1='192.33'
-                    x2='206.66'
-                    y2='322.34'
-                    fill='none'
-                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='32px'
-                  />
-                  <line
-                    x1='336.67'
-                    y1='322.34'
-                    x2='206.66'
-                    y2='192.33'
-                    fill='none'
-                    stroke={darkTheme ? '#F2F3F4' : '#49474E'}
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='32px'
-                  />
-                </svg>
+                {globalSvgSelector('key-backspace', darkMode)}
               </button>
             </div>
           )
@@ -176,7 +87,7 @@ const Keyboard = () => {
           <div className='flex w-full gap-x-1.5' key={indexRow}>
             {keyBoard[indexRow]?.map(
               (
-                buttonKey: { value: string; color: string },
+                buttonKey: { value: string; color: ColorLetter | null },
                 indexKey: number,
               ) => {
                 return (
@@ -185,9 +96,9 @@ const Keyboard = () => {
                     data-key={buttonKey.value}
                     className={`button-key w-[calc((100%-(6px*11))/12)] ${
                       buttonKey.color
-                        ? `${addClassColor(
+                        ? `${getColorClasses(
                             buttonKey.color,
-                          )} } border-[#6c6e70] text-w-white`
+                          )}} border-[#6c6e70] text-w-white`
                         : 'border-w-grey-tone-1 bg-w-white text-w-quartz dark:bg-w-grey-tone-5 dark:text-w-white'
                     }`}
                     onClick={handleButtonPress}

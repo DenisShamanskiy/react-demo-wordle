@@ -66,7 +66,7 @@ const Signup = () => {
             type='email'
             id='email'
             isLabel
-            autoComplete='on'
+            autoComplete='off'
             register={register}
             option={{
               required: 'Поле обязательно к заполнению',
@@ -91,7 +91,7 @@ const Signup = () => {
             type={isPasswordVisible ? 'text' : 'password'}
             id='password'
             isLabel
-            autoComplete='on'
+            autoComplete='off'
             register={register}
             option={{
               required: 'Поле обязательно к заполнению',

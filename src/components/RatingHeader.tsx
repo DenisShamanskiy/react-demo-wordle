@@ -10,7 +10,6 @@ interface IRatingHeaderProps {
   sortBy: SortKey | null
   sortAsc: boolean
   sortUsersByStatistics: (key: SortKey) => void
-  customClass?: string
   text?: string
   tooltip?: string
 }
@@ -26,7 +25,7 @@ const RatingHeader: FC<IRatingHeaderProps> = ({
   const darkMode = useAppSelector((state) => state.settings.darkMode)
   return text ? (
     <Button
-      type={'button'}
+      type='button'
       text={text}
       size='full'
       onClick={() => sortUsersByStatistics(id)}
@@ -34,7 +33,7 @@ const RatingHeader: FC<IRatingHeaderProps> = ({
       customClass='relative'
     >
       {sortBy === id && (
-        <span className='absolute -bottom-[18px] right-1/2 w-3 translate-x-1/2 md:-bottom-5'>
+        <span className='absolute -bottom-[18px] right-1/2 w-3 translate-x-1/2 sm:-bottom-5'>
           {globalSvgSelector(sortAsc ? 'arrow-down' : 'arrow-up', darkMode)}
         </span>
       )}
@@ -45,12 +44,12 @@ const RatingHeader: FC<IRatingHeaderProps> = ({
       size='full'
       onClick={() => sortUsersByStatistics(id)}
       tooltip={tooltip}
-      customClass='m-auto p-2 md:p-2.5 relative'
+      customClass='m-auto p-2 sm:p-2.5 relative'
       place='top'
       isShadow
     >
       {sortBy === id && (
-        <span className='absolute -bottom-[18px] right-1/2 w-3 translate-x-1/2 md:-bottom-5'>
+        <span className='absolute -bottom-[18px] right-1/2 w-3 translate-x-1/2 sm:-bottom-5'>
           {globalSvgSelector(sortAsc ? 'arrow-down' : 'arrow-up', darkMode)}
         </span>
       )}

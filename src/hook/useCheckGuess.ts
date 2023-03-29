@@ -16,6 +16,8 @@ const useCheckGuess = () => {
     hardMode: { active, letters, words: wordsHardMode },
   } = useAppSelector((state) => state.settings)
 
+  const userID = useAppSelector((state) => state.user.id)
+
   const { currentGuess, words, currentWord, currentRowIndex } = useAppSelector(
     (state) => state.game,
   )
@@ -27,9 +29,14 @@ const useCheckGuess = () => {
     const decryptWord = decryptValue(currentWord)
     if (currentGuess === decryptWord) {
       dispatch(setRelultGame('WIN'))
-      await updateStatistics({ result: 'WIN', currentRowIndex })
+      userID && (await updateStatistics({ result: 'WIN', currentRowIndex }))
       dispatch(
-        openModal({ wnd: 'GameResult', title: 'Победа', window: 'GameResult' }),
+        openModal({
+          component: 'GameResult',
+          props: {
+            result: 'win',
+          },
+        }),
       )
       return true
     }
@@ -40,12 +47,13 @@ const useCheckGuess = () => {
   const checkFail = async (currentRowIndex: number) => {
     if (currentRowIndex === 5) {
       dispatch(setRelultGame({ result: 'FAIL', currentRowIndex }))
-      await updateStatistics({ result: 'FAIL' })
+      userID && (await updateStatistics({ result: 'FAIL' }))
       dispatch(
         openModal({
-          wnd: 'GameResult',
-          title: 'Поражение',
-          window: 'GameResult',
+          component: 'GameResult',
+          props: {
+            result: 'fail',
+          },
         }),
       )
       return true

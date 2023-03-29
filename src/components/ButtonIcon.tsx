@@ -3,18 +3,15 @@ import { useAppSelector } from 'utils/hook'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import { PlacesType, Tooltip } from 'react-tooltip'
 import { disabledClasses, shadowClasses } from 'utils/constants'
+import { IButtonProps } from './Button'
 
-interface IButtonIconProps {
+interface IButtonIconProps extends IButtonProps {
   icon: string
   position?: 'header' | 'close' | 'password'
-  size?: 'close' | 'xs' | 's' | 'm' | 'l' | 'full'
-  disabled?: boolean
   tooltip?: string
   additionalStyles?: string
   customClass?: string
-  onClick: () => void
   place?: PlacesType
-  children?: React.ReactNode
   isShadow?: boolean
 }
 

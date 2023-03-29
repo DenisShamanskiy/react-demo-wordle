@@ -2,13 +2,13 @@ import { FC } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAppSelector } from 'utils/hook'
 
-type ProtectedRouteProps = {
+interface IProtectedRouteProps {
   role: string
   redirectPath?: string
   children: JSX.Element
 }
 
-const ProtectedRoute: FC<ProtectedRouteProps> = ({
+const ProtectedRoute: FC<IProtectedRouteProps> = ({
   role,
   redirectPath = '/',
   children,

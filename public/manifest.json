@@ -5,8 +5,8 @@
   },
   "display": "standalone",
   "lang": "ru-Ru",
-  "name": "React Demo Wordle",
-  "short_name": "Wordle",
+  "name": "Wordle by Denis Shamanskiy",
+  "short_name": "Wordle by DS",
   "start_url": "https://react-demo-wordle.vercel.app/",
   "icons": [
     {

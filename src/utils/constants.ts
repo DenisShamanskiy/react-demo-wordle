@@ -1,4 +1,4 @@
-import { IBoardRow } from 'types/store'
+import { IBoardRow, IKeyBoardRow } from 'types/store'
 
 export const API_URL =
   process.env.NODE_ENV !== 'development'
@@ -32,48 +32,48 @@ export const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
 export const ruRegex = /^[А-яЁё]{5}$/
 
 export const board: IBoardRow[][] = [...new Array(6)].map(() =>
-  new Array(5).fill({ value: '', color: '' }),
+  new Array(5).fill({ value: null, color: null }),
 )
 
-export const keyBoard = [
+export const keyBoard: IKeyBoardRow[][] = [
   [
-    { value: 'й', color: '' },
-    { value: 'ц', color: '' },
-    { value: 'у', color: '' },
-    { value: 'к', color: '' },
-    { value: 'е', color: '' },
-    { value: 'н', color: '' },
-    { value: 'г', color: '' },
-    { value: 'ш', color: '' },
-    { value: 'щ', color: '' },
-    { value: 'з', color: '' },
-    { value: 'х', color: '' },
-    { value: 'ъ', color: '' },
+    { value: 'й', color: null },
+    { value: 'ц', color: null },
+    { value: 'у', color: null },
+    { value: 'к', color: null },
+    { value: 'е', color: null },
+    { value: 'н', color: null },
+    { value: 'г', color: null },
+    { value: 'ш', color: null },
+    { value: 'щ', color: null },
+    { value: 'з', color: null },
+    { value: 'х', color: null },
+    { value: 'ъ', color: null },
   ],
   [
-    { value: 'ф', color: '' },
-    { value: 'ы', color: '' },
-    { value: 'в', color: '' },
-    { value: 'а', color: '' },
-    { value: 'п', color: '' },
-    { value: 'р', color: '' },
-    { value: 'о', color: '' },
-    { value: 'л', color: '' },
-    { value: 'д', color: '' },
-    { value: 'ж', color: '' },
-    { value: 'э', color: '' },
-    { value: 'ё', color: '' },
+    { value: 'ф', color: null },
+    { value: 'ы', color: null },
+    { value: 'в', color: null },
+    { value: 'а', color: null },
+    { value: 'п', color: null },
+    { value: 'р', color: null },
+    { value: 'о', color: null },
+    { value: 'л', color: null },
+    { value: 'д', color: null },
+    { value: 'ж', color: null },
+    { value: 'э', color: null },
+    { value: 'ё', color: null },
   ],
   [
-    { value: 'я', color: '' },
-    { value: 'ч', color: '' },
-    { value: 'с', color: '' },
-    { value: 'м', color: '' },
-    { value: 'и', color: '' },
-    { value: 'т', color: '' },
-    { value: 'ь', color: '' },
-    { value: 'б', color: '' },
-    { value: 'ю', color: '' },
+    { value: 'я', color: null },
+    { value: 'ч', color: null },
+    { value: 'с', color: null },
+    { value: 'м', color: null },
+    { value: 'и', color: null },
+    { value: 'т', color: null },
+    { value: 'ь', color: null },
+    { value: 'б', color: null },
+    { value: 'ю', color: null },
   ],
 ]
 

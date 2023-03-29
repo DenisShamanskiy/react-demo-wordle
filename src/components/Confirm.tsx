@@ -20,6 +20,7 @@ export const Confirm = () => {
   )
   const { heading, description } = useAppSelector((state) => state.modal.props)
   const { words, currentWord } = useAppSelector((state) => state.game)
+  const userID = useAppSelector((state) => state.user.id)
 
   const goHome = () => navigate('/', { replace: true })
 
@@ -40,7 +41,7 @@ export const Confirm = () => {
     goHome()
     dispatch(closeModal())
     dispatch(setRelultGame('LEAVE'))
-    await updateStatistics({ result: 'LEAVE' })
+    userID && (await updateStatistics({ result: 'LEAVE' }))
     dispatch(hideNewGame())
     setTimeout(
       () =>

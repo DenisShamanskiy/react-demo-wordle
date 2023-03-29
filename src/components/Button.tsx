@@ -1,16 +1,14 @@
-import { FC, useMemo } from 'react'
+import { FC, ReactNode, useMemo } from 'react'
 import LoaderBtn from './Loaders/LoaderBtn'
 
-interface IButtonProps {
-  type: 'button' | 'submit' | 'reset'
-  text: string
+export interface IButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  text?: string
   color?: 'green' | 'red' | 'blue' | 'yellow'
-  disabled?: boolean
-  size: 's' | 'm' | 'l' | 'full' | 'icon'
-  onClick?: () => void
+  size?: 'xs' | 's' | 'm' | 'l' | 'full' | 'icon' | 'close'
   isLoading?: boolean
   isRounded?: boolean
-  children?: React.ReactNode
+  children?: ReactNode
   customClass?: string
 }
 
@@ -25,11 +23,11 @@ const getColorClasses = (disabled?: boolean): string => {
 const getSizeClasses = (size: string): string => {
   switch (size) {
     case 's':
-      return 'w-32 md:w-36'
+      return 'w-32 sm:w-36'
     case 'm':
-      return 'w-40 md:w-48'
+      return 'w-40 sm:w-48'
     case 'l':
-      return 'w-48 md:w-56'
+      return 'w-48 sm:w-56'
     case 'full':
       return 'w-full'
     default:
@@ -41,7 +39,7 @@ const getRoundedClasses = (isRounded: boolean | undefined): string =>
   isRounded ? 'rounded-full' : 'rounded'
 
 const BASE_BUTTON_CLASSES =
-  'inline-block h-10 text-sm font-medium uppercase md:h-12 md:text-base transition-all'
+  'inline-block h-10 text-sm font-medium uppercase sm:h-12 sm:text-base transition-all'
 
 const Button: FC<IButtonProps> = ({
   type,
@@ -57,7 +55,7 @@ const Button: FC<IButtonProps> = ({
 }) => {
   const computedClasses = useMemo(() => {
     const colorClass = getColorClasses(disabled)
-    const sizeClass = getSizeClasses(size)
+    const sizeClass = getSizeClasses(size!)
     const roundedClass = getRoundedClasses(isRounded)
     return [colorClass, sizeClass, roundedClass].join(' ')
   }, [color, disabled, size])

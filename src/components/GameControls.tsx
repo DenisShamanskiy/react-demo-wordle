@@ -48,7 +48,7 @@ export const GameControls = () => {
                 }),
               )
             }
-            disabled={board[0]?.every((item) => item.color === '')}
+            disabled={board[0]?.every((item) => !item.color)}
           />
           <Button
             type='button'
@@ -68,7 +68,7 @@ export const GameControls = () => {
               )
             }
             disabled={
-              board[0]?.every((item) => item.color === '') ||
+              board[0]?.every((item) => !item.color) ||
               ['WIN', 'FAIL', 'LEAVE'].includes(gameStatus)
             }
           />
