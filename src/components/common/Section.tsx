@@ -16,7 +16,7 @@ const getWidthClasses = (width?: string) => {
     case 'm':
       return 'w-10/12 sm:w-full max-w-sm sm:max-w-md'
     case '2xl':
-      return 'w-10/12 sm:w-full sm:max-w-2xl'
+      return 'w-11/12 sm:max-w-2xl'
     case 'full':
       return 'w-full'
     default:

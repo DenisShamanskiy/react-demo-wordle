@@ -649,60 +649,6 @@ export function globalSvgSelector(icon: string, dark: boolean) {
           />
         </svg>
       )
-    case 'checkmark-circle':
-      return (
-        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-          <path
-            d='M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z'
-            fill='none'
-            stroke='#32c682'
-            strokeMiterlimit='10'
-            strokeWidth='20px'
-          />
-          <polyline
-            points='352 176 217.6 336 160 272'
-            fill='none'
-            stroke='#32c682'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='20px'
-          />
-        </svg>
-      )
-    case 'close-circle':
-      return (
-        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-          <path
-            d='M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z'
-            fill='none'
-            stroke={dark ? '#cc443a' : '#ff5549'}
-            strokeMiterlimit='10'
-            strokeWidth='20px'
-          />
-          <line
-            x1='320'
-            y1='320'
-            x2='192'
-            y2='192'
-            fill='none'
-            stroke={dark ? '#cc443a' : '#ff5549'}
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='20px'
-          />
-          <line
-            x1='192'
-            y1='320'
-            x2='320'
-            y2='192'
-            fill='none'
-            stroke={dark ? '#cc443a' : '#ff5549'}
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='20px'
-          />
-        </svg>
-      )
     case 'eye':
       return (
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
@@ -865,6 +811,46 @@ export function globalSvgSelector(icon: string, dark: boolean) {
             strokeLinecap='round'
             strokeLinejoin='round'
             strokeWidth='48px'
+          />
+        </svg>
+      )
+    case 'activated':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <polyline
+            points='416 128 192 384 96 288'
+            fill='none'
+            stroke='#32c682'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+        </svg>
+      )
+    case 'not-activated':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <line
+            x1='368'
+            y1='368'
+            x2='144'
+            y2='144'
+            fill='none'
+            stroke='#cc443a'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
+          />
+          <line
+            x1='368'
+            y1='144'
+            x2='144'
+            y2='368'
+            fill='none'
+            stroke='#cc443a'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='32px'
           />
         </svg>
       )

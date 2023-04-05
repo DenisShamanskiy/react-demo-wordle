@@ -26,7 +26,7 @@
 
 @layer components {
   .button-key {
-    @apply flex h-[48px] cursor-pointer items-center justify-center rounded border-b text-base font-bold uppercase active:scale-95 active:border-none dark:border-none sm:text-xl;
+    @apply sm:text-xl flex h-[48px] cursor-pointer items-center justify-center rounded border-b text-base font-bold uppercase active:scale-95 active:border-none dark:border-none;
   }
   .input-autofill {
     @apply autofill:bg-transparent autofill:text-w-green;

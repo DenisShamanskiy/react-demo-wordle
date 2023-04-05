@@ -4,6 +4,7 @@ interface IParagraphProps extends HTMLProps<HTMLParagraphElement> {
   fontSize: 'xs' | 'sm' | 'base'
   fontWeight?: 'medium' | 'semibold'
   textAlign?: 'center'
+  textTransform?: 'uppercase'
   customClass?: string
 }
 
@@ -40,11 +41,21 @@ const getAlignClasses = (textAlign?: string) => {
   }
 }
 
+const getTextTransformClasses = (textTransform?: string) => {
+  switch (textTransform) {
+    case 'uppercase':
+      return 'uppercase'
+    default:
+      return ''
+  }
+}
+
 const Paragraph: FC<IParagraphProps> = ({
   children,
   fontSize,
   fontWeight,
   textAlign,
+  textTransform,
   customClass,
   ...props
 }) => {
@@ -52,10 +63,12 @@ const Paragraph: FC<IParagraphProps> = ({
     const sizeClass = getSizeClasses(fontSize)
     const weightClass = fontWeight && getWeightClasses(fontWeight)
     const alignClass = textAlign && getAlignClasses(textAlign)
-    return [sizeClass, weightClass, alignClass, customClass]
+    const textTransformClass =
+      textTransform && getTextTransformClasses(textTransform)
+    return [sizeClass, weightClass, alignClass, textTransformClass, customClass]
       .filter((item) => !!item)
       .join(' ')
-  }, [fontSize, fontWeight, textAlign, customClass])
+  }, [fontSize, fontWeight, textAlign, textTransform, customClass])
   return (
     <p
       className={`text-w-quartz dark:text-w-white-dark ${computedClasses}`}

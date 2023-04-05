@@ -26,5 +26,3 @@
   "include": ["./src", "words.ts", "words.js"],
   "exclude": ["node_modules"]
 }
-
-

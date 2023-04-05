@@ -1,5 +1,5 @@
+import { AdminWordListContent } from 'components/Admin'
 import { Input, InputGroup } from 'components/Input'
-import WordList from 'components/WordList'
 import { Paragraph, Section } from 'components/common'
 import { IFormValues } from 'models/IFormValues'
 import { useEffect, useState } from 'react'
@@ -51,9 +51,11 @@ const AdminWordsList = () => {
         </InputGroup>
       </form>
       {filterWords.length ? (
-        <WordList words={filterWords} reset={reset} />
+        <AdminWordListContent words={filterWords} reset={reset} />
       ) : (
-        <Paragraph fontSize='xs'>Ничего не найдено</Paragraph>
+        <Paragraph fontSize='xs' fontWeight='semibold'>
+          Ничего не найдено
+        </Paragraph>
       )}
     </Section>
   )

@@ -5,7 +5,7 @@ const Admin = () => {
   return (
     <Section width='m'>
       <Heading>Администратор</Heading>
-      <div className=' mt-8 flex w-11/12 flex-col justify-center gap-5 md:mt-10 md:gap-6'>
+      <div className='mt-8 flex w-11/12 flex-col justify-center gap-5 sm:mt-10 sm:gap-6'>
         <CustomLink to={'/admin/users'} icon='people'>
           Игроки
         </CustomLink>

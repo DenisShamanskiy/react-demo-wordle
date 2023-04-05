@@ -5,29 +5,6 @@ export const API_URL =
     ? process.env['REACT_APP_API_URL_PRODUCTION']
     : process.env['REACT_APP_API_URL']
 
-export const exampleRules = [
-  {
-    word: ['к', 'р', 'о', 'в', 'ь'],
-    discreption: [
-      'Буква',
-      'К',
-      'есть в загаданном слове и находится на правильном месте',
-    ],
-  },
-  {
-    word: ['г', 'н', 'и', 'л', 'ь'],
-    discreption: [
-      'Буква',
-      'Н',
-      'есть в загаданном слове, но стоит в другом месте',
-    ],
-  },
-  {
-    word: ['ч', 'е', 'р', 'е', 'п'],
-    discreption: ['Буквы', 'Р', 'нет в загаданном слове'],
-  },
-]
-
 export const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
 export const ruRegex = /^[А-яЁё]{5}$/
 

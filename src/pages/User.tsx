@@ -1,14 +1,14 @@
+import { useNavigate, useParams } from 'react-router-dom'
+import { NotificationColor } from 'types/store'
+import { useDeleteUserMutation, useGetUserQuery } from 'redux/api/userApi'
+import useNotification from 'hook/useAppNotification'
+import { globalSvgSelector } from 'utils/globalSvgSelector'
+import { Heading, Paragraph, Section } from 'components/common'
 import Button from 'components/Button'
 import Loader from 'components/Loaders/Loader'
-import { Section } from 'components/common'
-import useNotification from 'hook/useAppNotification'
-import { FC } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useDeleteUserMutation, useGetUserQuery } from 'redux/api/userApi'
-import { NotificationColor } from 'types/store'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
+import { AdminUserDetails } from 'components/Admin'
 
-const User: FC = () => {
+const User = () => {
   const { showNotify } = useNotification()
   const navigate = useNavigate()
   const goBack = () => navigate(-1)
@@ -33,54 +33,36 @@ const User: FC = () => {
   }
 
   return (
-    <Section width='m'>
+    <Section width='s'>
       {isLoading ? (
         <Loader />
-      ) : !data ? (
-        <h2 className='text-center text-base font-bold text-w-quartz dark:text-w-white-dark md:text-xl'>
-          Здесь никого нет
-        </h2>
-      ) : (
+      ) : data ? (
         <>
-          <h2 className='text-center text-base font-bold text-w-quartz dark:text-w-white-dark md:text-xl'>
-            id: {data?.id}
-          </h2>
-          <div className='my-8 flex w-full flex-col gap-3 md:my-10'>
-            <div className='flex h-10 rounded-2xl border-2 border-w-grey-tone-2 text-w-quartz dark:border-w-grey-tone-3 dark:text-w-white-dark md:h-12'>
-              <p className='flex w-32 items-center pl-4 font-semibold'>Имя</p>
-              <p className='m-auto flex items-center font-semibold'>
-                {data?.username}
-              </p>
-            </div>
-            <div className='flex h-10 rounded-2xl border-2 border-w-grey-tone-2 font-semibold text-w-quartz dark:border-w-grey-tone-3 dark:text-w-white-dark md:h-12'>
-              <p className='flex w-32 items-center pl-4 font-semibold'>
-                Email
-                <span className='ml-1 w-4'>
-                  {globalSvgSelector(
-                    data?.isActivated ? 'checkmark-circle' : 'close-circle',
-                    true,
-                  )}
-                </span>
-              </p>
-              <p className='m-auto flex items-center'>{data?.email}</p>
-            </div>
-            <div className='flex h-10 rounded-2xl border-2 border-w-grey-tone-2 text-w-quartz dark:border-w-grey-tone-3 dark:text-w-white-dark md:h-12'>
-              <p className='flex w-32 items-center pl-4 font-semibold'>Роли</p>
-              <p className='m-auto flex items-center font-semibold'>
-                {data?.roles.join(', ')}
-              </p>
-            </div>
+          <Heading>id: {data.id}</Heading>
+          <div className='mt-4 mb-5 flex w-full flex-col gap-3 border-y-2 border-w-grey-tone-2 py-4 dark:border-w-grey-tone-3 sm:mb-6 sm:mt-5 sm:py-5'>
+            <AdminUserDetails title='ИМЯ' details={data.username} />
+            <AdminUserDetails title='EMAIL' details={data.email}>
+              <span className='absolute left-[17%] w-4 sm:left-[16%] sm:w-5'>
+                {globalSvgSelector(
+                  data.isActivated ? 'activated' : 'not-activated',
+                  true,
+                )}
+              </span>
+            </AdminUserDetails>
+            <AdminUserDetails title='РОЛЬ' details={data.roles.join(', ')} />
           </div>
           <Button
-            type={'button'}
-            text={'Удалить'}
-            size={'s'}
-            onClick={() => handleDeleteUser(id!)}
+            type='button'
+            text='Удалить'
+            size='s'
+            onClick={() => handleDeleteUser(data.id)}
             disabled={isLoadDeleteUser}
             isLoading={isLoadDeleteUser}
             isRounded
           />
         </>
+      ) : (
+        <Paragraph fontSize='base'>Здесь никого нет</Paragraph>
       )}
     </Section>
   )
