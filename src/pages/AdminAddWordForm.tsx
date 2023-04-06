@@ -1,7 +1,7 @@
 import Button from 'components/Button'
 import { Input, InputGroup } from 'components/Input'
 import { Heading, Section } from 'components/common'
-import useNotification from 'hook/useAppNotification'
+import { useAppNotification } from 'hook'
 import { IFormValues } from 'models/IFormValues'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAddWordMutation } from 'redux/api/wordsApi'
@@ -9,7 +9,7 @@ import { NotificationColor } from 'types/store'
 import { ruRegex } from 'utils/constants'
 
 const AdminAddWordForm = () => {
-  const { showNotify } = useNotification()
+  const { showNotify } = useAppNotification()
   const [addNewWord, { isLoading }] = useAddWordMutation()
   const {
     register,

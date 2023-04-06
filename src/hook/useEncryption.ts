@@ -6,7 +6,7 @@ if (typeof CryptoJS === 'object') {
   cryptoJS = CryptoJS
 }
 
-const useEncryption = (secretKey: string) => {
+export const useEncryption = (secretKey: string) => {
   const encryptValue = (value: string) => {
     process.env.NODE_ENV === 'development' &&
       console.log('Загаданное слово:', value)
@@ -45,5 +45,3 @@ const useEncryption = (secretKey: string) => {
     decryptValue,
   }
 }
-
-export default useEncryption

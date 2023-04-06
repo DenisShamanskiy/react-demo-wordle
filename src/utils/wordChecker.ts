@@ -1,7 +1,5 @@
+import { useAppNotification, useEncryption } from 'hook'
 import { NotificationColor, NotificationType } from 'types/store'
-import useEncryption from 'hook/useEncryption'
-
-import useNotification from '../hook/useAppNotification'
 
 const createIsValidGuess =
   (showNotify: (type: NotificationType, message: string) => void) =>
@@ -17,7 +15,7 @@ const createIsValidGuess =
     return true
   }
 
-export const isValidGuess = createIsValidGuess(useNotification().showNotify)
+export const isValidGuess = createIsValidGuess(useAppNotification().showNotify)
 
 const createGetIndexColorArray =
   (decryptValue: (value: string) => string) =>

@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { openModal } from 'redux/features/modalSlice'
-import { useAppDispatch, useAppSelector } from 'utils/hook'
 import Button from './Button'
 import { useOutsideClick } from '../hook/useOutsideClick'
 import { hideNewGame, deleteNewGame } from 'redux/features/newGameSlice'
+import { useAppDispatch, useAppSelector } from 'hook'
 
 export const GameControls = () => {
   const squareBoxRef = useRef<HTMLDivElement>(null)

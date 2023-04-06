@@ -2,10 +2,10 @@ import { FC, HTMLAttributes } from 'react'
 import { IFormValues } from 'models/IFormValues'
 import { UseFormReset } from 'react-hook-form/dist/types/form'
 import { NotificationColor } from 'types/store'
-import useGameLogic from 'hook/useGameLogic'
 import { useDeleteWordMutation } from 'redux/api/wordsApi'
 import ButtonIcon from 'components/ButtonIcon'
 import { Paragraph } from 'components/common'
+import { useGameLogic } from 'hook'
 
 interface IAdminWordListItemProps extends HTMLAttributes<HTMLLIElement> {
   index: number

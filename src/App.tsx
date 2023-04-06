@@ -1,7 +1,12 @@
 import { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from 'utils/hook'
-import useCurrentHeight from 'hook/useCurrentHeight'
+import {
+  useAppDispatch,
+  useAppSelector,
+  useCurrentHeight,
+  useEncryption,
+  useGameLogic,
+} from 'hook'
 import Rules from 'pages/Rules'
 import Settings from 'pages/Settings'
 import Auth from 'pages/Auth'
@@ -18,10 +23,8 @@ import Statistics from 'pages/Statistics'
 import AdminUserList from 'pages/AdminUserList'
 import User from 'pages/User'
 import NotFoundPage from 'pages/NotFoundPage'
-import useEncryption from 'hook/useEncryption'
 import { getRandomWord } from 'utils/helpers'
 import Rating from 'pages/Rating'
-import useGameLogic from 'hook/useGameLogic'
 import Layout from 'components/Layout'
 import Game from 'pages/Game'
 import ProtectedRoute from 'components/ProtectedRoute'

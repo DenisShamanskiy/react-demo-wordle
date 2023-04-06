@@ -1,6 +1,6 @@
+import { useAppSelector } from 'hook'
 import { FC } from 'react'
 import { Navigate } from 'react-router-dom'
-import { useAppSelector } from 'utils/hook'
 
 interface IProtectedRouteProps {
   role: string

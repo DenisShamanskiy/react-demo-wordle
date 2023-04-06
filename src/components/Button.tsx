@@ -5,7 +5,7 @@ export interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string
   color?: 'green' | 'red' | 'blue' | 'yellow'
-  size?: 'xs' | 's' | 'm' | 'l' | 'full' | 'icon' | 'close'
+  size?: 'xs' | 's' | 'm' | 'ml' | 'l' | 'full'
   isLoading?: boolean
   isRounded?: boolean
   children?: ReactNode

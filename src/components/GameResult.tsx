@@ -1,10 +1,9 @@
 import { closeModal } from 'redux/features/modalSlice'
-import { useAppDispatch, useAppSelector } from 'utils/hook'
 import win from '../assets/gif/win.gif'
 import leave from '../assets/gif/leave.gif'
 import fail from '../assets/gif/fail.gif'
 import ButtonIcon from 'components/ButtonIcon'
-import useEncryption from 'hook/useEncryption'
+import { useAppDispatch, useAppSelector, useEncryption } from 'hook'
 
 const GameResult = () => {
   const dispatch = useAppDispatch()
@@ -37,7 +36,7 @@ const GameResult = () => {
       <ButtonIcon
         icon='close'
         position='close'
-        size='close'
+        size='s'
         onClick={() => dispatch(closeModal())}
       />
       <img

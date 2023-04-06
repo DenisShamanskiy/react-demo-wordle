@@ -1,13 +1,13 @@
+import { useAppSelector } from 'hook'
 import { BarRow } from 'redux/api/types'
 import { useUpdateStatisticsMutation } from 'redux/api/userApi'
-import { useAppSelector } from 'utils/hook'
 
 interface Props {
   result: 'WIN' | 'FAIL' | 'LEAVE'
   currentRowIndex?: number
 }
 
-const useUpdateStatistics = () => {
+export const useUpdateStatistics = () => {
   const { id, statistics } = useAppSelector((state) => state.user)
   const [setStatistics] = useUpdateStatisticsMutation()
 
@@ -52,5 +52,3 @@ const useUpdateStatistics = () => {
     updateStatistics,
   }
 }
-
-export default useUpdateStatistics

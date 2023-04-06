@@ -2,8 +2,8 @@ import { FC } from 'react'
 import { Link, NavLink, To } from 'react-router-dom'
 import { Tooltip } from 'react-tooltip'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
-import { useAppSelector } from 'utils/hook'
 import IconSVG from './IconSVG'
+import { useAppSelector } from 'hook'
 
 interface ICustomLinkProps {
   to: To
@@ -40,6 +40,7 @@ const CustomLink: FC<ICustomLinkProps> = ({ to, icon, children, tooltip }) => {
           className={`${
             darkMode ? 'custom-tooltip_dark' : 'custom-tooltip'
           } z-20 translate-x-1`}
+          classNameArrow='noArrow'
         />
       )}
     </>

@@ -1,19 +1,22 @@
 import Button from 'components/Button'
-import useEncryption from 'hook/useEncryption'
 import { useNavigate } from 'react-router-dom'
 import { restartGame, setRelultGame } from 'redux/features/gameSlice'
 import { closeModal, openModal } from 'redux/features/modalSlice'
 import { hideNewGame } from 'redux/features/newGameSlice'
 import { resetDataHardMode } from 'redux/features/settingsSlice'
 import { getRandomWord } from 'utils/helpers'
-import { useAppDispatch, useAppSelector } from 'utils/hook'
-import useUpdateStats from 'hook/useUpdateStatistics'
 import { Heading } from './common'
+import {
+  useAppDispatch,
+  useAppSelector,
+  useEncryption,
+  useUpdateStatistics,
+} from 'hook'
 
 export const Confirm = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { updateStatistics } = useUpdateStats()
+  const { updateStatistics } = useUpdateStatistics()
 
   const { encryptValue, decryptValue } = useEncryption(
     process.env['REACT_APP_CRYPTO_KEY']!,

@@ -1,17 +1,15 @@
-import { FC } from 'react'
 import 'react-tooltip/dist/react-tooltip.css'
 import '../styles/tooltip.css'
-import ButtonIcon from 'components/ButtonIcon'
 import { DarkModeSwitch } from 'react-toggle-dark-mode'
 import { toggleHardMode, toggleTheme } from 'redux/features/settingsSlice'
-import useCurrentWidth from 'hook/useCurrentWidth'
-import { useAppDispatch, useAppSelector } from 'utils/hook'
 import IconTooltip from 'components/IconTooltip'
-import SettingsItem from 'components/SettingsItem'
+import SettingsOption from 'components/SettingsOption'
 import { Switch } from 'components/Input'
+import ButtonIcon from 'components/ButtonIcon'
 import { Heading, Section } from 'components/common'
+import { useAppDispatch, useAppSelector, useCurrentWidth } from 'hook'
 
-const Settings: FC = () => {
+const Settings = () => {
   const dispatch = useAppDispatch()
   const styleWidth = useCurrentWidth()
   const {
@@ -20,37 +18,42 @@ const Settings: FC = () => {
   } = useAppSelector((state) => state.settings)
 
   return (
-    <Section width='s'>
-      <div className='flex w-full flex-col items-center justify-center'>
+    <Section width='m'>
+      <div className='mb-auto flex h-full w-full flex-col items-center'>
         <Heading>Настройки</Heading>
-        <div className='mt-8 w-full md:mt-10'>
-          <SettingsItem text='Повысить сложность'>
+        <ul className='mt-8 flex w-11/12 flex-col gap-5 sm:mt-10 sm:gap-6'>
+          <SettingsOption text='Повысить сложность'>
             <IconTooltip tooltip='Необходимо использовать все подсказки' />
             <Switch
               onChange={() => dispatch(toggleHardMode())}
               isChecked={active}
             />
-          </SettingsItem>
-          <SettingsItem text={darkMode ? 'Светлая тема' : 'Тёмная тема'}>
-            <DarkModeSwitch
-              checked={darkMode}
-              sunColor={'#49474E'}
-              onChange={() => dispatch(toggleTheme())}
-              size={styleWidth > 768 ? 35 : 28}
-            />
-          </SettingsItem>
-          <SettingsItem text='LocalStorage'>
-            <IconTooltip tooltip='Очистить LocalStorage' />
+          </SettingsOption>
+          <SettingsOption text={darkMode ? 'Светлая тема' : 'Тёмная тема'}>
+            <button className='flex h-9 w-9 items-center justify-center rounded-full shadow-popped transition-all hover:shadow-hover active:shadow-pushed dark:shadow-poppedDark dark:hover:shadow-hoverDark dark:active:shadow-pushedDark sm:h-11 sm:w-11'>
+              <DarkModeSwitch
+                checked={darkMode}
+                sunColor='#49474E'
+                moonColor='#abaaa9'
+                onChange={() => dispatch(toggleTheme())}
+                size={styleWidth <= 640 ? 28 : 32}
+              />
+            </button>
+          </SettingsOption>
+          <SettingsOption text='LocalStorage'>
+            <IconTooltip tooltip='Здесь хранятся локальные данные приложения.<br />Это поможет их удалить.' />
             <ButtonIcon
-              icon={'trash'}
-              size='m'
+              icon='trash'
+              size='ml'
+              isShadow
+              customClass='p-1 sm:p-1.5'
               onClick={() => localStorage.clear()}
             />
-          </SettingsItem>
-        </div>
+          </SettingsOption>
+        </ul>
       </div>
-      <p className='mt-8 text-xs text-[#787c7e] md:mt-10 md:text-sm'>
-        © 2023 Денис Шаманский
+      <p className='s mt-8 text-xs text-[#787c7e] md:mt-10 md:text-sm'>
+        2023 © Денис Шаманский
       </p>
     </Section>
   )

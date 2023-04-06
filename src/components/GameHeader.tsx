@@ -4,10 +4,10 @@ import {
   hideNewGame,
   showNewGame,
 } from 'redux/features/newGameSlice'
-import { useAppDispatch, useAppSelector } from 'utils/hook'
 import ButtonIcon from './ButtonIcon'
 import CustomLink from './CustomLink'
 import HeaderTitle from './HeaderTitle'
+import { useAppDispatch, useAppSelector } from 'hook'
 
 const GameHeader = () => {
   const dispatch = useAppDispatch()

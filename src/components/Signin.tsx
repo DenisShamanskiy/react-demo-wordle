@@ -6,11 +6,10 @@ import { emailRegex } from 'utils/constants'
 import { useSigninMutation } from 'redux/api/authApi'
 import { usePasswordToggle } from 'hook/usePasswordVisibility'
 import { NotificationColor } from 'types/store'
-import useGameLogic from 'hook/useGameLogic'
 import ButtonIcon from './ButtonIcon'
-import { useAppDispatch } from 'utils/hook'
 import { openModal } from 'redux/features/modalSlice'
 import { Input, InputGroup, InputLabel, InputRightElement } from './Input'
+import { useAppDispatch, useGameLogic } from 'hook'
 
 const Signin = () => {
   const navigate = useNavigate()

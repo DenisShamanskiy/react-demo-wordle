@@ -7,10 +7,9 @@ import { useSignupMutation } from 'redux/api/authApi'
 import { usePasswordToggle } from 'hook/usePasswordVisibility'
 import { NotificationColor } from 'types/store'
 import { openModal } from 'redux/features/modalSlice'
-import { useAppDispatch } from 'utils/hook'
-import useGameLogic from 'hook/useGameLogic'
 import ButtonIcon from './ButtonIcon'
 import { Input, InputGroup, InputLabel, InputRightElement } from './Input'
+import { useAppDispatch, useGameLogic } from 'hook'
 
 const Signup = () => {
   const navigate = useNavigate()

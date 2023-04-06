@@ -1,5 +1,5 @@
+import { useAppSelector } from 'hook'
 import { ColorLetter } from 'types/store'
-import { useAppSelector } from 'utils/hook'
 
 const getColorClasses = (value: string | null, color: ColorLetter) => {
   if (value && color) {

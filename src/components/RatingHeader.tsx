@@ -1,9 +1,9 @@
 import { SortKey } from 'pages/Rating'
 import { FC } from 'react'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
-import { useAppSelector } from 'utils/hook'
 import Button from './Button'
 import ButtonIcon from './ButtonIcon'
+import { useAppSelector } from 'hook'
 
 interface IRatingHeaderProps {
   id: SortKey

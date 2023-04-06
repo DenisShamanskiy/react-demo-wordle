@@ -1,11 +1,11 @@
 import Button from 'components/Button'
-import { useAppDispatch, useAppSelector } from 'utils/hook'
 import { useNavigate } from 'react-router-dom'
 import { logout } from 'redux/features/userSlice'
 import { resetDataHardMode } from 'redux/features/settingsSlice'
 import { useSignoutMutation } from 'redux/api/authApi'
 import CustomLink from 'components/CustomLink'
 import { Heading, Section } from 'components/common'
+import { useAppDispatch, useAppSelector } from 'hook'
 
 const Profile = () => {
   const navigate = useNavigate()

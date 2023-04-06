@@ -1,8 +1,8 @@
 import { showNotification } from 'redux/features/notificationSlice'
 import { NotificationType } from 'types/store'
-import { useAppDispatch, useAppSelector } from 'utils/hook'
+import { useAppDispatch, useAppSelector } from './useRedux'
 
-const useAppNotification = () => {
+export const useAppNotification = () => {
   const dispatch = useAppDispatch()
   const open = useAppSelector((state) => state.notification.open)
   const showNotify = (type: NotificationType, message: string) => {
@@ -19,4 +19,4 @@ const useAppNotification = () => {
   return { showNotify }
 }
 
-export default useAppNotification
+// export default useAppNotification

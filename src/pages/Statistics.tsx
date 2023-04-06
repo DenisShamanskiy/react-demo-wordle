@@ -1,7 +1,7 @@
 import StatisticBars from 'components/StatisticBars'
 import StatisticCounter from 'components/StatisticCounter'
 import { Heading, Section } from 'components/common'
-import { useAppSelector } from 'utils/hook'
+import { useAppSelector } from 'hook'
 
 const Statistics = () => {
   const { win, fail, leave } = useAppSelector((state) => state.user.statistics)

@@ -175,7 +175,6 @@ export function globalSvgSelector(icon: string, dark: boolean) {
     case 'trash':
       return (
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
-          <title>delete</title>
           <path
             d='M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320'
             fill='none'

@@ -1,13 +1,16 @@
-import { useAppDispatch, useAppSelector } from 'utils/hook'
-import useNotification from './useAppNotification'
+import {
+  useAppDispatch,
+  useAppNotification,
+  useAppSelector,
+  useCheckGuess,
+} from 'hook'
 import { addLetterBoard, removeLetterBoard } from 'redux/features/gameSlice'
 import { NotificationColor } from 'types/store'
-import useCheckGuess from './useCheckGuess'
 
-const useInputHandlers = () => {
+export const useInputHandlers = () => {
   const dispatch = useAppDispatch()
 
-  const { showNotify } = useNotification()
+  const { showNotify } = useAppNotification()
   const { checkGuess } = useCheckGuess()
 
   const { nextLetter, gameStatus } = useAppSelector((state) => state.game)
@@ -64,5 +67,3 @@ const useInputHandlers = () => {
     handleButtonPress,
   }
 }
-
-export default useInputHandlers

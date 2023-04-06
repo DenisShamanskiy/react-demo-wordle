@@ -12,6 +12,10 @@
   font-weight: 600;
 }
 
+.noArrow {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .custom-tooltip {
     font-size: 12px;

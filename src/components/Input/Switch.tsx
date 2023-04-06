@@ -1,15 +1,15 @@
-import { FC } from 'react'
+import { FC, InputHTMLAttributes } from 'react'
 
-interface ISwitchProps {
+export interface ISwitchProps extends InputHTMLAttributes<HTMLInputElement> {
   isChecked: boolean
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const Switch: FC<ISwitchProps> = ({ onChange, isChecked }) => {
+const Switch: FC<ISwitchProps> = ({ isChecked, onChange }) => {
   return (
     <label
       htmlFor='switch'
-      className='relative inline-block h-5 w-8 transition-all duration-300 sm:h-7 sm:w-11'
+      className='relative inline-block h-5 w-9 rounded-full shadow-popped transition-all duration-300 hover:shadow-hover dark:shadow-poppedDark sm:h-6 sm:w-11'
     >
       <input
         id='switch'
@@ -19,10 +19,10 @@ const Switch: FC<ISwitchProps> = ({ onChange, isChecked }) => {
         onChange={onChange}
       ></input>
       <span
-        className={`absolute top-0 bottom-0 right-0 left-0 cursor-pointer rounded-full transition-all duration-500 before:absolute before:bottom-[2px] before:left-[2px] before:h-4 before:w-4 before:rounded-full before:bg-w-white before:transition-all before:duration-300 sm:before:h-6 sm:before:w-6 ${
+        className={`absolute top-0 bottom-0 right-0 left-0 cursor-pointer rounded-full transition-all duration-500 before:absolute before:bottom-[3px] before:left-[3px] before:h-3.5 before:w-3.5 before:rounded-full before:transition-all before:duration-500 sm:before:h-[18px] sm:before:w-[18px] ${
           isChecked
-            ? 'bg-w-green before:translate-x-[12px] before:bg-w-white sm:before:translate-x-[16px]'
-            : 'bg-w-grey-tone-1'
+            ? 'bg-w-green before:translate-x-[16px] before:bg-w-white sm:before:translate-x-[20px]'
+            : 'bg-w-white before:bg-[#bdc0c4] dark:bg-[#222]'
         }`}
       ></span>
     </label>

@@ -2,7 +2,7 @@ import { FC, HTMLProps, useMemo } from 'react'
 
 interface IParagraphProps extends HTMLProps<HTMLParagraphElement> {
   fontSize: 'xs' | 'sm' | 'base'
-  fontWeight?: 'medium' | 'semibold'
+  fontWeight?: 'medium' | 'semibold' | 'bold'
   textAlign?: 'center'
   textTransform?: 'uppercase'
   customClass?: string
@@ -27,6 +27,8 @@ const getWeightClasses = (fontWeight?: string) => {
       return 'font-medium'
     case 'semibold':
       return 'font-semibold'
+    case 'bold':
+      return 'font-bold'
     default:
       return ''
   }

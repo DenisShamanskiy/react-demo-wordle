@@ -1,15 +1,15 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { NotificationColor } from 'types/store'
 import { useDeleteUserMutation, useGetUserQuery } from 'redux/api/userApi'
-import useNotification from 'hook/useAppNotification'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import { Heading, Paragraph, Section } from 'components/common'
 import Button from 'components/Button'
 import Loader from 'components/Loaders/Loader'
 import { AdminUserDetails } from 'components/Admin'
+import { useAppNotification } from 'hook'
 
 const User = () => {
-  const { showNotify } = useNotification()
+  const { showNotify } = useAppNotification()
   const navigate = useNavigate()
   const goBack = () => navigate(-1)
 

@@ -1,9 +1,9 @@
 import { FC, useMemo } from 'react'
-import { useAppSelector } from 'utils/hook'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import { PlacesType, Tooltip } from 'react-tooltip'
 import { disabledClasses, shadowClasses } from 'utils/constants'
 import { IButtonProps } from './Button'
+import { useAppSelector } from 'hook'
 
 interface IButtonIconProps extends IButtonProps {
   icon: string
@@ -38,6 +38,8 @@ const getSizeClasses = (size: string): string => {
       return 'w-6'
     case 'm':
       return 'w-7 sm:w-8'
+    case 'ml':
+      return 'w-9 sm:w-11'
     case 'l':
       return 'w-10 sm:w-12'
     case 'full':

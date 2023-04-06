@@ -1,7 +1,7 @@
 import '../styles/header-animation.css'
 import { FC } from 'react'
 import { Outlet } from 'react-router-dom'
-import { useAppSelector } from 'utils/hook'
+import { useAppSelector } from 'hook'
 import { Main } from './common'
 import GameHeader from './GameHeader'
 import Loader from './Loaders/Loader'

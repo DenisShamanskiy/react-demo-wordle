@@ -1,5 +1,5 @@
+import { useAppSelector } from 'hook'
 import { Link } from 'react-router-dom'
-import { useAppSelector } from 'utils/hook'
 
 const NotFoundPage = () => {
   const darkMode = useAppSelector((state) => state.settings.darkMode)

@@ -3,17 +3,16 @@ import { Input } from 'components/Input'
 import InputGroup from 'components/Input/InputGroup'
 import InputLabel from 'components/Input/InputLabel'
 import { Heading, Section } from 'components/common'
-import useNotification from 'hook/useAppNotification'
+import { useAppNotification, useAppSelector } from 'hook'
 import { IFormValues } from 'models/IFormValues'
 import { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useUpdateProfileMutation } from 'redux/api/userApi'
 import { NotificationColor } from 'types/store'
 import { emailRegex } from 'utils/constants'
-import { useAppSelector } from 'utils/hook'
 
 const ProfileEditForm = () => {
-  const { showNotify } = useNotification()
+  const { showNotify } = useAppNotification()
   const { id, email, username } = useAppSelector((state) => state.user)
   const {
     register,

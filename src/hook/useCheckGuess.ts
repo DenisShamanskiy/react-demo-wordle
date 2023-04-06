@@ -1,13 +1,16 @@
-import { useAppDispatch, useAppSelector } from 'utils/hook'
-import useEncryption from './useEncryption'
-import useNotification from './useAppNotification'
+import {
+  useAppDispatch,
+  useAppNotification,
+  useAppSelector,
+  useEncryption,
+  useUpdateStatistics,
+} from 'hook'
 import { advanceToNextRow, setRelultGame } from 'redux/features/gameSlice'
 import { NotificationColor } from 'types/store'
 import { addDataHardMode } from 'redux/features/settingsSlice'
 import { openModal } from 'redux/features/modalSlice'
-import useUpdateStatistics from './useUpdateStatistics'
 
-const useCheckGuess = () => {
+export const useCheckGuess = () => {
   const dispatch = useAppDispatch()
   const { decryptValue } = useEncryption(process.env['REACT_APP_CRYPTO_KEY']!)
   const { updateStatistics } = useUpdateStatistics()
@@ -22,7 +25,7 @@ const useCheckGuess = () => {
     (state) => state.game,
   )
 
-  const { showNotify } = useNotification()
+  const { showNotify } = useAppNotification()
 
   // Функция, которая проверяет, выиграл ли пользователь. Если выиграл, то меняет статус игры на "WIN", обновляет статистику и показывает модальное окно с сообщением о победе
   const checkWin = async (currentGuess: string) => {
@@ -158,5 +161,3 @@ const useCheckGuess = () => {
     checkGuess,
   }
 }
-
-export default useCheckGuess
