@@ -51,7 +51,7 @@ const Modal = () => {
         >
           <dialog
             open
-            className={`w-fit max-w-lg rounded-xl bg-w-white p-6 shadow-modal dark:bg-[#1e1e20] dark:shadow-modalDark md:p-8 ${
+            className={`w-fit max-w-lg rounded-xl bg-w-white p-6 shadow-modal dark:bg-[#1e1e20] dark:shadow-modalDark sm:p-8 ${
               isOpen ? 'animate-appearDialog' : 'animate-disappearDialog'
             }`}
             onClick={(event) => event.stopPropagation()}

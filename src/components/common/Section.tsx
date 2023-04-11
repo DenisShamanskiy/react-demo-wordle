@@ -1,7 +1,7 @@
 import { FC, HTMLProps, useMemo } from 'react'
 
 interface ISectionProps extends HTMLProps<HTMLElement> {
-  width?: 's' | 'm' | '2xl' | 'full'
+  width?: 's' | 'm' | '2xl' | 'full' | 'modal'
   height?: 'full'
   customClass?: string
 }
@@ -19,6 +19,8 @@ const getWidthClasses = (width?: string) => {
       return 'w-11/12 sm:max-w-2xl'
     case 'full':
       return 'w-full'
+    case 'modal':
+      return 'w-full max-w-sm sm:w-96 sm:max-w-md'
     default:
       return ''
   }

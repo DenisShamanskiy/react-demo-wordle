@@ -853,6 +853,67 @@ export function globalSvgSelector(icon: string, dark: boolean) {
           />
         </svg>
       )
+    case 'close-circle':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <path
+            d='M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z'
+            fill='none'
+            stroke={dark ? '#cc443a' : '#ff5549'}
+            strokeMiterlimit='10'
+            strokeWidth='20px'
+          />
+          <line
+            x1='320'
+            y1='320'
+            x2='192'
+            y2='192'
+            fill='none'
+            stroke={dark ? '#cc443a' : '#ff5549'}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='20px'
+          />
+          <line
+            x1='192'
+            y1='320'
+            x2='320'
+            y2='192'
+            fill='none'
+            stroke={dark ? '#cc443a' : '#ff5549'}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            strokeWidth='20px'
+          />
+        </svg>
+      )
+    case 'help-circle':
+      return (
+        <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+          <path
+            d='M256,80A176,176,0,1,0,432,256,176,176,0,0,0,256,80Z'
+            fill='none'
+            stroke={dark ? '#b59f3b' : '#c9b458'}
+            strokeMiterlimit='10'
+            strokeWidth='32px'
+          />
+          <path
+            d='M200,202.29s.84-17.5,19.57-32.57C230.68,160.77,244,158.18,256,158c10.93-.14,20.69,1.67,26.53,4.45,10,4.76,29.47,16.38,29.47,41.09,0,26-17,37.81-36.37,50.8S251,281.43,251,296'
+            fill='none'
+            stroke={dark ? '#b59f3b' : '#c9b458'}
+            strokeLinecap='round'
+            strokeMiterlimit='10'
+            strokeWidth='28px'
+          />
+          <circle
+            cx='250'
+            cy='348'
+            r='20'
+            fill={dark ? '#b59f3b' : '#c9b458'}
+          />
+        </svg>
+      )
+
     default:
       return null
   }

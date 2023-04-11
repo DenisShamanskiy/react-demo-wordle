@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-interface IModalState {
+export interface IModalState {
   isOpen: boolean
   component: 'Confirm' | 'GameResult' | null
   props: {
-    heading: string
-    description?: string
+    heading: 'Новая игра?' | 'Сдаёшься?' | 'Удалить аккаунт?' | null
+    description?: string | null
     result?: 'win' | 'leave' | 'fail'
   }
   error: {
@@ -18,8 +18,8 @@ const initialState: IModalState = {
   isOpen: false,
   component: null,
   props: {
-    heading: '',
-    description: '',
+    heading: null,
+    description: null,
     result: undefined,
   },
   error: {

@@ -6,6 +6,7 @@ import { useSignoutMutation } from 'redux/api/authApi'
 import CustomLink from 'components/CustomLink'
 import { Heading, Section } from 'components/common'
 import { useAppDispatch, useAppSelector } from 'hook'
+import { openModal } from 'redux/features/modalSlice'
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -31,7 +32,7 @@ const Profile = () => {
   return (
     <Section width='m'>
       <Heading>{username}</Heading>
-      <div className='my-8 flex w-11/12 flex-col justify-center gap-5 md:my-10 md:gap-6'>
+      <div className='my-8 flex w-11/12 flex-col justify-center gap-5 sm:my-10 sm:gap-6'>
         <CustomLink to={'/profile/edit'} icon='edit-profile'>
           Изменить профиль
         </CustomLink>
@@ -42,15 +43,34 @@ const Profile = () => {
           Рейтинг
         </CustomLink>
       </div>
+
       <Button
         type='button'
-        text={'Выйти'}
+        text='Выйти'
         size='m'
         onClick={() => handleLogout()}
         isLoading={isLoading}
         isRounded
         disabled={isLoading}
       />
+
+      <button
+        className='mt-7 font-medium text-w-quartz transition-all duration-300 hover:text-red-500 dark:text-w-white-dark dark:hover:text-red-500 sm:mt-9'
+        onClick={() =>
+          dispatch(
+            openModal({
+              component: 'Confirm',
+              props: {
+                heading: 'Удалить аккаунт?',
+                description:
+                  'Вы уверены, что хотите удалить свой аккаунт?<br>Это действие нельзя отменить.',
+              },
+            }),
+          )
+        }
+      >
+        Удалить аккаунт
+      </button>
     </Section>
   )
 }

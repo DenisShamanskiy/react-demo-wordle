@@ -36,7 +36,7 @@ const Settings = () => {
                 sunColor='#49474E'
                 moonColor='#abaaa9'
                 onChange={() => dispatch(toggleTheme())}
-                size={styleWidth <= 640 ? 28 : 32}
+                size={styleWidth <= 640 ? 24 : 32}
               />
             </button>
           </SettingsOption>

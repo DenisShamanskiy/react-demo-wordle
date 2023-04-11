@@ -54,6 +54,7 @@ const getTextTransformClasses = (textTransform?: string) => {
 
 const Paragraph: FC<IParagraphProps> = ({
   children,
+  dangerouslySetInnerHTML,
   fontSize,
   fontWeight,
   textAlign,
@@ -73,6 +74,7 @@ const Paragraph: FC<IParagraphProps> = ({
   }, [fontSize, fontWeight, textAlign, textTransform, customClass])
   return (
     <p
+      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       className={`text-w-quartz dark:text-w-white-dark ${computedClasses}`}
       {...props}
     >
