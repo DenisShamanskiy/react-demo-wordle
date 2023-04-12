@@ -7,6 +7,7 @@ export interface IModalState {
     heading: 'Новая игра?' | 'Сдаёшься?' | 'Удалить аккаунт?' | null
     description?: string | null
     result?: 'win' | 'leave' | 'fail'
+    id?: string
   }
   error: {
     status?: number | null
@@ -19,13 +20,8 @@ const initialState: IModalState = {
   component: null,
   props: {
     heading: null,
-    description: null,
-    result: undefined,
   },
-  error: {
-    status: null,
-    message: null,
-  },
+  error: {},
 }
 
 const modalSlice = createSlice({

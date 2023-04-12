@@ -5,7 +5,7 @@ import { IModalState, closeModal, openModal } from 'redux/features/modalSlice'
 import { hideNewGame } from 'redux/features/newGameSlice'
 import { resetDataHardMode } from 'redux/features/settingsSlice'
 import { getRandomWord } from 'utils/helpers'
-import { Heading, Paragraph, Section } from './common'
+import { Heading, Paragraph } from './common'
 import {
   useAppDispatch,
   useAppSelector,
@@ -27,14 +27,16 @@ export const Confirm = () => {
     process.env['REACT_APP_CRYPTO_KEY']!,
   )
   const { heading, description } = useAppSelector((state) => state.modal.props)
+  const { id: currentUserId, roles } = useAppSelector((state) => state.user)
   const { words, currentWord } = useAppSelector((state) => state.game)
+  const userIdToDelete = useAppSelector((state) => state.modal.props.id)
   const darkMode = useAppSelector((state) => state.settings.darkMode)
-  const userID = useAppSelector((state) => state.user.id)
 
   const [deleteUser] = useDeleteUserMutation()
   const { showNotify } = useGameLogic()
 
   const goHome = () => navigate('/', { replace: true })
+  const goBack = () => navigate(-1)
 
   const handleConfirmNewGame = () => {
     goHome()
@@ -53,7 +55,7 @@ export const Confirm = () => {
     goHome()
     dispatch(closeModal())
     dispatch(setRelultGame('LEAVE'))
-    userID && (await updateStatistics({ result: 'LEAVE' }))
+    currentUserId && (await updateStatistics({ result: 'LEAVE' }))
     dispatch(hideNewGame())
     setTimeout(
       () =>
@@ -71,15 +73,23 @@ export const Confirm = () => {
 
   const handleConfirmDeleteAccount = async () => {
     try {
-      const response = await deleteUser(userID!).unwrap()
+      const response = await deleteUser(
+        roles.includes('ADMIN') ? userIdToDelete! : currentUserId!,
+      ).unwrap()
       if (response.errors) {
         console.log(response.errors)
         return
       }
-      goHome()
-      dispatch(closeModal())
-      dispatch(logout())
-      showNotify(NotificationColor.success, 'Аккаунт удален. Спасибо за игру')
+      if (roles.includes('ADMIN')) {
+        dispatch(closeModal())
+        showNotify(NotificationColor.success, 'Данные пользователя удалены')
+        goBack()
+      } else {
+        dispatch(closeModal())
+        dispatch(logout())
+        showNotify(NotificationColor.success, 'Аккаунт удален. Спасибо за игру')
+        goHome()
+      }
     } catch (error) {
       console.log(error)
     }
@@ -99,7 +109,7 @@ export const Confirm = () => {
   }
 
   return (
-    <Section width='modal'>
+    <div className='w-72 select-none md:w-80'>
       <div className='mx-auto mb-6 w-16 sm:mb-8 sm:w-20'>
         {globalSvgSelector('help-circle', darkMode)}
       </div>
@@ -129,6 +139,6 @@ export const Confirm = () => {
           onClick={() => getHandleConfirm(heading)}
         />
       </div>
-    </Section>
+    </div>
   )
 }

@@ -1,36 +1,18 @@
-import { useNavigate, useParams } from 'react-router-dom'
-import { NotificationColor } from 'types/store'
+import { useParams } from 'react-router-dom'
 import { useDeleteUserMutation, useGetUserQuery } from 'redux/api/userApi'
 import { globalSvgSelector } from 'utils/globalSvgSelector'
 import { Heading, Paragraph, Section } from 'components/common'
 import Button from 'components/Button'
 import Loader from 'components/Loaders/Loader'
 import { AdminUserDetails } from 'components/Admin'
-import { useAppNotification } from 'hook'
+import { useAppDispatch } from 'hook'
+import { openModal } from 'redux/features/modalSlice'
 
 const User = () => {
-  const { showNotify } = useAppNotification()
-  const navigate = useNavigate()
-  const goBack = () => navigate(-1)
-
   const { id } = useParams()
-
+  const dispatch = useAppDispatch()
   const { data, isLoading } = useGetUserQuery(id!)
-  const [deleteUser, { isLoading: isLoadDeleteUser }] = useDeleteUserMutation()
-
-  const handleDeleteUser = async (id: string) => {
-    try {
-      const response = await deleteUser(id).unwrap()
-      if (response.errors) {
-        showNotify(NotificationColor.failure, `${response.errors[0]}`)
-        return
-      }
-      showNotify(NotificationColor.success, 'Данные пользователя удалены')
-      goBack()
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const [, { isLoading: isLoadDeleteUser }] = useDeleteUserMutation()
 
   return (
     <Section width='s'>
@@ -39,7 +21,7 @@ const User = () => {
       ) : data ? (
         <>
           <Heading>id: {data.id}</Heading>
-          <div className='mt-4 mb-5 flex w-full flex-col gap-3 border-y-2 border-w-grey-tone-2 py-4 dark:border-w-grey-tone-3 sm:mb-6 sm:mt-5 sm:py-5'>
+          <div className='mt-4 mb-5 flex w-full flex-col gap-3 border-t-2 border-w-grey-tone-2 py-4 dark:border-w-grey-tone-3 sm:mb-6 sm:mt-5 sm:py-5'>
             <AdminUserDetails title='ИМЯ' details={data.username} />
             <AdminUserDetails title='EMAIL' details={data.email}>
               <span className='absolute left-[17%] w-4 sm:left-[16%] sm:w-5'>
@@ -55,7 +37,17 @@ const User = () => {
             type='button'
             text='Удалить'
             size='s'
-            onClick={() => handleDeleteUser(data.id)}
+            onClick={() =>
+              dispatch(
+                openModal({
+                  component: 'Confirm',
+                  props: {
+                    heading: 'Удалить аккаунт?',
+                    id: id,
+                  },
+                }),
+              )
+            }
             disabled={isLoadDeleteUser}
             isLoading={isLoadDeleteUser}
             isRounded

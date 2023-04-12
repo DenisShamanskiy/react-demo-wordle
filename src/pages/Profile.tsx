@@ -55,7 +55,7 @@ const Profile = () => {
       />
 
       <button
-        className='mt-7 font-medium text-w-quartz transition-all duration-300 hover:text-red-500 dark:text-w-white-dark dark:hover:text-red-500 sm:mt-9'
+        className='mt-7 text-sm font-medium text-w-quartz transition-all duration-300 hover:text-red-500 dark:text-w-white-dark dark:hover:text-red-500 sm:mt-9 sm:text-base'
         onClick={() =>
           dispatch(
             openModal({
