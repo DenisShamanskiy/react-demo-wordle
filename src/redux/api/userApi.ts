@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithReauth } from './baseQueryWithReauth'
-import { User, WordsResponse } from './types'
+import { BaseResponse, User } from './types'
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -20,7 +20,7 @@ export const userApi = createApi({
     getUser: build.query<User, string>({
       query: (id) => ({ url: `users/${id}` }),
     }),
-    deleteUser: build.mutation<WordsResponse, string>({
+    deleteUser: build.mutation<BaseResponse, string>({
       query: (id) => ({
         url: `users/${id}`,
         method: 'DELETE',

@@ -31,3 +31,9 @@ export type AuthResponse = {
   refreshToken: string
   user: User
 }
+
+export type BaseResponse = {
+  status: number
+  message: string
+  errors?: string[]
+}

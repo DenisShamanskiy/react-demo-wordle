@@ -30,6 +30,7 @@ import Game from 'pages/Game'
 import ProtectedRoute from 'components/ProtectedRoute'
 import Modal from 'components/Modal'
 import Notification from 'components/Notification'
+import EmailIsConfirmed from 'pages/EmailIsConfirmed'
 
 const App = () => {
   const styleHeight = {
@@ -162,6 +163,7 @@ const App = () => {
           <Route path='auth' element={<Auth />} />
           <Route path='rules' element={<Rules />} />
           <Route path='settings' element={<Settings />} />
+          <Route path='activate/:link' element={<EmailIsConfirmed />} />
         </Route>
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

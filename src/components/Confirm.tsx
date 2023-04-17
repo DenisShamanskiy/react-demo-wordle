@@ -76,13 +76,15 @@ export const Confirm = () => {
       const response = await deleteUser(
         roles.includes('ADMIN') ? userIdToDelete! : currentUserId!,
       ).unwrap()
-      if (response.errors) {
-        console.log(response.errors)
-        return
-      }
+      // if (response.errors) {
+      //   console.log(response.errors)
+      //   return
+      // }
+      // console.log(response)
+
       if (roles.includes('ADMIN')) {
         dispatch(closeModal())
-        showNotify(NotificationColor.success, 'Данные пользователя удалены')
+        showNotify(NotificationColor.success, response.message)
         goBack()
       } else {
         dispatch(closeModal())
@@ -91,7 +93,16 @@ export const Confirm = () => {
         goHome()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
+      dispatch(
+        openModal({
+          component: 'Error',
+          error: {
+            status: error.status,
+            message: error.data.message,
+          },
+        }),
+      )
     }
   }
 
