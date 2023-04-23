@@ -1,14 +1,16 @@
 import Button from 'components/Button'
 import { Input, InputGroup } from 'components/Input'
 import { Heading, Section } from 'components/common'
-import { useAppNotification } from 'hook'
+import { useAppDispatch, useAppNotification } from 'hook'
 import { IFormValues } from 'models/IFormValues'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAddWordMutation } from 'redux/api/wordsApi'
+import { openModal } from 'redux/features/modalSlice'
 import { NotificationColor } from 'types/store'
 import { ruRegex } from 'utils/constants'
 
 const AdminAddWordForm = () => {
+  const dispatch = useAppDispatch()
   const { showNotify } = useAppNotification()
   const [addNewWord, { isLoading }] = useAddWordMutation()
   const {
@@ -26,20 +28,19 @@ const AdminAddWordForm = () => {
   const handleAddWord = async (word: string) => {
     try {
       const response = await addNewWord(word.toLowerCase()).unwrap()
-      if (response.errors) {
-        showNotify(NotificationColor.failure, `${response.errors[0]}`)
-        return
-      }
-      showNotify(
-        NotificationColor.success,
-        `Слово "${word.replace(
-          /^./,
-          word.charAt(0).toUpperCase(),
-        )}" успешно добавлено`,
-      )
+      console.log(response)
+      showNotify(NotificationColor.success, `${response.message}`)
       reset()
     } catch (error) {
-      console.log(error)
+      dispatch(
+        openModal({
+          component: 'Error',
+          error: {
+            status: error.status,
+            message: error.data.message,
+          },
+        }),
+      )
     }
   }
 

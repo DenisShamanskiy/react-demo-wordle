@@ -2,6 +2,7 @@ export type NonEmptyArr<T> = [T, ...T[]]
 
 export type WordsResponse = {
   status: number
+  message: string
   errors?: string[]
 }
 

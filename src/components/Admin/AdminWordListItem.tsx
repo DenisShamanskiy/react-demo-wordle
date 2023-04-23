@@ -5,7 +5,8 @@ import { NotificationColor } from 'types/store'
 import { useDeleteWordMutation } from 'redux/api/wordsApi'
 import ButtonIcon from 'components/ButtonIcon'
 import { Paragraph } from 'components/common'
-import { useGameLogic } from 'hook'
+import { useAppDispatch, useGameLogic } from 'hook'
+import { openModal } from 'redux/features/modalSlice'
 
 interface IAdminWordListItemProps extends HTMLAttributes<HTMLLIElement> {
   index: number
@@ -19,23 +20,25 @@ const AdminWordListItem: FC<IAdminWordListItemProps> = ({
   reset,
   style,
 }) => {
+  const dispatch = useAppDispatch()
   const { showNotify } = useGameLogic()
   const [deleteWord, { isLoading }] = useDeleteWordMutation()
 
   const handleDeleteWord = async (word: string) => {
     try {
       const response = await deleteWord(word).unwrap()
-      if (response.errors) {
-        showNotify(NotificationColor.failure, `${response.errors[0]}`)
-        return
-      }
-      showNotify(
-        NotificationColor.success,
-        `Слово "${word.toUpperCase()}" удалено`,
-      )
+      showNotify(NotificationColor.success, `${response.message}`)
       reset()
     } catch (error) {
-      console.log(error)
+      dispatch(
+        openModal({
+          component: 'Error',
+          error: {
+            status: error.status,
+            message: error.data.message,
+          },
+        }),
+      )
     }
   }
 
