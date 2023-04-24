@@ -70,7 +70,7 @@ const App = () => {
     ) {
       document.documentElement.classList.add('dark')
       dispatch(setTheme(true))
-      themeColorMetaTag && themeColorMetaTag.setAttribute('content', '#333')
+      themeColorMetaTag && themeColorMetaTag.setAttribute('content', '#222')
     } else {
       document.documentElement.classList.remove('dark')
       dispatch(setTheme(false))

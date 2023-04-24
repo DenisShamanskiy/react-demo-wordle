@@ -36,14 +36,14 @@ const Signup = () => {
       await signup(data).unwrap()
       goHome()
       showNotify(NotificationColor.success, 'Вы успешно зарегистрировались')
-    } catch (err) {
-      console.error(err)
+    } catch (error) {
+      console.error(error)
       dispatch(
         openModal({
           component: 'Error',
           error: {
-            status: err.status,
-            message: err.data.message,
+            status: error.status,
+            message: error.data.message,
           },
         }),
       )
@@ -59,6 +59,27 @@ const Signup = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className='mb-12 grid w-full grid-rows-2 gap-12 sm:mb-16 sm:gap-16'>
+        <InputGroup>
+          <Input
+            name='username'
+            type='text'
+            id='username'
+            isLabel
+            autoComplete='off'
+            register={register}
+            option={{
+              required: 'Поле обязательно к заполнению',
+            }}
+            value={watchAllFields.username}
+            error={errors.username}
+          />
+          <InputLabel
+            id='username'
+            title='Имя'
+            value={watchAllFields.username}
+            error={errors.username}
+          />
+        </InputGroup>
         <InputGroup>
           <Input
             name='email'

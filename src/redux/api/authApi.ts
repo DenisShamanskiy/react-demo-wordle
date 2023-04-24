@@ -20,12 +20,16 @@ export const authApi = createApi({
         }
       },
     }),
-    signup: build.mutation<AuthResponse, { email: string; password: string }>({
+    signup: build.mutation<
+      AuthResponse,
+      { username: string; email: string; password: string }
+    >({
       query(data) {
         return {
           url: 'registration',
           method: 'POST',
           body: {
+            username: data.username,
             email: data.email,
             password: data.password,
           },
