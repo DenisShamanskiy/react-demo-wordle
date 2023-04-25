@@ -1,10 +1,14 @@
+import { useAppSelector } from 'hook'
 import { FC, HTMLProps, useMemo } from 'react'
+import { Tooltip } from 'react-tooltip'
 
 interface IParagraphProps extends HTMLProps<HTMLParagraphElement> {
   fontSize: 'xs' | 'sm' | 'base'
   fontWeight?: 'medium' | 'semibold' | 'bold'
   textAlign?: 'center'
   textTransform?: 'uppercase'
+  tooltip?: string
+  tooltipId?: string
   customClass?: string
 }
 
@@ -60,8 +64,11 @@ const Paragraph: FC<IParagraphProps> = ({
   textAlign,
   textTransform,
   customClass,
+  tooltip,
+  tooltipId,
   ...props
 }) => {
+  const darkMode = useAppSelector((state) => state.settings.darkMode)
   const computedClasses = useMemo(() => {
     const sizeClass = getSizeClasses(fontSize)
     const weightClass = fontWeight && getWeightClasses(fontWeight)
@@ -73,13 +80,28 @@ const Paragraph: FC<IParagraphProps> = ({
       .join(' ')
   }, [fontSize, fontWeight, textAlign, textTransform, customClass])
   return (
-    <p
-      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-      className={`text-w-quartz dark:text-w-white-dark ${computedClasses}`}
-      {...props}
-    >
-      {children}
-    </p>
+    <>
+      <p
+        data-tooltip-id={tooltipId}
+        data-tooltip-content={tooltip}
+        data-tooltip-delay-show={1000}
+        dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+        className={`text-w-quartz dark:text-w-white-dark ${computedClasses}`}
+        {...props}
+      >
+        {children}
+      </p>
+      {tooltip && (
+        <Tooltip
+          id={tooltipId}
+          place='top'
+          className={`${
+            darkMode ? 'custom-tooltip_dark' : 'custom-tooltip'
+          } z-50 translate-x-1`}
+          classNameArrow='noArrow'
+        />
+      )}
+    </>
   )
 }
 

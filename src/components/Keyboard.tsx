@@ -60,7 +60,7 @@ const Keyboard = () => {
                         buttonKey.color
                           ? `${getColorClasses(
                               buttonKey.color,
-                            )} } border-[#6c6e70] text-w-white`
+                            )} border-[#6c6e70] text-w-white`
                           : 'border-w-grey-tone-1 bg-w-white text-w-quartz dark:bg-w-grey-tone-5 dark:text-w-white'
                       }`}
                       onClick={handleButtonPress}
@@ -97,7 +97,7 @@ const Keyboard = () => {
                       buttonKey.color
                         ? `${getColorClasses(
                             buttonKey.color,
-                          )}} border-[#6c6e70] text-w-white`
+                          )} border-[#6c6e70] text-w-white`
                         : 'border-w-grey-tone-1 bg-w-white text-w-quartz dark:bg-w-grey-tone-5 dark:text-w-white'
                     }`}
                     onClick={handleButtonPress}
