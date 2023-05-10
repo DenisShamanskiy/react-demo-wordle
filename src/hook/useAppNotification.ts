@@ -1,5 +1,5 @@
-import { showNotification } from 'redux/features/notificationSlice'
-import { NotificationType } from 'types/store'
+import { showNotification } from '../redux/features/notificationSlice'
+import { NotificationType } from '../types/store'
 import { useAppDispatch, useAppSelector } from './useRedux'
 
 export const useAppNotification = () => {

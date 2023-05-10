@@ -1,4 +1,4 @@
-import { Section } from 'components/common'
+import { Section } from '../components/common'
 import Board from '../components/Board'
 import Keyboard from '../components/Keyboard'
 

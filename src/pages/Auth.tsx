@@ -3,8 +3,8 @@ import { useState } from 'react'
 import { SwitchTransition, CSSTransition } from 'react-transition-group'
 import Signin from '../components/Signin'
 import Signup from '../components/Signup'
-import { Radio } from 'components/Input'
-import { Heading, Section } from 'components/common'
+import { Radio } from '../components/Input'
+import { Heading, Section } from '../components/common'
 
 const Auth = () => {
   const [isSigninForm, setIsSigninForm] = useState(true)

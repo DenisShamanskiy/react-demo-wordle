@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react'
-import { useAppSelector } from 'hook'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
+import { useAppSelector } from '../hook'
+import { globalSvgSelector } from '../utils/globalSvgSelector'
 
 interface IIconSVGProps {
   icon: string

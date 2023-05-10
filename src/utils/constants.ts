@@ -1,9 +1,9 @@
 import { IBoardRow, IKeyBoardRow } from 'types/store'
 
 export const API_URL =
-  process.env.NODE_ENV !== 'development'
-    ? process.env['REACT_APP_API_URL_PRODUCTION']
-    : process.env['REACT_APP_API_URL']
+  import.meta.env.MODE !== 'development'
+    ? import.meta.env['VITE_API_URL_PRODUCTION']
+    : import.meta.env['VITE_API_URL']
 
 export const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
 

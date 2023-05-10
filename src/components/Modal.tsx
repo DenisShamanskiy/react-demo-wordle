@@ -1,12 +1,12 @@
 import '../styles/modal-animation.css'
 import { useEffect, useRef } from 'react'
 import { CSSTransition } from 'react-transition-group'
-import { useAppDispatch, useAppSelector } from 'hook'
-import ReactPortal from 'utils/ReactPortal'
-import { closeModal } from 'redux/features/modalSlice'
-import { Confirm } from './Confirm'
-import GameResult from './GameResult'
-import ModalError from './ModalError'
+import { useAppDispatch, useAppSelector } from '../hook'
+import ReactPortal from '../utils/ReactPortal'
+import { closeModal } from '../redux/features/modalSlice'
+import { Confirm } from '../components/Confirm'
+import GameResult from '../components/GameResult'
+import ModalError from '../components/ModalError'
 
 const Modal = () => {
   const nodeRef = useRef(null)

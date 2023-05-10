@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from 'react'
-import { User } from 'redux/api/types'
-import { Paragraph } from 'components/common'
+import { User } from '../../redux/api/types'
+import { Paragraph } from '../../components/common'
 
 interface IAdminUserListItemProps extends HTMLAttributes<HTMLLIElement> {
   email: User['email']

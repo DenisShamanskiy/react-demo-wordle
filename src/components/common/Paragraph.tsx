@@ -1,4 +1,4 @@
-import { useAppSelector } from 'hook'
+import { useAppSelector } from '../../hook'
 import { FC, HTMLProps, useMemo } from 'react'
 import { Tooltip } from 'react-tooltip'
 

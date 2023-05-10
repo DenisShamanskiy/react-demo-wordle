@@ -1,8 +1,8 @@
-import { useAppDispatch, useAppSelector, useGameLogic } from 'hook'
+import { useAppDispatch, useAppSelector, useGameLogic } from '../hook'
 import { useEffect } from 'react'
-import { colorKey } from 'redux/features/gameSlice'
-import { ColorLetter } from 'types/store'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
+import { colorKey } from '../redux/features/gameSlice'
+import { ColorLetter } from '../types/store'
+import { globalSvgSelector } from '../utils/globalSvgSelector'
 
 const getColorClasses = (color: ColorLetter | null) => {
   switch (color) {

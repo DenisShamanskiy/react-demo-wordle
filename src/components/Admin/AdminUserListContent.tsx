@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { useGetUsersQuery } from 'redux/api/userApi'
-import AdminUserListItem from './AdminUserListItem'
-import { Paragraph } from 'components/common'
+import { useGetUsersQuery } from '../../redux/api/userApi'
+import AdminUserListItem from '../../components/Admin/AdminUserListItem'
+import { Paragraph } from '../../components/common'
 
 const AdminUserListContent = () => {
   const { data } = useGetUsersQuery()

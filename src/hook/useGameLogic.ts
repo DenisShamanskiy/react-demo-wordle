@@ -1,4 +1,4 @@
-import { useAppNotification, useCheckGuess, useInputHandlers } from 'hook'
+import { useAppNotification, useCheckGuess, useInputHandlers } from '../hook'
 
 export const useGameLogic = () => {
   const { handleKeyPress, handleButtonPress } = useInputHandlers()

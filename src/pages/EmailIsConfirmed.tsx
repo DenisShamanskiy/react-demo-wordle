@@ -1,7 +1,7 @@
-import { Paragraph, Section } from 'components/common'
-import { useAppSelector } from 'hook'
+import { Paragraph, Section } from '../components/common'
+import { useAppSelector } from '../hook'
 import { Link } from 'react-router-dom'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
+import { globalSvgSelector } from '../utils/globalSvgSelector'
 
 const EmailIsConfirmed = () => {
   const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)

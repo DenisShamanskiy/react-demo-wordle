@@ -1,13 +1,13 @@
-import Button from 'components/Button'
-import { Input, InputGroup } from 'components/Input'
-import { Heading, Section } from 'components/common'
-import { useAppDispatch, useAppNotification } from 'hook'
-import { IFormValues } from 'models/IFormValues'
+import Button from '../components/Button'
+import { Input, InputGroup } from '../components/Input'
+import { Heading, Section } from '../components/common'
+import { useAppDispatch, useAppNotification } from '../hook'
+import { IFormValues } from '../models/IFormValues'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useAddWordMutation } from 'redux/api/wordsApi'
-import { openModal } from 'redux/features/modalSlice'
-import { NotificationColor } from 'types/store'
-import { ruRegex } from 'utils/constants'
+import { useAddWordMutation } from '../redux/api/wordsApi'
+import { openModal } from '../redux/features/modalSlice'
+import { NotificationColor } from '../types/store'
+import { ruRegex } from '../utils/constants'
 
 const AdminAddWordForm = () => {
   const dispatch = useAppDispatch()

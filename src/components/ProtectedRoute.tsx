@@ -1,4 +1,4 @@
-import { useAppSelector } from 'hook'
+import { useAppSelector } from '../hook'
 import { FC } from 'react'
 import { Navigate } from 'react-router-dom'
 

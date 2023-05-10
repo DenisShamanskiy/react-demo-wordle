@@ -4,15 +4,15 @@ import {
   useAppSelector,
   useEncryption,
   useUpdateStatistics,
-} from 'hook'
-import { advanceToNextRow, setRelultGame } from 'redux/features/gameSlice'
-import { NotificationColor } from 'types/store'
-import { addDataHardMode } from 'redux/features/settingsSlice'
-import { openModal } from 'redux/features/modalSlice'
+} from '../hook'
+import { advanceToNextRow, setRelultGame } from '../redux/features/gameSlice'
+import { NotificationColor } from '../types/store'
+import { addDataHardMode } from '../redux/features/settingsSlice'
+import { openModal } from '../redux/features/modalSlice'
 
 export const useCheckGuess = () => {
   const dispatch = useAppDispatch()
-  const { decryptValue } = useEncryption(process.env['REACT_APP_CRYPTO_KEY']!)
+  const { decryptValue } = useEncryption(import.meta.env['VITE_CRYPTO_KEY'])
   const { updateStatistics } = useUpdateStatistics()
 
   const {

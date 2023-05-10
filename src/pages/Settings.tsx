@@ -1,13 +1,13 @@
 import 'react-tooltip/dist/react-tooltip.css'
 import '../styles/tooltip.css'
-import { DarkModeSwitch } from 'react-toggle-dark-mode'
-import { toggleHardMode, toggleTheme } from 'redux/features/settingsSlice'
-import IconTooltip from 'components/IconTooltip'
-import SettingsOption from 'components/SettingsOption'
-import { Switch } from 'components/Input'
-import ButtonIcon from 'components/ButtonIcon'
-import { Heading, Section } from 'components/common'
-import { useAppDispatch, useAppSelector, useCurrentWidth } from 'hook'
+import { toggleHardMode, toggleTheme } from '../redux/features/settingsSlice'
+import IconTooltip from '../components/IconTooltip'
+import SettingsOption from '../components/SettingsOption'
+import { Switch } from '../components/Input'
+import ButtonIcon from '../components/ButtonIcon'
+import { Heading, Section } from '../components/common'
+import { useAppDispatch, useAppSelector, useCurrentWidth } from '../hook'
+import { DarkModeSwitch } from 'react-toggle-dark-mode/dist/index'
 
 const Settings = () => {
   const dispatch = useAppDispatch()

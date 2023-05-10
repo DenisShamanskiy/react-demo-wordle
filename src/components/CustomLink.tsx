@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import { Link, NavLink, To } from 'react-router-dom'
 import { Tooltip } from 'react-tooltip'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
-import IconSVG from './IconSVG'
-import { useAppSelector } from 'hook'
+import { globalSvgSelector } from '../utils/globalSvgSelector'
+import IconSVG from '../components/IconSVG'
+import { useAppSelector } from '../hook'
 
 interface ICustomLinkProps {
   to: To

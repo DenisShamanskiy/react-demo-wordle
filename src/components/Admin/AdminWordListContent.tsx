@@ -1,10 +1,10 @@
 import { FC } from 'react'
 import { FixedSizeList } from 'react-window'
-import useCurrentHeight from 'hook/useCurrentHeight'
-import useCurrentWidth from 'hook/useCurrentWidth'
-import { IFormValues } from 'models/IFormValues'
+import useCurrentHeight from '../../hook/useCurrentHeight'
+import useCurrentWidth from '../../hook/useCurrentWidth'
+import { IFormValues } from '../../models/IFormValues'
 import { UseFormReset } from 'react-hook-form/dist/types/form'
-import AdminWordListItem from './AdminWordListItem'
+import AdminWordListItem from '../../components/Admin/AdminWordListItem'
 
 interface IAdminWordListContentProps {
   words: string[]

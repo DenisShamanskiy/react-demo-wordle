@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useGetUsersQuery } from 'redux/api/userApi'
-import Loader from 'components/Loaders/Loader'
-import { User } from 'redux/api/types'
-import RatingHeader from 'components/RatingHeader'
-import RatingUserList from 'components/RatingUserList'
-import { Heading, Section } from 'components/common'
+import { useGetUsersQuery } from '../redux/api/userApi'
+import Loader from '../components/Loaders/Loader'
+import { User } from '../redux/api/types'
+import RatingHeader from '../components/RatingHeader'
+import RatingUserList from '../components/RatingUserList'
+import { Heading, Section } from '../components/common'
 
 export type SortKey = 'username' | 'leave' | 'win' | 'fail'
 

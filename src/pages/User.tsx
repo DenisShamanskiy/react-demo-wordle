@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom'
-import { useDeleteUserMutation, useGetUserQuery } from 'redux/api/userApi'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
-import { Heading, Paragraph, Section } from 'components/common'
-import Button from 'components/Button'
-import Loader from 'components/Loaders/Loader'
-import { AdminUserDetails } from 'components/Admin'
-import { useAppDispatch } from 'hook'
-import { openModal } from 'redux/features/modalSlice'
+import { useDeleteUserMutation, useGetUserQuery } from '../redux/api/userApi'
+import { globalSvgSelector } from '../utils/globalSvgSelector'
+import { Heading, Paragraph, Section } from '../components/common'
+import Button from '../components/Button'
+import Loader from '../components/Loaders/Loader'
+import { AdminUserDetails } from '../components/Admin'
+import { useAppDispatch } from '../hook'
+import { openModal } from '../redux/features/modalSlice'
 
 const User = () => {
   const { id } = useParams()

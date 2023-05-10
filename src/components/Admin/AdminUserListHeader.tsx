@@ -1,4 +1,4 @@
-import { Paragraph } from 'components/common'
+import { Paragraph } from '../../components/common'
 
 const AdminUserListHeader = () => {
   return (

@@ -1,7 +1,7 @@
-import { AdminUserListContent, AdminUserListHeader } from 'components/Admin'
-import Loader from 'components/Loaders/Loader'
-import { Section } from 'components/common'
-import { useGetUsersQuery } from 'redux/api/userApi'
+import { AdminUserListContent, AdminUserListHeader } from '../components/Admin'
+import Loader from '../components/Loaders/Loader'
+import { Section } from '../components/common'
+import { useGetUsersQuery } from '../redux/api/userApi'
 
 const AdminUserList = () => {
   const { isLoading } = useGetUsersQuery()

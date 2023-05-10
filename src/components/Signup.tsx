@@ -1,15 +1,20 @@
 import { useNavigate } from 'react-router-dom'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import Button from 'components/Button'
-import { AuthForm, IFormValues } from 'models/IFormValues'
-import { emailRegex } from 'utils/constants'
-import { useSignupMutation } from 'redux/api/authApi'
-import { usePasswordToggle } from 'hook/usePasswordVisibility'
-import { NotificationColor } from 'types/store'
-import { openModal } from 'redux/features/modalSlice'
-import ButtonIcon from './ButtonIcon'
-import { Input, InputGroup, InputLabel, InputRightElement } from './Input'
-import { useAppDispatch, useGameLogic } from 'hook'
+import Button from '../components/Button'
+import { AuthForm, IFormValues } from '../models/IFormValues'
+import { emailRegex } from '../utils/constants'
+import { useSignupMutation } from '../redux/api/authApi'
+import { usePasswordToggle } from '../hook/usePasswordVisibility'
+import { NotificationColor } from '../types/store'
+import { openModal } from '../redux/features/modalSlice'
+import ButtonIcon from '../components/ButtonIcon'
+import {
+  Input,
+  InputGroup,
+  InputLabel,
+  InputRightElement,
+} from '../components/Input'
+import { useAppDispatch, useGameLogic } from '../hook'
 
 const Signup = () => {
   const navigate = useNavigate()

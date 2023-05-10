@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { Tooltip } from 'react-tooltip'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
-import { useAppSelector } from 'hook'
+import { globalSvgSelector } from '../utils/globalSvgSelector'
+import { useAppSelector } from '../hook'
 
 interface IIconTooltipProps {
   tooltip: string

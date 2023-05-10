@@ -6,38 +6,44 @@ import {
   useCurrentHeight,
   useEncryption,
   useGameLogic,
-} from 'hook'
-import Rules from 'pages/Rules'
-import Settings from 'pages/Settings'
-import Auth from 'pages/Auth'
-import { getLocalGameData, initialGame } from 'redux/features/gameSlice'
-import { getLocalSettingData, setTheme } from 'redux/features/settingsSlice'
-import ProfileEditForm from 'pages/ProfileEditForm'
-import Profile from 'pages/Profile'
-import Admin from 'pages/Admin'
-import AdminWordsList from 'pages/AdminWordsList'
-import AdminAddWordForm from 'pages/AdminAddWordForm'
-import { useGetWordsQuery } from 'redux/api/wordsApi'
-import { useCheckAuthQuery } from 'redux/api/authApi'
-import Statistics from 'pages/Statistics'
-import AdminUserList from 'pages/AdminUserList'
-import User from 'pages/User'
-import NotFoundPage from 'pages/NotFoundPage'
-import { getRandomWord } from 'utils/helpers'
-import Rating from 'pages/Rating'
-import Layout from 'components/Layout'
-import Game from 'pages/Game'
-import ProtectedRoute from 'components/ProtectedRoute'
-import Modal from 'components/Modal'
-import Notification from 'components/Notification'
-import EmailIsConfirmed from 'pages/EmailIsConfirmed'
+} from './hook'
+import {
+  Game,
+  Admin,
+  User,
+  AdminUserList,
+  AdminWordsList,
+  AdminAddWordForm,
+  Profile,
+  ProfileEditForm,
+  Statistics,
+  Rating,
+  Auth,
+  Rules,
+  Settings,
+  EmailIsConfirmed,
+  NotFoundPage,
+} from './pages'
+import { getLocalGameData, initialGame } from './redux/features/gameSlice'
+import { getLocalSettingData, setTheme } from './redux/features/settingsSlice'
+
+import { useGetWordsQuery } from './redux/api/wordsApi'
+import { useCheckAuthQuery } from './redux/api/authApi'
+
+import { getRandomWord } from './utils/helpers'
+
+import Layout from './components/Layout'
+
+import ProtectedRoute from './components//ProtectedRoute'
+import Modal from './components//Modal'
+import Notification from './components//Notification'
 
 const App = () => {
   const styleHeight = {
     height: `${useCurrentHeight()}px`,
   }
   const dispatch = useAppDispatch()
-  const { encryptValue } = useEncryption(process.env['REACT_APP_CRYPTO_KEY']!)
+  const { encryptValue } = useEncryption(import.meta.env['VITE_CRYPTO_KEY'])
   const { handleKeyPress } = useGameLogic()
   const { isSuccess } = useGetWordsQuery()
   const { isLoading: isLoadingCheckAuth } = useCheckAuthQuery(null)

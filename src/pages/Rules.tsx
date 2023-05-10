@@ -1,7 +1,7 @@
-import ExampleWord from 'components/ExampleWord'
-import { Heading, Paragraph, Section } from 'components/common'
-import { useAppSelector } from 'hook'
-import { numWord } from 'utils/numWord'
+import ExampleWord from '../components/ExampleWord'
+import { Heading, Paragraph, Section } from '../components/common'
+import { useAppSelector } from '../hook'
+import { numWord } from '../utils/numWord'
 
 const Rules = () => {
   const words = useAppSelector((state) => state.game.words)

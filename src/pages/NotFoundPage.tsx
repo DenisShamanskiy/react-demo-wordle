@@ -1,4 +1,4 @@
-import { useAppSelector } from 'hook'
+import { useAppSelector } from '../hook'
 import { Link } from 'react-router-dom'
 
 const NotFoundPage = () => {

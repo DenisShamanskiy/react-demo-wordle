@@ -4,8 +4,8 @@ import {
   FetchArgs,
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/dist/query'
-import { setToken, logout } from 'redux/features/userSlice'
-import { API_URL } from 'utils/constants'
+import { setToken, logout } from '../../redux/features/userSlice'
+import { API_URL } from '../../utils/constants'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: API_URL,

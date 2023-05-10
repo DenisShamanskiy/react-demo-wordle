@@ -3,9 +3,9 @@ import {
   useAppNotification,
   useAppSelector,
   useCheckGuess,
-} from 'hook'
-import { addLetterBoard, removeLetterBoard } from 'redux/features/gameSlice'
-import { NotificationColor } from 'types/store'
+} from '../hook'
+import { addLetterBoard, removeLetterBoard } from '../redux/features/gameSlice'
+import { NotificationColor } from '../types/store'
 
 export const useInputHandlers = () => {
   const dispatch = useAppDispatch()

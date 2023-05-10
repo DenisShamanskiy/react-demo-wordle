@@ -1,7 +1,7 @@
-import { useAppDispatch, useAppSelector } from 'hook'
-import Button from './Button'
-import { closeModal } from 'redux/features/modalSlice'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
+import { useAppDispatch, useAppSelector } from '../hook'
+import Button from '../components/Button'
+import { closeModal } from '../redux/features/modalSlice'
+import { globalSvgSelector } from '../utils/globalSvgSelector'
 
 export const ModalError = () => {
   const dispatch = useAppDispatch()

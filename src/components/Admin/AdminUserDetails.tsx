@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from 'react'
-import { Paragraph } from 'components/common'
+import { Paragraph } from '../../components/common'
 
 interface IAdminUserDetailsProps extends HTMLAttributes<HTMLLIElement> {
   title: 'ИМЯ' | 'EMAIL' | 'РОЛЬ'

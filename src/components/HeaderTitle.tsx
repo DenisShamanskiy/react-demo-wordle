@@ -1,5 +1,5 @@
 import '../styles/header-animation.css'
-import { useAppSelector } from 'hook'
+import { useAppSelector } from '../hook'
 import { useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import { CSSTransition } from 'react-transition-group'

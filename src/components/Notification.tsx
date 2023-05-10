@@ -1,10 +1,10 @@
 import '../styles/notification-animation.css'
 import { useEffect, useRef } from 'react'
-import { NotificationType } from 'types/store'
-import ReactPortal from 'utils/ReactPortal'
+import { NotificationType } from '../types/store'
+import ReactPortal from '../utils/ReactPortal'
 import { CSSTransition } from 'react-transition-group'
-import { hideNotification } from 'redux/features/notificationSlice'
-import { useAppDispatch, useAppSelector } from 'hook'
+import { hideNotification } from '../redux/features/notificationSlice'
+import { useAppDispatch, useAppSelector } from '../hook'
 
 const Notification = () => {
   const nodeRef = useRef(null)

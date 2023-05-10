@@ -1,13 +1,13 @@
-import { closeModal } from 'redux/features/modalSlice'
+import { closeModal } from '../redux/features/modalSlice'
 import win from '../assets/gif/win.gif'
 import leave from '../assets/gif/leave.gif'
 import fail from '../assets/gif/fail.gif'
-import ButtonIcon from 'components/ButtonIcon'
-import { useAppDispatch, useAppSelector, useEncryption } from 'hook'
+import ButtonIcon from '../components/ButtonIcon'
+import { useAppDispatch, useAppSelector, useEncryption } from '../hook'
 
 const GameResult = () => {
   const dispatch = useAppDispatch()
-  const { decryptValue } = useEncryption(process.env['REACT_APP_CRYPTO_KEY']!)
+  const { decryptValue } = useEncryption(import.meta.env['VITE_CRYPTO_KEY'])
   const { result } = useAppSelector((state) => state.modal.props)
   const currentWord = useAppSelector((state) => state.game.currentWord)
 

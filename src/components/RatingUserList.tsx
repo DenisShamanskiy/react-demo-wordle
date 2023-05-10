@@ -1,8 +1,8 @@
-import useCurrentHeight from 'hook/useCurrentHeight'
+import useCurrentHeight from '../hook/useCurrentHeight'
 import { FC } from 'react'
 import { FixedSizeList } from 'react-window'
-import { User } from 'redux/api/types'
-import RatingListItem from './RatingListItem'
+import { User } from '../redux/api/types'
+import RatingListItem from '../components/RatingListItem'
 
 interface IRatingUserListProps {
   users: User[]

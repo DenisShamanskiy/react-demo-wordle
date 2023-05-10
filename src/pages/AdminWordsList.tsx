@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useAppSelector } from 'hook'
-import { IFormValues } from 'models/IFormValues'
-import { AdminWordListContent } from 'components/Admin'
-import { Input, InputGroup } from 'components/Input'
-import { Paragraph, Section } from 'components/common'
+import { useAppSelector } from '../hook'
+import { IFormValues } from '../models/IFormValues'
+import { AdminWordListContent } from '../components/Admin'
+import { Input, InputGroup } from '../components/Input'
+import { Paragraph, Section } from '../components/common'
 
 const AdminWordsList = () => {
   const { register, handleSubmit, watch, reset } = useForm<IFormValues>()

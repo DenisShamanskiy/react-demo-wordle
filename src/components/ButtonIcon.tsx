@@ -1,9 +1,9 @@
 import { FC, useMemo } from 'react'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
+import { globalSvgSelector } from '../utils/globalSvgSelector'
 import { PlacesType, Tooltip } from 'react-tooltip'
-import { disabledClasses, shadowClasses } from 'utils/constants'
-import { IButtonProps } from './Button'
-import { useAppSelector } from 'hook'
+import { disabledClasses, shadowClasses } from '../utils/constants'
+import { IButtonProps } from '../components/Button'
+import { useAppSelector } from '../hook'
 
 interface IButtonIconProps extends IButtonProps {
   icon: string

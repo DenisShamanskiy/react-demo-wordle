@@ -1,6 +1,6 @@
-import { useAppSelector } from 'hook'
-import { BarRow } from 'redux/api/types'
-import { useUpdateStatisticsMutation } from 'redux/api/userApi'
+import { useAppSelector } from '../hook'
+import { BarRow } from '../redux/api/types'
+import { useUpdateStatisticsMutation } from '../redux/api/userApi'
 
 interface Props {
   result: 'WIN' | 'FAIL' | 'LEAVE'

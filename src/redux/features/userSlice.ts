@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { authApi } from 'redux/api/authApi'
-import { Statistics } from 'redux/api/types'
-import { userApi } from 'redux/api/userApi'
-import { statistics } from 'utils/constants'
+import { authApi } from '../api/authApi'
+import { Statistics } from '../api/types'
+import { userApi } from '../api/userApi'
+import { statistics } from '../../utils/constants'
 
 type UserState = {
   id: string | null

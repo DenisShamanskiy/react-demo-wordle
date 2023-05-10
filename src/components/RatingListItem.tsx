@@ -1,7 +1,7 @@
 import { FC, HTMLAttributes } from 'react'
-import { Paragraph } from './common'
-import { useAppSelector } from 'hook'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
+import { Paragraph } from '../components/common'
+import { useAppSelector } from '../hook'
+import { globalSvgSelector } from '../utils/globalSvgSelector'
 
 interface IRatingListItemProps extends HTMLAttributes<HTMLLIElement> {
   username: string

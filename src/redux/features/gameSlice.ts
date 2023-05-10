@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { wordsApi } from 'redux/api/wordsApi'
-import { GameStatus, IGameState } from 'types/store'
-import { board, keyBoard } from 'utils/constants'
+import { wordsApi } from '../api/wordsApi'
+import { GameStatus, IGameState } from '../../types/store'
+import { board, keyBoard } from '../../utils/constants'
 
 const initialState: IGameState = {
   board: board,

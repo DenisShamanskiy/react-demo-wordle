@@ -1,4 +1,4 @@
-import { useAppSelector } from 'hook'
+import { useAppSelector } from '../hook'
 
 const StatisticBars = () => {
   const bar = useAppSelector((state) => state.user.statistics.bar)

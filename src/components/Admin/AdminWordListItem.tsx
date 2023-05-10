@@ -1,12 +1,12 @@
 import { FC, HTMLAttributes } from 'react'
-import { IFormValues } from 'models/IFormValues'
+import { IFormValues } from '../../models/IFormValues'
 import { UseFormReset } from 'react-hook-form/dist/types/form'
-import { NotificationColor } from 'types/store'
-import { useDeleteWordMutation } from 'redux/api/wordsApi'
-import ButtonIcon from 'components/ButtonIcon'
-import { Paragraph } from 'components/common'
-import { useAppDispatch, useGameLogic } from 'hook'
-import { openModal } from 'redux/features/modalSlice'
+import { NotificationColor } from '../../types/store'
+import { useDeleteWordMutation } from '../../redux/api/wordsApi'
+import ButtonIcon from '../../components/ButtonIcon'
+import { Paragraph } from '../../components/common'
+import { useAppDispatch, useGameLogic } from '../../hook'
+import { openModal } from '../../redux/features/modalSlice'
 
 interface IAdminWordListItemProps extends HTMLAttributes<HTMLLIElement> {
   index: number

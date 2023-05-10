@@ -1,22 +1,26 @@
-import Button from 'components/Button'
+import Button from '../components/Button'
 import { useNavigate } from 'react-router-dom'
-import { restartGame, setRelultGame } from 'redux/features/gameSlice'
-import { IModalState, closeModal, openModal } from 'redux/features/modalSlice'
-import { hideNewGame } from 'redux/features/newGameSlice'
-import { resetDataHardMode } from 'redux/features/settingsSlice'
-import { getRandomWord } from 'utils/helpers'
-import { Heading, Paragraph } from './common'
+import { restartGame, setRelultGame } from '../redux/features/gameSlice'
+import {
+  IModalState,
+  closeModal,
+  openModal,
+} from '../redux/features/modalSlice'
+import { hideNewGame } from '../redux/features/newGameSlice'
+import { resetDataHardMode } from '../redux/features/settingsSlice'
+import { getRandomWord } from '../utils/helpers'
+import { Heading, Paragraph } from '../components/common'
 import {
   useAppDispatch,
   useAppSelector,
   useEncryption,
   useGameLogic,
   useUpdateStatistics,
-} from 'hook'
-import { globalSvgSelector } from 'utils/globalSvgSelector'
-import { useDeleteUserMutation } from 'redux/api/userApi'
-import { logout } from 'redux/features/userSlice'
-import { NotificationColor } from 'types/store'
+} from '../hook'
+import { globalSvgSelector } from '../utils/globalSvgSelector'
+import { useDeleteUserMutation } from '../redux/api/userApi'
+import { logout } from '../redux/features/userSlice'
+import { NotificationColor } from '../types/store'
 
 export const Confirm = () => {
   const navigate = useNavigate()
@@ -24,7 +28,7 @@ export const Confirm = () => {
   const { updateStatistics } = useUpdateStatistics()
 
   const { encryptValue, decryptValue } = useEncryption(
-    process.env['REACT_APP_CRYPTO_KEY']!,
+    import.meta.env['VITE_CRYPTO_KEY'],
   )
   const { heading, description } = useAppSelector((state) => state.modal.props)
   const { id: currentUserId, roles } = useAppSelector((state) => state.user)

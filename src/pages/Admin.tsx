@@ -1,5 +1,5 @@
-import CustomLink from 'components/CustomLink'
-import { Heading, Section } from 'components/common'
+import CustomLink from '../components/CustomLink'
+import { Heading, Section } from '../components/common'
 
 const Admin = () => {
   return (

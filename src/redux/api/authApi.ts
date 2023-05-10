@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { AuthResponse } from './types'
-import { API_URL } from 'utils/constants'
+import { API_URL } from '../../utils/constants'
 
 export const authApi = createApi({
   reducerPath: 'authApi',
